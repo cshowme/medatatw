@@ -51,7 +51,7 @@
      ======================================== */
   --hdh-link: #B82226;            /* 連結正常狀態 */
   --hdh-link-hover: #8A1A1D;      /* 連結 hover */
-  --hdh-link-visited: #6B1518;    /* 連結已訪問 */
+  --hdh-link-visited: #8A1A1D;    /* 連結已訪問（同 red-dark） */
 
   /* ========================================
      6. 字型系統
@@ -59,6 +59,9 @@
   --hdh-font-primary: '微軟正黑體', 'Microsoft JhengHei', 'Noto Sans TC', 'PingFang TC', sans-serif;
   --hdh-font-heading: 'Raleway', '微軟正黑體', sans-serif;
   --hdh-font-mono: 'Consolas', 'Monaco', monospace;
+  /* 別名（相容 brand-visual-spec 命名） */
+  --hdh-font-family: '微軟正黑體', 'Microsoft JhengHei', 'Noto Sans TC', 'PingFang TC', sans-serif;
+  --hdh-font-family-serif: 'Times New Roman', 'Noto Serif TC', serif;
 
   /* ========================================
      7. 字級系統
@@ -99,6 +102,9 @@
   --hdh-spacing-2xl: 48px;        /* 6x */
   --hdh-spacing-3xl: 64px;        /* 8x */
   --hdh-spacing-4xl: 96px;        /* 12x */
+  /* 別名（相容 brand-visual-spec 命名） */
+  --hdh-spacing-xxl: 48px;        /* = spacing-2xl */
+  --hdh-spacing-section: 64px;    /* = spacing-3xl，區塊間距 */
 
   /* ========================================
      11. 圓角系統
@@ -108,6 +114,10 @@
   --hdh-radius-lg: 12px;
   --hdh-radius-xl: 16px;
   --hdh-radius-full: 9999px;      /* 膠囊形 */
+  /* 別名（相容 brand-visual-spec 命名） */
+  --hdh-radius: 8px;              /* = radius-md，預設圓角 */
+  --hdh-radius-pill: 50px;        /* 膠囊按鈕 */
+  --hdh-radius-circle: 50%;       /* 圓形 */
 
   /* ========================================
      12. 陰影系統
@@ -136,6 +146,8 @@
   --hdh-transition-fast: 0.15s ease;
   --hdh-transition-normal: 0.3s ease;
   --hdh-transition-slow: 0.5s ease;
+  /* 別名（相容 brand-visual-spec 命名） */
+  --hdh-transition: 0.3s ease;    /* = transition-normal，預設過渡 */
 
   /* ========================================
      15. 響應式斷點（供 JS 參考）
@@ -152,6 +164,9 @@
   --hdh-container-md: 720px;
   --hdh-container-lg: 960px;
   --hdh-container-xl: 1140px;
+  /* 別名（相容 brand-visual-spec 命名） */
+  --hdh-content-width: 1200px;    /* 內容最大寬度 */
+  --hdh-content-narrow: 800px;    /* 窄版內容（閱讀優化） */
 }
 
 /* ============================================================================
