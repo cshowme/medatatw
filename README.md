@@ -17,6 +17,6 @@
 
 ## 聯絡方式
 
-- 📧 Email: medata12p@gmail.com
+- 📧 Email: info@medatatw.com
 - 🌐 官網: https://www.medatatw.com
 - 📱 LINE: @medatatw
