@@ -45,6 +45,25 @@
   --hdh-gradient-dark: linear-gradient(135deg, #2D2D2D 0%, #1A1A1A 100%);
   --hdh-gradient-dark-vertical: linear-gradient(180deg, #2D2D2D 0%, #1A1A1A 100%);
   --hdh-gradient-light: linear-gradient(135deg, #F8F6F0 0%, #FFFFFF 100%);
+  --hdh-gradient-gold-text: linear-gradient(135deg, #C4A46D 0%, #A68B5B 50%, #8B7649 100%);
+
+  /* ========================================
+     3.2 月華光暈特效（Hero 專用）
+     ======================================== */
+  --hdh-glow-gold: rgba(196, 164, 109, 0.4);
+  --hdh-glow-gold-soft: rgba(196, 164, 109, 0.2);
+  --hdh-glow-red: rgba(184, 34, 38, 0.3);
+  --hdh-glow-red-soft: rgba(184, 34, 38, 0.15);
+
+  /* ========================================
+     3.3 星點特效（Hero 專用）- v1.1 強化
+     ======================================== */
+  --hdh-star-opacity-bright: 1.0;
+  --hdh-star-opacity-medium: 0.85;
+  --hdh-star-opacity-dim: 0.7;
+  --hdh-star-size-lg: 4px;
+  --hdh-star-size-md: 3px;
+  --hdh-star-size-sm: 3px;
 
   /* ========================================
      4. 功能色（Bootstrap 標準）
@@ -72,17 +91,17 @@
   --hdh-font-family-serif: 'Times New Roman', 'Noto Serif TC', serif;
 
   /* ========================================
-     7. 字級系統
+     7. 字級系統（v1.1 強化）
      ======================================== */
   --hdh-font-size-xs: 12px;
   --hdh-font-size-sm: 14px;
   --hdh-font-size-base: 16px;
-  --hdh-font-size-lg: 18px;
-  --hdh-font-size-xl: 20px;
-  --hdh-font-size-2xl: 24px;
-  --hdh-font-size-3xl: 30px;
-  --hdh-font-size-4xl: 36px;
-  --hdh-font-size-5xl: 48px;
+  --hdh-font-size-lg: 20px;
+  --hdh-font-size-xl: 22px;
+  --hdh-font-size-2xl: 28px;
+  --hdh-font-size-3xl: 36px;
+  --hdh-font-size-4xl: 42px;
+  --hdh-font-size-5xl: 56px;
 
   /* ========================================
      8. 行高系統
@@ -279,6 +298,30 @@ li {
   border: 0;
 }
 
+/* Skip Link - 跳至主要內容（僅 focus 時顯示） */
+.hdh-skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  background: var(--hdh-red);
+  color: var(--hdh-white);
+  padding: var(--hdh-spacing-sm) var(--hdh-spacing-md);
+  text-decoration: none;
+  border-radius: var(--hdh-radius-sm);
+  font-weight: var(--hdh-font-weight-medium);
+  transition: top var(--hdh-transition-fast);
+}
+
+.hdh-skip-link:focus {
+  top: 8px;
+}
+
+.hdh-skip-link:hover {
+  color: var(--hdh-white);
+  text-decoration: none;
+}
+
 /* 容器 */
 .hdh-container {
   width: 100%;
@@ -428,9 +471,10 @@ li {
 /* 平板（768px 以下） */
 @media (max-width: 768px) {
   :root {
-    --hdh-font-size-4xl: 30px;
-    --hdh-font-size-3xl: 24px;
-    --hdh-font-size-2xl: 20px;
+    --hdh-font-size-5xl: 42px;
+    --hdh-font-size-4xl: 36px;
+    --hdh-font-size-3xl: 30px;
+    --hdh-font-size-2xl: 24px;
   }
 
   .hdh-container {
@@ -445,9 +489,10 @@ li {
 /* 手機（576px 以下） */
 @media (max-width: 576px) {
   :root {
-    --hdh-font-size-4xl: 26px;
-    --hdh-font-size-3xl: 22px;
-    --hdh-font-size-2xl: 18px;
+    --hdh-font-size-5xl: 36px;
+    --hdh-font-size-4xl: 32px;
+    --hdh-font-size-3xl: 26px;
+    --hdh-font-size-2xl: 22px;
   }
 
   .hdh-btn--lg {

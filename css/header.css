@@ -32,7 +32,7 @@
   max-width: var(--hdh-content-width);
   margin: 0 auto;
   padding: var(--hdh-spacing-sm) var(--hdh-spacing-md);
-  height: 70px;
+  height: 80px;
 }
 
 /* ============================================================================
@@ -42,7 +42,7 @@
 .hdh-header__logo {
   display: flex;
   align-items: center;
-  gap: var(--hdh-spacing-sm);
+  gap: var(--hdh-spacing-md);
   text-decoration: none;
   flex-shrink: 0;
 }
@@ -52,15 +52,16 @@
 }
 
 .hdh-header__logo-img {
-  height: 45px;
+  height: 55px;
   width: auto;
 }
 
 .hdh-header__logo-text {
   font-family: var(--hdh-font-heading);
-  font-size: var(--hdh-font-size-lg);
+  font-size: 22px;
   font-weight: var(--hdh-font-weight-bold);
   color: var(--hdh-gold-dark);
+  letter-spacing: 1px;
   display: none;
 }
 
@@ -84,7 +85,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: var(--hdh-spacing-xs);
+  gap: var(--hdh-spacing-sm);
 }
 
 @media (min-width: 992px) {
@@ -121,6 +122,19 @@
 .hdh-nav__link[aria-current="page"] {
   color: var(--hdh-red);
   font-weight: var(--hdh-font-weight-semibold);
+  position: relative;
+}
+
+.hdh-nav__link[aria-current="page"]::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: var(--hdh-red);
+  border-radius: 1px;
 }
 
 /* 下拉選單箭頭 */

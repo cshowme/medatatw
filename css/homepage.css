@@ -14,7 +14,8 @@
 
 .hdh-hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 500px;
+  max-height: 650px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,7 +26,7 @@
   padding: var(--hdh-spacing-3xl) var(--hdh-spacing-md);
 }
 
-/* 星點動畫（數據點意象） */
+/* 數據網格背景（專業統計意象）- v1.2 重新設計 */
 .hdh-hero::before {
   content: '';
   position: absolute;
@@ -34,59 +35,107 @@
   right: 0;
   bottom: 0;
   background-image:
-    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.3) 1px, transparent 0),
-    radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.2) 1px, transparent 0),
-    radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,0.3) 1px, transparent 0),
-    radial-gradient(1px 1px at 80% 60%, rgba(255,255,255,0.2) 1px, transparent 0),
-    radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.25) 1px, transparent 0),
-    radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.25) 1px, transparent 0),
-    radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.3) 1px, transparent 0),
-    radial-gradient(1px 1px at 70% 90%, rgba(255,255,255,0.2) 1px, transparent 0);
-  animation: twinkle 4s ease-in-out infinite;
+    /* 第一行網格點 - 20% 高度 */
+    radial-gradient(circle at 10% 20%, rgba(196,164,109,0.5) 2px, transparent 2px),
+    radial-gradient(circle at 30% 20%, rgba(196,164,109,0.35) 2px, transparent 2px),
+    radial-gradient(circle at 50% 20%, rgba(196,164,109,0.5) 2px, transparent 2px),
+    radial-gradient(circle at 70% 20%, rgba(196,164,109,0.35) 2px, transparent 2px),
+    radial-gradient(circle at 90% 20%, rgba(196,164,109,0.5) 2px, transparent 2px),
+    /* 第二行網格點 - 40% 高度（交錯排列） */
+    radial-gradient(circle at 20% 40%, rgba(196,164,109,0.4) 2px, transparent 2px),
+    radial-gradient(circle at 40% 40%, rgba(196,164,109,0.5) 2px, transparent 2px),
+    radial-gradient(circle at 60% 40%, rgba(196,164,109,0.4) 2px, transparent 2px),
+    radial-gradient(circle at 80% 40%, rgba(196,164,109,0.5) 2px, transparent 2px),
+    /* 第三行網格點 - 60% 高度 */
+    radial-gradient(circle at 10% 60%, rgba(196,164,109,0.5) 2px, transparent 2px),
+    radial-gradient(circle at 30% 60%, rgba(196,164,109,0.35) 2px, transparent 2px),
+    radial-gradient(circle at 50% 60%, rgba(196,164,109,0.5) 2px, transparent 2px),
+    radial-gradient(circle at 70% 60%, rgba(196,164,109,0.35) 2px, transparent 2px),
+    radial-gradient(circle at 90% 60%, rgba(196,164,109,0.5) 2px, transparent 2px),
+    /* 第四行網格點 - 80% 高度（交錯排列） */
+    radial-gradient(circle at 20% 80%, rgba(196,164,109,0.4) 2px, transparent 2px),
+    radial-gradient(circle at 40% 80%, rgba(196,164,109,0.5) 2px, transparent 2px),
+    radial-gradient(circle at 60% 80%, rgba(196,164,109,0.4) 2px, transparent 2px),
+    radial-gradient(circle at 80% 80%, rgba(196,164,109,0.5) 2px, transparent 2px);
+  animation: gridPulse 8s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
 }
 
-@keyframes twinkle {
+/* 月華光暈動畫層 */
+.hdh-hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 50%, var(--hdh-glow-gold-soft), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 30% 30%, var(--hdh-glow-red-soft), transparent 50%),
+    radial-gradient(ellipse 50% 35% at 70% 70%, var(--hdh-glow-gold-soft), transparent 45%);
+  animation: moonGlow 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 數據網格脈動動畫 - 專業穩重風格 */
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes moonGlow {
   0%, 100% { opacity: 0.5; }
   50% { opacity: 1; }
 }
 
 @media (max-width: 768px) {
   .hdh-hero {
-    min-height: 80vh;
+    min-height: 450px;
+    max-height: 550px;
   }
 }
 
 @media (max-width: 576px) {
   .hdh-hero {
-    min-height: 70vh;
+    min-height: 400px;
+    max-height: 500px;
     padding: var(--hdh-spacing-2xl) var(--hdh-spacing-md);
   }
 }
 
-/* 曇月靈浮水印 */
+/* 曇月靈浮水印 - 強化版 */
 .hdh-hero__mascot {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -45%);
-  width: 350px;
+  transform: translate(-50%, -55%);
+  width: 450px;
   height: auto;
-  opacity: 0.12;
+  opacity: 0.20;
   pointer-events: none;
   z-index: 1;
+  filter: drop-shadow(0 0 30px var(--hdh-glow-gold-soft));
+  animation: mascotBreath 6s ease-in-out infinite;
+}
+
+@keyframes mascotBreath {
+  0%, 100% { transform: translate(-50%, -55%) scale(1); }
+  50% { transform: translate(-50%, -55%) scale(1.03); }
 }
 
 @media (max-width: 768px) {
   .hdh-hero__mascot {
-    width: 280px;
+    width: 350px;
+    opacity: 0.18;
   }
 }
 
 @media (max-width: 576px) {
   .hdh-hero__mascot {
-    width: 200px;
+    width: 280px;
+    opacity: 0.15;
   }
 }
 
@@ -117,12 +166,15 @@
   font-weight: var(--hdh-font-weight-bold);
   margin-bottom: var(--hdh-spacing-md);
   line-height: 1.2;
-  color: var(--hdh-white);
-  /* 月華光暈效果 */
-  text-shadow:
-    0 0 10px rgba(196, 164, 109, 0.3),
-    0 0 20px rgba(196, 164, 109, 0.2),
-    0 0 40px rgba(196, 164, 109, 0.1);
+  /* 金色漸層效果 */
+  background: var(--hdh-gradient-gold-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* 月華光暈效果 - 強化版 */
+  filter: drop-shadow(0 0 8px var(--hdh-glow-gold))
+          drop-shadow(0 0 20px var(--hdh-glow-gold-soft))
+          drop-shadow(0 0 40px var(--hdh-glow-red-soft));
 }
 
 @media (max-width: 768px) {
@@ -423,7 +475,7 @@
 }
 
 .hdh-services__card-title {
-  font-size: var(--hdh-font-size-lg);
+  font-size: var(--hdh-font-size-xl);
   font-weight: var(--hdh-font-weight-bold);
   margin-bottom: var(--hdh-spacing-sm);
   color: var(--hdh-dark);
@@ -567,7 +619,7 @@
 }
 
 .hdh-courses__card-title {
-  font-size: var(--hdh-font-size-lg);
+  font-size: var(--hdh-font-size-xl);
   font-weight: var(--hdh-font-weight-bold);
   color: var(--hdh-dark);
   margin-bottom: var(--hdh-spacing-sm);
@@ -896,7 +948,7 @@
   bottom: -8px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
+  width: 80px;
   height: 3px;
   background: linear-gradient(90deg, var(--hdh-gold) 0%, var(--hdh-red) 100%);
   border-radius: 2px;
