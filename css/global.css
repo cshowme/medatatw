@@ -1,0 +1,421 @@
+/**
+ * ============================================================================
+ * 匯東華官網 - 全域 CSS 變數系統
+ * ============================================================================
+ * 版本：v1.0
+ * 建立日期：2026-01-29
+ * 依據：brand-visual-spec v1.1（定稿）
+ *
+ * 此檔案為 CSS 變數的單一真相來源（Single Source of Truth）
+ * 所有頁面必須引用此檔案
+ * ============================================================================
+ */
+
+:root {
+  /* ========================================
+     1. 品牌色彩 - 主色（匯東華紅）
+     ======================================== */
+  --hdh-red: #B82226;
+  --hdh-red-dark: #8A1A1D;
+  --hdh-red-light: #D43A3E;
+
+  /* ========================================
+     2. 品牌色彩 - 輔色（匯東華金）
+     ======================================== */
+  --hdh-gold: #C4A46D;
+  --hdh-gold-dark: #A68B5B;
+  --hdh-gold-light: #D4B47D;
+
+  /* ========================================
+     3. 中性色系
+     ======================================== */
+  --hdh-white: #FFFFFF;
+  --hdh-light: #F8F6F0;           /* 米白背景 */
+  --hdh-gray-light: #999999;      /* 輔助文字、placeholder */
+  --hdh-gray: #666666;            /* 次要文字 */
+  --hdh-dark: #333333;            /* 主要內文文字 */
+  --hdh-border: #E0E0E0;          /* 卡片邊框、分隔線 */
+  --hdh-border-light: #F0F0F0;    /* 淺色分隔線 */
+  --hdh-dark-bg: #1A1A1A;         /* 深色背景（保留） */
+
+  /* ========================================
+     4. 功能色（Bootstrap 標準）
+     ======================================== */
+  --hdh-success: #28A745;         /* 成功訊息、完成狀態 */
+  --hdh-warning: #FFC107;         /* 警告訊息、注意提示 */
+  --hdh-error: #DC3545;           /* 錯誤訊息 */
+  --hdh-info: #17A2B8;            /* 資訊提示、輔助說明 */
+
+  /* ========================================
+     5. 連結色彩
+     ======================================== */
+  --hdh-link: #B82226;            /* 連結正常狀態 */
+  --hdh-link-hover: #8A1A1D;      /* 連結 hover */
+  --hdh-link-visited: #6B1518;    /* 連結已訪問 */
+
+  /* ========================================
+     6. 字型系統
+     ======================================== */
+  --hdh-font-primary: '微軟正黑體', 'Microsoft JhengHei', 'Noto Sans TC', 'PingFang TC', sans-serif;
+  --hdh-font-heading: 'Raleway', '微軟正黑體', sans-serif;
+  --hdh-font-mono: 'Consolas', 'Monaco', monospace;
+
+  /* ========================================
+     7. 字級系統
+     ======================================== */
+  --hdh-font-size-xs: 12px;
+  --hdh-font-size-sm: 14px;
+  --hdh-font-size-base: 16px;
+  --hdh-font-size-lg: 18px;
+  --hdh-font-size-xl: 20px;
+  --hdh-font-size-2xl: 24px;
+  --hdh-font-size-3xl: 30px;
+  --hdh-font-size-4xl: 36px;
+  --hdh-font-size-5xl: 48px;
+
+  /* ========================================
+     8. 行高系統
+     ======================================== */
+  --hdh-line-height-tight: 1.25;
+  --hdh-line-height-normal: 1.5;
+  --hdh-line-height-relaxed: 1.75;
+
+  /* ========================================
+     9. 字重系統
+     ======================================== */
+  --hdh-font-weight-normal: 400;
+  --hdh-font-weight-medium: 500;
+  --hdh-font-weight-semibold: 600;
+  --hdh-font-weight-bold: 700;
+
+  /* ========================================
+     10. 間距系統（8px 倍數）
+     ======================================== */
+  --hdh-spacing-xs: 4px;          /* 0.5x */
+  --hdh-spacing-sm: 8px;          /* 1x */
+  --hdh-spacing-md: 16px;         /* 2x */
+  --hdh-spacing-lg: 24px;         /* 3x */
+  --hdh-spacing-xl: 32px;         /* 4x */
+  --hdh-spacing-2xl: 48px;        /* 6x */
+  --hdh-spacing-3xl: 64px;        /* 8x */
+  --hdh-spacing-4xl: 96px;        /* 12x */
+
+  /* ========================================
+     11. 圓角系統
+     ======================================== */
+  --hdh-radius-sm: 4px;
+  --hdh-radius-md: 8px;
+  --hdh-radius-lg: 12px;
+  --hdh-radius-xl: 16px;
+  --hdh-radius-full: 9999px;      /* 膠囊形 */
+
+  /* ========================================
+     12. 陰影系統
+     ======================================== */
+  --hdh-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --hdh-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --hdh-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --hdh-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --hdh-shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* ========================================
+     13. Z-index 層級系統
+     ======================================== */
+  --hdh-z-dropdown: 100;
+  --hdh-z-sticky: 200;
+  --hdh-z-fixed: 300;
+  --hdh-z-modal-backdrop: 400;
+  --hdh-z-modal: 500;
+  --hdh-z-popover: 600;
+  --hdh-z-tooltip: 700;
+  --hdh-z-toast: 800;
+
+  /* ========================================
+     14. 過渡動畫
+     ======================================== */
+  --hdh-transition-fast: 0.15s ease;
+  --hdh-transition-normal: 0.3s ease;
+  --hdh-transition-slow: 0.5s ease;
+
+  /* ========================================
+     15. 響應式斷點（供 JS 參考）
+     ======================================== */
+  --hdh-breakpoint-sm: 576px;
+  --hdh-breakpoint-md: 768px;
+  --hdh-breakpoint-lg: 992px;
+  --hdh-breakpoint-xl: 1200px;
+
+  /* ========================================
+     16. 容器寬度
+     ======================================== */
+  --hdh-container-sm: 540px;
+  --hdh-container-md: 720px;
+  --hdh-container-lg: 960px;
+  --hdh-container-xl: 1140px;
+}
+
+/* ============================================================================
+   CSS Reset / Normalize
+   ============================================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--hdh-font-size-base);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--hdh-font-primary);
+  font-size: var(--hdh-font-size-base);
+  line-height: var(--hdh-line-height-normal);
+  color: var(--hdh-dark);
+  background-color: var(--hdh-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================================
+   基礎元素樣式
+   ============================================================================ */
+
+/* 標題 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--hdh-font-heading);
+  font-weight: var(--hdh-font-weight-bold);
+  line-height: var(--hdh-line-height-tight);
+  color: var(--hdh-dark);
+  margin-bottom: var(--hdh-spacing-md);
+}
+
+h1 { font-size: var(--hdh-font-size-4xl); }
+h2 { font-size: var(--hdh-font-size-3xl); }
+h3 { font-size: var(--hdh-font-size-2xl); }
+h4 { font-size: var(--hdh-font-size-xl); }
+h5 { font-size: var(--hdh-font-size-lg); }
+h6 { font-size: var(--hdh-font-size-base); }
+
+/* 段落 */
+p {
+  margin-bottom: var(--hdh-spacing-md);
+}
+
+/* 連結 */
+a {
+  color: var(--hdh-link);
+  text-decoration: none;
+  transition: color var(--hdh-transition-fast);
+}
+
+a:hover {
+  color: var(--hdh-link-hover);
+  text-decoration: underline;
+}
+
+a:visited {
+  color: var(--hdh-link-visited);
+}
+
+/* 圖片 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 列表 */
+ul, ol {
+  margin-bottom: var(--hdh-spacing-md);
+  padding-left: var(--hdh-spacing-lg);
+}
+
+li {
+  margin-bottom: var(--hdh-spacing-xs);
+}
+
+/* ============================================================================
+   工具類別
+   ============================================================================ */
+
+/* 容器 */
+.hdh-container {
+  width: 100%;
+  max-width: var(--hdh-container-xl);
+  margin: 0 auto;
+  padding: 0 var(--hdh-spacing-md);
+}
+
+/* 區塊 */
+.hdh-section {
+  padding: var(--hdh-spacing-3xl) 0;
+}
+
+.hdh-section--gray {
+  background-color: var(--hdh-light);
+}
+
+.hdh-section--dark {
+  background-color: var(--hdh-dark-bg);
+  color: var(--hdh-white);
+}
+
+/* 文字對齊 */
+.hdh-text-center { text-align: center; }
+.hdh-text-left { text-align: left; }
+.hdh-text-right { text-align: right; }
+
+/* 文字顏色 */
+.hdh-text-red { color: var(--hdh-red); }
+.hdh-text-gold { color: var(--hdh-gold); }
+.hdh-text-gray { color: var(--hdh-gray); }
+.hdh-text-white { color: var(--hdh-white); }
+
+/* ============================================================================
+   按鈕樣式
+   ============================================================================ */
+
+.hdh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--hdh-spacing-sm) var(--hdh-spacing-lg);
+  font-family: var(--hdh-font-primary);
+  font-size: var(--hdh-font-size-base);
+  font-weight: var(--hdh-font-weight-medium);
+  line-height: 1;
+  text-decoration: none;
+  border-radius: var(--hdh-radius-md);
+  cursor: pointer;
+  transition: all var(--hdh-transition-fast);
+  border: 2px solid transparent;
+}
+
+/* 主要按鈕（金色漸層） */
+.hdh-btn--primary {
+  background: linear-gradient(135deg, var(--hdh-gold) 0%, var(--hdh-gold-dark) 100%);
+  color: var(--hdh-white);
+  border-color: var(--hdh-gold);
+}
+
+.hdh-btn--primary:hover {
+  background: linear-gradient(135deg, var(--hdh-gold-dark) 0%, #8B7649 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--hdh-shadow-md);
+  text-decoration: none;
+  color: var(--hdh-white);
+}
+
+/* 次要按鈕（紅色外框） */
+.hdh-btn--secondary {
+  background: transparent;
+  color: var(--hdh-red);
+  border-color: var(--hdh-red);
+}
+
+.hdh-btn--secondary:hover {
+  background: var(--hdh-red);
+  color: var(--hdh-white);
+  text-decoration: none;
+}
+
+/* 文字按鈕 */
+.hdh-btn--text {
+  background: transparent;
+  color: var(--hdh-red);
+  padding: var(--hdh-spacing-xs) var(--hdh-spacing-sm);
+  border: none;
+}
+
+.hdh-btn--text:hover {
+  color: var(--hdh-red-dark);
+  text-decoration: underline;
+}
+
+/* 按鈕尺寸 */
+.hdh-btn--sm {
+  padding: var(--hdh-spacing-xs) var(--hdh-spacing-md);
+  font-size: var(--hdh-font-size-sm);
+}
+
+.hdh-btn--lg {
+  padding: var(--hdh-spacing-md) var(--hdh-spacing-xl);
+  font-size: var(--hdh-font-size-lg);
+}
+
+/* ============================================================================
+   卡片樣式
+   ============================================================================ */
+
+.hdh-card {
+  background: var(--hdh-white);
+  border-radius: var(--hdh-radius-lg);
+  box-shadow: var(--hdh-shadow-card);
+  overflow: hidden;
+  transition: all var(--hdh-transition-normal);
+}
+
+.hdh-card:hover {
+  box-shadow: var(--hdh-shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+.hdh-card__image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.hdh-card__body {
+  padding: var(--hdh-spacing-lg);
+}
+
+.hdh-card__title {
+  font-size: var(--hdh-font-size-xl);
+  margin-bottom: var(--hdh-spacing-sm);
+}
+
+.hdh-card__text {
+  color: var(--hdh-gray);
+  margin-bottom: var(--hdh-spacing-md);
+}
+
+/* ============================================================================
+   響應式斷點
+   ============================================================================ */
+
+/* 平板（768px 以下） */
+@media (max-width: 768px) {
+  :root {
+    --hdh-font-size-4xl: 30px;
+    --hdh-font-size-3xl: 24px;
+    --hdh-font-size-2xl: 20px;
+  }
+
+  .hdh-container {
+    padding: 0 var(--hdh-spacing-md);
+  }
+
+  .hdh-section {
+    padding: var(--hdh-spacing-2xl) 0;
+  }
+}
+
+/* 手機（576px 以下） */
+@media (max-width: 576px) {
+  :root {
+    --hdh-font-size-4xl: 26px;
+    --hdh-font-size-3xl: 22px;
+    --hdh-font-size-2xl: 18px;
+  }
+
+  .hdh-btn--lg {
+    padding: var(--hdh-spacing-sm) var(--hdh-spacing-lg);
+    font-size: var(--hdh-font-size-base);
+  }
+}
