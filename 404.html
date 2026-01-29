@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>頁面不存在 | 匯東華統計顧問</title>
+  <meta name="description" content="抱歉，您要找的頁面不存在。請返回首頁或使用搜尋功能。">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+
+  <!-- 樣式表 -->
+  <link rel="stylesheet" href="./css/global.css">
+
+  <style>
+    .hdh-404 {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: var(--hdh-gradient-dark);
+      color: var(--hdh-white);
+      padding: var(--hdh-spacing-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hdh-404__mascot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: auto;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .hdh-404__content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+    }
+
+    .hdh-404__brand-tag {
+      display: inline-block;
+      background: var(--hdh-red);
+      color: var(--hdh-white);
+      padding: var(--hdh-spacing-xs) var(--hdh-spacing-md);
+      font-size: var(--hdh-font-size-sm);
+      font-weight: var(--hdh-font-weight-bold);
+      border-radius: var(--hdh-radius-sm);
+      letter-spacing: 2px;
+      margin-bottom: var(--hdh-spacing-xl);
+    }
+
+    .hdh-404__code {
+      font-size: 120px;
+      font-weight: var(--hdh-font-weight-bold);
+      line-height: 1;
+      color: var(--hdh-gold);
+      margin-bottom: var(--hdh-spacing-md);
+      text-shadow: 0 4px 20px rgba(196, 164, 109, 0.3);
+    }
+
+    @media (max-width: 576px) {
+      .hdh-404__code {
+        font-size: 80px;
+      }
+    }
+
+    .hdh-404__title {
+      font-size: var(--hdh-font-size-3xl);
+      color: var(--hdh-white);
+      margin-bottom: var(--hdh-spacing-md);
+    }
+
+    .hdh-404__desc {
+      font-size: var(--hdh-font-size-lg);
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: var(--hdh-spacing-xl);
+      line-height: var(--hdh-line-height-relaxed);
+    }
+
+    .hdh-404__actions {
+      display: flex;
+      gap: var(--hdh-spacing-md);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hdh-404__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--hdh-spacing-sm);
+      padding: var(--hdh-spacing-sm) var(--hdh-spacing-lg);
+      font-size: var(--hdh-font-size-base);
+      font-weight: var(--hdh-font-weight-medium);
+      text-decoration: none;
+      border-radius: var(--hdh-radius-md);
+      transition: all var(--hdh-transition-fast);
+    }
+
+    .hdh-404__link--primary {
+      background: linear-gradient(135deg, var(--hdh-gold) 0%, var(--hdh-gold-dark) 100%);
+      color: var(--hdh-white);
+    }
+
+    .hdh-404__link--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(196, 164, 109, 0.3);
+      text-decoration: none;
+      color: var(--hdh-white);
+    }
+
+    .hdh-404__link--secondary {
+      background: transparent;
+      color: var(--hdh-white);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .hdh-404__link--secondary:hover {
+      border-color: var(--hdh-gold);
+      color: var(--hdh-gold);
+      text-decoration: none;
+    }
+
+    .hdh-404__suggestions {
+      margin-top: var(--hdh-spacing-2xl);
+      padding-top: var(--hdh-spacing-xl);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hdh-404__suggestions-title {
+      font-size: var(--hdh-font-size-base);
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: var(--hdh-spacing-md);
+    }
+
+    .hdh-404__suggestions-list {
+      display: flex;
+      gap: var(--hdh-spacing-lg);
+      justify-content: center;
+      flex-wrap: wrap;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hdh-404__suggestions-list a {
+      color: var(--hdh-gold);
+      text-decoration: none;
+      font-size: var(--hdh-font-size-sm);
+      transition: color var(--hdh-transition-fast);
+    }
+
+    .hdh-404__suggestions-list a:hover {
+      color: var(--hdh-gold-light);
+      text-decoration: underline;
+    }
+
+    /* Icon */
+    .hdh-icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+      fill: currentColor;
+    }
+  </style>
+</head>
+<body>
+  <main class="hdh-404">
+    <!-- 曇月靈浮水印 -->
+    <img src="./images/曇月靈01.png" alt="" class="hdh-404__mascot" aria-hidden="true">
+
+    <div class="hdh-404__content">
+      <!-- 品牌標記 -->
+      <div class="hdh-404__brand-tag">匯東華</div>
+
+      <!-- 404 錯誤碼 -->
+      <div class="hdh-404__code">404</div>
+
+      <!-- 標題 -->
+      <h1 class="hdh-404__title">頁面不存在</h1>
+
+      <!-- 描述 -->
+      <p class="hdh-404__desc">
+        抱歉，您要找的頁面可能已經移除、更名，或暫時無法使用。<br>
+        請返回首頁或嘗試搜尋您需要的內容。
+      </p>
+
+      <!-- 行動按鈕 -->
+      <div class="hdh-404__actions">
+        <a href="./index.html" class="hdh-404__link hdh-404__link--primary">
+          <svg class="hdh-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          返回首頁
+        </a>
+        <a href="./contactus.html" class="hdh-404__link hdh-404__link--secondary">
+          聯絡我們
+        </a>
+      </div>
+
+      <!-- 推薦連結 -->
+      <div class="hdh-404__suggestions">
+        <p class="hdh-404__suggestions-title">您可能想找：</p>
+        <ul class="hdh-404__suggestions-list">
+          <li><a href="./課程報名.html">課程報名</a></li>
+          <li><a href="./統計分析.html">統計分析服務</a></li>
+          <li><a href="./bmj文章總覽.html">BMJ 學習專區</a></li>
+          <li><a href="./常見問題.html">常見問題</a></li>
+        </ul>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

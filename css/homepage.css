@@ -1,0 +1,894 @@
+/**
+ * ============================================================================
+ * 匯東華官網 - 首頁專屬樣式
+ * ============================================================================
+ * 版本：v1.0
+ * 建立日期：2026-01-29
+ * 依據：html-css-spec v1.1、page-templates-spec v1.1
+ * ============================================================================
+ */
+
+/* ============================================================================
+   Hero 區塊
+   ============================================================================ */
+
+.hdh-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--hdh-gradient-dark);
+  color: var(--hdh-white);
+  overflow: hidden;
+  padding: var(--hdh-spacing-3xl) var(--hdh-spacing-md);
+}
+
+@media (max-width: 768px) {
+  .hdh-hero {
+    min-height: 80vh;
+  }
+}
+
+@media (max-width: 576px) {
+  .hdh-hero {
+    min-height: 70vh;
+    padding: var(--hdh-spacing-2xl) var(--hdh-spacing-md);
+  }
+}
+
+/* 曇月靈浮水印 */
+.hdh-hero__mascot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  width: 350px;
+  height: auto;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .hdh-hero__mascot {
+    width: 280px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hdh-hero__mascot {
+    width: 200px;
+  }
+}
+
+/* 品牌標記（左上角） */
+.hdh-hero__brand-tag {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: var(--hdh-red);
+  color: var(--hdh-white);
+  padding: var(--hdh-spacing-xs) var(--hdh-spacing-md);
+  font-size: var(--hdh-font-size-sm);
+  font-weight: var(--hdh-font-weight-bold);
+  border-radius: var(--hdh-radius-sm);
+  letter-spacing: 2px;
+  z-index: 10;
+}
+
+/* Hero 內容 */
+.hdh-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.hdh-hero__title {
+  font-size: var(--hdh-font-size-5xl);
+  font-weight: var(--hdh-font-weight-bold);
+  margin-bottom: var(--hdh-spacing-md);
+  line-height: 1.2;
+  color: var(--hdh-white);
+}
+
+@media (max-width: 768px) {
+  .hdh-hero__title {
+    font-size: var(--hdh-font-size-4xl);
+  }
+}
+
+@media (max-width: 576px) {
+  .hdh-hero__title {
+    font-size: var(--hdh-font-size-3xl);
+  }
+}
+
+.hdh-hero__subtitle {
+  font-size: var(--hdh-font-size-xl);
+  color: var(--hdh-gold);
+  margin-bottom: var(--hdh-spacing-sm);
+  font-weight: var(--hdh-font-weight-medium);
+}
+
+@media (max-width: 576px) {
+  .hdh-hero__subtitle {
+    font-size: var(--hdh-font-size-lg);
+  }
+}
+
+.hdh-hero__subtitle-secondary {
+  font-size: var(--hdh-font-size-lg);
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: var(--hdh-spacing-xl);
+}
+
+@media (max-width: 576px) {
+  .hdh-hero__subtitle-secondary {
+    font-size: var(--hdh-font-size-base);
+  }
+}
+
+/* Hero CTA 按鈕 */
+.hdh-hero__actions {
+  display: flex;
+  gap: var(--hdh-spacing-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* 向下滾動提示 */
+.hdh-hero__scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--hdh-spacing-sm);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--hdh-font-size-sm);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.hdh-hero__scroll-hint .hdh-icon {
+  width: 24px;
+  height: 24px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(8px); }
+  60% { transform: translateY(4px); }
+}
+
+/* ============================================================================
+   用戶分流區塊
+   ============================================================================ */
+
+.hdh-user-flow {
+  padding: var(--hdh-spacing-3xl) 0;
+  background-color: var(--hdh-white);
+}
+
+.hdh-user-flow__container {
+  max-width: var(--hdh-content-width);
+  margin: 0 auto;
+  padding: 0 var(--hdh-spacing-md);
+}
+
+.hdh-user-flow__header {
+  text-align: center;
+  margin-bottom: var(--hdh-spacing-2xl);
+}
+
+.hdh-user-flow__title {
+  font-size: var(--hdh-font-size-3xl);
+  color: var(--hdh-dark);
+  margin-bottom: var(--hdh-spacing-sm);
+}
+
+.hdh-user-flow__subtitle {
+  font-size: var(--hdh-font-size-lg);
+  color: var(--hdh-gray);
+}
+
+/* 三入口卡片 */
+.hdh-user-flow__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--hdh-spacing-xl);
+}
+
+@media (max-width: 768px) {
+  .hdh-user-flow__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--hdh-spacing-md);
+  }
+}
+
+@media (max-width: 576px) {
+  .hdh-user-flow__grid {
+    grid-template-columns: 1fr;
+    gap: var(--hdh-spacing-lg);
+  }
+}
+
+.hdh-user-flow__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--hdh-spacing-xl);
+  background-color: var(--hdh-light);
+  border-radius: var(--hdh-radius-lg);
+  text-decoration: none;
+  color: var(--hdh-dark);
+  transition: all var(--hdh-transition-normal);
+  border: 2px solid transparent;
+}
+
+.hdh-user-flow__card:hover {
+  background-color: var(--hdh-white);
+  border-color: var(--hdh-gold);
+  box-shadow: var(--hdh-shadow-lg);
+  transform: translateY(-8px);
+  text-decoration: none;
+}
+
+.hdh-user-flow__card-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--hdh-gold) 0%, var(--hdh-gold-dark) 100%);
+  border-radius: var(--hdh-radius-full);
+  margin-bottom: var(--hdh-spacing-lg);
+  transition: all var(--hdh-transition-normal);
+}
+
+.hdh-user-flow__card:hover .hdh-user-flow__card-icon {
+  background: linear-gradient(135deg, var(--hdh-red) 0%, var(--hdh-red-dark) 100%);
+  transform: scale(1.1);
+}
+
+.hdh-user-flow__card-icon .hdh-icon {
+  width: 40px;
+  height: 40px;
+  color: var(--hdh-white);
+}
+
+.hdh-user-flow__card-title {
+  font-size: var(--hdh-font-size-xl);
+  font-weight: var(--hdh-font-weight-bold);
+  margin-bottom: var(--hdh-spacing-sm);
+  color: var(--hdh-dark);
+}
+
+.hdh-user-flow__card-desc {
+  font-size: var(--hdh-font-size-sm);
+  color: var(--hdh-gray);
+  margin-bottom: var(--hdh-spacing-md);
+  line-height: var(--hdh-line-height-relaxed);
+}
+
+.hdh-user-flow__card-link {
+  font-size: var(--hdh-font-size-sm);
+  font-weight: var(--hdh-font-weight-medium);
+  color: var(--hdh-red);
+  display: flex;
+  align-items: center;
+  gap: var(--hdh-spacing-xs);
+}
+
+.hdh-user-flow__card-link .hdh-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--hdh-transition-fast);
+}
+
+.hdh-user-flow__card:hover .hdh-user-flow__card-link .hdh-icon {
+  transform: translateX(4px);
+}
+
+/* ============================================================================
+   服務卡片區塊
+   ============================================================================ */
+
+.hdh-services {
+  padding: var(--hdh-spacing-3xl) 0;
+  background-color: var(--hdh-light);
+}
+
+.hdh-services__container {
+  max-width: var(--hdh-content-width);
+  margin: 0 auto;
+  padding: 0 var(--hdh-spacing-md);
+}
+
+.hdh-services__header {
+  text-align: center;
+  margin-bottom: var(--hdh-spacing-2xl);
+}
+
+.hdh-services__title {
+  font-size: var(--hdh-font-size-3xl);
+  color: var(--hdh-dark);
+  margin-bottom: var(--hdh-spacing-sm);
+}
+
+.hdh-services__intro {
+  font-size: var(--hdh-font-size-lg);
+  color: var(--hdh-red);
+  font-weight: var(--hdh-font-weight-medium);
+  margin-bottom: var(--hdh-spacing-md);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hdh-services__subtitle {
+  font-size: var(--hdh-font-size-base);
+  color: var(--hdh-gray);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 服務卡片 Grid */
+.hdh-services__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--hdh-spacing-lg);
+}
+
+@media (max-width: 992px) {
+  .hdh-services__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .hdh-services__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hdh-services__card {
+  background: var(--hdh-white);
+  border-radius: var(--hdh-radius-lg);
+  padding: var(--hdh-spacing-xl);
+  text-align: center;
+  box-shadow: var(--hdh-shadow-card);
+  transition: all var(--hdh-transition-normal);
+  text-decoration: none;
+  color: var(--hdh-dark);
+  display: flex;
+  flex-direction: column;
+}
+
+.hdh-services__card:hover {
+  box-shadow: var(--hdh-shadow-card-hover);
+  transform: translateY(-6px);
+  text-decoration: none;
+}
+
+.hdh-services__card-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto var(--hdh-spacing-lg);
+}
+
+.hdh-services__card-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hdh-services__card-title {
+  font-size: var(--hdh-font-size-lg);
+  font-weight: var(--hdh-font-weight-bold);
+  margin-bottom: var(--hdh-spacing-sm);
+  color: var(--hdh-dark);
+}
+
+.hdh-services__card-desc {
+  font-size: var(--hdh-font-size-sm);
+  color: var(--hdh-gray);
+  line-height: var(--hdh-line-height-relaxed);
+  margin-bottom: var(--hdh-spacing-md);
+  flex-grow: 1;
+}
+
+.hdh-services__card-link {
+  font-size: var(--hdh-font-size-sm);
+  color: var(--hdh-red);
+  font-weight: var(--hdh-font-weight-medium);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hdh-spacing-xs);
+}
+
+.hdh-services__card-link .hdh-icon {
+  width: 14px;
+  height: 14px;
+  transition: transform var(--hdh-transition-fast);
+}
+
+.hdh-services__card:hover .hdh-services__card-link .hdh-icon {
+  transform: translateX(4px);
+}
+
+/* ============================================================================
+   課程輪播區塊
+   ============================================================================ */
+
+.hdh-courses {
+  padding: var(--hdh-spacing-3xl) 0;
+  background-color: var(--hdh-white);
+}
+
+.hdh-courses__container {
+  max-width: var(--hdh-content-width);
+  margin: 0 auto;
+  padding: 0 var(--hdh-spacing-md);
+}
+
+.hdh-courses__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--hdh-spacing-2xl);
+  flex-wrap: wrap;
+  gap: var(--hdh-spacing-md);
+}
+
+.hdh-courses__title {
+  font-size: var(--hdh-font-size-3xl);
+  color: var(--hdh-dark);
+  margin: 0;
+}
+
+.hdh-courses__title span {
+  font-size: var(--hdh-font-size-lg);
+  font-weight: var(--hdh-font-weight-normal);
+  color: var(--hdh-gray);
+  margin-left: var(--hdh-spacing-sm);
+}
+
+/* 課程卡片 Grid */
+.hdh-courses__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--hdh-spacing-lg);
+}
+
+@media (max-width: 992px) {
+  .hdh-courses__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .hdh-courses__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hdh-courses__card {
+  background: var(--hdh-white);
+  border-radius: var(--hdh-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--hdh-shadow-card);
+  transition: all var(--hdh-transition-normal);
+  text-decoration: none;
+  color: var(--hdh-dark);
+  display: flex;
+  flex-direction: column;
+}
+
+.hdh-courses__card:hover {
+  box-shadow: var(--hdh-shadow-card-hover);
+  transform: translateY(-6px);
+  text-decoration: none;
+}
+
+.hdh-courses__card-image {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.hdh-courses__card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--hdh-transition-slow);
+}
+
+.hdh-courses__card:hover .hdh-courses__card-image img {
+  transform: scale(1.05);
+}
+
+.hdh-courses__card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--hdh-red);
+  color: var(--hdh-white);
+  font-size: var(--hdh-font-size-xs);
+  font-weight: var(--hdh-font-weight-bold);
+  padding: var(--hdh-spacing-xs) var(--hdh-spacing-sm);
+  border-radius: var(--hdh-radius-sm);
+}
+
+.hdh-courses__card-body {
+  padding: var(--hdh-spacing-lg);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hdh-courses__card-title {
+  font-size: var(--hdh-font-size-lg);
+  font-weight: var(--hdh-font-weight-bold);
+  color: var(--hdh-dark);
+  margin-bottom: var(--hdh-spacing-sm);
+  line-height: var(--hdh-line-height-tight);
+}
+
+.hdh-courses__card-meta {
+  font-size: var(--hdh-font-size-sm);
+  color: var(--hdh-gray);
+  margin-bottom: var(--hdh-spacing-md);
+}
+
+.hdh-courses__card-desc {
+  font-size: var(--hdh-font-size-sm);
+  color: var(--hdh-gray);
+  line-height: var(--hdh-line-height-relaxed);
+  flex-grow: 1;
+  margin-bottom: var(--hdh-spacing-md);
+}
+
+.hdh-courses__card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.hdh-courses__card-link {
+  font-size: var(--hdh-font-size-sm);
+  color: var(--hdh-red);
+  font-weight: var(--hdh-font-weight-medium);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hdh-spacing-xs);
+}
+
+/* ============================================================================
+   顧客肯定區塊（學員見證）
+   ============================================================================ */
+
+.hdh-testimonials {
+  padding: var(--hdh-spacing-3xl) 0;
+  background: var(--hdh-gradient-light);
+}
+
+.hdh-testimonials__container {
+  max-width: var(--hdh-content-width);
+  margin: 0 auto;
+  padding: 0 var(--hdh-spacing-md);
+}
+
+.hdh-testimonials__header {
+  text-align: center;
+  margin-bottom: var(--hdh-spacing-2xl);
+}
+
+.hdh-testimonials__title {
+  font-size: var(--hdh-font-size-3xl);
+  color: var(--hdh-dark);
+  margin-bottom: var(--hdh-spacing-xs);
+}
+
+.hdh-testimonials__title span {
+  display: block;
+  font-size: var(--hdh-font-size-lg);
+  font-weight: var(--hdh-font-weight-normal);
+  color: var(--hdh-gray);
+  margin-top: var(--hdh-spacing-xs);
+}
+
+/* 見證卡片 Grid */
+.hdh-testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--hdh-spacing-xl);
+}
+
+@media (max-width: 768px) {
+  .hdh-testimonials__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hdh-testimonials__card {
+  background: var(--hdh-white);
+  border-radius: var(--hdh-radius-lg);
+  padding: var(--hdh-spacing-xl);
+  box-shadow: var(--hdh-shadow-card);
+  position: relative;
+  display: flex;
+  gap: var(--hdh-spacing-lg);
+}
+
+@media (max-width: 576px) {
+  .hdh-testimonials__card {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.hdh-testimonials__card-avatar {
+  flex-shrink: 0;
+}
+
+.hdh-testimonials__card-avatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--hdh-radius-full);
+  object-fit: cover;
+  border: 3px solid var(--hdh-gold);
+}
+
+@media (max-width: 576px) {
+  .hdh-testimonials__card-avatar img {
+    margin: 0 auto;
+  }
+}
+
+.hdh-testimonials__card-content {
+  flex-grow: 1;
+}
+
+.hdh-testimonials__card-quote {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  color: var(--hdh-gold);
+  opacity: 0.3;
+}
+
+.hdh-testimonials__card-text {
+  font-size: var(--hdh-font-size-base);
+  color: var(--hdh-gray);
+  line-height: var(--hdh-line-height-relaxed);
+  margin-bottom: var(--hdh-spacing-md);
+  font-style: italic;
+}
+
+.hdh-testimonials__card-author {
+  font-size: var(--hdh-font-size-sm);
+  color: var(--hdh-dark);
+  font-weight: var(--hdh-font-weight-medium);
+}
+
+.hdh-testimonials__card-role {
+  font-size: var(--hdh-font-size-sm);
+  color: var(--hdh-gray-light);
+}
+
+/* ============================================================================
+   聯絡資訊區塊
+   ============================================================================ */
+
+.hdh-contact-section {
+  padding: var(--hdh-spacing-3xl) 0;
+  background: var(--hdh-gradient-dark);
+  color: var(--hdh-white);
+}
+
+.hdh-contact-section__container {
+  max-width: var(--hdh-content-width);
+  margin: 0 auto;
+  padding: 0 var(--hdh-spacing-md);
+}
+
+.hdh-contact-section__header {
+  text-align: center;
+  margin-bottom: var(--hdh-spacing-2xl);
+}
+
+.hdh-contact-section__title {
+  font-size: var(--hdh-font-size-3xl);
+  color: var(--hdh-white);
+  margin-bottom: var(--hdh-spacing-sm);
+}
+
+/* 聯絡資訊 Grid */
+.hdh-contact-section__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--hdh-spacing-2xl);
+}
+
+@media (max-width: 768px) {
+  .hdh-contact-section__grid {
+    grid-template-columns: 1fr;
+    gap: var(--hdh-spacing-xl);
+  }
+}
+
+/* 聯絡資訊列表 */
+.hdh-contact-section__info {
+  /* 左側 */
+}
+
+.hdh-contact-section__info-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hdh-contact-section__info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--hdh-spacing-md);
+  margin-bottom: var(--hdh-spacing-lg);
+  padding: var(--hdh-spacing-md);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--hdh-radius-md);
+}
+
+.hdh-contact-section__info-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hdh-gold);
+  border-radius: var(--hdh-radius-full);
+  flex-shrink: 0;
+}
+
+.hdh-contact-section__info-icon .hdh-icon {
+  width: 22px;
+  height: 22px;
+  color: var(--hdh-white);
+}
+
+.hdh-contact-section__info-content {
+  flex-grow: 1;
+}
+
+.hdh-contact-section__info-label {
+  font-size: var(--hdh-font-size-sm);
+  color: var(--hdh-gold);
+  font-weight: var(--hdh-font-weight-medium);
+  margin-bottom: var(--hdh-spacing-xs);
+}
+
+.hdh-contact-section__info-value {
+  font-size: var(--hdh-font-size-base);
+  color: var(--hdh-white);
+}
+
+.hdh-contact-section__info-value a {
+  color: var(--hdh-white);
+  text-decoration: none;
+}
+
+.hdh-contact-section__info-value a:hover {
+  color: var(--hdh-gold);
+}
+
+/* 地圖 */
+.hdh-contact-section__map {
+  border-radius: var(--hdh-radius-lg);
+  overflow: hidden;
+  height: 300px;
+}
+
+.hdh-contact-section__map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* 快速連結 */
+.hdh-contact-section__links {
+  display: flex;
+  justify-content: center;
+  gap: var(--hdh-spacing-md);
+  margin-top: var(--hdh-spacing-2xl);
+  flex-wrap: wrap;
+}
+
+.hdh-contact-section__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--hdh-spacing-sm);
+  padding: var(--hdh-spacing-md);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--hdh-radius-md);
+  color: var(--hdh-white);
+  text-decoration: none;
+  min-width: 120px;
+  transition: all var(--hdh-transition-fast);
+}
+
+.hdh-contact-section__link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  transform: translateY(-4px);
+}
+
+.hdh-contact-section__link-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.hdh-contact-section__link-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hdh-contact-section__link-text {
+  font-size: var(--hdh-font-size-sm);
+  font-weight: var(--hdh-font-weight-medium);
+}
+
+/* ============================================================================
+   Section 標題共用樣式
+   ============================================================================ */
+
+.hdh-section-title {
+  position: relative;
+  display: inline-block;
+}
+
+.hdh-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--hdh-gold) 0%, var(--hdh-red) 100%);
+  border-radius: 2px;
+}
+
+/* ============================================================================
+   九軌道裝飾線（可選）
+   ============================================================================ */
+
+.hdh-track-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  display: flex;
+}
+
+.hdh-track-decoration span {
+  flex: 1;
+  background: var(--hdh-gold);
+  opacity: 0.3;
+}
+
+.hdh-track-decoration span:nth-child(odd) {
+  background: var(--hdh-red);
+}

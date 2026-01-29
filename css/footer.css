@@ -1,0 +1,377 @@
+/**
+ * ============================================================================
+ * 匯東華官網 - Footer 頁尾樣式
+ * ============================================================================
+ * 版本：v1.0
+ * 建立日期：2026-01-29
+ * 依據：html-css-spec v1.1、page-templates-spec v1.1
+ * ============================================================================
+ */
+
+/* ============================================================================
+   Footer 主容器
+   ============================================================================ */
+
+.hdh-footer {
+  position: relative;
+  background: var(--hdh-gradient-dark-vertical);
+  color: var(--hdh-white);
+  padding-top: var(--hdh-spacing-3xl);
+  overflow: hidden;
+}
+
+/* ============================================================================
+   曇月靈裝飾（右下角）
+   ============================================================================ */
+
+.hdh-footer__mascot {
+  position: absolute;
+  right: -50px;
+  bottom: -50px;
+  width: 300px;
+  height: auto;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .hdh-footer__mascot {
+    width: 200px;
+    right: -30px;
+    bottom: -30px;
+  }
+}
+
+/* ============================================================================
+   Footer 內容容器
+   ============================================================================ */
+
+.hdh-footer__container {
+  position: relative;
+  z-index: 2;
+  max-width: var(--hdh-content-width);
+  margin: 0 auto;
+  padding: 0 var(--hdh-spacing-md);
+}
+
+/* ============================================================================
+   Footer 主要內容區（5 欄 Grid）
+   ============================================================================ */
+
+.hdh-footer__main {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+  gap: var(--hdh-spacing-xl);
+  padding-bottom: var(--hdh-spacing-2xl);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 992px) {
+  .hdh-footer__main {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--hdh-spacing-lg);
+  }
+}
+
+@media (max-width: 576px) {
+  .hdh-footer__main {
+    grid-template-columns: 1fr;
+    gap: var(--hdh-spacing-xl);
+  }
+}
+
+/* ============================================================================
+   公司資訊區塊
+   ============================================================================ */
+
+.hdh-footer__brand {
+  grid-column: span 1;
+}
+
+@media (max-width: 992px) {
+  .hdh-footer__brand {
+    grid-column: span 3;
+  }
+}
+
+@media (max-width: 576px) {
+  .hdh-footer__brand {
+    grid-column: span 1;
+  }
+}
+
+.hdh-footer__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--hdh-spacing-sm);
+  margin-bottom: var(--hdh-spacing-lg);
+}
+
+.hdh-footer__logo-img {
+  height: 50px;
+  width: auto;
+}
+
+.hdh-footer__logo-text {
+  font-family: var(--hdh-font-heading);
+  font-size: var(--hdh-font-size-lg);
+  font-weight: var(--hdh-font-weight-bold);
+  color: var(--hdh-gold);
+}
+
+.hdh-footer__desc {
+  font-size: var(--hdh-font-size-sm);
+  line-height: var(--hdh-line-height-relaxed);
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: var(--hdh-spacing-lg);
+  max-width: 280px;
+}
+
+/* 社群連結 */
+.hdh-footer__social {
+  display: flex;
+  gap: var(--hdh-spacing-sm);
+}
+
+.hdh-footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--hdh-white);
+  border-radius: var(--hdh-radius-full);
+  text-decoration: none;
+  transition: all var(--hdh-transition-fast);
+}
+
+.hdh-footer__social-link:hover {
+  background-color: var(--hdh-gold);
+  color: var(--hdh-white);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.hdh-footer__social-link .hdh-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* ============================================================================
+   導覽連結區塊
+   ============================================================================ */
+
+.hdh-footer__nav {
+  /* 一欄 */
+}
+
+.hdh-footer__nav-title {
+  font-size: var(--hdh-font-size-base);
+  font-weight: var(--hdh-font-weight-bold);
+  color: var(--hdh-white);
+  margin-bottom: var(--hdh-spacing-lg);
+  padding-bottom: var(--hdh-spacing-sm);
+  border-bottom: 2px solid var(--hdh-gold);
+  display: inline-block;
+}
+
+.hdh-footer__nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hdh-footer__nav-item {
+  margin-bottom: var(--hdh-spacing-sm);
+}
+
+.hdh-footer__nav-link {
+  font-size: var(--hdh-font-size-sm);
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: all var(--hdh-transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hdh-spacing-xs);
+}
+
+.hdh-footer__nav-link:hover {
+  color: var(--hdh-gold);
+  text-decoration: none;
+  padding-left: var(--hdh-spacing-xs);
+}
+
+.hdh-footer__nav-link .hdh-icon {
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  transition: opacity var(--hdh-transition-fast);
+}
+
+.hdh-footer__nav-link:hover .hdh-icon {
+  opacity: 1;
+}
+
+/* ============================================================================
+   聯絡資訊區塊
+   ============================================================================ */
+
+.hdh-footer__contact {
+  /* 一欄 */
+}
+
+@media (max-width: 992px) {
+  .hdh-footer__contact {
+    grid-column: span 3;
+  }
+}
+
+@media (max-width: 576px) {
+  .hdh-footer__contact {
+    grid-column: span 1;
+  }
+}
+
+.hdh-footer__contact-title {
+  font-size: var(--hdh-font-size-base);
+  font-weight: var(--hdh-font-weight-bold);
+  color: var(--hdh-white);
+  margin-bottom: var(--hdh-spacing-lg);
+  padding-bottom: var(--hdh-spacing-sm);
+  border-bottom: 2px solid var(--hdh-gold);
+  display: inline-block;
+}
+
+.hdh-footer__contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hdh-footer__contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--hdh-spacing-sm);
+  margin-bottom: var(--hdh-spacing-md);
+  font-size: var(--hdh-font-size-sm);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hdh-footer__contact-item .hdh-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--hdh-gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.hdh-footer__contact-item a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color var(--hdh-transition-fast);
+}
+
+.hdh-footer__contact-item a:hover {
+  color: var(--hdh-gold);
+}
+
+/* ============================================================================
+   版權區塊
+   ============================================================================ */
+
+.hdh-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--hdh-spacing-md);
+  padding: var(--hdh-spacing-lg) 0;
+  font-size: var(--hdh-font-size-sm);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 576px) {
+  .hdh-footer__bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.hdh-footer__copyright {
+  margin: 0;
+}
+
+.hdh-footer__legal {
+  display: flex;
+  gap: var(--hdh-spacing-md);
+}
+
+.hdh-footer__legal-link {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: color var(--hdh-transition-fast);
+}
+
+.hdh-footer__legal-link:hover {
+  color: var(--hdh-gold);
+  text-decoration: none;
+}
+
+/* ============================================================================
+   返回頂部按鈕
+   ============================================================================ */
+
+.hdh-footer__back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--hdh-red);
+  color: var(--hdh-white);
+  border: none;
+  border-radius: var(--hdh-radius-full);
+  box-shadow: var(--hdh-shadow-md);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all var(--hdh-transition-fast);
+  z-index: var(--hdh-z-fixed);
+}
+
+.hdh-footer__back-to-top--visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.hdh-footer__back-to-top:hover {
+  background-color: var(--hdh-red-dark);
+  transform: translateY(-3px);
+}
+
+.hdh-footer__back-to-top .hdh-icon {
+  width: 20px;
+  height: 20px;
+  transform: rotate(-90deg);
+}
+
+/* ============================================================================
+   品牌色帶裝飾（頂部）
+   ============================================================================ */
+
+.hdh-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--hdh-red) 0%, var(--hdh-gold) 50%, var(--hdh-red) 100%);
+}

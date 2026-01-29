@@ -24,6 +24,7 @@
      ======================================== */
   --hdh-gold: #C4A46D;
   --hdh-gold-dark: #A68B5B;
+  --hdh-gold-darker: #8B7649;         /* 深金色（hover 用） */
   --hdh-gold-light: #D4B47D;
 
   /* ========================================
@@ -37,6 +38,13 @@
   --hdh-border: #E0E0E0;          /* 卡片邊框、分隔線 */
   --hdh-border-light: #F0F0F0;    /* 淺色分隔線 */
   --hdh-dark-bg: #1A1A1A;         /* 深色背景（保留） */
+
+  /* ========================================
+     3.1 漸層色彩（統一管理）
+     ======================================== */
+  --hdh-gradient-dark: linear-gradient(135deg, #2D2D2D 0%, #1A1A1A 100%);
+  --hdh-gradient-dark-vertical: linear-gradient(180deg, #2D2D2D 0%, #1A1A1A 100%);
+  --hdh-gradient-light: linear-gradient(135deg, #F8F6F0 0%, #FFFFFF 100%);
 
   /* ========================================
      4. 功能色（Bootstrap 標準）
@@ -258,6 +266,19 @@ li {
    工具類別
    ============================================================================ */
 
+/* Screen Reader Only - 無障礙輔助（視覺隱藏但螢幕閱讀器可讀） */
+.hdh-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* 容器 */
 .hdh-container {
   width: 100%;
@@ -319,7 +340,7 @@ li {
 }
 
 .hdh-btn--primary:hover {
-  background: linear-gradient(135deg, var(--hdh-gold-dark) 0%, #8B7649 100%);
+  background: linear-gradient(135deg, var(--hdh-gold-dark) 0%, var(--hdh-gold-darker) 100%);
   transform: translateY(-2px);
   box-shadow: var(--hdh-shadow-md);
   text-decoration: none;
