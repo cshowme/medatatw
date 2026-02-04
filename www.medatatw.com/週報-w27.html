@@ -1,6 +1,55 @@
 <!DOCTYPE html>
 <html>
   <head>
+<script>
+/* 防止輪播自動跳轉 - 2026-02-04 */
+(function(){
+  // 保存原始 setInterval
+  var originalSetInterval = window.setInterval;
+
+  // 攔截 setInterval，過濾掉輪播自動點擊
+  window.setInterval = function(fn, delay) {
+    // 如果是短間隔（輪播通常 3-10 秒），檢查是否包含 click
+    if (typeof fn === 'function') {
+      var fnStr = fn.toString();
+      // 檢測輪播點擊模式
+      if (fnStr.indexOf('click') !== -1 && fnStr.indexOf('slideshow') !== -1) {
+        console.log('[Anti-Redirect] Blocked slideshow auto-click interval');
+        return 0; // 返回無效 ID，阻止執行
+      }
+    }
+    return originalSetInterval.apply(this, arguments);
+  };
+
+  // 額外保護：攔截可疑的 location 修改
+  var originalAssign = window.location.assign;
+  var originalReplace = window.location.replace;
+
+  window.location.assign = function(url) {
+    // 只阻擋自動跳轉，不阻擋用戶點擊
+    if (!window._userClicked) {
+      console.log('[Anti-Redirect] Blocked location.assign:', url);
+      return;
+    }
+    return originalAssign.call(this, url);
+  };
+
+  window.location.replace = function(url) {
+    if (!window._userClicked) {
+      console.log('[Anti-Redirect] Blocked location.replace:', url);
+      return;
+    }
+    return originalReplace.call(this, url);
+  };
+
+  // 標記用戶點擊事件
+  document.addEventListener('click', function() {
+    window._userClicked = true;
+    setTimeout(function() { window._userClicked = false; }, 100);
+  }, true);
+})();
+</script>
+
     <script>
       document.cookie = 'resolution=' + Math.max(screen.width,screen.height) + '; path=/; SameSite=Lax';
     </script>
