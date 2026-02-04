@@ -2876,20 +2876,29 @@
 <!-- ========== End: 樣本數課程專屬樣式 v1.1 ========== -->
 
   
+
 <style>
-/* 修復 Header 背景顯示 - 2026-02-04 */
+/* 修復 Header 背景顯示 v2 - 2026-02-04 */
 #rot_ctr1_bod_ctr1 {
   position: relative !important;
-  min-height: 80px !important;
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
+  min-height: 100px !important;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  background-image: url('首頁/white-1866105_1920.jpg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+/* 確保子元素不破壞佈局 */
+#rot_ctr1_bod_ctr1 > * {
+  position: relative !important;
 }
 </style>
 </head>
   <body style="">
     
-    <div id="rot" class="b_body" block_type="body" tpba_id="3869616"><div id="rot_ctr1" class="b_bg" block_type="bg" tpba_id="3869617"><div id="rot_ctr1_bod" class="b_bg" block_type="bg" tpba_id="3869618"><div id="rot_ctr1_bod_ctr1" class="b_bg" block_type="bg" tpba_id="3869619"><div id="rot_ctr1_bod_ctr1_blk1_custom" class="b_websitesearch" block_type="websitesearch"><form id="lunr-search-form" style="display: flex; align-items: center;" onsubmit="return doLunrSearch();">
-  <input type="text" id="lunr-search-input" placeholder="站內搜尋..." style="padding: 6px 10px; border: 1px solid #ccc; border-radius: 3px 0 0 3px; font-size: 14px; width: 150px;">
+    <div id="rot" class="b_body" block_type="body" tpba_id="3869616"><div id="rot_ctr1" class="b_bg" block_type="bg" tpba_id="3869617"><div id="rot_ctr1_bod" class="b_bg" block_type="bg" tpba_id="3869618"><div id="rot_ctr1_bod_ctr1" class="b_bg" block_type="bg" tpba_id="3869619"><div id="rot_ctr1_bod_ctr1_blk1_custom" class="b_websitesearch" block_type="websitesearch"><form id="site-search-form" style="display: flex; align-items: center;" onsubmit="return doSiteSearch();">
+  <input type="text" id="site-search-input" placeholder="站內搜尋..." style="padding: 6px 10px; border: 1px solid #ccc; border-radius: 3px 0 0 3px; font-size: 14px; width: 150px;">
   <button type="submit" style="padding: 6px 12px; background: #f5f5f5; border: 1px solid #ccc; border-left: none; border-radius: 0 3px 3px 0; cursor: pointer; font-size: 14px;">搜尋</button>
 </form></div>
 </div>
@@ -3595,102 +3604,5 @@
       })();
       </script>
   
-<script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
-<script>
-var searchIndex = null;
-var searchDocs = null;
-
-// 載入搜尋索引
-fetch('search-index.json')
-  .then(r => r.json())
-  .then(data => {
-    searchDocs = data.docs;
-    searchIndex = lunr(function() {
-      this.ref('id');
-      this.field('title', { boost: 10 });
-      this.field('content');
-
-      // 添加中文支援
-      this.pipeline.remove(lunr.stemmer);
-      this.searchPipeline.remove(lunr.stemmer);
-
-      data.docs.forEach((doc, idx) => {
-        this.add({
-          id: idx,
-          title: doc.title,
-          content: doc.content
-        });
-      });
-    });
-    console.log('[Lunr] 搜尋索引載入完成，共 ' + data.docs.length + ' 個頁面');
-  })
-  .catch(e => console.error('[Lunr] 索引載入失敗:', e));
-
-function doLunrSearch() {
-  var query = document.getElementById('lunr-search-input').value.trim();
-  if (!query) return false;
-
-  if (!searchIndex) {
-    alert('搜尋索引載入中，請稍後再試...');
-    return false;
-  }
-
-  // 執行搜尋
-  var results = searchIndex.search(query + '*');
-
-  if (results.length === 0) {
-    // 嘗試模糊搜尋
-    results = searchIndex.search(query + '~1');
-  }
-
-  if (results.length === 0) {
-    alert('找不到「' + query + '」相關的頁面');
-    return false;
-  }
-
-  // 顯示搜尋結果
-  showSearchResults(query, results);
-  return false;
-}
-
-function showSearchResults(query, results) {
-  var html = '<div style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:99999;overflow:auto;padding:20px;">';
-  html += '<div style="max-width:800px;margin:0 auto;background:#fff;border-radius:8px;padding:20px;">';
-  html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">';
-  html += '<h2 style="margin:0;color:#B82226;">搜尋結果：' + query + '</h2>';
-  html += '<button onclick="this.closest(\'div\').parentNode.remove()" style="padding:8px 16px;cursor:pointer;border:1px solid #ccc;border-radius:4px;background:#f5f5f5;">關閉</button>';
-  html += '</div>';
-  html += '<p style="color:#666;margin-bottom:20px;">找到 ' + results.length + ' 個相關頁面</p>';
-
-  results.slice(0, 20).forEach(function(result) {
-    var doc = searchDocs[parseInt(result.ref)];
-    var snippet = doc.content.substring(0, 200) + '...';
-
-    html += '<div style="border-bottom:1px solid #eee;padding:15px 0;">';
-    html += '<a href="' + doc.url + '" style="font-size:18px;color:#B82226;text-decoration:none;font-weight:bold;">' + doc.title + '</a>';
-    html += '<p style="color:#666;margin:8px 0 0 0;font-size:14px;">' + snippet + '</p>';
-    html += '</div>';
-  });
-
-  html += '</div></div>';
-
-  var div = document.createElement('div');
-  div.innerHTML = html;
-  document.body.appendChild(div.firstChild);
-}
-
-// 支援 Enter 鍵搜尋
-document.addEventListener('DOMContentLoaded', function() {
-  var input = document.getElementById('lunr-search-input');
-  if (input) {
-    input.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        doLunrSearch();
-      }
-    });
-  }
-});
-</script>
 </body>
 </html>
