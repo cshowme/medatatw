@@ -19,24 +19,19 @@ jobs:
         run: |
           echo "Pinging Supabase to prevent idle suspension..."
 
-          # 發送 GET 請求到 free-rate-limit endpoint
-          response=$(curl -s -w "\n%{http_code}" \
-            -X GET \
-            "https://dofgtiavdperiqxkvrla.supabase.co/functions/v1/free-rate-limit")
-
-          # 分離 body 和 status code
-          http_body=$(echo "$response" | head -n -1)
-          http_code=$(echo "$response" | tail -n 1)
+          # Ping Supabase (any HTTP response = project is active, prevents idle)
+          http_code=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://dofgtiavdperiqxkvrla.supabase.co/functions/v1/free-rate-limit" \
+            --max-time 30)
 
           echo "HTTP Status: $http_code"
-          echo "Response Body: $http_body"
 
-          # 檢查是否成功（2xx status code）
-          if [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
-            echo "✅ Ping successful! Supabase is active."
+          # Any HTTP response means the project is active (even 4xx)
+          if [ "$http_code" -gt 0 ] 2>/dev/null; then
+            echo "✅ Ping successful! Supabase responded with $http_code - project is active."
             exit 0
           else
-            echo "❌ Ping failed with status $http_code"
+            echo "❌ Ping failed - no response from Supabase"
             exit 1
           fi
 
