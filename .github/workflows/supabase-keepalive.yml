@@ -22,7 +22,7 @@ jobs:
           # 發送 GET 請求到 free-rate-limit endpoint
           response=$(curl -s -w "\n%{http_code}" \
             -X GET \
-            "https://dofgtiavbperiqxkvrla.supabase.co/functions/v1/free-rate-limit")
+            "https://dofgtiavdperiqxkvrla.supabase.co/functions/v1/free-rate-limit")
 
           # 分離 body 和 status code
           http_body=$(echo "$response" | head -n -1)
