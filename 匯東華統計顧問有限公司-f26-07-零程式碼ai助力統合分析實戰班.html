@@ -1,68 +1,22 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-  <head>
-<script>
-/* 防止輪播自動跳轉 - 2026-02-04 */
-(function(){
-  // 保存原始 setInterval
-  var originalSetInterval = window.setInterval;
-
-  // 攔截 setInterval，過濾掉輪播自動點擊
-  window.setInterval = function(fn, delay) {
-    // 如果是短間隔（輪播通常 3-10 秒），檢查是否包含 click
-    if (typeof fn === 'function') {
-      var fnStr = fn.toString();
-      // 檢測輪播點擊模式
-      if (fnStr.indexOf('click') !== -1 && fnStr.indexOf('slideshow') !== -1) {
-        console.log('[Anti-Redirect] Blocked slideshow auto-click interval');
-        return 0; // 返回無效 ID，阻止執行
-      }
-    }
-    return originalSetInterval.apply(this, arguments);
-  };
-
-  // 額外保護：攔截可疑的 location 修改
-  var originalAssign = window.location.assign;
-  var originalReplace = window.location.replace;
-
-  window.location.assign = function(url) {
-    // 只阻擋自動跳轉，不阻擋用戶點擊
-    if (!window._userClicked) {
-      console.log('[Anti-Redirect] Blocked location.assign:', url);
-      return;
-    }
-    return originalAssign.call(this, url);
-  };
-
-  window.location.replace = function(url) {
-    if (!window._userClicked) {
-      console.log('[Anti-Redirect] Blocked location.replace:', url);
-      return;
-    }
-    return originalReplace.call(this, url);
-  };
-
-  // 標記用戶點擊事件
-  document.addEventListener('click', function() {
-    window._userClicked = true;
-    setTimeout(function() { window._userClicked = false; }, 100);
-  }, true);
-})();
-</script>
-
+  
+<!-- Mirrored from www.medatatw.com/匯東華統計顧問有限公司-f26-07-零程式碼ai助力統合分析實戰班.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 29 Jan 2026 09:36:35 GMT -->
+<head>
     <script>
       document.cookie = 'resolution=' + Math.max(screen.width,screen.height) + '; path=/; SameSite=Lax';
     </script>
-    <link href='//fonts.googleapis.com/css2?family=Raleway&display=swap' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-<meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="breakpoints" content="1000,499,770"/>
-    <title>匯東華統計顧問有限公司 - BMJ專題-122-Relative risks and significance</title>
-    <script src="static/js/website/jquery-3.5.1.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="__system/__css/h_f93b352e193fd45886723d93a9bd8f8e/2770918_combined.min.css" />
+    <meta id="__gamap" content="{&quot;w.tw.mawebcenters.com&quot;:&quot;G-5BV97ZDMV7&quot;}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="breakpoints" content="1000,499,770"/>
+    <title>匯東華統計顧問有限公司 - 匯東華統計顧問有限公司 - F26-07-零程式碼AI助力統合分析實戰班</title>
+    <script type="text/javascript" src="static/js/website/jquery-3.5.1.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="__system/__css/h_55c9995d9f6120c61abc535b7e3a974d/2786386_combined.min.css" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5BV97ZDMV7"></script>
 <script>
@@ -101,7 +55,7 @@
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/zh_TW/sdk/xfbml.customerchat.js';
+        js.src = '../connect.facebook.net/zh_TW/sdk/xfbml.customerchat.html';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
     </script>
@@ -2874,228 +2828,403 @@
 </style>
 <!-- ========== End: 樣本數課程專屬樣式 v1.1 ========== -->
 
-  <style>
-/* CSS Hover Fix for Dropdown Menus - 2026-02-06 */
-.b_menu li:hover > .sub_menu {
-  display: block !important;
-}
-.b_menu .sub_menu {
-  z-index: 9999;
-}
-</style>
-<!-- 匯東華全站搜尋 v1.0 -->
-<script src="/pagefind-search.js"></script>
-</head>
+  </head>
   <body style="">
     
-    <div id="rot" class="b_body" block_type="body" tpba_id="3869616"><div id="rot_ctr1" class="b_bg" block_type="bg" tpba_id="3869617"><div id="rot_ctr1_bod" class="b_bg" block_type="bg" tpba_id="3869618"><div id="rot_ctr1_bod_ctr1" class="b_bg" block_type="bg" tpba_id="3869619"><div id="rot_ctr1_bod_ctr1_blk1_custom" class="b_websitesearch" block_type="websitesearch"><div id="35d4bbc6c295dd35ea0412ad067ddf1e" class="__iv_dynamic_widget" style="display: none;">
+    <div id="rot" class="b_body" block_type="body" tpba_id="3869616"><div id="rot_ctr1" class="b_bg" block_type="bg" tpba_id="3869617"><div id="rot_ctr1_bod" class="b_bg" block_type="bg" tpba_id="3869618"><div id="rot_ctr1_bod_ctr1" class="b_bg" block_type="bg" tpba_id="3869619"><div id="rot_ctr1_bod_ctr1_blk1_custom" class="b_websitesearch" block_type="websitesearch"><div id="35d4bbc6c295dd35ea0412ad067ddf1e" class="__iv_dynamic_widget" style="margin: 50px">
   <img src="static/images/global/loading_circle.svg" alt="載入中..." width="50" height="50"/>
 </div>
 </div>
-<div id="rot_ctr1_bod_ctr1_blk1" class="b_html" block_type="html" tpba_id="3869620"><p><img src="首頁/_imagecache/logo.png" caption="false" /><span style="font-size: 20pt; color: #e8cc8b; font-family: 微軟正黑體;"><span style="color: #b3800b;">匯東華統計顧問有限公司</span>&nbsp;</span></p></div>
+<div id="rot_ctr1_bod_ctr1_blk1" class="b_html" block_type="html" tpba_id="3869620"><p><img src="%e9%a6%96%e9%a0%81/_imagecache/logo.png" caption="false" /><span style="font-size: 20pt; color: #e8cc8b; font-family: 微軟正黑體;"><span style="color: #b3800b;">匯東華統計顧問有限公司</span>&nbsp;</span></p></div>
 <div id="rot_ctr1_bod_ctr1_blk3" class="b_bg" block_type="bg" tpba_id="3869622"></div>
-<div id="rot_ctr1_bod_ctr1_bod" class="b_menu" block_type="menu" tpba_id="3869621"><!--UdmComment--><input type="checkbox" id="__res_main_nav_button"/><label id="__res_main_nav_label" for="__res_main_nav_button" onclick></label><ul menu_position="top"><li class="first menu_1995434" class="first menu_1995434"><a href="index.html" title="首頁" id="menu_1995434" class="menu_1995434">首頁</a></li><li class="menu_1995432"><a href="aboutus.html" title="關於我們" id="menu_1995432" class="menu_1995432 parent_menu_item">關於我們</a><input type="checkbox" id="__res_main_nav_button_2" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_2" onclick></label><ul menu_position="top" id="sub_menu_1995432" class="sub_menu" style="display:none; position: absolute;"><li class="menu_2018076" style=""><a href="行事曆.html" title="行事曆" style="float: none;" id="menu_2018076" class="menu_2018076">行事曆</a></li><li class="menu_2045981" style=""><a href="會員入會方案.html" title="會員入會方案" style="float: none;" id="menu_2045981" class="menu_2045981">入會方案</a></li><li class="menu_2033787" style=""><a href="匯東華週報.html" title="匯東華週報" style="float: none;" id="menu_2033787" class="menu_2033787">匯東華週報</a></li><li class="last menu_1995710" class="last menu_1995710" style=""><a href="未來發展.html" title="未來發展" style="float: none;" id="menu_1995710" class="menu_1995710">未來發展</a></li></ul></li><li class="menu_1995435"><a href="services.html" title="營業項目" id="menu_1995435" class="menu_1995435 parent_menu_item">營業項目</a><input type="checkbox" id="__res_main_nav_button_3" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_3" onclick></label><ul menu_position="top" id="sub_menu_1995435" class="sub_menu" style="display:none; position: absolute;"><li class="menu_1995468" style=""><a href="統計分析.html" title="統計分析" style="float: none;" id="menu_1995468" class="menu_1995468">統計分析</a></li><li class="menu_1995469" style=""><a href="數據串接與清洗.html" title="數據串接與清洗" style="float: none;" id="menu_1995469" class="menu_1995469">數據串接與清洗</a></li><li class="menu_1995470" style=""><a href="教育培訓.html" title="教育培訓" style="float: none;" id="menu_1995470" class="menu_1995470">教育培訓</a></li><li class="menu_1995471" style=""><a href="統計諮詢.html" title="統計諮詢" style="float: none;" id="menu_1995471" class="menu_1995471">統計諮詢</a></li><li class="last menu_1995472" class="last menu_1995472" style=""><a href="周邊商品.html" title="周邊商品" style="float: none;" id="menu_1995472" class="menu_1995472">周邊商品</a></li></ul></li><li class="menu_2014573"><a href="課程報名.html" title="課程報名" id="menu_2014573" class="menu_2014573">課程報名</a></li><li class="menu_2056823"><a href="直播課程區.html" title="直播課程區" id="menu_2056823" class="menu_2056823">直播課程區</a></li><li class="menu_2019127"><a href="學習專區.html" title="學習專區" id="menu_2019127" class="menu_2019127 parent_menu_item">學習專區</a><input type="checkbox" id="__res_main_nav_button_4" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_4" onclick></label><ul menu_position="top" id="sub_menu_2019127" class="sub_menu" style="display:none; position: absolute;"><li class="menu_2019309" style=""><a href="bmj文章總覽.html" title="BMJ小小統計問題" style="float: none;" id="menu_2019309" class="menu_2019309">BMJ小小統計問題</a></li><li class="menu_2015907" style=""><a href="教材勘誤.html" title="教材勘誤" style="float: none;" id="menu_2015907" class="menu_2015907">教材勘誤</a></li><li class="last menu_2019132" class="last menu_2019132" style=""><a href="精選文獻與其他資源.html" target="_blank" title="精選文獻與其他資源" style="float: none;" id="menu_2019132" class="menu_2019132">精選文獻與其他資源</a></li></ul></li><li class="menu_1995479"><a href="最新消息.html" title="最新消息" id="menu_1995479" class="menu_1995479">最新消息</a></li><li class="menu_2034290"><a href="常見問題.html" title="常見問題" id="menu_2034290" class="menu_2034290">常見問題</a></li><li class="last menu_1995433" class="last menu_1995433"><a href="contactus.html" title="聯絡我們" id="menu_1995433" class="menu_1995433">聯絡我們</a></li></ul><!--/UdmComment--></div>
+<div id="rot_ctr1_bod_ctr1_bod" class="b_menu" block_type="menu" tpba_id="3869621"><!--UdmComment--><input type="checkbox" id="__res_main_nav_button"/><label id="__res_main_nav_label" for="__res_main_nav_button" onclick></label><ul menu_position="top"><li class="first menu_1995434" class="first menu_1995434"><a href="index.html" title="首頁" id="menu_1995434" class="menu_1995434">首頁</a></li><li class="menu_1995432"><a href="aboutus.html" title="關於我們" id="menu_1995432" class="menu_1995432 parent_menu_item">關於我們</a><input type="checkbox" id="__res_main_nav_button_2" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_2" onclick></label><ul menu_position="top" id="sub_menu_1995432" class="sub_menu" style="display:none; position: absolute;"><li class="menu_2018076" style=""><a href="%e8%a1%8c%e4%ba%8b%e6%9b%86.html" title="行事曆" style="float: none;" id="menu_2018076" class="menu_2018076">行事曆</a></li><li class="menu_2045981" style=""><a href="%e6%9c%83%e5%93%a1%e5%85%a5%e6%9c%83%e6%96%b9%e6%a1%88.html" title="會員入會方案" style="float: none;" id="menu_2045981" class="menu_2045981">入會方案</a></li><li class="menu_2033787" style=""><a href="%e5%8c%af%e6%9d%b1%e8%8f%af%e9%80%b1%e5%a0%b1.html" title="匯東華週報" style="float: none;" id="menu_2033787" class="menu_2033787">匯東華週報</a></li><li class="last menu_1995710" class="last menu_1995710" style=""><a href="%e6%9c%aa%e4%be%86%e7%99%bc%e5%b1%95.html" title="未來發展" style="float: none;" id="menu_1995710" class="menu_1995710">未來發展</a></li></ul></li><li class="menu_1995435"><a href="services.html" title="營業項目" id="menu_1995435" class="menu_1995435 parent_menu_item">營業項目</a><input type="checkbox" id="__res_main_nav_button_3" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_3" onclick></label><ul menu_position="top" id="sub_menu_1995435" class="sub_menu" style="display:none; position: absolute;"><li class="menu_1995468" style=""><a href="%e7%b5%b1%e8%a8%88%e5%88%86%e6%9e%90.html" title="統計分析" style="float: none;" id="menu_1995468" class="menu_1995468">統計分析</a></li><li class="menu_1995469" style=""><a href="%e6%95%b8%e6%93%9a%e4%b8%b2%e6%8e%a5%e8%88%87%e6%b8%85%e6%b4%97.html" title="數據串接與清洗" style="float: none;" id="menu_1995469" class="menu_1995469">數據串接與清洗</a></li><li class="menu_1995470" style=""><a href="%e6%95%99%e8%82%b2%e5%9f%b9%e8%a8%93.html" title="教育培訓" style="float: none;" id="menu_1995470" class="menu_1995470">教育培訓</a></li><li class="menu_1995471" style=""><a href="%e7%b5%b1%e8%a8%88%e8%ab%ae%e8%a9%a2.html" title="統計諮詢" style="float: none;" id="menu_1995471" class="menu_1995471">統計諮詢</a></li><li class="last menu_1995472" class="last menu_1995472" style=""><a href="%e5%91%a8%e9%82%8a%e5%95%86%e5%93%81.html" title="周邊商品" style="float: none;" id="menu_1995472" class="menu_1995472">周邊商品</a></li></ul></li><li class="menu_2014573"><a href="%e8%aa%b2%e7%a8%8b%e5%a0%b1%e5%90%8d.html" title="課程報名" id="menu_2014573" class="menu_2014573">課程報名</a></li><li class="menu_2056823"><a href="%e7%9b%b4%e6%92%ad%e8%aa%b2%e7%a8%8b%e5%8d%80.html" title="直播課程區" id="menu_2056823" class="menu_2056823">直播課程區</a></li><li class="menu_2019127"><a href="%e5%ad%b8%e7%bf%92%e5%b0%88%e5%8d%80.html" title="學習專區" id="menu_2019127" class="menu_2019127 parent_menu_item">學習專區</a><input type="checkbox" id="__res_main_nav_button_4" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_4" onclick></label><ul menu_position="top" id="sub_menu_2019127" class="sub_menu" style="display:none; position: absolute;"><li class="menu_2019309" style=""><a href="bmj%e6%96%87%e7%ab%a0%e7%b8%bd%e8%a6%bd.html" title="BMJ小小統計問題" style="float: none;" id="menu_2019309" class="menu_2019309">BMJ小小統計問題</a></li><li class="menu_2015907" style=""><a href="%e6%95%99%e6%9d%90%e5%8b%98%e8%aa%a4.html" title="教材勘誤" style="float: none;" id="menu_2015907" class="menu_2015907">教材勘誤</a></li><li class="last menu_2019132" class="last menu_2019132" style=""><a href="%e7%b2%be%e9%81%b8%e6%96%87%e7%8d%bb%e8%88%87%e5%85%b6%e4%bb%96%e8%b3%87%e6%ba%90.html" target="_blank" title="精選文獻與其他資源" style="float: none;" id="menu_2019132" class="menu_2019132">精選文獻與其他資源</a></li></ul></li><li class="menu_1995479"><a href="%e6%9c%80%e6%96%b0%e6%b6%88%e6%81%af.html" title="最新消息" id="menu_1995479" class="menu_1995479">最新消息</a></li><li class="menu_2034290"><a href="%e5%b8%b8%e8%a6%8b%e5%95%8f%e9%a1%8c.html" title="常見問題" id="menu_2034290" class="menu_2034290">常見問題</a></li><li class="last menu_1995433" class="last menu_1995433"><a href="contactus.html" title="聯絡我們" id="menu_1995433" class="menu_1995433">聯絡我們</a></li></ul><!--/UdmComment--></div>
 </div>
-<div id="rot_ctr1_bod_ctr2" class="b_bg" block_type="bg" tpba_id="3869623"><div id="rot_ctr1_bod_ctr2_bod" class="b_bg" block_type="bg" tpba_id="3869624"><div id="rot_ctr1_bod_ctr2_bod_wrp1" class="b_pagebg" block_type="pagebg" tpba_id="3869625"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk1" class="b_bg" block_type="bg" tpba_id="3869630"></div>
-<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2" class="b_bg" block_type="bg" tpba_id="3869646"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_custom" class="b_html" block_type="html"><p><em><span style="font-size: 18pt;"><span style="font-size: 24pt;">"匯東華-認真作好每件事"</span><br />~統計，不再是阻力，而是助力~</span></em><img src="營業項目/_imagecache/graph-6249046_1920.png" caption="false" /></p></div>
-<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1" class="b_bg" block_type="bg" tpba_id="3869647"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk1" class="b_html" block_type="html" tpba_id="3869648"><p><img src="static/images/icons/parallax_home_icon1.png" /></p></div>
-<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk2" class="b_html" block_type="html" tpba_id="3869649"><h1><span style="color: #800000; font-size: 24pt;"><strong>BMJ小小統計問題(122</strong></span><span style="color: #800000; font-size: 24pt;"><strong>)：Relative risks and statistical significance (相對危險性與統計顯著性)</strong></span></h1>
-<div dir="auto">
-<p>Cite this as: BMJ 2010;341:c4265</p>
-<p><a href="https://www.bmj.com/content/341/bmj.c4265" target="">https://www.bmj.com/content/341/bmj.c4265</a></p>
+<div id="rot_ctr1_bod_ctr2" class="b_bg" block_type="bg" tpba_id="3869623"><div id="rot_ctr1_bod_ctr2_bod" class="b_bg" block_type="bg" tpba_id="3869624"><div id="rot_ctr1_bod_ctr2_bod_wrp1" class="b_pagebg" block_type="pagebg" tpba_id="3869625"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk3_custom" class="b_bg" block_type="bg"></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk1" class="b_bg" block_type="bg" tpba_id="3869630"></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2" class="b_bg" block_type="bg" tpba_id="3869646"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_custom" class="b_carousel2" block_type="carousel2">
+  
+<div widget="carousel2" type="carousel2" epoch="" values="26138" id="carousel2_26138" class="carousel2_widget" style="overflow:hidden">
+    <div style="display:none">
+      <div class="mfp-wrap">
+        <div class="mfp-title"></div>
+        <div class="mfp-counter"></div>
+      </div>
+      <ul class="slick-dots">
+        <li class="slick-active">
+          <div id="button"></div>
+        </li>
+      </ul>
+      <div class="slick-slide"><img /></div>
+      <div class="captionjs animated">
+        <figcaption></figcaption>
+      </div>
+    </div>
+  <div id="carousel2_container_26138" class="carousel2_container">
+    <div class="slider lazy" id="slick_index_26138">
+<div><div class="image"><img class="slick-slider-img" data-caption="統合分析研究工作坊上課情形1" data-lazy="https://www.medatatw.com/_imagecache/P=MW800,MH800,F,BFFFFFF/統合分析研究工作坊課程情形1.png" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="統合分析研究工作坊上課情形2" data-lazy="https://www.medatatw.com/_imagecache/P=MW800,MH800,F,BFFFFFF/統合分析研究工作坊課程情形2.png" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="統合分析研究工作坊課程講義" data-lazy="https://www.medatatw.com/_imagecache/P=MW800,MH800,F,BFFFFFF/統合分析研究工作坊講義.png" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="統合分析工作坊：統合分析步驟" data-lazy="https://www.medatatw.com/教育培訓//_imagecache/P=MW800,MH800,F,BFFFFFF/11.png" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="統合分析工作坊：森林圖" data-lazy="https://www.medatatw.com/教育培訓//_imagecache/P=MW800,MH800,F,BFFFFFF/12.png" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="統合分析工作坊：拉貝圖" data-lazy="https://www.medatatw.com/教育培訓//_imagecache/P=MW800,MH800,F,BFFFFFF/13.png" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="統合分析工作坊：選題" data-lazy="https://www.medatatw.com/教育培訓//_imagecache/P=MW800,MH800,F,BFFFFFF/14.png" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="統合分析工作坊：文獻檢索" data-lazy="https://www.medatatw.com/教育培訓//_imagecache/P=MW800,MH800,F,BFFFFFF/15.png" /></div></div>    </div>
+  </div>
 </div>
-<p><span style="color: #800000; font-size: 24pt;"><strong>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <br /></strong></span></p>
-<div dir="auto">
-<div class="cxmmr5t8 oygrvhab hcukyx3x c1et5uql o9v6fnle ii04i59q">
-<div dir="auto">
-<div class="cxmmr5t8 oygrvhab hcukyx3x c1et5uql o9v6fnle ii04i59q">
-<div dir="auto">
-<div class="cxmmr5t8 oygrvhab hcukyx3x c1et5uql o9v6fnle ii04i59q">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<div dir="auto">
-<h2 style="text-align: left;"><strong><em><span style="font-size: 18pt;">前言</span></em></strong></h2>
-<p><span style="font-size: 18pt;">本期小小統計問題談的是流行病學以及統計學非常重要的概念，內容主要討論了統計學中的相對危險性、信賴區間以及假設檢定的概念，最後並提醒信賴區間與顯著性水準並不相同。時間過得真快，一眨眼就快2024年，盤點今年得失，準備邁向更好的年度。Hope u enjoy it&nbsp;</span><span class="fa fa-smile-o" style="font-size: 18pt;"></span><span style="font-size: 18pt;">。</span></p>
-<p><span style="font-size: 18pt;"><br />-----</span></p>
-<p><span style="font-size: 18pt;">路徑：匯東華官網/學習專區/<a href="bmj文章總覽.html" target="_blank" rel="noopener">BMJ小小統計問題</a></span></p>
-<p><span style="font-size: 18pt;"><span></span>匯東華[課程招生中]</span></p>
-<p><span style="font-size: 18pt;"><span>✨<a href="https://www.facebook.com/photo/?fbid=382273730819542&amp;set=pb.100071107542838.-2207520000" target="">流行病學與生物統計慶新年</a>：新版教材上市優惠開跑 [至2024年1月31日]</span></span></p>
-<hr />
-<ul>
-<li>
-<p><span style="font-size: 18pt;">2024年一月課程招生中！</span></p>
-</li>
-<li></li>
-<li>
-<p><span style="font-size: 18pt;"></span></p>
-<span style="font-size: 18pt;">✅2024/1/13 (六)－</span><span style="font-size: 18pt;">實體課 ：<a href="ai02活用chatgpt之六大研究場景實戰應用.html" target="_blank" rel="noopener">ChatGPT於科學研究之應用</a></span></li>
-<li><span style="font-size: 18pt;"><span style="font-size: 24px;"></span></span></li>
-<li><span style="font-size: 18pt;"><span></span></span></li>
-<li><span style="font-size: 18pt;">✅2024/1/14 (日)－實體課 ：<a href="eai02-stepbystepchatgpt高效醫學論文寫作關聯性研究.html" target="_blank" rel="noopener">ChatGPT與醫學論文寫作</a></span></li>
-<li><span style="font-size: 18pt;">✅2024/1/20 (六)－實體課 ：<a href="a01-spss零基礎入門統計課程.html" target="_blank" rel="noopener">A01-SPSS實戰課程：零基礎入門統計課程</a></span></li>
-<li><span style="font-size: 18pt;">✅2024/1/21 (日)－實體課 ：<a href="a05-spss實戰班_問卷與量表統計分析.html" target="_blank" rel="noopener">A05-SPSS統計實戰班：問卷與量表統計分析</a></span></li>
-<li><span style="font-size: 18pt;">✅2024/1/25 (五)－線上課程 ：白話效果量（effect size）：分析與應用</span></li>
-<li></li>
+
+
+
+<style>
+  .slick-slide { outline: none; }
+  .slick-slide .image{padding: 5px;}
+  .slick-slide img{border:0px solid #FFF;display:block;width:100%;}
+  .slick-slide img.slick-loading{border:0 }
+  .slick-slider{margin:30px auto 50px; padding-left:22px; padding-right:22px;}
+
+  .slick-list { position: relative; overflow: hidden; display: block; margin: 0; padding: 0; }
+  .slick-list:focus { outline: none; }
+  .slick-loading .slick-list { background: white url(https://imgur.com/YWGUhK4) center center no-repeat; }
+  .slick-list.dragging { cursor: pointer; cursor: hand; }
+
+  .slick-track { position: relative; left: 0; top: 0; display: block; zoom: 1; }
+  .slick-track:before, .slick-track:after { content: ""; display: table; }
+  .slick-track:after { clear: both; }
+  .slick-loading .slick-track { visibility: hidden; }
+
+  .slick-slide.dragging img { pointer-events: none; }
+  .slick-initialized .slick-slide { display: block; }
+  .slick-loading .slick-slide { visibility: hidden; }
+  .slick-vertical .slick-slide { display: block; height: auto; border: 1px solid transparent; }
+
+
+  /* Icons */
+  @font-face { 
+    font-family: "slick"; 
+    src: url("static/css/slick/slick.eot"); 
+    src: url("static/css/slick/slickd41d.eot?#iefix") format("embedded-opentype"), 
+         url("static/css/slick/slick.woff") format("woff"), 
+         url("static/css/slick/slick.ttf") format("truetype"), 
+         url("static/css/slick/slick.svg#slick") format("svg"); 
+    font-weight: normal; 
+    font-style: normal; 
+  }
+
+  /* Arrows */
+  #carousel2_26138 .slick-next {
+    position: absolute; display: block; height: 20px; width: 20px; line-height: 0; font-size: 0; 
+    cursor: pointer; top: 50%; margin-top: -10px; padding: 0; border: none; outline: none; }
+
+  #carousel2_26138 .slick-prev {
+    position: absolute; display: block; height: 20px; width: 20px; line-height: 0; font-size: 0;
+    cursor: pointer; top: 50%; margin-top: -10px; padding: 0; border: none; outline: none; }
+
+  #carousel2_26138 .slick-prev:focus, .slick-next:focus { outline: none; }
+  #carousel2_26138 .slick-prev.slick-disabled:before, .slick-next.slick-disabled:before { opacity: 0.25; }
+  #carousel2_26138 .slick-prev:before, .slick-next:before {
+    font-family: "slick"; font-size: 20px; line-height: 1;
+    color: white; opacity: 0.85; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+
+
+    #carousel2_26138 .slick-prev { background: transparent; color: transparent; }
+    #carousel2_26138 .slick-prev { left: 2px; }
+    #carousel2_26138 [dir='rtl'] .slick-prev { right: 2px; left: auto; }
+    #carousel2_26138 .slick-prev:before {
+      content: '\2190';
+    }
+    #carousel2_26138 [dir='rtl'] .slick-prev:before {
+      content: '\2192';
+    }
+
+    #carousel2_26138 .slick-next { background: transparent; color: transparent; }
+    #carousel2_26138 .slick-next { right: 2px; }
+    #carousel2_26138 [dir='rtl'] .slick-next { right: auto; left: 0px; }
+    #carousel2_26138 .slick-next:before {
+      content: '\2192';
+    }
+    #carousel2_26138 [dir='rtl'] .slick-next:before {
+      content: '\2190';
+    }
+
+
+
+  /* Dots */
+  #carousel2_26138 .slick-dots { position: absolute; bottom: -25px; list-style: none; display: block; text-align: center; padding: 0px; width: 100%; }
+  #carousel2_26138 .slick-dots li { position: relative; display: inline-block; height: 20px; width: 20px; margin: 0px 5px; padding: 0px; cursor: pointer; }
+  #carousel2_26138 .slick-dots li button {
+      border: 0; background: transparent; display: block; height: 20px; width: 20px;
+      outline: none; line-height: 0; font-size: 0; color: black; padding: 5px; cursor: pointer; outline: none;
+  }
+  #carousel2_26138 .slick-dots li button:focus { outline: none; }
+  #carousel2_26138 .slick-dots li button:before {
+    position: absolute; top: 0; left: 0; content: '\2022'; width: 20px; height: 20px;
+    font-family: "slick"; font-size: 6px; line-height: 20px; text-align: center; opacity: 0.25; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  #carousel2_26138 .slick-dots li.slick-active button:before { opacity: 0.75; }
+  #carousel2_26138 .slick-prev:before, .slick-next:before {
+    color: #000;
+  }
+
+  /* Lightshow */
+  /* .mfp-counter { display:none; } */
+
+</style>
+
+
+
+
+
+
+
+
+
+
+</div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_custom" class="b_html" block_type="html"><!-- ====================================================
+     AI助力統合分析研究工作坊：實戰班 - 課程內容區塊
+     版本：v2.0_2026.0115_CSX
+     說明：此為純內容區塊，可直接貼入官網頁面
+     特色：CSS v2.0（與基礎班統一格式）
+     ==================================================== -->
+<p></p>
+<p></p>
+<p></p>
+<!-- ========== Meta-Analysis 課程頁面專屬樣式 v2.0 ========== --><!-- ==================== 課程內容開始 ==================== -->
+<div class="ma-course-content"><!-- Hero 區塊 -->
+<div class="ma-hero"><span class="ma-hero-badge">2026 全新升級 ✦ 進階實戰</span>
+<h1>AI 助力統合分析研究工作坊：實戰班</h1>
+<p class="subtitle">一鍵生成發表級圖表，AI 助手讓研究產出快 10 倍，有速度，更有專業品質</p>
+<p class="tagline"><strong>零程式碼 ✦ 零安裝 ✦ 零門檻 &mdash; 即學即用</strong></p>
+<div class="ma-highlight-tags"><span class="ma-highlight-tag">一鍵生成</span> <span class="ma-highlight-tag">AI 智能分析</span> <span class="ma-highlight-tag">發表級圖表</span></div>
+</div>
+<!-- 影片介紹 -->
+<div class="ma-video-section"><!-- 夜空漸層說明框 -->
+<div style="background: linear-gradient(135deg, #16213E 0%, #1A1A1A 100%); padding: 30px; margin-bottom: 30px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); position: relative; overflow: hidden;"><!-- 月相裝飾 -->
+<div style="position: absolute; top: 20px; right: 30px; width: 60px; height: 60px; background: radial-gradient(circle, #C4A46D 0%, transparent 70%); border-radius: 50%; opacity: 0.3;"></div>
+<div style="position: relative; z-index: 1;">
+<div style="display: inline-block; background: rgba(196, 164, 109, 0.2); color: #c4a46d; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; margin-bottom: 15px; border: 1px solid rgba(196, 164, 109, 0.3);">影片說明</div>
+<p style="margin: 0; font-size: 16px; color: #ffffff; line-height: 1.8;"><span style="font-size: 14pt;">以下影片為<strong style="color: #c4a46d;">統合分析實戰班課程介紹</strong></span><br /><span style="font-size: 14pt; color: rgba(255, 255, 255, 0.8);">（R 語言版本，2023年錄製）</span></p>
+<p style="margin: 15px 0 0 0; font-size: 15px; color: #c4a46d; line-height: 1.6;"><span style="font-size: 14pt;">✨ 2026 年全新<strong style="color: #ffffff;"> AI 助力版</strong>採用零程式碼工具，操作更簡單！</span></p>
+</div>
+</div>
+<!-- 影片嵌入 --> <iframe width="800" height="450" src="https://www.youtube.com/embed/HEhqKzMn50E" title="統合分析工作坊實戰班課程介紹" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen"></iframe>
+<p class="ma-video-caption">課程介紹影片（前版 R 語言課程精華示範，2026 年度為全新 AI 助力課程規劃）</p>
+</div>
+<!-- 三大亮點 -->
+<h2 class="ma-section-title">實戰班三大亮點</h2>
+<div class="ma-highlights">
+<div class="ma-highlight-card">
+<div class="icon">⚡</div>
+<h3>一鍵生成</h3>
+<p>無須寫程式碼，一鍵產出發表級森林圖、漏斗圖等核心圖表</p>
+</div>
+<div class="ma-highlight-card">
+<div class="icon"></div>
+<h3>AI 智能助手</h3>
+<p>AI 協助數據擷取、分析解讀，大幅縮短研究時程</p>
+</div>
+<div class="ma-highlight-card">
+<div class="icon"></div>
+<h3>寫作模板</h3>
+<p>提供 PRISMA 對應寫作範本，快速完成論文各章節</p>
+</div>
+</div>
+<!-- 課程介紹 -->
+<h2 class="ma-section-title">課程介紹</h2>
+<div class="ma-intro">
+<p>實戰班主要聚焦於 <strong>meta-analysis、small-research effect、bias 評估</strong>等分析的實作。<strong>無須寫程式碼、無須安裝軟體、無須註冊</strong>，能夠即學即用<strong>一鍵生成發表級圖表</strong>與產生結果報告。</p>
+<p>每段落將穿插 Q&amp;A 互動，讓學員實作練習並討論。學員可培養實際用於進行統合分析的研究技術，並提供 SR with MA 研究發表所需各章節的<strong>寫作範本</strong>，在 AI 助力下，能有效地將工作坊學習成果整理成一篇研究進行發表。</p>
+<p>參加學員將由本工作坊學習進階應用，為之後使用 MA 進行研究與進一步學習進階統合分析法，如 <strong>Network meta-analysis、Multivariate meta-analysis</strong> 等打下堅實的基礎。</p>
+</div>
+<!-- 課程特色 -->
+<div class="ma-features">
+<h2 class="ma-features-title">為什麼選擇實戰班？</h2>
+<div class="ma-features-grid">
+<div class="ma-feature-item"><span class="number">0</span>
+<h4 style="text-align: center;">零程式碼</h4>
+<p>全程使用網頁版工具，不需要任何程式基礎</p>
+</div>
+<div class="ma-feature-item"><span class="number">0</span>
+<h4 style="text-align: center;">零安裝</h4>
+<p>無需安裝任何統計軟體，瀏覽器即可操作</p>
+</div>
+<div class="ma-feature-item"><span class="number">AI</span>
+<h4 style="text-align: center;">AI 數據擷取</h4>
+<p>運用 AI 工具自動擷取文獻數據，告別手動抄錄</p>
+</div>
+<div class="ma-feature-item"><span class="number">1鍵</span>
+<h4 style="text-align: center;">一鍵圖表</h4>
+<p>一鍵生成森林圖、漏斗圖等發表級圖表</p>
+</div>
+<div class="ma-feature-item"><span class="number"></span>
+<h4 style="text-align: center;">寫作模板</h4>
+<p>PRISMA-NMA 對應寫作範本，加速論文撰寫</p>
+</div>
+</div>
+</div>
+<!-- 課程大綱 -->
+<h2 class="ma-section-title">實戰班課程大綱</h2>
+<div class="ma-curriculum">
+<div class="ma-curriculum-unit">
+<h3><span class="step-badge">第一章</span> 基礎課程複習</h3>
+<ul class="ma-curriculum-list">
+<li><span style="color: #000000;">複習基礎班課程重點</span></li>
+<li><span style="color: #000000;">Q &amp; A 解惑時間</span></li>
 </ul>
-<p><span style="font-size: 18pt;"></span></p>
-<p><span style="font-size: 18pt;">-----<br /></span><span style="font-size: 18pt;"></span></p>
-<p><span style="font-size: 18pt;">✨本公司提供【流行病學】與【生物統計學】線上課程，請至</span><a href="https://medata.teaches.cc/" target="_blank" title="匯東華統計學院" rel="noopener" style="font-size: 18pt; background-color: #ffffff;">匯東華統計學院</a></p>
-<p><span style="font-size: 18pt;">✨<a href="會員入會方案.html" target="_blank" rel="noopener">匯東華會員制</a></span></p>
-<p><span style="font-size: 18pt;"><a href="課程報名.html" target=""><span></span>更多課程介紹與報名資訊</a></span></p>
-<p><span style="font-size: 18pt;"><br />-----</span></p>
+</div>
+<div class="ma-curriculum-unit" style="border-left-color: #B82226;">
+<h3><span class="step-badge" style="background: #B82226; color: #fff;">AI 助力</span> 分析流程與方法</h3>
+<ul class="ma-curriculum-list">
+<li><span style="color: #000000;"><strong style="color: #b82226;">【AI 數據擷取】</strong>AI 工具數據擷取步驟</span></li>
+<li><span style="color: #000000;">建立資料框與注意事項</span></li>
+<li><span style="color: #000000;"><strong style="color: #b82226;">【網頁版工具】</strong>分析軟體與資源介紹</span></li>
+<li><span style="color: #000000;">核心圖表概覽：效果量、異質性、Subgroup、偏差檢測</span></li>
+</ul>
+</div>
+<div class="ma-curriculum-unit" style="border-left-color: #B82226;">
+<h3><span class="step-badge" style="background: #B82226; color: #fff;">一鍵生成</span> Y=二分類變數</h3>
+<ul class="ma-curriculum-list">
+<li><span style="color: #000000;">二分類變數分析步驟</span></li>
+<li><span style="color: #000000;">不同參數選擇判定法</span></li>
+<li><span style="color: #000000;"><strong style="color: #b82226;">【一鍵生成】</strong>結果圖表產出</span></li>
+<li><span style="color: #000000;">結果詮釋與注意事項</span></li>
+<li><span style="color: #000000;">實作練習</span></li>
+</ul>
+</div>
+<div class="ma-curriculum-unit" style="border-left-color: #B82226;">
+<h3><span class="step-badge" style="background: #B82226; color: #fff;">一鍵生成</span> Y=連續性變數</h3>
+<ul class="ma-curriculum-list">
+<li><span style="color: #000000;">連續性變數分析步驟</span></li>
+<li><span style="color: #000000;">不同參數選擇判定法</span></li>
+<li><span style="color: #000000;"><strong style="color: #b82226;">【一鍵生成】</strong>結果圖表產出</span></li>
+<li><span style="color: #000000;">結果詮釋與注意事項</span></li>
+<li><span style="color: #000000;">實作練習</span></li>
+</ul>
+</div>
+<div class="ma-curriculum-unit" style="border-left-color: #B82226;">
+<h3><span class="step-badge" style="background: #B82226; color: #fff;">一鍵生成</span> Y=Time to Event</h3>
+<ul class="ma-curriculum-list">
+<li><span style="color: #000000;">TTE 變數分析步驟</span></li>
+<li><span style="color: #000000;">不同參數選擇判定法</span></li>
+<li><span style="color: #000000;"><strong style="color: #b82226;">【一鍵生成】</strong>結果圖表產出</span></li>
+<li><span style="color: #000000;">結果詮釋與注意事項</span></li>
+<li><span style="color: #000000;">實作練習</span></li>
+</ul>
+</div>
+<div class="ma-curriculum-unit">
+<h3><span class="step-badge">進階</span> Publication Bias</h3>
+<ul class="ma-curriculum-list">
+<li><span style="color: #000000;">發表偏差檢測方法</span></li>
+<li><span style="color: #000000;">漏斗圖繪製與解讀</span></li>
+<li><span style="color: #000000;">Egger's test 實作</span></li>
+</ul>
+</div>
+<div class="ma-curriculum-unit">
+<h3><span class="step-badge">進階</span> 異質性探索與穩健性</h3>
+<ul class="ma-curriculum-list">
+<li><span style="color: #000000;">子群體分析（Subgroups analysis）</span></li>
+<li><span style="color: #000000;">Meta-regression</span></li>
+<li><span style="color: #000000;">敏感性分析（Sensitivity Analysis）</span></li>
+</ul>
+</div>
+<div class="ma-curriculum-unit" style="border-left-color: #B82226; background: linear-gradient(135deg, #fff 0%, #fff5f5 100%);">
+<h3><span class="step-badge" style="background: #B82226; color: #fff;">AI 助力</span> 寫作規範與模板</h3>
+<ul class="ma-curriculum-list">
+<li><span style="color: #000000;"><strong style="color: #b82226;">【PRISMA-NMA 寫作規範】</strong>完整指南</span></li>
+<li><span style="color: #000000;"><strong style="color: #b82226;">【寫作模板】</strong>對應內容範本應用</span></li>
+<li><span style="color: #000000;">AI 輔助論文撰寫技巧</span></li>
+<li><span style="color: #000000;">實作練習</span></li>
+</ul>
+</div>
+<div class="ma-curriculum-unit">
+<h3><span class="step-badge">延伸</span>&nbsp;Pairwise meta-analysis常見誤區</h3>
+<ul class="ma-curriculum-list">
+<li><span style="color: #000000;">常見問題</span></li>
+<li><span style="color: #000000;">常見錯誤</span></li>
+<li><span style="color: #000000;">進階學習資源推薦</span></li>
+</ul>
+</div>
+<div class="ma-curriculum-unit">
+<h3><span class="step-badge">總結</span> 回家作業與 Q&amp;A</h3>
+<ul class="ma-curriculum-list">
+<li><span style="color: #000000;">說明要完成的回家作業</span></li>
+<li><span style="color: #000000;">綜合問答與討論</span></li>
+</ul>
+</div>
+</div>
+<!-- 適用對象 -->
+<h2 class="ma-section-title">適用對象</h2>
+<p style="font-size: 16px; color: #0000ff; font-weight: bold; margin-bottom: 20px;"><span style="font-size: 14pt;">已具備統合分析基礎概念，想要進階學習實作技能者</span></p>
+<div class="ma-audience-grid">
+<div class="ma-audience-card">
+<h3>已有基礎的學員</h3>
+<p><span style="color: #000000;">已完成基礎課程，希望進一步學習實際分析技能與圖表產出。</span></p>
+</div>
+<div class="ma-audience-card">
+<h3>臨床研究人員</h3>
+<p><span style="color: #000000;">需要快速產出統合分析結果，用於臨床決策或研究發表。</span></p>
+</div>
+<div class="ma-audience-card">
+<h3>論文撰寫者</h3>
+<p><span style="color: #000000;">正在進行統合分析研究，需要學習圖表產出與論文撰寫技巧。</span></p>
+</div>
+</div>
+<!-- 課程資訊 -->
+<h2 class="ma-section-title">課程資訊</h2>
+<div class="ma-info-box">
+<div class="ma-info-item"><span class="ma-info-label">課程名稱</span> <span class="ma-info-value"><span style="color: #000000;">AI 助力統合分析研究工作坊：實戰班</span></span></div>
+<div class="ma-info-item"><span class="ma-info-label">上課日期</span> <span class="ma-info-value">請見報名表</span></div>
+<div class="ma-info-item"><span class="ma-info-label">上課時間</span> <span class="ma-info-value">08:30 - 17:30（共 8 小時）</span></div>
+<div class="ma-info-item"><span class="ma-info-label">上課地點</span> <span class="ma-info-value">匯東華統計顧問有限公司教室<span style="color: #000000;"><small>高雄市前鎮區中山二路 91 號 11 樓之 1</small></span></span></div>
+<div class="ma-info-item"><span class="ma-info-label">課程費用</span> <span class="ma-info-value"><span class="price">NT$ 15,000</span></span></div>
+<div class="ma-info-item"><span class="ma-info-label">招生名額</span> <span class="ma-info-value">15 名（小班制教學）</span></div>
+<div class="ma-info-item"><span class="ma-info-label">軟體需求</span> <span class="ma-info-value">Endnote + AI 工具（NotebookLM、ChatGPT 等）<span style="color: #000000;"><small>建議使用 Windows 作業系統</small></span></span></div>
+<div class="ma-info-item"><span class="ma-info-label">先修建議</span> <span class="ma-info-value">建議先完成基礎班或具備統合分析基礎概念</span></div>
+</div>
+<!-- 線上課程提示 -->
+<div class="ma-online-notice">
+<p><strong>前版 R 語言線上課程廣受好評！</strong></p>
+<p><strong>適合偏好程式操作、想深入了解統計原理的學習者，一年期不限時間與空間學習。</strong></p>
+<p><a href="https://medata.teaches.cc/course/SR-MA1" target="_blank" rel="noopener">統合分析研究工作坊：基礎班（R 語言版 / 線上）</a> | <a href="https://medata.teaches.cc/course/SR-MA2" target="_blank" rel="noopener">統合分析研究工作坊：實戰班（R 語言版 / 線上）</a></p>
+</div>
+<!-- CTA 區塊 -->
+<div class="ma-cta">
+<h2>準備好讓 AI 助你一臂之力了嗎？</h2>
+<p>一鍵生成發表級圖表，讓統合分析不再是難題</p>
+<div class="ma-btn-group"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdFd8lzInkZbCTJTc0Jtb0VvrQIrGkFN0hMcBpjsx3aRHkA7A/viewform" class="ma-btn ma-btn-primary" target="_blank" title="AI助力統合分析實戰班報名" rel="noopener">立即報名</a> <a href="contactus.html" class="ma-btn ma-btn-secondary">免費諮詢</a></div>
+</div>
+<!-- 聯絡我們 -->
+<div class="ma-contact">
+<h3>聯絡我們</h3>
+<ul class="ma-contact-list">
+<li>Line 官方帳號：<a href="https://lin.ee/YcV3eSs" target="_blank" rel="noopener">@medatatw</a></li>
+<li>電子郵件：<a href="mailto:info@medatatw.com">info@medatatw.com</a></li>
+<li>☎️ 電話：07-9721586 轉分機 9 或 1</li>
+<li>填寫<a href="contactus.html" target="_blank" rel="noopener">洽詢表單</a></li>
+</ul>
+</div>
+</div>
 <p></p>
 <p></p>
-<h2 style="text-align: left;"><strong><em><span style="font-size: 18pt;">問題</span></em></strong></h2>
-<p><span style="font-size: 18pt;">　　之前說過相對危險性和其 95% 信賴區間的解釋[1-2]。</span></p>
-<p><span style="font-size: 18pt;">&nbsp;</span></p>
-<p><span style="font-size: 18pt;">　　其中一個例子是一項前瞻性世代研究，該研究評估社區急性呼吸道感染處方&beta; lactam antibiotics抗生素對兒童抗生素抗藥菌流行的影響。抗生素抗藥性通過在招募和追蹤時從咽拭子中回收的多達 4 個嗜血桿菌分離株中是否存在 ICEHin1056 抗藥元素進行評估[3]。</span></p>
-<p><span style="font-size: 18pt;">&nbsp;</span></p>
-<p><span style="font-size: 18pt;">　　兩周後，67%的抗生素處方兒童與 36% 的非抗生素處方兒童相比，分離出了具有 ICEHin1056 同源物的嗜血桿菌（相對危險性為 1.9，95% 信賴區間為 1.2 至 2.9）。統計顯著性檢定為雙尾檢定。</span></p>
-<p><span style="font-size: 18pt;">&nbsp;</span></p>
-<p><span style="font-size: 18pt;">下列敘述何者正確？</span></p>
-<p><span style="font-size: 18pt;">&nbsp;</span></p>
-<p><span style="font-size: 18pt;">a) 虛無假設：在急性呼吸道感染病童母群體中，兩周後服用抗生素的病童相對於未服用抗生素的病童產生抗生素抗藥性之相對危險性為零。</span></p>
-<p><span style="font-size: 18pt;"></span></p>
-<p><span style="font-size: 18pt;">b) 對立假設：在患有急性呼吸道感染的兒童母群體中，服用抗生素的兒童兩周後產生抗生素抗藥性的風險與未服用抗生素兒童的風險不相等。</span></p>
-<p><span style="font-size: 18pt;"></span></p>
-<p><span style="font-size: 18pt;">c) 結果在 5%的顯著性水準上具有統計學意義</span></p>
-<p><span style="font-size: 18pt;"></span></p>
-<p><span style="font-size: 18pt;">d) 95%的信賴區間為統計學的顯著水準。</span></p>
-<p><span style="font-size: 18pt;">&nbsp;</span></p>
-<p><span style="font-size: 18pt;"></span></p>
-<p><span style="font-size: 18pt;"></span></p>
-<p><span style="font-size: 18pt;"></span></p>
-<p><span style="font-size: 18pt;"></span></p>
-<p><span style="font-size: 18pt;"></span></p>
-<p><span style="font-size: 18pt;"></span></p>
-<p><span style="font-size: 18pt;"></span></p>
-<p style="text-align: left;"><span style="color: #000000;"><em><span style="font-size: 18pt;"><strong>答案</strong></span></em></span></p>
-<p><span style="font-size: 18pt;">b、c正確；a、d錯誤。</span></p>
-<p>&nbsp;</p>
-<br />
-<p></p>
-<p><span style="font-weight: 400; font-size: 18pt;"></span></p>
-<h2 style="text-align: left;"><strong><em><span style="font-size: 18pt;">詳細說明</span></em></strong></h2>
-<p><span style="font-size: 18pt;">　　統計假設檢定確定開具抗生素處方的兒童與未開具抗生素處方的兒童之間的抗生素抗藥性是否存在顯著差異。統計假設檢定始於等位點[4]--即對於母群體而言，開具抗生素處方的兒童與未開具抗生素處方的兒童在抗生素抗藥性方面沒有差異。研究目的是確定樣本資料是否支持這此一觀點或提供存在差異的證據。</span></p>
-<p><span style="font-size: 18pt;">&nbsp;</span></p>
-<p><span style="font-size: 18pt;">　　在收集資料前，提出虛無假設和對立假設。虛無假設認為沒有差異，即在急性呼吸道感染病童母群體中，開具抗生素處方的病童與未開具抗生素處方的病童在兩周後產生抗生素抗藥性的風險相同。因此，母群體相對風險等於 1.0（a錯誤）。</span></p>
-<p><span style="font-size: 18pt;">&nbsp;</span></p>
-<p><span style="font-size: 18pt;">　　對立假設則認為存在差異--在母群體中，開具抗生素處方的兒童兩周後產生抗生素抗藥性的風險與未開具抗生素處方的兒童不同（b正確）。由於顯著性統計檢定為雙尾檢定，因此對立假設並無指明方向，亦即，與未服用抗生素的兒童相比，服用抗生素的兒童的風險可能更小，也可能更大。</span></p>
-<p><span style="font-size: 18pt;"><strong>&nbsp;</strong></span></p>
-<p><span style="font-size: 18pt;">　　為了確定樣本資料是支持虛無假設或是提供了差異證據，需要得出 P 值[5]。P 值是一種機率，代表樣本提供的支持虛無假設的證據強度。P 值越小，表明樣本結果不太可能支持虛無假設。P 值必須小於顯著性臨界水準，才能拒絕虛無假設，支持對立假設。通常，臨界顯著性水準設定為 0.05（即 5%）。上述統計顯著性檢驗的 P 值未列出。但是，若母群體相對危險性之 95% 信賴區間不包括1（等效狀態），則相關統計假設檢定的 P 值將小於 0.05。因此，就上述結果而言，在 5%的顯著水準上，拒絕虛無假設，支持對立假設（c正確）。反之，如果 95% 信賴區間包含1，則 P 將大於 0.05。</span></p>
-<p>&nbsp;</p>
-<p><span style="font-size: 18pt;">　　95% 信賴區間量化樣本相對危險性作為母群體相對危險性估計值的不確定性[2]。可信度（95%）表示我們有多大把握該區間將包含母群體的相對危險性；它並不等同於統計學中的顯著性水平（d錯誤）。</span></p>
-<p></p>
-<p><span style="font-size: 18pt;">&nbsp;</span></p>
-<p><strong><span style="font-size: 18pt;">Reference:</span></strong></p>
-<p><span style="font-size: 18pt;">[1] Sedgwick P., Marston L. Relative risks. BMJ2010;341:c3983.</span></p>
-<p><span style="font-size: 18pt;">[2] Sedgwick P, Marston L. Relative risks and confidence intervals. BMJ2010;341:c4166.</span></p>
-<p><span style="font-size: 18pt;">[3] Chung A, Perera R, Brueggemann AB, Elamin AE, Harnden A, Mayon-White R, et al. Effect of antibiotic prescribing on antibiotic resistance in individual children in primary care: prospective cohort study. BMJ2007;335:429.</span></p>
-<p><span style="font-size: 18pt;">[4] Sedgwick P. Statistical hypothesis testing. BMJ2010;340:c2059. 5. Sedgwick P. P values. BMJ2010;340:c2203.</span></p>
-<p><span style="font-size: 18pt;">&nbsp;</span></p>
-<p><span style="font-size: 18pt;">#匯東華 #BMJ統計問題 #relative risk #statistical significance #confidence interval #statistical level</span></p>
-<span style="font-size: 18pt;"><strong></strong></span></div>
+<!-- ==================== 課程內容結束 ==================== -->
+<p></p></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk3_custom" class="b_html" block_type="html"></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1" class="b_bg" block_type="bg" tpba_id="3869647"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk1" class="b_html" block_type="html" tpba_id="3869648"><p><img src="../w.tw.mawebcenters.com/static/designs/images/repository/parallax_home_icon1.png" /></p></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk2" class="b_html" block_type="html" tpba_id="3869649"><h4><span style="color: #800000; font-size: 24pt;"><span class="fa fa-bar-chart"></span>&nbsp;統計分析</span></h4>
+<p><a href="%e5%8c%af%e6%9d%b1%e8%8f%af%e6%9c%8d%e5%8b%99%e9%a0%85%e7%9b%ae%e5%83%b9%e7%9b%ae%e8%a1%a8v2_20210918_sm.pdf" target="">服務價目表 (未含5%營業稅)</a><br />透過嚴謹的數據整理，提供有價值的資訊，形塑知識，提高決策品質。包括信達雅三執行原則。</p>
+<p><span class="fa fa-check-square-o"></span>&nbsp;信：確保資料品質可信賴<br /><span class="fa fa-check-square-o"></span>&nbsp;達：確保統計方法適切性<br /><span class="fa fa-check-square-o"></span>&nbsp;雅：確保圖文表格正規化<br />協助代執行統計分析與進一步加值服務。</p>
+<p>在匯東華與夥伴的專業背景知識配合下，能有效地處理面對的問題。<br /><span style="color: #800000; font-size: 18pt;"><strong>統計分析成果</strong></span><br /><img src="%e7%87%9f%e6%a5%ad%e9%a0%85%e7%9b%ae/_imagecache/1.jpg" mouseover_src="" mouseout_src="" alt="" /></p></div>
 </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2" class="b_bg" block_type="bg" tpba_id="3869650"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_blk1" class="b_html" block_type="html" tpba_id="3869651"><p><img src="static/images/icons/parallax_home_icon2.png" /></p></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2" class="b_bg" block_type="bg" tpba_id="3869650"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_blk1" class="b_html" block_type="html" tpba_id="3869651"><p><img src="../w.tw.mawebcenters.com/static/designs/images/repository/parallax_home_icon2.png" /></p></div>
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_blk2" class="b_html" block_type="html" tpba_id="3869652"><h4><span style="font-size: 24pt; color: #800000;"><span class="fa fa-bar-chart"></span>&nbsp;數據串接與清洗</span></h4>
-<p>數據是礦藏，數據清洗是挖出鑽石的第一步，尤其是巨量知識。數據清洗或串接執行過程需要細心與專注，且有可能會消耗許多時間和精力，就由我們來替各位處理掉這個大麻煩。<br /><img src="營業項目/_imagecache/0.jpg" mouseover_src="" mouseout_src="" alt="" /></p>
+<p>數據是礦藏，數據清洗是挖出鑽石的第一步，尤其是巨量知識。數據清洗或串接執行過程需要細心與專注，且有可能會消耗許多時間和精力，就由我們來替各位處理掉這個大麻煩。<br /><img src="%e7%87%9f%e6%a5%ad%e9%a0%85%e7%9b%ae/_imagecache/0.jpg" mouseover_src="" mouseout_src="" alt="" /></p>
 <p></p>
 <p>全民健保研究資料庫、國外大型資料庫資料非常齊全，種類多，需要串接與清洗，進行正規化後才能更進一步進行資料探勘與統計分析。</p>
 <hr />
-<p><br /><img src="營業項目/_imagecache/0-1.jpg" mouseover_src="" mouseout_src="" alt="" /><br />Fig1.同一個Project資料散落在不同tables，無法使用</p>
+<p><br /><img src="%e7%87%9f%e6%a5%ad%e9%a0%85%e7%9b%ae/_imagecache/0-1.jpg" mouseover_src="" mouseout_src="" alt="" /><br />Fig1.同一個Project資料散落在不同tables，無法使用</p>
 <hr />
-<p><br /><img src="營業項目/_imagecache/0-2.jpg" mouseover_src="" mouseout_src="" alt="" /><br />Fig2.整併與清理為可分析的table</p>
+<p><br /><img src="%e7%87%9f%e6%a5%ad%e9%a0%85%e7%9b%ae/_imagecache/0-2.jpg" mouseover_src="" mouseout_src="" alt="" /><br />Fig2.整併與清理為可分析的table</p>
 <hr />
 <p><br /><img src="__edited_images/_imagecache/imagetools0_edited.jpg" mouseover_src="" mouseout_src="" alt="" /><br />Fig.3整理和分析後形成有意義的知識</p>
 <hr />
-<p><span style="color: #800000;"><strong><span style="font-size: 18pt;">概念與流程示意圖</span></strong></span><br /><img src="營業項目/_imagecache/0-4.jpg" mouseover_src="" mouseout_src="" alt="" /></p></div>
+<p><span style="color: #800000;"><strong><span style="font-size: 18pt;">概念與流程示意圖</span></strong></span><br /><img src="%e7%87%9f%e6%a5%ad%e9%a0%85%e7%9b%ae/_imagecache/0-4.jpg" mouseover_src="" mouseout_src="" alt="" /></p></div>
 </div>
-<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk3" class="b_bg" block_type="bg" tpba_id="3869653"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk3_blk1" class="b_html" block_type="html" tpba_id="3869654"><p><img src="static/images/icons/parallax_home_icon3.png" /></p></div>
-<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk3_blk2" class="b_html" block_type="html" tpba_id="3869655"><h4><span style="font-size: 24pt; color: #800000;"><span class="fa fa-book"></span>&nbsp;教育培訓</span></h4>
-<p>課程規劃核心為以「學習者」為中心進行「傳承」</p>
-<p>以學習者為中心，結合陳秀敏博士十多年來的統計實務以及教學經驗，設計適合學員學習方式，開設課程，達到有效學習。</p>
-<p>&nbsp;</p>
-<p>開設線上統計學院</p>
-<p><a href="https://medata.teaches.cc/" target="">https://medata.teaches.cc/</a></p>
-<p>SPSS基礎統計實戰班：第一次分析SCI研究就上手(上、下)</p>
-<p><a href="https://medata.teaches.cc/">課程網址：https://medata.teaches.cc/</a></p>
-<p><a href="https://www.youtube.com/watch?v=MPz2wqN0v2M" target="">課程介紹1：https://www.youtube.com/watch?v=MPz2wqN0v2M</a></p>
-<p><a href="https://www.youtube.com/watch?v=nd5A5duxO5E" target="">課程介紹2：https://www.youtube.com/watch?v=nd5A5duxO5E</a></p>
-<p>&nbsp;</p>
-<p>臨床研究思維-Open your mind</p>
-<p><a href="https://medata.teaches.cc/" target="">課程網址：https://medata.teaches.cc/</a></p>
-<p><a href="https://www.youtube.com/watch?v=yTHdBnCdSnY" target="">課程介紹1：https://www.youtube.com/watch?v=yTHdBnCdSnY</a><br /><a href="https://www.youtube.com/watch?v=kE9tXraICqk" target="">課程介紹2 : https://www.youtube.com/watch?v=kE9tXraICqk</a></p>
-<p><a href="https://www.youtube.com/watch?v=1tTApx1hjn0" target="">臨床研究基本原則 : https://www.youtube.com/watch?v=1tTApx1hjn0</a></p></div>
-</div>
-<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4" class="b_bg" block_type="bg" tpba_id="3869656"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4_blk1" class="b_html" block_type="html" tpba_id="3869657"><p><img src="static/images/icons/parallax_home_icon4.png" /></p></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4" class="b_bg" block_type="bg" tpba_id="3869656"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4_blk1" class="b_html" block_type="html" tpba_id="3869657"><p><img src="../w.tw.mawebcenters.com/static/designs/images/repository/parallax_home_icon4.png" /></p></div>
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4_blk2" class="b_html" block_type="html" tpba_id="3869658"><h4><span style="font-size: 24pt; color: #800000;"><span class="fa fa-id-badge"></span>&nbsp;計畫撰寫與統計諮詢</span></h4>
-<p><img src="營業項目/_imagecache/00.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="營業項目/_imagecache/00-1.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="營業項目/_imagecache/00-2.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="營業項目/_imagecache/00-3.jpg" mouseover_src="" mouseout_src="" alt="" /><br />為了讓匯東華的顧客與學員有更好的合作和消費體驗，故匯東華特別依據營業項目開發周邊產品，提供使用、購買。目前已有針對公共衛生師的題庫以及模擬試題，未來將針對醫學研究領域發展產品。</p></div>
+<p><img src="%e7%87%9f%e6%a5%ad%e9%a0%85%e7%9b%ae/_imagecache/00.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="%e7%87%9f%e6%a5%ad%e9%a0%85%e7%9b%ae/_imagecache/00-1.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="%e7%87%9f%e6%a5%ad%e9%a0%85%e7%9b%ae/_imagecache/00-2.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="%e7%87%9f%e6%a5%ad%e9%a0%85%e7%9b%ae/_imagecache/00-3.jpg" mouseover_src="" mouseout_src="" alt="" /><br />為了讓匯東華的顧客與學員有更好的合作和消費體驗，故匯東華特別依據營業項目開發周邊產品，提供使用、購買。目前已有針對公共衛生師的題庫以及模擬試題，未來將針對醫學研究領域發展產品。</p></div>
 </div>
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk5" class="b_bg" block_type="bg" tpba_id="3869659"></div>
 </div>
@@ -3107,7 +3236,7 @@
 </div>
 
     
-    <script src="__system/__js/h_2982f81108298020ae7016e5d29a4d50/2770918_combined.min.js"></script>
+    <script src="__system/__js/h_44aa628664a0fc88d7aa0d5d72c1a4b0/2786386_combined.min.js"></script>
     <script>
       (function() {
         var domain = window.location.hostname;
@@ -3120,7 +3249,7 @@
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+              })(window,document,'script','../www.google-analytics.com/analytics.js','ga');
 
               ga('create', ga_id, 'auto');
               ga('send', 'pageview');
@@ -3137,144 +3266,7 @@
         }
       })();
       </script>
-  
-<!-- BMJ 課程推薦區塊 - A01 -->
-<div class="bmj-course-cta bmj-cta-a01" style="
-  margin: 40px auto;
-  padding: 28px;
-  max-width: 900px;
-  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
-  border-left: 5px solid #B82226;
-  border-radius: 8px;
-  font-family: 'Raleway', 'Microsoft JhengHei', '微軟正黑體', sans-serif;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-">
-  <div style="
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    margin-bottom: 20px;
-  ">
-    <span style="
-      font-size: 40px;
-      flex-shrink: 0;
-      line-height: 1;
-    ">📚</span>
-    <div style="flex: 1;">
-      <h3 style="
-        color: #B82226;
-        font-size: 22px;
-        font-weight: 700;
-        margin: 0 0 12px 0;
-        line-height: 1.3;
-      ">想深入學習這個主題？</h3>
-      <p style="
-        color: #555;
-        font-size: 16px;
-        line-height: 1.7;
-        margin: 0;
-      ">
-        本文介紹的<strong style="color: #B82226;">相對風險與顯著性</strong>是統計分析的基礎觀念。
-        匯東華開設的 <strong>SPSS零基礎入門統計課程</strong>，
-        從零開始教您使用 SPSS，輕鬆完成論文統計分析。
-      </p>
-    </div>
-  </div>
-
-  <div style="
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  ">
-    <a href="https://www.medatatw.com/a01-spss零基礎入門統計課程.html"
-       class="bmj-cta-button"
-       style="
-         display: inline-block;
-         padding: 14px 32px;
-         background-color: #B82226;
-         color: white !important;
-         text-decoration: none;
-         border-radius: 6px;
-         font-weight: 700;
-         font-size: 16px;
-         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-         box-shadow: 0 3px 10px rgba(184, 34, 38, 0.3);
-       "
-       onmouseover="this.style.backgroundColor='#8f1b1e'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(184, 34, 38, 0.4)';"
-       onmouseout="this.style.backgroundColor='#B82226'; this.style.transform='translateY(0)'; this.style.boxShadow='0 3px 10px rgba(184, 34, 38, 0.3)';"
-    >
-      查看課程詳情 →
-    </a>
-
-    <p style="
-      color: #777;
-      font-size: 14px;
-      margin: 0;
-      line-height: 1.5;
-    ">
-      💡 提供線上/實體課程，支援企業包班 |
-      立即諮詢：<a href="https://lin.ee/medatatw" style="color: #B82226; text-decoration: none; font-weight: 600;">@medatatw</a>
-    </p>
-  </div>
-</div>
-
-<!-- 響應式 CSS -->
-<style>
-@media (max-width: 768px) {
-  .bmj-course-cta {
-    margin: 24px 12px !important;
-    padding: 20px 16px !important;
-  }
-
-  .bmj-course-cta > div:first-child {
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-  }
-
-  .bmj-course-cta h3 {
-    font-size: 20px !important;
-  }
-
-  .bmj-course-cta p {
-    font-size: 15px !important;
-  }
-
-  .bmj-cta-button {
-    width: 100% !important;
-    text-align: center !important;
-    padding: 16px 24px !important;
-  }
-
-  .bmj-course-cta > div:last-child {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-  }
-
-  .bmj-course-cta > div:last-child p {
-    font-size: 13px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .bmj-course-cta {
-    padding: 16px 12px !important;
-  }
-
-  .bmj-course-cta h3 {
-    font-size: 18px !important;
-  }
-
-  .bmj-course-cta p {
-    font-size: 14px !important;
-  }
-
-  .bmj-course-cta > div:first-child span {
-    font-size: 32px !important;
-  }
-}
-</style>
-
   </body>
+
+<!-- Mirrored from www.medatatw.com/匯東華統計顧問有限公司-f26-07-零程式碼ai助力統合分析實戰班.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 29 Jan 2026 09:36:38 GMT -->
 </html>
