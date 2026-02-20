@@ -2931,14 +2931,26 @@
   .slick-slide img.slick-loading{border:0 }
   .slick-slider{margin:30px auto 50px; padding-left:22px; padding-right:22px;}
 
-  /* HDH Fix 2026-02-12: 輪播圖尺寸一致性修復（通用） */
-  .carousel2_container .slick-slide .image,
+  /* HDH Fix 2026-02-20 v2: 輪播圖尺寸一致性修復 */
+  /* 修復 1: slick-slide 裁切溢出 */
+  .carousel2_container .slick-slide {
+    overflow: hidden;
+  }
+  /* 修復 2: .image box-sizing 修正，防止 padding 撐開 */
+  .carousel2_container .slick-slide .image {
+    box-sizing: border-box;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    width: 100%;
+  }
+  /* 修復 3: captionjs 和 figure 維持比例 */
   .carousel2_container .slick-slide .captionjs,
   .carousel2_container .slick-slide figure {
     aspect-ratio: 1 / 1;
     overflow: hidden;
     width: 100%;
   }
+  /* 修復 4: 圖片填滿容器 */
   .carousel2_container .slick-slide img.slick-slider-img {
     width: 100% !important;
     height: 100% !important;
