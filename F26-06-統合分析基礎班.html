@@ -2931,6 +2931,20 @@
   .slick-slide img.slick-loading{border:0 }
   .slick-slider{margin:30px auto 50px; padding-left:22px; padding-right:22px;}
 
+  /* HDH Fix 2026-02-12: 輪播圖尺寸一致性修復（通用） */
+  .carousel2_container .slick-slide .image,
+  .carousel2_container .slick-slide .captionjs,
+  .carousel2_container .slick-slide figure {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    width: 100%;
+  }
+  .carousel2_container .slick-slide img.slick-slider-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
+
   .slick-list { position: relative; overflow: hidden; display: block; margin: 0; padding: 0; }
   .slick-list:focus { outline: none; }
   .slick-loading .slick-list { background: white url(https://i.imgur.com/YWGUhK4.gif) center center no-repeat; }
@@ -3344,6 +3358,22 @@
 
     
     <script src="__system/__js/h_6c39d875d5fd31d13d0de869feda98f8/2786373_combined.min.js"></script>
+    <script>
+    /* HDH Fix 2026-02-12: 強制載入克隆投影片的 lazy 圖片（通用） */
+    $(document).ready(function(){
+      setTimeout(function(){
+        $('.carousel2_container .slick-initialized').each(function(){
+          $(this).find('.slick-cloned img').each(function(){
+            var $img = $(this);
+            var lazySrc = $img.attr('data-lazy');
+            if (lazySrc && (!$img.attr('src') || $img.attr('src') === '')) {
+              $img.attr('src', lazySrc).removeAttr('data-lazy');
+            }
+          });
+        });
+      }, 1500);
+    });
+    </script>
     <script>
       (function() {
         var domain = window.location.hostname;
