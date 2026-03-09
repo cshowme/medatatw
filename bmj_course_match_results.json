@@ -1,0 +1,1442 @@
+[
+  {
+    "bmj_file": "bmj1.html",
+    "bmj_title": "BMJ1",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj78.html",
+    "bmj_title": "BMJ(78)：Sample size: how many participants are needed in a trial?",
+    "bmj_keywords": "臨床試驗, 樣本數",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-118-skeweddistributions.html",
+    "bmj_title": "BMJ專題-118-Skewed distributions",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-119-skeweddistributionsii.html",
+    "bmj_title": "BMJ專題-119-Skewed distributions II",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-120-rctmissingdata.html",
+    "bmj_title": "BMJ專題-120-RCT missing data",
+    "bmj_keywords": "臨床試驗, 遺漏值處理",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-121-whatarerandomisedconsentdesigns.html",
+    "bmj_title": "BMJ專題-121-What are randomised consent designs",
+    "bmj_keywords": "臨床試驗",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-122-relativerisksandsignificance.html",
+    "bmj_title": "BMJ專題-122-Relative risks and significance",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-123-whyrandomiseinclinicaltrials.html",
+    "bmj_title": "BMJ專題-123-Why randomise in clinical trials",
+    "bmj_keywords": "臨床試驗",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-149-poissonregression.html",
+    "bmj_title": "BMJ專題-149-Poisson regression",
+    "bmj_keywords": "迴歸分析",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-150-多重假設檢定之陷阱.html",
+    "bmj_title": "BMJ專題-150-多重假設檢定之陷阱",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-152-如何解讀roccurve.html",
+    "bmj_title": "BMJ專題-152-如何解讀ROC curve",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-153-何謂風險-risk.html",
+    "bmj_title": "BMJ專題-153-何謂風險(Risk)",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-154-一致性限度_bland-altman法.html",
+    "bmj_title": "BMJ專題-154-一致性限度(Bland-Altman法)",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-155-觀察性研究設計.html",
+    "bmj_title": "BMJ專題-155-觀察性研究設計",
+    "bmj_keywords": "研究設計",
+    "course_name": "A03-SPSS實戰統計課程（Logistic Regression）",
+    "course_url": "https://www.medatatw.com/a03-spss實戰統計課程_logisticregression統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-156-健康參與者效應.html",
+    "bmj_title": "BMJ專題-156-健康參與者效應",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-157-內部效度與外部效度.html",
+    "bmj_title": "BMJ專題-157-內部效度與外部效度",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-158-隨機對照試驗中的偏差來源.html",
+    "bmj_title": "BMJ專題-158-隨機對照試驗中的偏差來源",
+    "bmj_keywords": "臨床試驗, 偏差控制",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-159-隨機對照試驗的偏差來源ii.html",
+    "bmj_title": "BMJ專題-159-隨機對照試驗的偏差來源II",
+    "bmj_keywords": "臨床試驗, 偏差控制",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-160-臨床試驗之外部與內部效度.html",
+    "bmj_title": "BMJ專題-160-臨床試驗之外部與內部效度",
+    "bmj_keywords": "臨床試驗",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-161-發生率.html",
+    "bmj_title": "BMJ專題-161-發生率",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-162-序列試驗.html",
+    "bmj_title": "BMJ專題-162-序列試驗",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-163-觀察性研究設計之偏差-病例對照研究.html",
+    "bmj_title": "BMJ專題-163-觀察性研究設計之偏差：病例對照研究",
+    "bmj_keywords": "研究設計, 偏差控制",
+    "course_name": "A03-SPSS實戰統計課程（Logistic Regression）",
+    "course_url": "https://www.medatatw.com/a03-spss實戰統計課程_logisticregression統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-164-incidencerateratio-發生率比.html",
+    "bmj_title": "BMJ專題-164-Incidence Rate Ratio（發生率比）",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-166-隨機對照試驗-理解統計檢力power.html",
+    "bmj_title": "BMJ專題-166-隨機對照試驗：理解統計檢力Power",
+    "bmj_keywords": "臨床試驗, 樣本數",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-167-安慰劑效應.html",
+    "bmj_title": "BMJ專題-167-安慰劑效應",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-169-標準誤-standarderror.html",
+    "bmj_title": "BMJ專題-169-標準誤-standard error",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-170-正常值範圍.html",
+    "bmj_title": "BMJ專題-170-正常值範圍",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-171-組內相關係數ICC.html",
+    "bmj_title": "BMJ專題-171-組內相關係數(ICC)",
+    "bmj_keywords": "相關分析",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-173-分層集群抽樣.html",
+    "bmj_title": "BMJ專題-173-分層集群抽樣",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-174-滾雪球抽樣.html",
+    "bmj_title": "BMJ專題-174-滾雪球抽樣",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-175-集群抽樣.html",
+    "bmj_title": "BMJ專題-175-集群抽樣",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-176-標準化結果測量_使用z分數.html",
+    "bmj_title": "BMJ專題-176-標準化結果測量：使用 z 分數",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題-177-分析單位.html",
+    "bmj_title": "BMJ專題-177-分析單位",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題099.html",
+    "bmj_title": "BMJ專題099",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題10.html",
+    "bmj_title": "BMJ專題10",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題100.html",
+    "bmj_title": "BMJ專題100",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題101-存活分析_設限類型.html",
+    "bmj_title": "BMJ專題101-存活分析_設限類型",
+    "bmj_keywords": "存活分析",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題102.html",
+    "bmj_title": "BMJ專題102",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題103_samplingdistributions.html",
+    "bmj_title": "BMJ專題103_Sampling distributions",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題104_studydesign.html",
+    "bmj_title": "BMJ專題104：Study design (研究設計)",
+    "bmj_keywords": "研究設計",
+    "course_name": "A03-SPSS實戰統計課程（Logistic Regression）",
+    "course_url": "https://www.medatatw.com/a03-spss實戰統計課程_logisticregression統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題105_non-randomisedstudies.html",
+    "bmj_title": "BMJ專題105：Non-randomised studies",
+    "bmj_keywords": "臨床試驗",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題106_beforeandafterstudydesigns前-後研究設計.html",
+    "bmj_title": "BMJ專題106：Before and after study designs (前-後研究設計)",
+    "bmj_keywords": "研究設計",
+    "course_name": "A03-SPSS實戰統計課程（Logistic Regression）",
+    "course_url": "https://www.medatatw.com/a03-spss實戰統計課程_logisticregression統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題107_Observational Study Design II.html",
+    "bmj_title": "BMJ專題107",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題108_studydesign研究設計.html",
+    "bmj_title": "BMJ專題108_Study design (研究設計)",
+    "bmj_keywords": "研究設計",
+    "course_name": "A03-SPSS實戰統計課程（Logistic Regression）",
+    "course_url": "https://www.medatatw.com/a03-spss實戰統計課程_logisticregression統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題109risk風險.html",
+    "bmj_title": "BMJ專題109_Risk(風險)",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題11.html",
+    "bmj_title": "BMJ專題11",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題110_Proportional quota sampling.html",
+    "bmj_title": "BMJ專題110",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題111-觀察單位與分析單位.html",
+    "bmj_title": "BMJ專題111-觀察單位與分析單位",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題112-抽樣i.html",
+    "bmj_title": "BMJ專題112-抽樣I",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題113-抽樣ii.html",
+    "bmj_title": "bmj專題113-抽樣II",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題114-抽樣iii.html",
+    "bmj_title": "BMJ專題114-抽樣III",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題115-獨立樣本t檢定.html",
+    "bmj_title": "BMJ專題115-獨立樣本t檢定",
+    "bmj_keywords": "統計檢定, 樣本數",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題116-統計顯著性及信賴區間.html",
+    "bmj_title": "BMJ專題116-統計顯著性及信賴區間",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題117-whatispvalue.html",
+    "bmj_title": "BMJ專題117-What is P value",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題12.html",
+    "bmj_title": "BMJ專題12",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題124generalisationandextrapolation.html",
+    "bmj_title": "BMJ專題124-Generalisation and extrapolation?",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題125-absenceofevidence.html",
+    "bmj_title": "BMJ專題125-Absence of evidence",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題126-T分數和z分數.html",
+    "bmj_title": "BMJ專題126-T分數和z分數",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題127-問卷調查.html",
+    "bmj_title": "BMJ專題127-問卷調查",
+    "bmj_keywords": "問卷調查",
+    "course_name": "A05-SPSS實戰班（問卷與量表統計分析）",
+    "course_url": "https://www.medatatw.com/a05-spss實戰班_問卷與量表統計分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題129-統計假設檢定時的誤差_typeierrorandtypeiierror.html",
+    "bmj_title": "BMJ專題129-統計假設檢定時的誤差_Type I error and Type II error",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題13.html",
+    "bmj_title": "BMJ專題13",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題130-hazardratios的推導.html",
+    "bmj_title": "BMJ專題130-Hazard Ratios的推導",
+    "bmj_keywords": "存活分析",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題131-隨機抽樣與隨機分配.html",
+    "bmj_title": "BMJ專題131-隨機抽樣與隨機分配",
+    "bmj_keywords": "臨床試驗",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題132-獨立組別的統計檢定_分類資料.html",
+    "bmj_title": "BMJ專題132-獨立組別的統計檢定_分類資料",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題133-獨立組別之母數統計檢定-數值資料ttest.html",
+    "bmj_title": "BMJ專題133-獨立組別之母數統計檢定-數值資料t test",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題134-抽樣誤差與標準誤差的比較.html",
+    "bmj_title": "BMJ專題134-抽樣誤差與標準誤差的比較",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題135-主要結局與次要結局.html",
+    "bmj_title": "BMJ專題135-主要結局與次要結局",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題136-標準誤差standarderror.html",
+    "bmj_title": "BMJ專題136-標準誤差Standard error",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題138-治療組內的結果測量分析.html",
+    "bmj_title": "BMJ專題138-治療組內的結果測量分析",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題139-結果測量的標準化.html",
+    "bmj_title": "BMJ專題139-結果測量的標準化",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題14.html",
+    "bmj_title": "BMJ專題14",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題140-分析病例對照研究調整干擾因子.html",
+    "bmj_title": "BMJ專題140-分析病例對照研究調整干擾因子",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題141-參考值和正常範圍.html",
+    "bmj_title": "BMJ專題141-參考值和正常範圍",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題142-瞭解為什麼沒有證據不等於證明不存在.html",
+    "bmj_title": "BMJ專題142-瞭解為什麼沒有證據不等於證明不存在",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題145-spearmanrankcorrelationcoefficient.html",
+    "bmj_title": "BMJ專題145-Spearman rank correlation coefficient",
+    "bmj_keywords": "相關分析",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題147-多重假設檢定以及bonferronicorrection.html",
+    "bmj_title": "BMJ專題147-多重假設檢定以及Bonferroni correction",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題148-橫斷性研究設計的偏差.html",
+    "bmj_title": "BMJ專題148-橫斷性研究設計的偏差",
+    "bmj_keywords": "研究設計, 偏差控制",
+    "course_name": "A03-SPSS實戰統計課程（Logistic Regression）",
+    "course_url": "https://www.medatatw.com/a03-spss實戰統計課程_logisticregression統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題15.html",
+    "bmj_title": "BMJ專題15",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題16.html",
+    "bmj_title": "BMJ專題16",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題17.html",
+    "bmj_title": "BMJ專題17",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題18.html",
+    "bmj_title": "BMJ專題18",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題19.html",
+    "bmj_title": "BMJ專題19",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題20.html",
+    "bmj_title": "BMJ專題20",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題21.html",
+    "bmj_title": "BMJ專題21",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題22.html",
+    "bmj_title": "BMJ專題22",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題23.html",
+    "bmj_title": "BMJ專題23",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題24.html",
+    "bmj_title": "BMJ專題24",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題25.html",
+    "bmj_title": "BMJ專題25",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題26.html",
+    "bmj_title": "BMJ專題26",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題27.html",
+    "bmj_title": "BMJ專題27",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題28.html",
+    "bmj_title": "BMJ專題28",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題29.html",
+    "bmj_title": "BMJ專題29",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題3.html",
+    "bmj_title": "BMJ專題3",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題30.html",
+    "bmj_title": "BMJ專題30",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題31.html",
+    "bmj_title": "BMJ專題31",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題32.html",
+    "bmj_title": "BMJ專題32",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題33.html",
+    "bmj_title": "BMJ專題33",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題34.html",
+    "bmj_title": "BMJ專題34",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題35.html",
+    "bmj_title": "BMJ專題35",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題36.html",
+    "bmj_title": "BMJ專題36",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題37.html",
+    "bmj_title": "BMJ專題37",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題38.html",
+    "bmj_title": "BMJ專題38",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題39.html",
+    "bmj_title": "BMJ專題39",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題40.html",
+    "bmj_title": "BMJ專題40",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題41.html",
+    "bmj_title": "BMJ專題41",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題42.html",
+    "bmj_title": "BMJ專題42",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題43.html",
+    "bmj_title": "BMJ專題43",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題44.html",
+    "bmj_title": "BMJ專題44",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題45.html",
+    "bmj_title": "BMJ專題45",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題46.html",
+    "bmj_title": "BMJ專題46",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題47.html",
+    "bmj_title": "BMJ專題47",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題48.html",
+    "bmj_title": "BMJ專題48",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題49.html",
+    "bmj_title": "BMJ專題49",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題5.html",
+    "bmj_title": "BMJ專題5",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題50.html",
+    "bmj_title": "BMJ專題50",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題51.html",
+    "bmj_title": "BMJ專題51",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題52.html",
+    "bmj_title": "BMJ專題52",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題53.html",
+    "bmj_title": "BMJ專題53",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題54.html",
+    "bmj_title": "BMJ專題54",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題55.html",
+    "bmj_title": "BMJ專題55",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題56.html",
+    "bmj_title": "BMJ專題56",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題57.html",
+    "bmj_title": "BMJ專題57",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題58.html",
+    "bmj_title": "BMJ專題58",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題59.html",
+    "bmj_title": "BMJ專題59",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題6.html",
+    "bmj_title": "BMJ專題6",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題60.html",
+    "bmj_title": "BMJ專題60",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題61.html",
+    "bmj_title": "BMJ專題61",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題62.html",
+    "bmj_title": "BMJ專題62",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題63.html",
+    "bmj_title": "BMJ專題63",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題64.html",
+    "bmj_title": "BMJ專題64",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題65.html",
+    "bmj_title": "BMJ專題65",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題66.html",
+    "bmj_title": "BMJ專題66",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題67.html",
+    "bmj_title": "BMJ專題67",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題68.html",
+    "bmj_title": "BMJ專題68",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題69.html",
+    "bmj_title": "BMJ專題69",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題7.html",
+    "bmj_title": "BMJ專題7",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題70.html",
+    "bmj_title": "BMJ專題70",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題71.html",
+    "bmj_title": "BMJ專題71",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題72.html",
+    "bmj_title": "BMJ專題72",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題73.html",
+    "bmj_title": "BMJ專題73",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題79.html",
+    "bmj_title": "BMJ專題79：Pitfalls of statistical hypothesis testing: type I and type II errors",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題8.html",
+    "bmj_title": "BMJ專題8",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題80.html",
+    "bmj_title": "BMJ專題80：Standard deviation versus standard error",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題81.html",
+    "bmj_title": "BMJ專題81：Understanding confidence intervals",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題82.html",
+    "bmj_title": "BMJ專題82：Confidence intervals and statistical significance (信賴區間和統計顯著性)",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題83.html",
+    "bmj_title": "BMJ專題83：Confidence intervals: Predicting uncertainty (信賴區間：預測不確定性)",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題85.html",
+    "bmj_title": "BMJ專題85：The normal distribution (常態分佈)",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題86.html",
+    "bmj_title": "BMJ專題86：Observational Study Design I (觀察型研究設計)",
+    "bmj_keywords": "研究設計",
+    "course_name": "A03-SPSS實戰統計課程（Logistic Regression）",
+    "course_url": "https://www.medatatw.com/a03-spss實戰統計課程_logisticregression統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題87.html",
+    "bmj_title": "BMJ專題87：Observational Study Designs (觀察型研究設計s )",
+    "bmj_keywords": "研究設計",
+    "course_name": "A03-SPSS實戰統計課程（Logistic Regression）",
+    "course_url": "https://www.medatatw.com/a03-spss實戰統計課程_logisticregression統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題88.html",
+    "bmj_title": "BMJ專題88：Hazards and hazard ratios (風險和風險比)",
+    "bmj_keywords": "存活分析",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題89.html",
+    "bmj_title": "BMJ專題89：Survival (time to event) data: Censored observations (存活資料：設限的觀察值)",
+    "bmj_keywords": "存活分析",
+    "course_name": "A02-SPSS實戰統計課程（醫學應用迴歸與存活分析）",
+    "course_url": "https://www.medatatw.com/a02-spss實戰統計課程_醫學應用迴歸與存活分析.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題9.html",
+    "bmj_title": "BMJ專題9",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題90.html",
+    "bmj_title": "BMJ專題90：Standard deviation or the standard error of the mean (標準差或平均值的標準誤)",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題91.html",
+    "bmj_title": "BMJ專題91",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題93.html",
+    "bmj_title": "BMJ專題93",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題94.html",
+    "bmj_title": "BMJ專題94",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題95.html",
+    "bmj_title": "BMJ專題95",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題96.html",
+    "bmj_title": "BMJ專題96",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題97.html",
+    "bmj_title": "BMJ專題97",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  },
+  {
+    "bmj_file": "bmj專題98.html",
+    "bmj_title": "BMJ專題98",
+    "bmj_keywords": "統計基礎",
+    "course_name": "A01-SPSS零基礎入門統計課程",
+    "course_url": "https://www.medatatw.com/a01-spss零基礎入門統計課程.html",
+    "match_score": 1,
+    "match_level": "中"
+  }
+]
