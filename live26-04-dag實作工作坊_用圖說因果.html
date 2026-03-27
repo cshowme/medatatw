@@ -2930,6 +2930,9 @@
   .slick-slide img{border:0px solid #FFF;display:block;width:100%;}
   .slick-slide img.slick-loading{border:0 }
   .slick-slider{margin:30px auto 50px; padding-left:22px; padding-right:22px;}
+  @media (max-width: 771px) {
+    .slick-slider{padding-left:8px; padding-right:8px; margin:15px auto 30px;}
+  }
 
   .slick-list { position: relative; overflow: hidden; display: block; margin: 0; padding: 0; }
   .slick-list:focus { outline: none; }
@@ -3900,9 +3903,7 @@
           autoplaySpeed: 5000,
           centerMode: false,
           responsive: [
-            { breakpoint: 1001, settings: { slidesToShow: 3, slidesToScroll: 3, dots: true, infinite: true } },
-            { breakpoint: 771, settings: { slidesToShow: 2, slidesToScroll: 2, dots: true, infinite: true } },
-            { breakpoint: 501, settings: { slidesToShow: 1, slidesToScroll: 1, dots: false, infinite: true } }
+            { breakpoint: 771, settings: { slidesToShow: 1, slidesToScroll: 1, dots: true, infinite: true } }
           ]
         });
       }
