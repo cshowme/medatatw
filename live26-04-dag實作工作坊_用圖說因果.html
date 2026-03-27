@@ -1,0 +1,808 @@
+<!-- ====================================================
+     DAG 實作工作坊：用圖說因果 - 課程內容區塊
+     版本：v2.0_20260327_CSX
+     說明：此為純內容區塊，可直接貼入 MAWeb CMS 頁面
+     CSS 前綴：ma-（統一使用現有 CSS 類別）
+     Hero 配色：藍色系 #1a3a5c / #2d5a87 / #1a3a5c
+     品牌紅：#B82226 | 品牌金：#C4A46D
+     更新重點：重新定位為「實務入門課」，強調 regression vs DAG 的定位差異
+     ==================================================== -->
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<!-- ==================== 課程內容開始 ==================== -->
+<div class="ma-course-content" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;">
+
+<!-- ==================== 0. 輪播圖區塊（官網 Slick Carousel 版） ==================== -->
+<div class="slider lazy" id="slick_index_26104">
+  <div><div class="image"><img class="slick-slider-img" data-caption="DAG 實作工作坊" data-lazy="_imagecache/P%3DMW800%2CMH800%2CF%2CBFFFFFF/%E8%BC%AA%E6%92%AD%E5%9C%961.jpg" /></div></div>
+  <div><div class="image"><img class="slick-slider-img" data-caption="DAG 範例" data-lazy="_imagecache/P%3DMW800%2CMH800%2CF%2CBFFFFFF/%E8%BC%AA%E6%92%AD%E5%9C%962-DAG%E7%AF%84%E4%BE%8B.png" /></div></div>
+  <div><div class="image"><img class="slick-slider-img" data-caption="教學內容" data-lazy="_imagecache/P%3DMW800%2CMH800%2CF%2CBFFFFFF/%E8%BC%AA%E6%92%AD%E5%9C%963.jpg" /></div></div>
+  <div><div class="image"><img class="slick-slider-img" data-caption="學員互動" data-lazy="_imagecache/P%3DMW800%2CMH800%2CF%2CBFFFFFF/%E8%BC%AA%E6%92%AD%E5%9C%964.jpg" /></div></div>
+  <div><div class="image"><img class="slick-slider-img" data-caption="DAG 語言" data-lazy="_imagecache/P%3DMW800%2CMH800%2CF%2CBFFFFFF/%E8%BC%AA%E6%92%AD%E5%9C%965-DAG%E8%AA%9E%E8%A8%80.png" /></div></div>
+</div>
+
+<!-- ==================== 1. Hero 區塊 ==================== -->
+<div class="ma-hero" style="position: relative; overflow: hidden; background: linear-gradient(135deg, #1a3a5c 0%, #2d5a87 50%, #1a3a5c 100%); padding: 60px 40px; text-align: center; color: white; min-height: 320px; border-radius: 8px;">
+
+  <!-- 品牌標記 -->
+  <div style="position: absolute; top: 15px; left: 15px; background: #B82226; color: white; padding: 6px 14px; font-size: 14px; font-weight: bold; border-radius: 4px; z-index: 10; letter-spacing: 2px;">匯東華</div>
+
+  <!-- 曇月靈浮水印 -->
+  <img style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -45%); width: 350px; height: auto; opacity: 0.15; z-index: 1; pointer-events: none;" src="https://www.medatatw.com/課程報名/曇月靈01-去背景.png" alt="曇月靈" />
+
+  <!-- DAG 裝飾線 SVG -->
+  <svg style="position: absolute; top: 0; right: 0; width: 200px; height: 200px; opacity: 0.15;" viewBox="0 0 200 200">
+    <circle cx="40" cy="40" r="15" fill="none" stroke="#C4A46D" stroke-width="2"/>
+    <circle cx="160" cy="40" r="15" fill="none" stroke="#C4A46D" stroke-width="2"/>
+    <circle cx="100" cy="120" r="15" fill="none" stroke="#C4A46D" stroke-width="2"/>
+    <circle cx="100" cy="180" r="15" fill="none" stroke="#C4A46D" stroke-width="2"/>
+    <path d="M55 45 L85 110" stroke="#C4A46D" stroke-width="2"/>
+    <path d="M145 45 L115 110" stroke="#C4A46D" stroke-width="2"/>
+    <path d="M100 135 L100 165" stroke="#C4A46D" stroke-width="2"/>
+    <text x="40" y="44" fill="#C4A46D" font-size="12" text-anchor="middle">X</text>
+    <text x="160" y="44" fill="#C4A46D" font-size="12" text-anchor="middle">C</text>
+    <text x="100" y="124" fill="#C4A46D" font-size="12" text-anchor="middle">M</text>
+    <text x="100" y="184" fill="#C4A46D" font-size="12" text-anchor="middle">Y</text>
+  </svg>
+
+  <!-- LIVE Badge -->
+  <div style="position: relative; z-index: 5; display: inline-flex; align-items: center; gap: 8px; border: 2px solid white; color: white; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px;">
+    <span style="display: inline-block; width: 8px; height: 8px; background: #ff4444; border-radius: 50; animation: none;"></span>
+    LIVE 直播課程
+  </div>
+
+  <!-- 主標題 -->
+  <h1 style="position: relative; z-index: 5; color: white; font-size: 2.2em; font-weight: 800; margin: 0 0 12px 0; line-height: 1.3; text-shadow: 0 2px 8px rgba(0,0,0,0.3);">這個變數該不該控制？<br />DAG (Directed Acyclic Graphs) 一畫就知道</h1>
+
+  <!-- 副標題 -->
+  <p style="position: relative; z-index: 5; color: rgba(255,255,255,0.92); font-size: 1.15em; margin: 0 0 14px 0; font-weight: 400;">從變數判斷到 DAGitty 操作</p>
+
+  <!-- Tagline -->
+  <p style="position: relative; z-index: 5; color: #C4A46D; font-size: 0.96em; font-weight: 600; letter-spacing: 2px; margin: 0;">LIVE 直播 | 即時練習 | 14 天回放</p>
+</div>
+
+<!-- ==================== 2. 痛點區塊 ==================== -->
+<h2 class="ma-section-title" style="text-align: center; font-size: 1.6em; margin: 50px 0 30px 0; color: #333;">你是否也有這些困擾？</h2>
+<div class="ma-pain-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin: 0 0 50px 0;">
+
+  <!-- 痛點 1 -->
+  <div class="ma-pain-card" style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 28px 24px; border-left: 4px solid #2d5a87;">
+    <div style="margin-bottom: 14px; text-align: center;">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="20" stroke="#2d5a87" stroke-width="2" fill="#eef3f8"/>
+        <circle cx="14" cy="18" r="4" fill="#2d5a87"/>
+        <circle cx="30" cy="18" r="4" fill="#2d5a87"/>
+        <circle cx="22" cy="30" r="4" fill="#B82226"/>
+        <line x1="18" y1="20" x2="20" y2="28" stroke="#2d5a87" stroke-width="2"/>
+        <line x1="26" y1="20" x2="24" y2="28" stroke="#2d5a87" stroke-width="2"/>
+      </svg>
+    </div>
+    <h3 style="font-size: 1.05em; font-weight: 700; color: #1a3a5c; margin: 0 0 10px 0; text-align: center;">明明會做 regression，卻還是對變數調整沒把握？</h3>
+    <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">你知道要放共變項，卻不確定是 confounder、mediator 還是 collider，選錯了結果會差很多。</p>
+  </div>
+
+  <!-- 痛點 2 -->
+  <div class="ma-pain-card" style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 28px 24px; border-left: 4px solid #2d5a87;">
+    <div style="margin-bottom: 14px; text-align: center;">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="20" stroke="#2d5a87" stroke-width="2" fill="#eef3f8"/>
+        <circle cx="10" cy="22" r="3" fill="#2d5a87"/>
+        <circle cx="22" cy="22" r="3" fill="#2d5a87"/>
+        <circle cx="34" cy="22" r="3" fill="#2d5a87"/>
+        <circle cx="16" cy="14" r="3" fill="#C4A46D"/>
+        <circle cx="28" cy="14" r="3" fill="#C4A46D"/>
+        <circle cx="16" cy="30" r="3" fill="#C4A46D"/>
+        <circle cx="28" cy="30" r="3" fill="#C4A46D"/>
+        <line x1="13" y1="22" x2="19" y2="22" stroke="#2d5a87" stroke-width="1.5"/>
+        <line x1="25" y1="22" x2="31" y2="22" stroke="#2d5a87" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <h3 style="font-size: 1.05em; font-weight: 700; color: #1a3a5c; margin: 0 0 10px 0; text-align: center;">變數越放越多，心裡卻越來越不踏實？</h3>
+    <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">很多研究者習慣把能收集到的變數都丟進模型，但這不一定更嚴謹，有時反而引入新的偏誤。</p>
+  </div>
+
+  <!-- 痛點 3 -->
+  <div class="ma-pain-card" style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 28px 24px; border-left: 4px solid #2d5a87;">
+    <div style="margin-bottom: 14px; text-align: center;">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="20" stroke="#2d5a87" stroke-width="2" fill="#eef3f8"/>
+        <rect x="12" y="16" width="20" height="14" rx="2" stroke="#2d5a87" stroke-width="2" fill="none"/>
+        <line x1="16" y1="20" x2="28" y2="20" stroke="#2d5a87" stroke-width="1.5"/>
+        <line x1="16" y1="24" x2="24" y2="24" stroke="#2d5a87" stroke-width="1.5"/>
+        <circle cx="32" cy="14" r="5" fill="#B82226"/>
+        <text x="32" y="17" font-size="7" fill="white" text-anchor="middle" font-weight="bold">?</text>
+      </svg>
+    </div>
+    <h3 style="font-size: 1.05em; font-weight: 700; color: #1a3a5c; margin: 0 0 10px 0; text-align: center;">聽過 DAG，卻始終停留在「知道名詞」？</h3>
+    <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">你知道 DAG 很重要，但不知道怎麼把它接到研究設計與分析，理論和實務之間有一道牆。</p>
+  </div>
+
+  <!-- 痛點 4 -->
+  <div class="ma-pain-card" style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 28px 24px; border-left: 4px solid #2d5a87;">
+    <div style="margin-bottom: 14px; text-align: center;">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="20" stroke="#2d5a87" stroke-width="2" fill="#eef3f8"/>
+        <path d="M14 28 L22 14 L30 28" stroke="#2d5a87" stroke-width="2" fill="none"/>
+        <line x1="18" y1="24" x2="26" y2="24" stroke="#2d5a87" stroke-width="1.5"/>
+        <circle cx="22" cy="32" r="2" fill="#B82226"/>
+        <line x1="22" y1="28" x2="22" y2="30" stroke="#B82226" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <h3 style="font-size: 1.05em; font-weight: 700; color: #1a3a5c; margin: 0 0 10px 0; text-align: center;">想開始學 DAG，但不想一開始就被理論壓垮？</h3>
+    <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">你需要的是一門能建立正確起點、又能開始上手的實務入門課，而不是充滿數學符號的理論課。</p>
+  </div>
+
+</div>
+
+<!-- ==================== 3. 課程介紹 ==================== -->
+<h2 class="ma-section-title" style="text-align: center; font-size: 1.6em; margin: 50px 0 30px 0; color: #333;">課程介紹</h2>
+<div class="ma-intro" style="background: #f0f4f8; border: 1px solid #d0dce8; border-radius: 10px; padding: 36px 40px; margin: 0 0 50px 0; line-height: 1.8; color: #444;">
+  <p style="margin: 0 0 16px 0;">這不是一門只教你畫圖的課，而是一門幫你避免研究設計根本錯誤的課。</p>
+  <p style="margin: 0 0 16px 0;">很多研究問題不是出在統計方法本身，而是出在變數選錯、因果方向想錯、調整了不該調整的變數。Regression 可以幫你估計關聯，但不會自動告訴你誰該控制、誰不該控制。</p>
+  <p style="margin: 0 0 16px 0;"><strong>DAG（Directed Acyclic Graphs）的價值，就在於幫助研究者在分析之前，先把因果結構與偏差來源想清楚。</strong></p>
+  <p style="margin: 0 0 16px 0;">本課程聚焦 2 小時實務入門，從變數判斷出發，帶你理解 confounder、mediator、collider 的差異，並實際操作 DAGitty，建立正確的調整思維與分析流程。</p>
+  <div style="background: #fff3cd; border-left: 4px solid #C4A46D; padding: 14px 18px; border-radius: 0 6px 6px 0; margin: 0;">
+    <strong style="color: #1a3a5c;">先備知識：</strong><span style="color: #555;">只需要跑過 regression、看過 p 值即可，不需要有 DAG 基礎。</span>
+  </div>
+</div>
+
+<!-- ==================== 4. Regression vs DAG 比較表格 ==================== -->
+<h2 class="ma-section-title" style="text-align: center; font-size: 1.6em; margin: 50px 0 30px 0; color: #333;">Regression 與 DAG 的角色定位</h2>
+<div style="overflow-x: auto; margin: 0 0 50px 0;">
+  <table style="width: 100%; border-collapse: collapse; border-radius: 10px; overflow: hidden; font-size: 0.96em;">
+    <thead>
+      <tr style="background: linear-gradient(90deg, #1a3a5c, #2d5a87);">
+        <th style="padding: 16px 20px; text-align: left; color: white; font-weight: 600; width: 28%;"></th>
+        <th style="padding: 16px 20px; text-align: center; color: white; font-weight: 600;">Regression</th>
+        <th style="padding: 16px 20px; text-align: center; color: #C4A46D; font-weight: 700; background: rgba(0,0,0,0.2);">DAG</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background: #fff;">
+        <td style="padding: 14px 20px; font-weight: 600; color: #1a3a5c; border-bottom: 1px solid #d0dce8;">處理的是</td>
+        <td style="padding: 14px 20px; text-align: center; color: #555; border-bottom: 1px solid #d0dce8;">資料中的關聯</td>
+        <td style="padding: 14px 20px; text-align: center; color: #2d5a87; font-weight: 600; background: #eef3f8; border-bottom: 1px solid #d0dce8;">因果結構假設</td>
+      </tr>
+      <tr style="background: #f0f4f8;">
+        <td style="padding: 14px 20px; font-weight: 600; color: #1a3a5c; border-bottom: 1px solid #d0dce8;">能做到</td>
+        <td style="padding: 14px 20px; text-align: center; color: #555; border-bottom: 1px solid #d0dce8;">估計關聯強度</td>
+        <td style="padding: 14px 20px; text-align: center; color: #2d5a87; font-weight: 600; background: #eef3f8; border-bottom: 1px solid #d0dce8;">釐清變數角色</td>
+      </tr>
+      <tr style="background: #fff;">
+        <td style="padding: 14px 20px; font-weight: 600; color: #1a3a5c; border-bottom: 1px solid #d0dce8;">不能做到</td>
+        <td style="padding: 14px 20px; text-align: center; color: #555; border-bottom: 1px solid #d0dce8;">自動判斷因果方向</td>
+        <td style="padding: 14px 20px; text-align: center; color: #2d5a87; font-weight: 600; background: #eef3f8; border-bottom: 1px solid #d0dce8;">直接估計效應值</td>
+      </tr>
+      <tr style="background: #f0f4f8;">
+        <td style="padding: 14px 20px; font-weight: 600; color: #1a3a5c; border-bottom: 1px solid #d0dce8;">角色</td>
+        <td style="padding: 14px 20px; text-align: center; color: #555; border-bottom: 1px solid #d0dce8;">分析工具</td>
+        <td style="padding: 14px 20px; text-align: center; color: #2d5a87; font-weight: 600; background: #eef3f8; border-bottom: 1px solid #d0dce8;">決策工具</td>
+      </tr>
+      <tr style="background: #fff;">
+        <td style="padding: 14px 20px; font-weight: 600; color: #1a3a5c;">核心問題</td>
+        <td style="padding: 14px 20px; text-align: center; color: #555;">「關聯有多大？」</td>
+        <td style="padding: 14px 20px; text-align: center; color: #2d5a87; font-weight: 600; background: #eef3f8;">「該不該這樣估？」</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==================== 4.5 真實案例：DAG 改變分析策略 ==================== -->
+<div style="background: linear-gradient(135deg, #f8f6f0 0%, #fdf8f0 100%); border: 2px solid #C4A46D; border-radius: 10px; padding: 30px; margin: 0 0 50px 0;">
+<h2 style="text-align: center; font-size: 1.5em; color: #1a3a5c; margin: 0 0 25px 0; font-weight: bold;">
+  <svg width="28" height="28" viewBox="0 0 64 64" style="vertical-align: middle; margin-right: 8px;">
+    <circle cx="32" cy="32" r="28" fill="#FDF8F3" stroke="#2d5a87" stroke-width="3"></circle>
+    <circle cx="20" cy="24" r="6" fill="#2d5a87"></circle>
+    <circle cx="44" cy="24" r="6" fill="#2d5a87"></circle>
+    <circle cx="32" cy="44" r="6" fill="#B82226"></circle>
+    <path d="M24 28 L30 40" stroke="#2d5a87" stroke-width="2"></path>
+    <path d="M40 28 L34 40" stroke="#2d5a87" stroke-width="2"></path>
+  </svg>
+  真實案例：變數選錯，偏差反而更大
+</h2>
+<p style="font-size: 15px; color: #555; line-height: 1.8; margin: 0 0 20px 0; text-align: center;">
+  來自 Shrier & Platt (2008) 的經典範例 — 為什麼「多控制一個變數」反而出錯？
+</p>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 0 0 20px 0;">
+  <!-- 左欄：正確做法 -->
+  <div style="background: #fff; border-radius: 8px; padding: 20px; border-left: 4px solid #38a169;">
+    <h4 style="color: #38a169; margin: 0 0 12px 0; font-size: 1.05em;">
+      <svg width="20" height="20" viewBox="0 0 64 64" style="vertical-align: middle; margin-right: 6px;">
+        <circle cx="32" cy="32" r="28" fill="#38a169"></circle>
+        <path d="M20 32 L28 40 L44 24" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      正確：只控制 Z1 + Z2
+    </h4>
+    <p style="font-size: 14px; color: #555; line-height: 1.7; margin: 0 0 10px 0;">
+      研究「<strong style="color: #1a3a5c;">熱身運動 (X)</strong> 是否降低<strong style="color: #B82226;">運動傷害 (Y)</strong>」時，控制「神經肌肉疲勞 (Z1)」與「組織脆弱性 (Z2)」。
+    </p>
+    <p style="font-size: 14px; color: #38a169; font-weight: bold; margin: 0; text-align: center;">
+      → DAG 確認：偏差被最小化 ✓
+    </p>
+  </div>
+
+  <!-- 右欄：錯誤做法 -->
+  <div style="background: #fff; border-radius: 8px; padding: 20px; border-left: 4px solid #B82226;">
+    <h4 style="color: #B82226; margin: 0 0 12px 0; font-size: 1.05em;">
+      <svg width="20" height="20" viewBox="0 0 64 64" style="vertical-align: middle; margin-right: 6px;">
+        <circle cx="32" cy="32" r="28" fill="#B82226"></circle>
+        <path d="M22 22 L42 42 M42 22 L22 42" stroke="#fff" stroke-width="4" stroke-linecap="round"></path>
+      </svg>
+      錯誤：再加控制 Z3（先前受傷史）
+    </h4>
+    <p style="font-size: 14px; color: #555; line-height: 1.7; margin: 0 0 10px 0;">
+      直覺上「先前受傷」與暴露和結果都相關，應該控制？但 DAG 顯示：Z3 是 <strong style="color: #B82226;">collider 的後裔</strong>，控制它會打開一條原本不存在的關聯路徑。
+    </p>
+    <p style="font-size: 14px; color: #B82226; font-weight: bold; margin: 0; text-align: center;">
+      → DAG 警告：偏差反而增加 ✗
+    </p>
+  </div>
+</div>
+
+<div style="background: #1a3a5c; color: #fff; border-radius: 8px; padding: 16px 20px; text-align: center; font-size: 15px; line-height: 1.6;">
+  <strong>這就是為什麼你需要 DAG</strong> — 傳統方法告訴你「控制相關變數」，但 DAG 告訴你<strong>哪些變數控制了反而更糟</strong>。
+  <br><span style="font-size: 14px; color: #C4A46D;">本課程將帶你學會這套判斷邏輯，並實際用 DAGitty 操作驗證。</span>
+</div>
+
+<p style="font-size: 14px; color: #999; margin: 15px 0 0 0; text-align: right;">
+  案例來源：Shrier, I. & Platt, R.W. (2008). Reducing bias through directed acyclic graphs. <em>BMC Medical Research Methodology</em>, 8, 70.
+  <a style="color: #B82226 !important; text-decoration: underline !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important;"
+     href="https://doi.org/10.1186/1471-2288-8-70" target="_blank" rel="noopener">doi:10.1186/1471-2288-8-70</a>
+</p>
+</div>
+
+<!-- ==================== 5. 學習重點 ==================== -->
+<h2 class="ma-section-title" style="text-align: center; font-size: 1.6em; margin: 50px 0 30px 0; color: #333;">本門課會帶你解決什麼問題？</h2>
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 0 0 50px 0;">
+
+  <!-- 重點 1 -->
+  <div style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 24px 22px; display: flex; gap: 16px; align-items: flex-start;">
+    <div style="flex-shrink: 0;">
+      <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+        <circle cx="21" cy="21" r="19" fill="#eef3f8" stroke="#2d5a87" stroke-width="2"/>
+        <circle cx="12" cy="17" r="4" fill="#2d5a87"/>
+        <circle cx="30" cy="17" r="4" fill="#B82226"/>
+        <circle cx="21" cy="28" r="4" fill="#C4A46D"/>
+        <line x1="16" y1="19" x2="19" y2="26" stroke="#2d5a87" stroke-width="2"/>
+        <line x1="26" y1="19" x2="23" y2="26" stroke="#B82226" stroke-width="2"/>
+      </svg>
+    </div>
+    <div>
+      <h3 style="font-size: 1em; font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0;">為什麼 regression 不夠？</h3>
+      <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">理解 regression 處理的是關聯，不會自動替你判斷因果，也不會告訴你該控制哪個變數。</p>
+    </div>
+  </div>
+
+  <!-- 重點 2 -->
+  <div style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 24px 22px; display: flex; gap: 16px; align-items: flex-start;">
+    <div style="flex-shrink: 0;">
+      <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+        <circle cx="21" cy="21" r="19" fill="#eef3f8" stroke="#2d5a87" stroke-width="2"/>
+        <circle cx="9" cy="21" r="4" fill="#2d5a87"/>
+        <circle cx="33" cy="21" r="4" fill="#B82226"/>
+        <circle cx="21" cy="11" r="4" fill="#C4A46D"/>
+        <line x1="13" y1="21" x2="29" y2="21" stroke="#2d5a87" stroke-width="2"/>
+        <line x1="21" y1="15" x2="21" y2="17" stroke="#C4A46D" stroke-width="2"/>
+        <path d="M21 17 L17 21" stroke="#C4A46D" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <path d="M21 17 L25 21" stroke="#C4A46D" stroke-width="1.5" stroke-dasharray="3,2"/>
+      </svg>
+    </div>
+    <div>
+      <h3 style="font-size: 1em; font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0;">哪些變數該調整？哪些不該？</h3>
+      <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">區分 confounder、mediator、collider，理解每種角色在 DAG 中的意義，以及錯誤調整的後果。</p>
+    </div>
+  </div>
+
+  <!-- 重點 3 -->
+  <div style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 24px 22px; display: flex; gap: 16px; align-items: flex-start;">
+    <div style="flex-shrink: 0;">
+      <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+        <circle cx="21" cy="21" r="19" fill="#eef3f8" stroke="#2d5a87" stroke-width="2"/>
+        <rect x="9" y="13" width="24" height="16" rx="3" stroke="#2d5a87" stroke-width="2" fill="none"/>
+        <circle cx="14" cy="21" r="2.5" fill="#2d5a87"/>
+        <circle cx="21" cy="21" r="2.5" fill="#2d5a87"/>
+        <circle cx="28" cy="21" r="2.5" fill="#B82226"/>
+        <line x1="16.5" y1="21" x2="18.5" y2="21" stroke="#2d5a87" stroke-width="1.5"/>
+        <line x1="23.5" y1="21" x2="25.5" y2="21" stroke="#2d5a87" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div>
+      <h3 style="font-size: 1em; font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0;">如何把 DAG 轉成實際分析流程？</h3>
+      <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">透過 DAGitty 畫圖、設定 exposure 與 outcome、查看 adjustment set，讓 DAG 進入你的研究流程。</p>
+    </div>
+  </div>
+
+  <!-- 重點 4（補充） -->
+  <div style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 24px 22px; display: flex; gap: 16px; align-items: flex-start;">
+    <div style="flex-shrink: 0;">
+      <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
+        <circle cx="21" cy="21" r="19" fill="#eef3f8" stroke="#2d5a87" stroke-width="2"/>
+        <path d="M10 21 L21 10 L32 21 L21 32 Z" stroke="#2d5a87" stroke-width="2" fill="none"/>
+        <circle cx="21" cy="21" r="3" fill="#B82226"/>
+        <line x1="21" y1="10" x2="21" y2="18" stroke="#2d5a87" stroke-width="1.5"/>
+        <line x1="10" y1="21" x2="18" y2="21" stroke="#2d5a87" stroke-width="1.5"/>
+        <line x1="24" y1="21" x2="32" y2="21" stroke="#2d5a87" stroke-width="1.5"/>
+        <line x1="21" y1="24" x2="21" y2="32" stroke="#2d5a87" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div>
+      <h3 style="font-size: 1em; font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0;">建立「先因果、後統計」的思考順序</h3>
+      <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">不是跑完 regression 再回頭想，而是在分析前先把因果結構畫清楚，再決定模型怎麼設定。</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==================== 6. 課程大綱 ==================== -->
+<h2 class="ma-section-title" style="text-align: center; font-size: 1.6em; margin: 50px 0 30px 0; color: #333;">課程大綱</h2>
+<div class="ma-curriculum" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin: 0 0 50px 0;">
+
+  <!-- Part 1 -->
+  <div class="ma-curriculum-unit" style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 28px 26px;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+      <span class="step-badge" style="background: #2d5a87; color: white; padding: 5px 14px; border-radius: 20px; font-size: 0.94em; font-weight: 700; white-space: nowrap;">介紹</span>
+      <h3 style="font-size: 1.05em; font-weight: 700; color: #1a3a5c; margin: 0;">Part 1：為什麼要學 DAG？</h3>
+    </div>
+    <ul class="ma-curriculum-list" style="margin: 0; padding-left: 18px; color: #555; font-size: 0.96em; line-height: 1.8;">
+      <li>為什麼 regression 不夠？</li>
+      <li>Regression 能估計關聯，但不會告訴你該控制誰</li>
+      <li>同一個模型，變數選擇不同可能導致完全不同的解釋</li>
+      <li>DAG 在研究設計中的角色：先因果、後統計</li>
+      <li>本段目標：理解 DAG 是研究決策工具</li>
+    </ul>
+  </div>
+
+  <!-- Part 2 -->
+  <div class="ma-curriculum-unit" style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 28px 26px;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+      <span class="step-badge" style="background: #1a3a5c; color: white; padding: 5px 14px; border-radius: 20px; font-size: 0.94em; font-weight: 700; white-space: nowrap;">核心</span>
+      <h3 style="font-size: 1.05em; font-weight: 700; color: #1a3a5c; margin: 0;">Part 2：DAG 核心原理</h3>
+    </div>
+    <ul class="ma-curriculum-list" style="margin: 0; padding-left: 18px; color: #555; font-size: 0.96em; line-height: 1.8;">
+      <li>DAG 基本概念：節點、箭頭、方向</li>
+      <li>什麼是 confounder？為什麼需要調整？</li>
+      <li>什麼是 mediator？為什麼通常不調整？</li>
+      <li>什麼是 collider？為什麼不能亂調整？</li>
+      <li>最小充分調整集合的基本概念</li>
+      <li>從「越多越好」到「剛好才正確」</li>
+    </ul>
+  </div>
+
+  <!-- Part 3 -->
+  <div class="ma-curriculum-unit" style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 28px 26px;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+      <span class="step-badge" style="background: #B82226; color: white; padding: 5px 14px; border-radius: 20px; font-size: 0.94em; font-weight: 700; white-space: nowrap;">實作</span>
+      <h3 style="font-size: 1.05em; font-weight: 700; color: #1a3a5c; margin: 0;">Part 3：DAGitty 操作</h3>
+    </div>
+    <ul class="ma-curriculum-list" style="margin: 0; padding-left: 18px; color: #555; font-size: 0.96em; line-height: 1.8;">
+      <li>DAGitty 介面介紹</li>
+      <li>建立節點與箭頭</li>
+      <li>設定 exposure 與 outcome</li>
+      <li>查看 adjustment sets</li>
+      <li>將 DAGitty 結果轉回 regression 的變數選擇</li>
+      <li>常見初學者錯誤</li>
+    </ul>
+  </div>
+
+  <!-- Part 4 -->
+  <div class="ma-curriculum-unit" style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 28px 26px;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+      <span class="step-badge" style="background: #C4A46D; color: white; padding: 5px 14px; border-radius: 20px; font-size: 0.94em; font-weight: 700; white-space: nowrap;">Q&amp;A</span>
+      <h3 style="font-size: 1.05em; font-weight: 700; color: #1a3a5c; margin: 0;">Part 4：總結與 Q&amp;A</h3>
+    </div>
+    <ul class="ma-curriculum-list" style="margin: 0; padding-left: 18px; color: #555; font-size: 0.96em; line-height: 1.8;">
+      <li>三個核心訊息回顧</li>
+      <li>常見迷思整理</li>
+      <li>學員提問與交流</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ==================== 7. 適用對象 ==================== -->
+<h2 class="ma-section-title" style="text-align: center; font-size: 1.6em; margin: 50px 0 30px 0; color: #333;">本門課適合誰？</h2>
+<div class="ma-audience-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 0 0 24px 0;">
+
+  <!-- 對象 1 -->
+  <div class="ma-audience-card" style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 26px 24px; display: flex; gap: 16px; align-items: flex-start;">
+    <div style="flex-shrink: 0; background: #eef3f8; border-radius: 8px; padding: 10px;">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="10" r="5" stroke="#2d5a87" stroke-width="2" fill="none"/>
+        <path d="M6 28 C6 22 26 22 26 28" stroke="#2d5a87" stroke-width="2" fill="none"/>
+        <circle cx="9" cy="19" r="3" stroke="#C4A46D" stroke-width="1.5" fill="none"/>
+        <circle cx="23" cy="19" r="3" stroke="#C4A46D" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <div>
+      <h3 style="font-size: 1em; font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0;">研究者、臨床醫師、研究生</h3>
+      <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">想提升研究設計與變數判斷能力，讓分析策略有明確的因果邏輯依據。臨床研究中，控制共病史、用藥史是否合適？DAG 告訴你答案，不再靠直覺決定。</p>
+    </div>
+  </div>
+
+  <!-- 對象 2 -->
+  <div class="ma-audience-card" style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 26px 24px; display: flex; gap: 16px; align-items: flex-start;">
+    <div style="flex-shrink: 0; background: #eef3f8; border-radius: 8px; padding: 10px;">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <circle cx="8" cy="16" r="4" fill="#2d5a87"/>
+        <circle cx="24" cy="16" r="4" fill="#B82226"/>
+        <circle cx="16" cy="8" r="4" fill="#C4A46D"/>
+        <line x1="12" y1="16" x2="20" y2="16" stroke="#2d5a87" stroke-width="2"/>
+        <line x1="16" y1="12" x2="16" y2="20" stroke="#C4A46D" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <text x="8" y="19" font-size="6" fill="white" text-anchor="middle" font-weight="bold">X</text>
+        <text x="24" y="19" font-size="6" fill="white" text-anchor="middle" font-weight="bold">Y</text>
+        <text x="16" y="11" font-size="6" fill="white" text-anchor="middle" font-weight="bold">C</text>
+      </svg>
+    </div>
+    <div>
+      <h3 style="font-size: 1em; font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0;">已會 regression 但想進一步理解調整邏輯</h3>
+      <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">你不只想知道怎麼跑，還想知道為什麼這樣跑、這樣跑對不對。</p>
+    </div>
+  </div>
+
+  <!-- 對象 3 -->
+  <div class="ma-audience-card" style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 26px 24px; display: flex; gap: 16px; align-items: flex-start;">
+    <div style="flex-shrink: 0; background: #eef3f8; border-radius: 8px; padding: 10px;">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <path d="M5 27 L5 10 L16 5 L27 10 L27 27" stroke="#2d5a87" stroke-width="2" fill="none"/>
+        <rect x="12" y="19" width="8" height="8" stroke="#B82226" stroke-width="1.5" fill="none"/>
+        <circle cx="16" cy="13" r="3" stroke="#C4A46D" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <div>
+      <h3 style="font-size: 1em; font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0;">想開始學 DAG 的入門者</h3>
+      <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">低門檻、實務導向，幫你建立正確基礎，避免一開始就走錯方向。</p>
+    </div>
+  </div>
+
+  <!-- 對象 4 -->
+  <div class="ma-audience-card" style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 26px 24px; display: flex; gap: 16px; align-items: flex-start;">
+    <div style="flex-shrink: 0; background: #eef3f8; border-radius: 8px; padding: 10px;">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <rect x="4" y="6" width="24" height="18" rx="2" stroke="#2d5a87" stroke-width="2" fill="none"/>
+        <line x1="4" y1="12" x2="28" y2="12" stroke="#2d5a87" stroke-width="1.5"/>
+        <line x1="12" y1="6" x2="12" y2="24" stroke="#2d5a87" stroke-width="1" stroke-dasharray="2,2"/>
+        <circle cx="8" cy="18" r="2" fill="#B82226"/>
+        <circle cx="20" cy="18" r="2" fill="#C4A46D"/>
+        <line x1="10" y1="18" x2="18" y2="18" stroke="#2d5a87" stroke-width="1.5"/>
+        <path d="M16 26 L20 29 M16 26 L12 29" stroke="#2d5a87" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div>
+      <h3 style="font-size: 1em; font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0;">指導學生或帶研究計畫的教師</h3>
+      <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">在研究判斷與方法溝通上更精準，幫助學生與團隊成員建立正確的因果思考框架。</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- 不適合提示 -->
+<div style="background: #fff8e1; border: 1px solid #ffe082; border-left: 4px solid #C4A46D; border-radius: 6px; padding: 16px 22px; margin: 0 0 50px 0;">
+  <strong style="color: #1a3a5c; display: block; margin-bottom: 6px;">不適合的情況</strong>
+  <p style="color: #555; font-size: 0.96em; line-height: 1.6; margin: 0;">本門課不是高階 causal inference 理論課、不是完整因果推論方法長時數課程、不是程式推導為主的理論課。如果你已有 DAG 基礎且熟悉 do-calculus，本門課的內容對你而言可能太基礎。</p>
+</div>
+
+<!-- ==================== 8. 課程亮點 ==================== -->
+<h2 class="ma-section-title" style="text-align: center; font-size: 1.6em; margin: 50px 0 30px 0; color: white;">課程亮點</h2>
+<div class="ma-features" style="background: linear-gradient(135deg, #1a3a5c 0%, #2d5a87 100%); border-radius: 12px; padding: 40px 36px; margin: 0 0 50px 0;">
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+
+    <!-- 亮點 1 -->
+    <div style="display: flex; gap: 16px; align-items: flex-start;">
+      <div style="flex-shrink: 0; background: rgba(196,164,109,0.2); border-radius: 8px; padding: 10px;">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="12" stroke="#C4A46D" stroke-width="2" fill="none"/>
+          <text x="14" y="19" font-size="12" fill="#C4A46D" text-anchor="middle" font-weight="bold">2h</text>
+        </svg>
+      </div>
+      <div>
+        <h3 style="font-size: 1em; font-weight: 700; color: #C4A46D; margin: 0 0 6px 0;">用 2 小時建立正確起點</h3>
+        <p style="color: rgba(255,255,255,0.75); font-size: 0.94em; line-height: 1.6; margin: 0;">不塞大量理論，聚焦最關鍵處，讓你在有限時間內建立最有用的基礎。</p>
+      </div>
+    </div>
+
+    <!-- 亮點 2 -->
+    <div style="display: flex; gap: 16px; align-items: flex-start;">
+      <div style="flex-shrink: 0; background: rgba(196,164,109,0.2); border-radius: 8px; padding: 10px;">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="8" cy="14" r="4" fill="#C4A46D"/>
+          <circle cx="20" cy="8" r="4" fill="#C4A46D"/>
+          <circle cx="20" cy="20" r="4" fill="#B82226"/>
+          <line x1="12" y1="12" x2="16" y2="10" stroke="#C4A46D" stroke-width="1.5"/>
+          <line x1="12" y1="16" x2="16" y2="18" stroke="#C4A46D" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div>
+        <h3 style="font-size: 1em; font-weight: 700; color: #C4A46D; margin: 0 0 6px 0;">真正看懂三種關鍵變數</h3>
+        <p style="color: rgba(255,255,255,0.75); font-size: 0.94em; line-height: 1.6; margin: 0;">Confounder、mediator、collider 的差異直接影響模型合理性，不再混淆不清。</p>
+      </div>
+    </div>
+
+    <!-- 亮點 3 -->
+    <div style="display: flex; gap: 16px; align-items: flex-start;">
+      <div style="flex-shrink: 0; background: rgba(196,164,109,0.2); border-radius: 8px; padding: 10px;">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect x="4" y="6" width="20" height="16" rx="2" stroke="#C4A46D" stroke-width="2" fill="none"/>
+          <circle cx="10" cy="14" r="2.5" fill="#C4A46D"/>
+          <circle cx="18" cy="14" r="2.5" fill="#C4A46D"/>
+          <line x1="12.5" y1="14" x2="15.5" y2="14" stroke="#C4A46D" stroke-width="2"/>
+          <path d="M14 22 L14 26 M10 26 L18 26" stroke="#C4A46D" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div>
+        <h3 style="font-size: 1em; font-weight: 700; color: #C4A46D; margin: 0 0 6px 0;">學完就能開始操作 DAGitty</h3>
+        <p style="color: rgba(255,255,255,0.75); font-size: 0.94em; line-height: 1.6; margin: 0;">不只聽懂，課程結束後你就可以自己開始用 DAGitty 畫圖與查詢調整集合。</p>
+      </div>
+    </div>
+
+    <!-- 亮點 4 -->
+    <div style="display: flex; gap: 16px; align-items: flex-start;">
+      <div style="flex-shrink: 0; background: rgba(196,164,109,0.2); border-radius: 8px; padding: 10px;">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <path d="M5 14 L11 20 L23 8" stroke="#C4A46D" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="5" cy="14" r="2" fill="#2d5a87"/>
+          <circle cx="14" cy="14" r="2" fill="#2d5a87"/>
+          <circle cx="23" cy="8" r="2" fill="#B82226"/>
+        </svg>
+      </div>
+      <div>
+        <h3 style="font-size: 1em; font-weight: 700; color: #C4A46D; margin: 0 0 6px 0;">幫你把 DAG 與 regression 接起來</h3>
+        <p style="color: rgba(255,255,255,0.75); font-size: 0.94em; line-height: 1.6; margin: 0;">讓 DAG 真正進入你的研究流程，不再是獨立存在的「另一個概念」。</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== 9. 課程資訊 ==================== -->
+<h2 class="ss-section-title" style="text-align: center; font-size: 1.6em; margin: 50px 0 30px 0; color: #1a3a5c; font-weight: 700;">課程資訊</h2>
+<div class="ss-info-box" style="background: #f8f6f0; border: 2px solid #e0e0e0; padding: 35px; border-radius: 10px; margin: 0 0 30px 0;">
+    <div class="ss-info-item" style="display: flex; padding: 15px 0; border-bottom: 1px solid #e0e0e0;">
+        <span class="ss-info-label" style="width: 140px; font-weight: bold; color: #C4A46D; font-size: 16px; flex-shrink: 0;">課程名稱</span>
+        <span class="ss-info-value" style="flex: 1; color: #333; font-size: 17px; text-align: center;">這個變數該不該控制？DAG (Directed Acyclic Graphs) 一畫就知道</span>
+    </div>
+    <div class="ss-info-item" style="display: flex; padding: 15px 0; border-bottom: 1px solid #e0e0e0;">
+        <span class="ss-info-label" style="width: 140px; font-weight: bold; color: #C4A46D; font-size: 16px; flex-shrink: 0;">課程編號</span>
+        <span class="ss-info-value" style="flex: 1; color: #333; font-size: 17px; text-align: center;">Live26-04</span>
+    </div>
+    <div class="ss-info-item" style="display: flex; padding: 15px 0; border-bottom: 1px solid #e0e0e0;">
+        <span class="ss-info-label" style="width: 140px; font-weight: bold; color: #C4A46D; font-size: 16px; flex-shrink: 0;">上課日期</span>
+        <span class="ss-info-value" style="flex: 1; color: #333; font-size: 17px; text-align: center;">2026/4/10（五）</span>
+    </div>
+    <div class="ss-info-item" style="display: flex; padding: 15px 0; border-bottom: 1px solid #e0e0e0;">
+        <span class="ss-info-label" style="width: 140px; font-weight: bold; color: #C4A46D; font-size: 16px; flex-shrink: 0;">上課時間</span>
+        <span class="ss-info-value" style="flex: 1; color: #333; font-size: 17px; text-align: center;">18:30 - 20:30（共 2 小時）</span>
+    </div>
+    <div class="ss-info-item" style="display: flex; padding: 15px 0; border-bottom: 1px solid #e0e0e0;">
+        <span class="ss-info-label" style="width: 140px; font-weight: bold; color: #C4A46D; font-size: 16px; flex-shrink: 0;">授課方式</span>
+        <span class="ss-info-value" style="flex: 1; color: #333; font-size: 17px; text-align: center;">線上直播（Google Meet）<br><span style="color: #999; font-size: 14px;">報名後將寄送直播連結</span></span>
+    </div>
+    <div class="ss-info-item" style="display: flex; padding: 15px 0; border-bottom: 1px solid #e0e0e0;">
+        <span class="ss-info-label" style="width: 140px; font-weight: bold; color: #C4A46D; font-size: 16px; flex-shrink: 0;">課程費用</span>
+        <span class="ss-info-value" style="flex: 1; color: #333; font-size: 17px; text-align: center;">
+            <span style="font-size: 28px; font-weight: bold; color: #B82226;">NT$ 4,500</span>
+            <span style="font-size: 16px; color: #666; margin-left: 10px;">會員價 NT$ 3,825</span>
+        </span>
+    </div>
+    <div class="ss-info-item" style="display: flex; padding: 15px 0; border-bottom: 1px solid #e0e0e0;">
+        <span class="ss-info-label" style="width: 140px; font-weight: bold; color: #C4A46D; font-size: 16px; flex-shrink: 0;">招生名額</span>
+        <span class="ss-info-value" style="flex: 1; color: #333; font-size: 17px; text-align: center;">30 名</span>
+    </div>
+    <div class="ss-info-item" style="display: flex; padding: 15px 0;">
+        <span class="ss-info-label" style="width: 140px; font-weight: bold; color: #C4A46D; font-size: 16px; flex-shrink: 0;">錄影回放</span>
+        <span class="ss-info-value" style="flex: 1; color: #333; font-size: 17px; text-align: center;">提供 14 天回放觀看<br><span style="color: #999; font-size: 14px;">僅限報名學員</span></span>
+    </div>
+</div>
+
+<!-- ==================== 額外區塊 C：課前準備 ==================== -->
+<div style="background: #fff8e1; border: 1px solid #ffe082; border-left: 4px solid #C4A46D; border-radius: 6px; padding: 18px 24px; margin: 0 0 50px 0;">
+  <strong style="color: #1a3a5c; display: block; margin-bottom: 10px; font-size: 1em;">課前準備事項</strong>
+  <ul style="margin: 0; padding-left: 20px; color: #555; font-size: 0.96em; line-height: 1.8;">
+    <li>請準備電腦（非手機／平板），課程包含實作練習</li>
+    <li>請先進入 DAGitty 網站（<a href="https://www.dagitty.net/" target="_blank" rel="noopener" style="color: #2d5a87 !important; text-decoration: none !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important;">www.dagitty.net</a>）確認可正常使用</li>
+    <li>建議有基本 regression 基礎即可，不需要有 DAG 或 causal inference 先備知識</li>
+  </ul>
+</div>
+
+<!-- ==================== 額外區塊 A：FAQ ==================== -->
+<h2 class="ma-section-title" style="text-align: center; font-size: 1.6em; margin: 50px 0 30px 0; color: #333;">常見問題</h2>
+<div style="margin: 0 0 50px 0;">
+
+  <!-- FAQ 1 -->
+  <div style="background: #fff; border: 1px solid #d0dce8; border-radius: 8px; padding: 20px 26px; margin-bottom: 12px;">
+    <p style="font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0; font-size: 0.98em;">Q：沒學過 DAG 可以上嗎？</p>
+    <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">A：可以。本門課就是為想建立 DAG 正確起點的學員設計，不需要任何 DAG 先備知識。</p>
+  </div>
+
+  <!-- FAQ 2 -->
+  <div style="background: #fff; border: 1px solid #d0dce8; border-radius: 8px; padding: 20px 26px; margin-bottom: 12px;">
+    <p style="font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0; font-size: 0.98em;">Q：只會基本 regression 適合嗎？</p>
+    <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">A：很適合。本門課正是為已會 regression 但對調整邏輯不踏實的人設計，先備知識只需要跑過 regression、看過 p 值即可。</p>
+  </div>
+
+  <!-- FAQ 3 -->
+  <div style="background: #fff; border: 1px solid #d0dce8; border-radius: 8px; padding: 20px 26px; margin-bottom: 12px;">
+    <p style="font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0; font-size: 0.98em;">Q：本門課會很理論嗎？</p>
+    <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">A：不會。課程重點是實務判斷與操作，不是大量理論推導。我們的目標是讓你學完就能開始用，而不是通過考試。</p>
+  </div>
+
+  <!-- FAQ 4 -->
+  <div style="background: #fff; border: 1px solid #d0dce8; border-radius: 8px; padding: 20px 26px; margin-bottom: 12px;">
+    <p style="font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0; font-size: 0.98em;">Q：會教到 DAGitty 嗎？</p>
+    <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">A：會。第三部分專門帶你實際操作 DAGitty，包含建立節點、設定 exposure 與 outcome、查看 adjustment sets。</p>
+  </div>
+
+  <!-- FAQ 5 -->
+  <div style="background: #fff; border: 1px solid #d0dce8; border-radius: 8px; padding: 20px 26px; margin-bottom: 12px;">
+    <p style="font-weight: 700; color: #1a3a5c; margin: 0 0 8px 0; font-size: 0.98em;">Q：會教完整 causal inference 嗎？</p>
+    <p style="color: #666; font-size: 0.96em; line-height: 1.6; margin: 0;">A：不會。這是實務入門課，目標是建立正確起點與基本操作。完整的因果推論方法（如 IV、DiD、RDD 等）是進階課程的範疇。</p>
+  </div>
+
+
+</div>
+
+<!-- ==================== 額外區塊 B：因果推論學習路徑 ==================== -->
+<h2 class="ma-section-title" style="text-align: center; font-size: 1.6em; margin: 50px 0 30px 0; color: #333;">因果推論學習路徑</h2>
+<div style="display: flex; align-items: center; justify-content: center; gap: 0; margin: 0 0 50px 0; flex-wrap: wrap;">
+
+  <!-- 前一課 -->
+  <div style="background: #f5f5f5; border: 1px solid #ddd; border-radius: 8px; padding: 18px 22px; text-align: center; min-width: 160px; flex: 1; max-width: 220px;">
+    <div style="font-size: 0.94em; color: #999; margin-bottom: 4px; font-weight: 600;">LIVE26-03</div>
+    <div style="font-size: 0.94em; color: #666; font-weight: 600; margin-bottom: 4px;">哲學基礎</div>
+    <div style="font-size: 0.94em; color: #999;">反事實推論</div>
+  </div>
+
+  <!-- 箭頭 -->
+  <div style="padding: 0 12px; color: #2d5a87; font-size: 1.4em; font-weight: 300;">&#8594;</div>
+
+  <!-- 本課（高亮） -->
+  <div style="background: #B82226; border: 2px solid #B82226; border-radius: 8px; padding: 18px 22px; text-align: center; min-width: 160px; flex: 1; max-width: 220px; position: relative;">
+    <div style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #C4A46D; color: white; padding: 2px 10px; border-radius: 10px; font-size: 0.94em; font-weight: 700; white-space: nowrap;">現在本門課</div>
+    <div style="font-size: 0.94em; color: rgba(255,255,255,0.8); margin-bottom: 4px; font-weight: 600; margin-top: 6px;">LIVE26-04</div>
+    <div style="font-size: 0.94em; color: white; font-weight: 700; margin-bottom: 4px;">圖形方法</div>
+    <div style="font-size: 0.94em; color: rgba(255,255,255,0.9);">DAG 一畫就知道</div>
+  </div>
+
+  <!-- 箭頭 -->
+  <div style="padding: 0 12px; color: #2d5a87; font-size: 1.4em; font-weight: 300;">&#8594;</div>
+
+  <!-- 後一課 -->
+  <div style="background: #f5f5f5; border: 1px solid #ddd; border-radius: 8px; padding: 18px 22px; text-align: center; min-width: 160px; flex: 1; max-width: 220px;">
+    <div style="font-size: 0.94em; color: #999; margin-bottom: 4px; font-weight: 600;">LIVE26-09</div>
+    <div style="font-size: 0.94em; color: #666; font-weight: 600; margin-bottom: 4px;">臨床應用</div>
+    <div style="font-size: 0.94em; color: #999;">統計與臨床意義</div>
+  </div>
+
+</div>
+
+<!-- ==================== 10. CTA 區塊 ==================== -->
+<div class="ma-cta" style="background: linear-gradient(135deg, #B82226 0%, #8B1A1D 100%); border-radius: 12px; padding: 50px 40px; text-align: center; margin: 0 0 50px 0;">
+  <h2 style="color: white; font-size: 1.5em; font-weight: 700; margin: 0 0 16px 0; line-height: 1.4;">2 小時建立 DAG 正確起點<br />讓變數選擇不再靠直覺</h2>
+  <p style="color: rgba(255,255,255,0.85); font-size: 0.96em; margin: 0 0 30px 0;">2026 年 4 月 10 日（五）18:30 ｜ 線上直播 ｜ NT$ 4,500</p>
+  <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+    <a href="https://www.medatatw.com/%E8%AA%B2%E7%A8%8B%E5%A0%B1%E5%90%8D.html" target="_blank" rel="noopener" style="color: #1a3a5c !important; text-decoration: none !important; background: #C4A46D !important; border: none !important; padding: 14px 36px !important; border-radius: 6px; font-weight: 700; font-size: 1.05em; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">立即報名</a>
+    <a href="https://www.medatatw.com/contactus.html" target="_blank" rel="noopener" style="color: white !important; text-decoration: none !important; background: transparent !important; border: 2px solid white !important; padding: 12px 34px !important; border-radius: 6px; font-weight: 600; font-size: 1.05em; display: inline-block; box-shadow: none !important;">免費諮詢</a>
+  </div>
+</div>
+
+<!-- ==================== 11. 延伸學習資源 ==================== -->
+<h2 class="ma-section-title" style="text-align: center; font-size: 1.6em; margin: 50px 0 30px 0; color: #333;">DAG 學習資源</h2>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin: 0 0 50px 0;">
+
+  <!-- 工具 -->
+  <div style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 26px 22px;">
+    <h3 style="font-size: 1em; font-weight: 700; color: #B82226; margin: 0 0 16px 0; padding-bottom: 10px; border-bottom: 2px solid #d0dce8;">工具</h3>
+    <ul style="list-style: none; margin: 0; padding: 0;">
+      <li style="padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 0.94em;">
+        <a href="https://www.dagitty.net/" target="_blank" rel="noopener" style="color: #2d5a87 !important; text-decoration: none !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; font-weight: 600;">DAGitty</a>
+        <span style="display: block; color: #888; font-size: 0.94em; margin-top: 2px;">線上互動式 DAG 工具</span>
+      </li>
+      <li style="padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 0.94em;">
+        <a href="https://cran.r-project.org/web/packages/ggdag/" target="_blank" rel="noopener" style="color: #2d5a87 !important; text-decoration: none !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; font-weight: 600;">ggdag（R 套件）</a>
+        <span style="display: block; color: #888; font-size: 0.94em; margin-top: 2px;">ggplot2 風格的 DAG 視覺化</span>
+      </li>
+      <li style="padding: 8px 0; font-size: 0.94em;">
+        <a href="https://cran.r-project.org/web/packages/dagitty/" target="_blank" rel="noopener" style="color: #2d5a87 !important; text-decoration: none !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; font-weight: 600;">dagitty（R 套件）</a>
+        <span style="display: block; color: #888; font-size: 0.94em; margin-top: 2px;">DAGitty 的 R 介面版</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 教學文獻 -->
+  <div style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 26px 22px;">
+    <h3 style="font-size: 1em; font-weight: 700; color: #2d5a87; margin: 0 0 16px 0; padding-bottom: 10px; border-bottom: 2px solid #d0dce8;">教學文獻</h3>
+    <ul style="list-style: none; margin: 0; padding: 0;">
+      <li style="padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 0.94em; line-height: 1.5;">
+        <a href="https://doi.org/10.1136/bmj-2023-078226" target="_blank" rel="noopener" style="color: #2d5a87 !important; text-decoration: none !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important;">Feeney et al. (2025)</a>
+        <span style="display: block; color: #666; margin-top: 3px;">How to use directed acyclic graphs. <em>BMJ</em>, 388, e078226.</span>
+      </li>
+      <li style="padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 0.94em; line-height: 1.5;">
+        <a href="https://doi.org/10.1186/1471-2288-8-70" target="_blank" rel="noopener" style="color: #2d5a87 !important; text-decoration: none !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important;">Shrier &amp; Platt (2008)</a>
+        <span style="display: block; color: #666; margin-top: 3px;">Reducing bias through directed acyclic graphs. <em>BMC Med Res Methodol</em>, 8, 70.</span>
+      </li>
+      <li style="padding: 8px 0; font-size: 0.94em; line-height: 1.5;">
+        <a href="https://doi.org/10.1093/ije/dyw341" target="_blank" rel="noopener" style="color: #2d5a87 !important; text-decoration: none !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important;">Textor et al. (2017)</a>
+        <span style="display: block; color: #666; margin-top: 3px;">Robust causal inference using DAGs: the R package 'dagitty'. <em>Int J Epidemiol</em>, 45(6), 1887–1894.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 進階資源 -->
+  <div style="background: #fff; border: 1px solid #d0dce8; border-radius: 10px; padding: 26px 22px;">
+    <h3 style="font-size: 1em; font-weight: 700; color: #C4A46D; margin: 0 0 16px 0; padding-bottom: 10px; border-bottom: 2px solid #d0dce8;">進階資源</h3>
+    <ul style="list-style: none; margin: 0; padding: 0;">
+      <li style="padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 0.94em;">
+        <a href="https://microsoft.github.io/dowhy/" target="_blank" rel="noopener" style="color: #2d5a87 !important; text-decoration: none !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; font-weight: 600;">DoWhy（Python）</a>
+        <span style="display: block; color: #888; font-size: 0.94em; margin-top: 2px;">因果推論 Python 框架（Microsoft）</span>
+      </li>
+      <li style="padding: 8px 0; font-size: 0.94em;">
+        <a href="https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/" target="_blank" rel="noopener" style="color: #2d5a87 !important; text-decoration: none !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; font-weight: 600;">Hernán &amp; Robins: What If</a>
+        <span style="display: block; color: #888; font-size: 0.94em; margin-top: 2px;">免費電子書，因果推論標準教材</span>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ==================== 12. 聯絡資訊 ==================== -->
+<h2 class="ma-section-title" style="text-align: center; font-size: 1.6em; margin: 50px 0 30px 0; color: #333;">聯絡我們</h2>
+<div class="ma-contact" style="background: #f0f4f8; border: 1px solid #d0dce8; border-radius: 10px; padding: 30px 36px; margin: 0 0 50px 0;">
+  <ul class="ma-contact-list" style="list-style: none; margin: 0; padding: 0; display: flex; gap: 30px; flex-wrap: wrap; justify-content: center;">
+
+    <!-- LINE -->
+    <li style="display: flex; align-items: center; gap: 12px;">
+      <div style="background: #00B900; border-radius: 8px; padding: 8px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <path d="M11 2C6 2 2 5.5 2 9.8c0 2.6 1.4 4.9 3.6 6.4l-.5 1.8 2.2-1.1c.8.2 1.7.3 2.7.3 5 0 9-3.5 9-7.8S16 2 11 2z" fill="white"/>
+          <path d="M7 10h2v1H7z M10 10h2v1h-2z M13 10h2v1h-2z" fill="#00B900"/>
+        </svg>
+      </div>
+      <div>
+        <div style="font-size: 0.94em; color: #999; margin-bottom: 2px;">LINE 官方帳號</div>
+        <a href="https://lin.ee/YcV3eSs" target="_blank" rel="noopener" style="color: #2d5a87 !important; text-decoration: none !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; font-weight: 600; font-size: 0.96em;">@medatatw</a>
+      </div>
+    </li>
+
+    <!-- Email -->
+    <li style="display: flex; align-items: center; gap: 12px;">
+      <div style="background: #2d5a87; border-radius: 8px; padding: 8px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <rect x="2" y="5" width="18" height="13" rx="2" stroke="white" stroke-width="1.8" fill="none"/>
+          <path d="M2 8 L11 14 L20 8" stroke="white" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
+      <div>
+        <div style="font-size: 0.94em; color: #999; margin-bottom: 2px;">Email</div>
+        <a href="mailto:info@medatatw.com" style="color: #2d5a87 !important; text-decoration: none !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; font-weight: 600; font-size: 0.96em;">info@medatatw.com</a>
+      </div>
+    </li>
+
+    <!-- 洽詢表單 -->
+    <li style="display: flex; align-items: center; gap: 12px;">
+      <div style="background: #B82226; border-radius: 8px; padding: 8px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <rect x="2" y="3" width="18" height="14" rx="2" stroke="white" stroke-width="1.8" fill="none"/>
+          <line x1="6" y1="8" x2="16" y2="8" stroke="white" stroke-width="1.5"/>
+          <line x1="6" y1="11" x2="13" y2="11" stroke="white" stroke-width="1.5"/>
+          <path d="M16 17 L14 21 L18 21 Z" fill="white"/>
+        </svg>
+      </div>
+      <div>
+        <div style="font-size: 0.94em; color: #999; margin-bottom: 2px;">洽詢表單</div>
+        <a href="https://www.medatatw.com/contactus.html" target="_blank" rel="noopener" style="color: #2d5a87 !important; text-decoration: none !important; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; font-weight: 600; font-size: 0.96em;">填寫線上洽詢表單</a>
+      </div>
+    </li>
+
+  </ul>
+</div>
+
+</div><!-- /ma-course-content -->
+<p></p>
+<p></p>
+<!-- ==================== 課程內容結束 ==================== -->
