@@ -57,12 +57,12 @@
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <meta name="description" content="提供ChatGPT以及其他AI工具應用與撰寫學術論文或報告寫作的介紹與教學影片。" />
-    <meta name="keywords" content="" />
+    <meta name="description" content="Zotero + AI 知識管理系列教學影片：完美匯入文獻、筆記與 RIS 檔的實用技巧。匯東華統計顧問提供專業統計課程。" />
+    <meta name="keywords" content="Zotero,AI,文獻管理,RIS,DOI,知識管理,第二大腦,匯東華,統計課程" />
 <meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="breakpoints" content="1000,499,770"/>
-    <title>匯東華統計顧問有限公司 - AI工具之應用和研究文獻</title>
+    <title>匯東華統計顧問有限公司 - 【Zotero 教學】不再弄丟 AI 對話！完美匯入文獻、筆記與 RIS 檔</title>
     <script src="static/js/website/jquery-3.5.1.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="__system/__css/h_9fa86b3a358498e70a966e5529d3b1aa/2759931_combined.min.css" />
+    <link type="text/css" rel="stylesheet" href="__system/__css/h_bcf6f692c32b6914ddacd7d817ecbec2/2786399_combined.min.css" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5BV97ZDMV7"></script>
 <script>
@@ -697,13 +697,13 @@
    作者：CSX（匯東華統計顧問）
 
    說明：
-   - 此檔案合併 hdh_course_base.css + ss_sample_size.css
+   - 此檔案合併 hdh_course_base.css + ai_zotero.css
    - 可直接貼入官網進階設定使用
-   - 包含：基礎樣式 + 樣本數課程專用樣式
+   - 包含：基礎樣式 + AI素養課程專用樣式
 
    結構：
    - Part 1: 基礎樣式（hdh- 前綴）
-   - Part 2: 樣本數專用樣式（ss- 前綴）
+   - Part 2: AI素養課程專用樣式（ai- 前綴）
    ================================================================ */
 
 
@@ -1929,13 +1929,13 @@
    ██║     ██║  ██║██║  ██║   ██║       ███████╗
    ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚══════╝
 
-   樣本數專用樣式（ss_sample_size.css）
-   使用 ss-（Sample Size）前綴
-   Hero 區塊使用藍色系 #1a3a5c
+   Zotero AI 專用樣式（ai_zotero.css）
+   使用 ai-（AI）前綴
+   Hero 區塊使用紫色系 #44337a
    ================================================================ */
 
-/* ==================== 覆蓋 CSS 變數（樣本數專用藍色系） ==================== */
-.ss-course-content {
+/* ==================== 覆蓋 CSS 變數（Zotero AI專用紫色系） ==================== */
+.ai-course-content {
   --hdh-red: #B82226;
   --hdh-gold: #C4A46D;
   --hdh-dark: #333333;
@@ -1943,14 +1943,14 @@
   --hdh-light: #f8f6f0;
   --hdh-border: #e0e0e0;
 
-  --ss-blue-dark: #1a3a5c;
-  --ss-blue-medium: #2d5a87;
-  --ss-blue-light: #4a7fb0;
-  --ss-blue-accent: #6ba3d6;
-  --ss-blue-pale: #e7f3ff;
+  --ai-purple-dark: #44337a;
+  --ai-purple-medium: #553c9a;
+  --ai-purple-light: #6b46c1;
+  --ai-purple-accent: #9f7aea;
+  --ai-purple-pale: #f5f0ff;
 
-  --hdh-hero-primary: var(--ss-blue-dark);
-  --hdh-hero-secondary: var(--ss-blue-medium);
+  --hdh-hero-primary: var(--ai-purple-dark);
+  --hdh-hero-secondary: var(--ai-purple-medium);
 
   font-family: 'Microsoft JhengHei', sans-serif;
   line-height: 1.8;
@@ -1960,9 +1960,9 @@
   padding: 0 20px;
 }
 
-/* ==================== Hero 區塊（藍色系） ==================== */
-.ss-hero {
-  background: linear-gradient(135deg, var(--ss-blue-dark) 0%, var(--ss-blue-medium) 50%, var(--ss-blue-dark) 100%);
+/* ==================== Hero 區塊（紫色系） ==================== */
+.ai-hero {
+  background: linear-gradient(135deg, var(--ai-purple-dark) 0%, var(--ai-purple-medium) 50%, var(--ai-purple-dark) 100%);
   color: #fff;
   padding: 60px 40px;
   text-align: center;
@@ -1972,7 +1972,7 @@
   overflow: hidden;
 }
 
-.ss-hero::before {
+.ai-hero::before {
   content: '';
   position: absolute;
   top: 20px;
@@ -1983,7 +1983,7 @@
   border-radius: 50%;
 }
 
-.ss-hero::after {
+.ai-hero::after {
   content: '';
   position: absolute;
   bottom: 20px;
@@ -1994,10 +1994,10 @@
   border-radius: 50%;
 }
 
-.ss-hero-badge {
+.ai-hero-badge {
   display: inline-block;
   background: var(--hdh-gold);
-  color: var(--ss-blue-dark);
+  color: var(--ai-purple-dark);
   padding: 8px 24px;
   font-size: 16px;
   font-weight: bold;
@@ -2007,7 +2007,7 @@
   z-index: 1;
 }
 
-.ss-hero h1 {
+.ai-hero h1 {
   font-size: 36px;
   margin-bottom: 20px;
   font-weight: bold;
@@ -2016,7 +2016,7 @@
   z-index: 1;
 }
 
-.ss-hero .subtitle {
+.ai-hero .subtitle {
   font-size: 22px;
   opacity: 0.95;
   margin-bottom: 15px;
@@ -2025,7 +2025,7 @@
   z-index: 1;
 }
 
-.ss-hero .tagline {
+.ai-hero .tagline {
   font-size: 18px;
   color: var(--hdh-gold);
   line-height: 1.6;
@@ -2034,7 +2034,7 @@
 }
 
 /* ==================== 影片區塊 ==================== */
-.ss-video-section {
+.ai-video-section {
   text-align: center;
   margin: 40px 0;
   padding: 30px;
@@ -2042,33 +2042,33 @@
   border-radius: 8px;
 }
 
-.ss-video-section iframe {
+.ai-video-section iframe {
   max-width: 100%;
   border: none;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   border-radius: 8px;
 }
 
-.ss-video-caption {
+.ai-video-caption {
   margin-top: 15px;
   font-size: 16px;
   color: var(--hdh-gray);
 }
 
-.ss-video-caption a {
+.ai-video-caption a {
   color: var(--hdh-red);
   font-weight: bold;
   text-decoration: none;
 }
 
-.ss-video-caption a:hover {
+.ai-video-caption a:hover {
   text-decoration: underline;
 }
 
 /* ==================== 區塊標題 ==================== */
-.ss-section-title {
+.ai-section-title {
   font-size: 28px;
-  color: var(--ss-blue-dark);
+  color: var(--ai-purple-dark);
   border-bottom: 4px solid var(--hdh-gold);
   padding-bottom: 12px;
   margin: 50px 0 30px;
@@ -2076,7 +2076,7 @@
   text-align: center;
 }
 
-.ss-section-title-red {
+.ai-section-title-red {
   font-size: 28px;
   color: var(--hdh-red);
   border-bottom: 4px solid var(--hdh-gold);
@@ -2087,10 +2087,10 @@
 }
 
 /* ==================== 課程介紹文字 ==================== */
-.ss-intro {
+.ai-intro {
   background: #fff;
   padding: 35px;
-  border-left: 5px solid var(--ss-blue-dark);
+  border-left: 5px solid var(--ai-purple-dark);
   margin: 30px 0;
   font-size: 18px;
   line-height: 2;
@@ -2098,30 +2098,30 @@
   border-radius: 4px;
 }
 
-.ss-intro p {
+.ai-intro p {
   margin-bottom: 20px;
   text-align: justify;
 }
 
-.ss-intro strong {
-  color: var(--ss-blue-dark);
+.ai-intro strong {
+  color: var(--ai-purple-dark);
   font-weight: bold;
 }
 
-.ss-intro .highlight-red {
+.ai-intro .highlight-red {
   color: var(--hdh-red);
   font-weight: bold;
 }
 
 /* ==================== 痛點卡片 ==================== */
-.ss-pain-grid {
+.ai-pain-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
   margin: 30px 0;
 }
 
-.ss-pain-card {
+.ai-pain-card {
   background: var(--hdh-light);
   border: 2px solid var(--hdh-border);
   padding: 35px 25px;
@@ -2130,41 +2130,41 @@
   transition: all 0.3s ease;
 }
 
-.ss-pain-card:hover {
-  border-color: var(--ss-blue-dark);
-  box-shadow: 0 4px 12px rgba(26, 58, 92, 0.15);
+.ai-pain-card:hover {
+  border-color: var(--ai-purple-dark);
+  box-shadow: 0 4px 12px rgba(68, 51, 122, 0.15);
   transform: translateY(-3px);
 }
 
-.ss-pain-card .icon {
+.ai-pain-card .icon {
   font-size: 48px;
   margin-bottom: 20px;
   display: block;
 }
 
-.ss-pain-card h3 {
-  color: var(--ss-blue-dark);
+.ai-pain-card h3 {
+  color: var(--ai-purple-dark);
   font-size: 20px;
   margin-bottom: 15px;
   font-weight: bold;
 }
 
-.ss-pain-card p {
+.ai-pain-card p {
   font-size: 16px;
   color: var(--hdh-gray);
   line-height: 1.8;
 }
 
-/* ==================== 課程特色區塊（藍色深底） ==================== */
-.ss-features {
-  background: linear-gradient(135deg, var(--ss-blue-dark) 0%, var(--ss-blue-medium) 100%);
+/* ==================== 課程特色區塊（紫色深底） ==================== */
+.ai-features {
+  background: linear-gradient(135deg, var(--ai-purple-dark) 0%, var(--ai-purple-medium) 100%);
   color: #fff;
   padding: 50px 40px;
   margin: 50px -20px;
   border-radius: 8px;
 }
 
-.ss-features-title {
+.ai-features-title {
   text-align: center;
   font-size: 28px;
   color: var(--hdh-gold);
@@ -2172,60 +2172,60 @@
   font-weight: bold;
 }
 
-.ss-features-grid {
+.ai-features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 30px;
 }
 
-.ss-feature-item {
+.ai-feature-item {
   text-align: center;
   padding: 20px;
 }
 
-.ss-feature-item .number {
+.ai-feature-item .number {
   display: inline-block;
   width: 50px;
   height: 50px;
   line-height: 50px;
   background: var(--hdh-gold);
-  color: var(--ss-blue-dark);
+  color: var(--ai-purple-dark);
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 15px;
   border-radius: 50%;
 }
 
-.ss-feature-item h4 {
+.ai-feature-item h4 {
   font-size: 18px;
   margin-bottom: 10px;
   font-weight: bold;
 }
 
-.ss-feature-item p {
+.ai-feature-item p {
   font-size: 15px;
   opacity: 0.9;
   line-height: 1.6;
 }
 
 /* ==================== 課程大綱表格 - 兩欄式 ==================== */
-.ss-curriculum {
+.ai-curriculum {
   margin: 30px 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
-.ss-curriculum-unit {
+.ai-curriculum-unit {
   background: #fff;
-  border-left: 5px solid var(--ss-blue-dark);
+  border-left: 5px solid var(--ai-purple-dark);
   padding: 25px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
   border-radius: 4px;
 }
 
-.ss-curriculum-unit h3 {
-  color: var(--ss-blue-dark);
+.ai-curriculum-unit h3 {
+  color: var(--ai-purple-dark);
   font-size: 19px;
   margin-bottom: 18px;
   display: flex;
@@ -2234,8 +2234,8 @@
   font-weight: bold;
 }
 
-.ss-curriculum-unit h3 .step-badge {
-  background: var(--ss-blue-dark);
+.ai-curriculum-unit h3 .step-badge {
+  background: var(--ai-purple-dark);
   color: #fff;
   padding: 4px 12px;
   font-size: 13px;
@@ -2243,16 +2243,16 @@
   border-radius: 4px;
 }
 
-.ss-curriculum-unit h3 .step-badge-gold {
+.ai-curriculum-unit h3 .step-badge-gold {
   background: var(--hdh-gold);
-  color: var(--ss-blue-dark);
+  color: var(--ai-purple-dark);
   padding: 4px 12px;
   font-size: 13px;
   font-weight: bold;
   border-radius: 4px;
 }
 
-.ss-curriculum-unit h3 .step-badge-red {
+.ai-curriculum-unit h3 .step-badge-red {
   background: var(--hdh-red);
   color: #fff;
   padding: 4px 12px;
@@ -2261,13 +2261,13 @@
   border-radius: 4px;
 }
 
-.ss-curriculum-list {
+.ai-curriculum-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.ss-curriculum-list li {
+.ai-curriculum-list li {
   padding: 10px 0;
   border-bottom: 1px dashed var(--hdh-border);
   font-size: 16px;
@@ -2275,26 +2275,26 @@
   line-height: 1.6;
 }
 
-.ss-curriculum-list li:last-child {
+.ai-curriculum-list li:last-child {
   border-bottom: none;
 }
 
-.ss-curriculum-list li::before {
+.ai-curriculum-list li::before {
   content: ">";
-  color: var(--ss-blue-dark);
+  color: var(--ai-purple-dark);
   font-weight: bold;
   margin-right: 5px;
 }
 
 /* ==================== 適用對象 ==================== */
-.ss-audience-grid {
+.ai-audience-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
   margin: 30px 0;
 }
 
-.ss-audience-card {
+.ai-audience-card {
   background: #fff;
   border: 2px solid var(--hdh-border);
   padding: 30px;
@@ -2303,30 +2303,30 @@
   transition: all 0.3s ease;
 }
 
-.ss-audience-card:hover {
-  border-color: var(--ss-blue-dark);
-  box-shadow: 0 4px 12px rgba(26, 58, 92, 0.15);
+.ai-audience-card:hover {
+  border-color: var(--ai-purple-dark);
+  box-shadow: 0 4px 12px rgba(68, 51, 122, 0.15);
   transform: translateY(-3px);
 }
 
-.ss-audience-card h3 {
-  color: var(--ss-blue-dark);
+.ai-audience-card h3 {
+  color: var(--ai-purple-dark);
   font-size: 20px;
   margin-bottom: 15px;
   font-weight: bold;
   text-align: center;
 }
 
-.ss-audience-card p {
+.ai-audience-card p {
   font-size: 16px;
   color: var(--hdh-gray);
   line-height: 1.8;
 }
 
 /* ==================== 課程資訊表 ==================== */
-.ss-info-box {
+.ai-info-box {
   background: var(--hdh-light);
-  border: 2px solid var(--ss-blue-dark);
+  border: 2px solid var(--ai-purple-dark);
   padding: 35px;
   max-width: 700px;
   margin: 30px auto;
@@ -2334,48 +2334,48 @@
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-.ss-info-item {
+.ai-info-item {
   display: flex;
   padding: 15px 0;
   border-bottom: 1px solid var(--hdh-border);
   align-items: flex-start;
 }
 
-.ss-info-item:last-child {
+.ai-info-item:last-child {
   border-bottom: none;
 }
 
-.ss-info-label {
+.ai-info-label {
   width: 120px;
   font-weight: bold;
-  color: var(--ss-blue-dark);
+  color: var(--ai-purple-dark);
   flex-shrink: 0;
   font-size: 17px;
 }
 
-.ss-info-value {
+.ai-info-value {
   flex: 1;
   color: #333;
   font-size: 17px;
   line-height: 1.6;
 }
 
-.ss-info-value .price {
+.ai-info-value .price {
   font-size: 28px;
   font-weight: bold;
   color: var(--hdh-red);
 }
 
-.ss-info-value small {
+.ai-info-value small {
   display: block;
   color: #999;
   font-size: 14px;
   margin-top: 5px;
 }
 
-/* ==================== CTA 區塊（藍色版本） ==================== */
-.ss-cta {
-  background: linear-gradient(135deg, var(--ss-blue-dark) 0%, var(--ss-blue-medium) 100%);
+/* ==================== CTA 區塊（紫色版本） ==================== */
+.ai-cta {
+  background: linear-gradient(135deg, var(--ai-purple-dark) 0%, var(--ai-purple-medium) 100%);
   color: #fff;
   padding: 50px 40px;
   text-align: center;
@@ -2383,19 +2383,19 @@
   border-radius: 8px;
 }
 
-.ss-cta h2 {
+.ai-cta h2 {
   font-size: 28px;
   margin-bottom: 20px;
   font-weight: bold;
 }
 
-.ss-cta p {
+.ai-cta p {
   margin-bottom: 30px;
   opacity: 0.95;
   font-size: 18px;
 }
 
-.ss-cta-red {
+.ai-cta-red {
   background: linear-gradient(135deg, var(--hdh-red) 0%, #8a1a1d 100%);
   color: #fff;
   padding: 50px 40px;
@@ -2404,26 +2404,26 @@
   border-radius: 8px;
 }
 
-.ss-cta-red h2 {
+.ai-cta-red h2 {
   font-size: 28px;
   margin-bottom: 20px;
   font-weight: bold;
 }
 
-.ss-cta-red p {
+.ai-cta-red p {
   margin-bottom: 30px;
   opacity: 0.95;
   font-size: 18px;
 }
 
-.ss-btn-group {
+.ai-btn-group {
   display: flex;
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
 }
 
-.ss-btn {
+.ai-btn {
   display: inline-block;
   padding: 15px 40px;
   font-size: 18px;
@@ -2433,46 +2433,46 @@
   border-radius: 6px;
 }
 
-.ss-btn-primary {
+.ai-btn-primary {
   background: var(--hdh-gold);
-  color: var(--ss-blue-dark);
+  color: var(--ai-purple-dark);
 }
 
-.ss-btn-primary:hover {
+.ai-btn-primary:hover {
   background: #d4b47d;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(196, 164, 109, 0.4);
 }
 
-.ss-btn-secondary {
+.ai-btn-secondary {
   background: transparent;
   color: #fff;
   border: 2px solid #fff;
 }
 
-.ss-btn-secondary:hover {
+.ai-btn-secondary:hover {
   background: #fff;
-  color: var(--ss-blue-dark);
+  color: var(--ai-purple-dark);
   transform: translateY(-2px);
 }
 
 /* ==================== 聯絡資訊 - 橫向排列 ==================== */
-.ss-contact {
+.ai-contact {
   background: var(--hdh-light);
   padding: 40px;
   margin: 40px 0;
   border-radius: 8px;
 }
 
-.ss-contact h3 {
-  color: var(--ss-blue-dark);
+.ai-contact h3 {
+  color: var(--ai-purple-dark);
   font-size: 24px;
   margin-bottom: 25px;
   text-align: center;
   font-weight: bold;
 }
 
-.ss-contact-list {
+.ai-contact-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -2482,7 +2482,7 @@
   gap: 15px 30px;
 }
 
-.ss-contact-list li {
+.ai-contact-list li {
   padding: 12px 20px;
   font-size: 16px;
   background: #fff;
@@ -2491,23 +2491,23 @@
   transition: all 0.3s ease;
 }
 
-.ss-contact-list li:hover {
-  border-color: var(--ss-blue-dark);
-  box-shadow: 0 2px 8px rgba(26, 58, 92, 0.15);
+.ai-contact-list li:hover {
+  border-color: var(--ai-purple-dark);
+  box-shadow: 0 2px 8px rgba(68, 51, 122, 0.15);
   transform: translateY(-2px);
 }
 
-.ss-contact-list li a {
+.ai-contact-list li a {
   color: #333;
   text-decoration: none;
 }
 
-.ss-contact-list li a:hover {
-  color: var(--ss-blue-dark);
+.ai-contact-list li a:hover {
+  color: var(--ai-purple-dark);
 }
 
 /* ==================== 提示/注意區塊 ==================== */
-.ss-notice {
+.ai-notice {
   background: #fff3cd;
   border: 2px solid #ffc107;
   padding: 25px;
@@ -2516,41 +2516,41 @@
   border-radius: 8px;
 }
 
-.ss-notice p {
+.ai-notice p {
   font-size: 17px;
   margin-bottom: 10px;
   line-height: 1.8;
 }
 
-.ss-notice strong {
-  color: var(--ss-blue-dark);
+.ai-notice strong {
+  color: var(--ai-purple-dark);
 }
 
-.ss-notice a {
+.ai-notice a {
   color: var(--hdh-red);
   font-weight: bold;
   text-decoration: none;
 }
 
-.ss-notice a:hover {
+.ai-notice a:hover {
   text-decoration: underline;
 }
 
-.ss-notice-blue {
-  background: var(--ss-blue-pale);
-  border: 2px solid var(--ss-blue-dark);
+.ai-notice-blue {
+  background: var(--ai-purple-pale);
+  border: 2px solid var(--ai-purple-dark);
   padding: 25px;
   margin: 30px 0;
   border-radius: 8px;
 }
 
-.ss-notice-blue p {
+.ai-notice-blue p {
   font-size: 17px;
   margin-bottom: 10px;
   line-height: 1.8;
 }
 
-.ss-notice-red {
+.ai-notice-red {
   background: #ffe5e5;
   border: 2px solid var(--hdh-red);
   padding: 25px;
@@ -2559,39 +2559,39 @@
 }
 
 /* ==================== 系列課程提示 ==================== */
-.ss-series-notice {
-  background: linear-gradient(135deg, #e8f4fd 0%, #f0f8ff 100%);
-  border: 2px solid var(--ss-blue-dark);
+.ai-series-notice {
+  background: linear-gradient(135deg, #f0e8ff 0%, #f8f0ff 100%);
+  border: 2px solid var(--ai-purple-dark);
   padding: 30px;
   margin: 30px 0;
   border-radius: 8px;
 }
 
-.ss-series-notice h4 {
-  color: var(--ss-blue-dark);
+.ai-series-notice h4 {
+  color: var(--ai-purple-dark);
   margin-bottom: 15px;
   font-size: 20px;
   font-weight: bold;
 }
 
-.ss-series-notice p {
+.ai-series-notice p {
   font-size: 16px;
   margin-bottom: 12px;
   line-height: 1.8;
 }
 
-.ss-series-notice a {
+.ai-series-notice a {
   color: var(--hdh-red);
   font-weight: bold;
   text-decoration: none;
 }
 
-.ss-series-notice a:hover {
+.ai-series-notice a:hover {
   text-decoration: underline;
 }
 
 /* ==================== 線上課程提示 ==================== */
-.ss-online-notice {
+.ai-online-notice {
   background: linear-gradient(135deg, #fff3cd 0%, #fff9e6 100%);
   border: 2px solid var(--hdh-gold);
   padding: 30px;
@@ -2599,158 +2599,158 @@
   border-radius: 8px;
 }
 
-.ss-online-notice p {
+.ai-online-notice p {
   font-size: 16px;
   margin-bottom: 15px;
   line-height: 1.8;
 }
 
-.ss-online-notice strong {
-  color: var(--ss-blue-dark);
+.ai-online-notice strong {
+  color: var(--ai-purple-dark);
 }
 
-.ss-online-notice a {
+.ai-online-notice a {
   color: var(--hdh-red);
   font-weight: bold;
   text-decoration: none;
 }
 
-.ss-online-notice a:hover {
+.ai-online-notice a:hover {
   text-decoration: underline;
 }
 
-/* ==================== 樣本數 RWD 響應式設計 ==================== */
+/* ==================== Zotero AI RWD 響應式設計 ==================== */
 @media (max-width: 768px) {
-  .ss-course-content {
+  .ai-course-content {
     padding: 0 15px;
   }
 
-  .ss-hero {
+  .ai-hero {
     padding: 40px 25px;
   }
 
-  .ss-hero h1 {
+  .ai-hero h1 {
     font-size: 26px;
   }
 
-  .ss-hero .subtitle {
+  .ai-hero .subtitle {
     font-size: 18px;
   }
 
-  .ss-section-title,
-  .ss-section-title-red {
+  .ai-section-title,
+  .ai-section-title-red {
     font-size: 24px;
   }
 
-  .ss-intro {
+  .ai-intro {
     padding: 25px;
     font-size: 16px;
   }
 
-  .ss-btn-group {
+  .ai-btn-group {
     flex-direction: column;
     align-items: center;
   }
 
-  .ss-btn {
+  .ai-btn {
     width: 100%;
     max-width: 300px;
     text-align: center;
   }
 
-  .ss-info-item {
+  .ai-info-item {
     flex-direction: column;
   }
 
-  .ss-info-label {
+  .ai-info-label {
     width: 100%;
     margin-bottom: 8px;
   }
 
-  .ss-curriculum {
+  .ai-curriculum {
     grid-template-columns: 1fr;
   }
 
-  .ss-contact-list {
+  .ai-contact-list {
     flex-direction: column;
     align-items: center;
   }
 
-  .ss-contact-list li {
+  .ai-contact-list li {
     width: 100%;
     max-width: 320px;
     text-align: center;
   }
 
-  .ss-features {
+  .ai-features {
     margin: 40px -15px;
     padding: 40px 25px;
   }
 
-  .ss-cta,
-  .ss-cta-red {
+  .ai-cta,
+  .ai-cta-red {
     margin: 40px -15px;
     padding: 40px 25px;
   }
 }
 
 @media (max-width: 480px) {
-  .ss-hero h1 {
+  .ai-hero h1 {
     font-size: 22px;
   }
 
-  .ss-hero .subtitle {
+  .ai-hero .subtitle {
     font-size: 16px;
   }
 
-  .ss-hero .tagline {
+  .ai-hero .tagline {
     font-size: 15px;
   }
 
-  .ss-section-title,
-  .ss-section-title-red {
+  .ai-section-title,
+  .ai-section-title-red {
     font-size: 20px;
   }
 
-  .ss-features-title {
+  .ai-features-title {
     font-size: 20px;
   }
 
-  .ss-pain-card,
-  .ss-audience-card {
+  .ai-pain-card,
+  .ai-audience-card {
     padding: 25px 20px;
   }
 
-  .ss-curriculum-unit {
+  .ai-curriculum-unit {
     padding: 20px;
   }
 
-  .ss-info-box {
+  .ai-info-box {
     padding: 25px;
   }
 }
 
 @media print {
-  .ss-course-content {
+  .ai-course-content {
     max-width: 100%;
     padding: 0;
   }
 
-  .ss-hero,
-  .ss-features,
-  .ss-cta,
-  .ss-cta-red {
+  .ai-hero,
+  .ai-features,
+  .ai-cta,
+  .ai-cta-red {
     background: #f8f9fa !important;
     color: #333 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
-  .ss-btn-group {
+  .ai-btn-group {
     display: none;
   }
 
-  .ss-video-section iframe {
+  .ai-video-section iframe {
     display: none;
   }
 }
@@ -2768,13 +2768,13 @@
    ================================================================ */
 
 /* === 課程內容區塊內的文字連結（覆蓋官網全域 <a> 按鈕樣式） === */
-.ss-course-content a,
-.ss-series-notice a,
-.ss-series-notice ul a,
-.ss-series-notice li a,
-.ss-online-notice a,
-.ss-intro a,
-.ss-info-value a,
+.ai-course-content a,
+.ai-series-notice a,
+.ai-series-notice ul a,
+.ai-series-notice li a,
+.ai-online-notice a,
+.ai-intro a,
+.ai-info-value a,
 .hdh-course-content a,
 .hdh-intro a,
 .hdh-notice a {
@@ -2796,13 +2796,13 @@
     transform: none !important;
 }
 
-.ss-course-content a:hover,
-.ss-series-notice a:hover,
-.ss-series-notice ul a:hover,
-.ss-series-notice li a:hover,
-.ss-online-notice a:hover,
-.ss-intro a:hover,
-.ss-info-value a:hover,
+.ai-course-content a:hover,
+.ai-series-notice a:hover,
+.ai-series-notice ul a:hover,
+.ai-series-notice li a:hover,
+.ai-online-notice a:hover,
+.ai-intro a:hover,
+.ai-info-value a:hover,
 .hdh-course-content a:hover,
 .hdh-intro a:hover,
 .hdh-notice a:hover {
@@ -2814,14 +2814,14 @@
 }
 
 /* === 保留 CTA 按鈕原有樣式 === */
-.ss-btn,
-.ss-btn-primary,
-.ss-btn-secondary,
+.ai-btn,
+.ai-btn-primary,
+.ai-btn-secondary,
 .hdh-btn,
 .hdh-btn-primary,
 .hdh-btn-secondary,
-.ss-cta a.ss-btn,
-.ss-cta-red a.ss-btn,
+.ai-cta a.ai-btn,
+.ai-cta-red a.ai-btn,
 .hdh-cta a.hdh-btn {
     display: inline-block !important;
     padding: 15px 40px !important;
@@ -2834,15 +2834,15 @@
     transition: all 0.3s ease !important;
 }
 
-.ss-btn-secondary,
+.ai-btn-secondary,
 .hdh-btn-secondary {
     background: transparent !important;
     color: #fff !important;
     border: 2px solid #fff !important;
 }
 
-.ss-btn:hover,
-.ss-btn-primary:hover,
+.ai-btn:hover,
+.ai-btn-primary:hover,
 .hdh-btn:hover,
 .hdh-btn-primary:hover {
     background: #d4b47d !important;
@@ -2851,7 +2851,7 @@
     text-decoration: none !important;
 }
 
-.ss-btn-secondary:hover,
+.ai-btn-secondary:hover,
 .hdh-btn-secondary:hover {
     background: #fff !important;
     color: #B82226 !important;
@@ -2860,19 +2860,19 @@
 }
 
 /* === 聯絡資訊區塊連結 === */
-.ss-contact-list li a,
+.ai-contact-list li a,
 .hdh-contact-list li a {
     color: #333 !important;
     font-weight: normal !important;
 }
 
-.ss-contact-list li a:hover,
+.ai-contact-list li a:hover,
 .hdh-contact-list li a:hover {
     color: #B82226 !important;
 }
 
 </style>
-<!-- ========== End: 樣本數課程專屬樣式 v1.1 ========== -->
+<!-- ========== End: Zotero AI 課程專屬樣式 v1.0 ========== -->
 
   <style>
 /* CSS Hover Fix for Dropdown Menus - 2026-02-06 */
@@ -2896,103 +2896,315 @@
 <div id="rot_ctr1_bod_ctr1_blk3" class="b_bg" block_type="bg" tpba_id="3869622"></div>
 <div id="rot_ctr1_bod_ctr1_bod" class="b_menu" block_type="menu" tpba_id="3869621"><!--UdmComment--><input type="checkbox" id="__res_main_nav_button"/><label id="__res_main_nav_label" for="__res_main_nav_button" onclick></label><ul menu_position="top"><li class="first menu_1995434" class="first menu_1995434"><a href="index.html" title="首頁" id="menu_1995434" class="menu_1995434">首頁</a></li><li class="menu_1995432"><a href="aboutus.html" title="關於我們" id="menu_1995432" class="menu_1995432 parent_menu_item">關於我們</a><input type="checkbox" id="__res_main_nav_button_2" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_2" onclick></label><ul menu_position="top" id="sub_menu_1995432" class="sub_menu" style="display:none; position: absolute;"><li class="menu_2018076" style=""><a href="行事曆.html" title="行事曆" style="float: none;" id="menu_2018076" class="menu_2018076">行事曆</a></li><li class="menu_2045981" style=""><a href="會員入會方案.html" title="會員入會方案" style="float: none;" id="menu_2045981" class="menu_2045981">入會方案</a></li><li class="menu_2033787" style=""><a href="匯東華週報.html" title="匯東華週報" style="float: none;" id="menu_2033787" class="menu_2033787">匯東華週報</a></li><li class="last menu_1995710" class="last menu_1995710" style=""><a href="未來發展.html" title="未來發展" style="float: none;" id="menu_1995710" class="menu_1995710">未來發展</a></li></ul></li><li class="menu_1995435"><a href="services.html" title="營業項目" id="menu_1995435" class="menu_1995435 parent_menu_item">營業項目</a><input type="checkbox" id="__res_main_nav_button_3" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_3" onclick></label><ul menu_position="top" id="sub_menu_1995435" class="sub_menu" style="display:none; position: absolute;"><li class="menu_1995468" style=""><a href="統計分析.html" title="統計分析" style="float: none;" id="menu_1995468" class="menu_1995468">統計分析</a></li><li class="menu_1995469" style=""><a href="數據串接與清洗.html" title="數據串接與清洗" style="float: none;" id="menu_1995469" class="menu_1995469">數據串接與清洗</a></li><li class="menu_1995470" style=""><a href="教育培訓.html" title="教育培訓" style="float: none;" id="menu_1995470" class="menu_1995470">教育培訓</a></li><li class="menu_1995471" style=""><a href="統計諮詢.html" title="統計諮詢" style="float: none;" id="menu_1995471" class="menu_1995471">統計諮詢</a></li><li class="last menu_1995472" class="last menu_1995472" style=""><a href="周邊商品.html" title="周邊商品" style="float: none;" id="menu_1995472" class="menu_1995472">周邊商品</a></li></ul></li><li class="menu_2014573"><a href="課程報名.html" title="課程報名" id="menu_2014573" class="menu_2014573">課程報名</a></li><li class="menu_2056823"><a href="直播課程區.html" title="直播課程區" id="menu_2056823" class="menu_2056823">直播課程區</a></li><li class="menu_2019127"><a href="學習專區.html" title="學習專區" id="menu_2019127" class="menu_2019127 parent_menu_item">學習專區</a><input type="checkbox" id="__res_main_nav_button_4" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_4" onclick></label><ul menu_position="top" id="sub_menu_2019127" class="sub_menu" style="display:none; position: absolute;"><li class="menu_2019309" style=""><a href="bmj文章總覽.html" title="BMJ小小統計問題" style="float: none;" id="menu_2019309" class="menu_2019309">BMJ小小統計問題</a></li><li class="menu_2015907" style=""><a href="教材勘誤.html" title="教材勘誤" style="float: none;" id="menu_2015907" class="menu_2015907">教材勘誤</a></li><li class="last menu_2019132" class="last menu_2019132" style=""><a href="精選文獻與其他資源.html" target="_blank" title="精選文獻與其他資源" style="float: none;" id="menu_2019132" class="menu_2019132">精選文獻與其他資源</a></li></ul></li><li class="menu_1995479"><a href="最新消息.html" title="最新消息" id="menu_1995479" class="menu_1995479">最新消息</a></li><li class="menu_2034290"><a href="常見問題.html" title="常見問題" id="menu_2034290" class="menu_2034290">常見問題</a></li><li class="last menu_1995433" class="last menu_1995433"><a href="contactus.html" title="聯絡我們" id="menu_1995433" class="menu_1995433">聯絡我們</a></li></ul><!--/UdmComment--></div>
 </div>
-<div id="rot_ctr1_bod_ctr2" class="b_bg" block_type="bg" tpba_id="3869623"><div id="rot_ctr1_bod_ctr2_bod" class="b_bg" block_type="bg" tpba_id="3869624"><div id="rot_ctr1_bod_ctr2_bod_wrp1" class="b_pagebg" block_type="pagebg" tpba_id="3869625"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk1" class="b_bg" block_type="bg" tpba_id="3869630"></div>
-<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2" class="b_bg" block_type="bg" tpba_id="3869646"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_custom" class="b_html" block_type="html"><p><em><span style="font-size: 18pt;"><span style="font-size: 24pt;">"匯東華-認真作好每件事"</span><br />~統計，不再是阻力，而是助力~</span></em><img src="營業項目/_imagecache/graph-6249046_1920.png" caption="false" /></p></div>
+<div id="rot_ctr1_bod_ctr2" class="b_bg" block_type="bg" tpba_id="3869623"><div id="rot_ctr1_bod_ctr2_bod" class="b_bg" block_type="bg" tpba_id="3869624"><div id="rot_ctr1_bod_ctr2_bod_wrp1" class="b_pagebg" block_type="pagebg" tpba_id="3869625"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk3_custom" class="b_bg" block_type="bg"></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk1" class="b_bg" block_type="bg" tpba_id="3869630"></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2" class="b_bg" block_type="bg" tpba_id="3869646"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_custom" class="b_carousel2" block_type="carousel2">
+  
+<div widget="carousel2" type="carousel2" epoch="" values="26200" id="carousel2_26200" class="carousel2_widget" style="overflow:hidden">
+    <div style="display:none">
+      <div class="mfp-wrap">
+        <div class="mfp-title"></div>
+        <div class="mfp-counter"></div>
+      </div>
+      <ul class="slick-dots">
+        <li class="slick-active">
+          <div id="button"></div>
+        </li>
+      </ul>
+      <div class="slick-slide"><img /></div>
+      <div class="captionjs animated">
+        <figcaption></figcaption>
+      </div>
+    </div>
+  <div id="carousel2_container_26200" class="carousel2_container">
+    <div class="slider lazy" id="slick_index_26200">
+<div><div class="image"><img class="slick-slider-img" data-caption="Zotero+AI：將選取內容導入Zotero創建項目與筆記" data-lazy="%E8%AA%B2%E7%A8%8B%E5%A0%B1%E5%90%8D/_imagecache/Zotero%2BAI_01-%E5%B0%87%E9%81%B8%E5%8F%96%E5%85%A7%E5%AE%B9%E5%B0%8E%E5%85%A5Zotero%E5%89%B5%E5%BB%BA%E9%A0%85%E7%9B%AE%E8%88%87%E7%AD%86%E8%A8%98.png" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="Zotero+AI：請AI打包為RIS檔提供下載" data-lazy="%E8%AA%B2%E7%A8%8B%E5%A0%B1%E5%90%8D/_imagecache/Zotero%2BAI_02-%E8%AB%8BAI%E6%89%93%E5%8C%85%E7%82%BARIS%E6%AA%94%E6%8F%90%E4%BE%9B%E4%B8%8B%E8%BC%89.png" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="Zotero+AI：將RIS匯入Zotero" data-lazy="%E8%AA%B2%E7%A8%8B%E5%A0%B1%E5%90%8D/_imagecache/Zotero%2BAI_03-%E5%B0%87RIS%E5%8C%AF%E5%85%A5Zotero.png" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="Zotero+AI：將選取內容導入Zotero創建項目與筆記" data-lazy="%E8%AA%B2%E7%A8%8B%E5%A0%B1%E5%90%8D/_imagecache/Zotero%2BAI_01-%E5%B0%87%E9%81%B8%E5%8F%96%E5%85%A7%E5%AE%B9%E5%B0%8E%E5%85%A5Zotero%E5%89%B5%E5%BB%BA%E9%A0%85%E7%9B%AE%E8%88%87%E7%AD%86%E8%A8%98.png" /></div></div>    </div>
+  </div>
+</div>
+
+
+
+<style>
+  .slick-slide { outline: none; }
+  .slick-slide .image{padding: 5px;}
+  .slick-slide img{border:0px solid #FFF;display:block;width:100%;}
+  .slick-slide img.slick-loading{border:0 }
+  .slick-slider{margin:30px auto 50px; padding-left:22px; padding-right:22px;}
+
+  .slick-list { position: relative; overflow: hidden; display: block; margin: 0; padding: 0; }
+  .slick-list:focus { outline: none; }
+  .slick-loading .slick-list { background: white url(https://i.imgur.com/YWGUhK4.gif) center center no-repeat; }
+  .slick-list.dragging { cursor: pointer; cursor: hand; }
+
+  .slick-track { position: relative; left: 0; top: 0; display: block; zoom: 1; }
+  .slick-track:before, .slick-track:after { content: ""; display: table; }
+  .slick-track:after { clear: both; }
+  .slick-loading .slick-track { visibility: hidden; }
+
+  .slick-slide.dragging img { pointer-events: none; }
+  .slick-initialized .slick-slide { display: block; }
+  .slick-loading .slick-slide { visibility: hidden; }
+  .slick-vertical .slick-slide { display: block; height: auto; border: 1px solid transparent; }
+
+
+  /* Icons */
+  @font-face { 
+    font-family: "slick"; 
+    src: url("/static/css/slick/slick.eot"); 
+    src: url("/static/css/slick/slick.eot?#iefix") format("embedded-opentype"), 
+         url("/static/css/slick/slick.woff") format("woff"), 
+         url("/static/css/slick/slick.ttf") format("truetype"), 
+         url("/static/css/slick/slick.svg#slick") format("svg"); 
+    font-weight: normal; 
+    font-style: normal; 
+  }
+
+  /* Arrows */
+  #carousel2_26200 .slick-next {
+    position: absolute; display: block; height: 20px; width: 20px; line-height: 0; font-size: 0; 
+    cursor: pointer; top: 50%; margin-top: -10px; padding: 0; border: none; outline: none; }
+
+  #carousel2_26200 .slick-prev {
+    position: absolute; display: block; height: 20px; width: 20px; line-height: 0; font-size: 0;
+    cursor: pointer; top: 50%; margin-top: -10px; padding: 0; border: none; outline: none; }
+
+  #carousel2_26200 .slick-prev:focus, .slick-next:focus { outline: none; }
+  #carousel2_26200 .slick-prev.slick-disabled:before, .slick-next.slick-disabled:before { opacity: 0.25; }
+  #carousel2_26200 .slick-prev:before, .slick-next:before {
+    font-family: "slick"; font-size: 20px; line-height: 1;
+    color: white; opacity: 0.85; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+
+
+    #carousel2_26200 .slick-prev { background: transparent; color: transparent; }
+    #carousel2_26200 .slick-prev { left: 2px; }
+    #carousel2_26200 [dir='rtl'] .slick-prev { right: 2px; left: auto; }
+    #carousel2_26200 .slick-prev:before {
+      content: '\2190';
+    }
+    #carousel2_26200 [dir='rtl'] .slick-prev:before {
+      content: '\2192';
+    }
+
+    #carousel2_26200 .slick-next { background: transparent; color: transparent; }
+    #carousel2_26200 .slick-next { right: 2px; }
+    #carousel2_26200 [dir='rtl'] .slick-next { right: auto; left: 0px; }
+    #carousel2_26200 .slick-next:before {
+      content: '\2192';
+    }
+    #carousel2_26200 [dir='rtl'] .slick-next:before {
+      content: '\2190';
+    }
+
+
+
+  /* Dots */
+  #carousel2_26200 .slick-dots { position: absolute; bottom: -25px; list-style: none; display: block; text-align: center; padding: 0px; width: 100%; }
+  #carousel2_26200 .slick-dots li { position: relative; display: inline-block; height: 20px; width: 20px; margin: 0px 5px; padding: 0px; cursor: pointer; }
+  #carousel2_26200 .slick-dots li button {
+      border: 0; background: transparent; display: block; height: 20px; width: 20px;
+      outline: none; line-height: 0; font-size: 0; color: black; padding: 5px; cursor: pointer; outline: none;
+  }
+  #carousel2_26200 .slick-dots li button:focus { outline: none; }
+  #carousel2_26200 .slick-dots li button:before {
+    position: absolute; top: 0; left: 0; content: '\2022'; width: 20px; height: 20px;
+    font-family: "slick"; font-size: 6px; line-height: 20px; text-align: center; opacity: 0.25; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  #carousel2_26200 .slick-dots li.slick-active button:before { opacity: 0.75; }
+  #carousel2_26200 .slick-prev:before, .slick-next:before {
+    color: #000;
+  }
+
+  /* Lightshow */
+  /* .mfp-counter { display:none; } */
+
+</style>
+
+
+
+
+
+
+
+
+
+
+</div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_custom" class="b_html" block_type="html"><!-- ====================================================
+
+     樣本數之常見誤區：審稿人在看什麼？ - 課程內容區塊
+
+     版本：v1.8_20260119_CSX
+
+     更新：
+
+           - 全面修正圖標：emoji 改為 SVG（確保跨瀏覽器相容性）
+
+           - 審稿人視角區塊：補齊 4 個 SVG 圖標
+
+           - 常見誤區區塊：emoji 改為 SVG，span 改為 div
+
+     前版 v1.7：全面修正 CSS 類別名稱
+
+     說明：此為純內容區塊，需配合官網 CSS 設定（0_官網CSS設定樣式_2026.01.17_sm.txt）
+
+     ==================================================== -->
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<!-- 無需內嵌樣式，使用官網 CSS 設定 -->
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<!-- ==================== 課程內容開始 ==================== -->
+<div class="ai-course-content">
+<!-- Hero 區塊 -->
+<div class="ai-hero" style="position: relative; overflow: hidden;">
+<!-- 曇月靈浮水印 -->
+<img style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -45%); width: 350px; height: auto; opacity: 0.12; z-index: 1; pointer-events: none;" src="課程報名/曇月靈01-去背景.png" alt="曇月靈" class="hdh-mascot" />
+<!-- 品牌標記 -->
+<div style="position: absolute; top: 15px; left: 15px; background: #B82226; color: white; padding: 6px 14px; font-size: 14px; font-weight: bold; border-radius: 4px; z-index: 10; letter-spacing: 2px;">匯東華</div>
+<span class="ai-hero-badge">Zotero + AI 知識管理：打造你的第二大腦 · 系列教學</span>
+<h1>【Zotero 教學】不再弄丟 AI 對話！<br>完美匯入文獻、筆記與 RIS 檔的實用技巧</h1>
+<p class="subtitle">Zotero + AI 知識管理：打造你的第二大腦</p>
+<p class="tagline">YouTube 免費教學影片 | 實機操作示範</p>
+</div>
+
+<!-- 影片區塊 -->
+<div class="ai-video-section">
+<div style="position: relative; max-width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+<iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" src="https://www.youtube.com/embed/rvYZjy0aYSE?rel=0" title="Zotero 教學：不再弄丟 AI 對話" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+<p class="ai-video-caption">
+<a href="https://youtu.be/rvYZjy0aYSE" target="_blank" rel="noopener">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="#B82226" style="vertical-align: middle; margin-right: 5px;"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+在 YouTube 上觀看完整影片</a>
+</p>
+</div>
+
+<!-- 影片重點摘要 -->
+<h2 class="ai-section-title">影片重點摘要</h2>
+<div class="ai-features">
+<h3 class="ai-features-title">本片帶你學會三大技巧</h3>
+<div class="ai-features-grid">
+<div class="ai-feature-item">
+<div class="number"><svg width="50" height="50" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#44337a" stroke="#C4A46D" stroke-width="3"/><path d="M20 44 L20 20 Q32 16 44 20 L44 44 Q32 40 20 44" fill="#C4A46D"/><path d="M22 42 L22 22 Q32 18 42 22 L42 42 Q32 38 22 42" fill="#FDF8F3"/><line x1="26" y1="28" x2="38" y2="28" stroke="#44337a" stroke-width="2"/><line x1="26" y1="34" x2="36" y2="34" stroke="#44337a" stroke-width="2"/><line x1="32" y1="20" x2="32" y2="44" stroke="#B82226" stroke-width="2"/></svg></div>
+<h4 style="text-align: center;">完美保留 AI 排版格式</h4>
+<p>不再複製貼上跑版。讓 AI 產出的結構化筆記，原汁原味存入 Zotero，井然有序一目了然。</p>
+</div>
+<div class="ai-feature-item">
+<div class="number"><svg width="50" height="50" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#44337a" stroke="#C4A46D" stroke-width="3"/><path d="M24 20 L40 20 L40 48 L24 48 Z" fill="#C4A46D" rx="2"/><path d="M26 22 L38 22 L38 46 L26 46 Z" fill="#FDF8F3"/><path d="M30 30 L36 30 M30 34 L36 34 M30 38 L34 38" stroke="#44337a" stroke-width="1.5"/><path d="M28 16 L36 16 L36 24" fill="none" stroke="#B82226" stroke-width="2.5" stroke-linecap="round"/><circle cx="28" cy="16" r="2" fill="#B82226"/></svg></div>
+<h4 style="text-align: center;">一鍵匯入 RIS 文獻與 DOI</h4>
+<p>告別手動輸入，徹底解決重啟 Session 的認知負荷，讓專注力留給真正重要的事。</p>
+</div>
+<div class="ai-feature-item">
+<div class="number"><svg width="50" height="50" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#44337a" stroke="#C4A46D" stroke-width="3"/><rect x="18" y="22" width="28" height="22" rx="3" fill="#FDF8F3" stroke="#C4A46D" stroke-width="2"/><path d="M24 30 L32 36 L40 30" stroke="#B82226" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="18" r="4" fill="#C4A46D"/></svg></div>
+<h4 style="text-align: center;">AI 對話成為研究材料</h4>
+<p>建立系統化的對話歸檔工作流，讓每一則討論紀錄都能轉化為可引用、可回溯的學術資產。</p>
+</div>
+</div>
+</div>
+
+<!-- 痛點共鳴 -->
+<h2 class="ai-section-title">這些困境你是否似曾相識</h2>
+<div class="ai-intro">
+<p><strong>討論紀錄關掉後，就像斷了線的風箏</strong>——好不容易激盪出的靈感，就這樣流失了。</p>
+</div>
+<div class="ai-pain-grid">
+<div class="ai-pain-card">
+<div class="icon"><svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#FDF8F3" stroke="#B82226" stroke-width="3"/><path d="M32 18 L32 38" stroke="#B82226" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="46" r="3" fill="#B82226"/></svg></div>
+<h3>AI 討論無法有效整理</h3>
+<p>與 AI 討論出絕妙架構或找到關鍵文獻，卻不知道怎麼有效整理留存。</p>
+</div>
+<div class="ai-pain-card">
+<div class="icon"><svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#FDF8F3" stroke="#B82226" stroke-width="3"/><line x1="20" y1="20" x2="44" y2="44" stroke="#B82226" stroke-width="5" stroke-linecap="round"/><line x1="44" y1="20" x2="20" y2="44" stroke="#B82226" stroke-width="5" stroke-linecap="round"/></svg></div>
+<h3>複製貼上永遠跑版</h3>
+<p>複製貼上總是跑版，整理格式比討論本身更費時費力。</p>
+</div>
+<div class="ai-pain-card">
+<div class="icon"><svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#FDF8F3" stroke="#44337a" stroke-width="3"/><path d="M22 32 Q22 20 32 20 Q42 20 42 32" fill="none" stroke="#44337a" stroke-width="3"/><circle cx="32" cy="40" r="6" fill="#B82226"/><line x1="32" y1="34" x2="32" y2="28" stroke="#C4A46D" stroke-width="2.5"/><line x1="32" y1="34" x2="38" y2="32" stroke="#C4A46D" stroke-width="2"/></svg></div>
+<h3>認知負荷不斷累積</h3>
+<p>重啟 Session 後得從頭解釋背景脈絡，認知負荷不斷累積。</p>
+</div>
+</div>
+
+<!-- 完整課程 CTA -->
+<h2 class="ai-section-title">想系統性解決？完整課程等你</h2>
+<div class="ai-intro">
+<p>本片為<strong>「Zotero + AI 知識管理：打造你的第二大腦」</strong>課程系列精華示範。報名後解鎖全部內容，包含：</p>
+</div>
+
+<!-- 學習重點 -->
+<div class="ai-notice-blue">
+<h4 style="color: #44337a; font-size: 22px; margin-bottom: 20px; font-weight: bold;">完整課程四大模組</h4>
+<ul class="ai-curriculum-list">
+<li><strong>AI 深讀工作流</strong>——從單篇深讀到跨文件對比，判斷權始終在你，不被 AI 帶著走。</li>
+<li><strong>消除認知負荷</strong>——將 Zotero 作為 AI 的長期記憶體，確保專案進度無縫延續。</li>
+<li><strong>學術寫作無縫銜接</strong>——筆記轉寫作原材料，建立文獻矩陣與引用外掛，從讀到寫一氣呵成。</li>
+<li><strong>AI 合理使用邊界</strong>——建立負責任且符合學術誠信的研究行為，用得聰明、用得安心。</li>
+</ul>
+</div>
+
+<!-- 適用對象 -->
+<h2 class="ai-section-title">適用對象</h2>
+<div class="ai-audience-grid">
+<div class="ai-audience-card">
+<h3>碩博士研究生</h3>
+<p>需要系統性管理大量文獻和 AI 討論紀錄，建立長期可用的知識庫。</p>
+</div>
+<div class="ai-audience-card">
+<h3>研究人員</h3>
+<p>想將 AI 產出與研究流程無縫整合，提升文獻管理效率。</p>
+</div>
+<div class="ai-audience-card">
+<h3>學術寫作者</h3>
+<p>希望從文獻閱讀到論文寫作一氣呵成，不再手忙腳亂。</p>
+</div>
+</div>
+
+<!-- CTA 區塊 -->
+<div class="ai-cta">
+<h2>立即購買，解鎖完整課程</h2>
+<p>Zotero + AI 知識管理：打造你的第二大腦</p>
+<div class="ai-btn-group">
+<a href="https://medata.teaches.cc/course/zoteroai" target="_blank" rel="noopener" class="ai-btn ai-btn-primary">了解課程詳情與購買</a>
+</div>
+</div>
+
+<!-- 聯絡資訊 -->
+<div class="ai-contact">
+<h3>聯絡我們</h3>
+<ul class="ai-contact-list">
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#44337a" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> LINE：<a href="https://line.me/R/ti/p/@medatatw" target="_blank" rel="noopener">@medatatw</a></li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#44337a" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Email：<a href="mailto:info@medatatw.com">info@medatatw.com</a></li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#44337a" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 電話：07-9721586</li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#44337a" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 官網：<a href="https://www.medatatw.com" target="_blank" rel="noopener">www.medatatw.com</a></li>
+</ul>
+</div>
+</div>
+<!-- ==================== 課程內容結束 ==================== --></div></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk3_custom" class="b_html" block_type="html"></div>
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1" class="b_bg" block_type="bg" tpba_id="3869647"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk1" class="b_html" block_type="html" tpba_id="3869648"><p><img src="static/images/icons/parallax_home_icon1.png" /></p></div>
-<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk2" class="b_html" block_type="html" tpba_id="3869649"><!-- 標題區 - 加入質感設計 -->
-<div style="background: linear-gradient(135deg, #8B0000 0%, #B82226 50%, #8B0000 100%); border-radius: 16px; padding: 40px 50px; margin-bottom: 35px; box-shadow: 0 8px 24px rgba(139,0,0,0.3); text-align: center;">
-<h1 style="color: white; margin: 0; font-size: 36pt; font-family: 微軟正黑體, Microsoft JhengHei, sans-serif; font-weight: 900; letter-spacing: 2px; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);"><svg width="48" height="48" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 15px;"> <path d="M12 2L2 7l10 5 10-5-10-5z"></path> <path d="M2 17l10 5 10-5"></path> <path d="M2 12l10 5 10-5"></path> </svg> AI工具之應用和研究文獻</h1>
-<p style="color: rgba(255,255,255,0.9); margin: 18px 0 0 0; font-size: 13pt; font-weight: 500; letter-spacing: 1px;">從基礎認識到進階應用，全方位掌握 AI 學術研究工具</p>
-</div>
-<!-- 內容區 - 優化列表樣式 -->
-<div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-<div style="background: #f9f9f9; border-radius: 12px; padding: 30px 35px; margin-bottom: 20px; border-left: 5px solid #B82226;">
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">1.</span> <a href="https://www.facebook.com/medata12p/posts/pfbid0xrttb1uVsd8VCCkJi6QhA3NJj4PVtMQ9FM7oGLCsZgnvq7qxf2iHTxMaH5oHAUCQl" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">認識ChatGPT：優點與侷限--(1)</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">2.</span> <a href="https://www.facebook.com/medata12p/posts/pfbid0CiaE7fu9BNVuEvPxbKNSrJ61hiQ6YwtAuv5pBQ5xDZqayF1xdmCARiVjgc2wsEdtl" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">認識ChatGPT：優點與侷限--(2)</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">3.</span> <a href="https://www.facebook.com/medata12p/posts/pfbid0LCMccfhxfMVbg3e6vsuRtJWUACSqWBtDZ2A4Ztv78F6op678cDaGYWHozqsw4KB2l" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">ChatGPT 在科學研究之應用：論文英文潤色</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">4.</span> <a href="https://www.facebook.com/medata12p/posts/pfbid02oCs86Wj3mCFWjUs5DjqtR9oiTFTDF39Rn9qHsU5wehnrZS9aECGTV4cznAbsx6FCl" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">ChatGPT於科學研究之應用與限制</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">5.</span> <a href="https://www.facebook.com/medata12p/posts/pfbid0vNX55rWLjKMAAyTKXRF1xoFXpMrRRWzaJ57qnjuX1kGjmFXvxCD5xG7959qoYkFxl" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">匯東華ChatGPT應用：論文寫作文獻導讀</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">6.</span> <a href="https://www.facebook.com/medata12p/videos/974630296880750/" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">匯東華ChatGPT議題1：善用而非濫用</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">7.</span> <a href="https://www.facebook.com/medata12p/videos/202694369007091/" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">匯東華ChatGPT議題2：一本正經胡說八道</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">8.</span> <a href="https://www.facebook.com/medata12p/videos/646686033927766/" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">科學研究 with ChatGPT Part 1-查文獻</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">9.</span> <a href="https://www.facebook.com/medata12p/videos/505094154915669/" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">科學研究 with ChatGPT Part 2-整理文獻重點</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">10.</span> <a href="https://www.facebook.com/medata12p/videos/932474694446808/" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">科學研究 with ChatGPT Part 3-整理統計重點</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">11.</span> <a href="醫師與ChatGPT對社交媒體上病人問題的回覆誰更好.html" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">JAMA Internal Medicine：醫師 vs. ChatGPT對社交媒體上病人問題的回覆，誰更好？</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">12.</span> <a href="期刊對於chatgpt等ai工具使用的新規定指引.html" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">期刊對於ChatGPT等AI工具使用的新規定指引</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">13.</span> <a href="https://youtu.be/qmGbPrj4iuI?si=HykwEWMMYai3rAzs" target="_blank" title="eAI01 使用ChatGPT搜尋Pubmed文獻進行文獻彙整與撰寫綜述初稿" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">eAI01 使用ChatGPT搜尋Pubmed文獻進行文獻彙整與撰寫綜述初稿</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">14.</span> <a href="chatgpt審稿於提升論文品質之應用.html" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">投Nature前，可以先問問ChatGPT！Stanford University的5000篇研究實測，一半意見與人類評審重疊</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">15.</span> <a href="https://youtu.be/sm8fq94zpJQ" target="_blank" title="匯東華新聞03：2023/11/7-ChatGPT 4 0炸裂更新！" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">匯東華新聞03：2023/11/7-ChatGPT 4 0炸裂更新！</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">16.</span> <a href="https://youtu.be/AD5-G4_8L38" target="_blank" title="使用ChatGPT進行資料分析" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">如何使用ChatGPT逐步進行資料分析</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">17.</span> <a href="https://youtu.be/6vphMpDv6iM" target="_blank" title="AI工具，論文寫作工具，Globe explorer" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">學術AI-Globe explorer：寫作工具，快速了解新領域</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">18.</span> <a href="https://youtu.be/eseGMTl5E00" target="_blank" title="ChatGPT論文寫作校對標點符號" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">使用ChatGPT校對英文文稿標點符號</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">19.</span> <a href="https://www.youtube.com/watch?v=5zzDN-IsfDM" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">使用ChatGPT協助問卷與量表的設計</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">20.</span> <a href="https://youtu.be/c_HrJ4jvtRo" target="_blank" title="ChatGPT-4o、Gemini Advanced、Claude 3 Opus 文獻閱讀能力大PK" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">ChatGPT-4o、Gemini Advanced、Claude 3 Opus 文獻閱讀能力大PK</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">21.</span> <a href="gpts dataanalysis spss.html" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">SPSS不熟悉？【GPTs：Data Analysis &ndash; SPSS】助你一臂之力</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">22.</span> <a href="chatgpt等ai工具輔助學術研究之QandA-P01.html" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">ChatGPT等AI工具輔助學術研究之Q &amp; A-Part I</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">23.</span> <a href="chatgpt等ai工具輔助學術研究之Q and A-p02.html" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">ChatGPT等AI工具輔助學術研究之Q &amp; A-Part II</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">24.</span> <a href="chatgpt等ai工具輔助學術研究之QandA-p03.html" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">ChatGPT等AI工具輔助學術研究之Q &amp; A-Part III</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">25.</span> <a href="chatgpt等ai工具輔助學術研究之QandA-p04.html" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">ChatGPT等AI工具輔助學術研究之Q &amp; A-Part IV</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">26.</span> <a href="nature_chatgpt於科學研究之應用指引.html" target="_blank" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">Nature：Chatbots (ChatGPT)於科學研究之應用</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">27.</span> <a href="https://youtu.be/dEqMtAu7uV4" target="_blank" title="ChatGPT找文獻、ChatGPT作研究、ChatGPT整理文獻" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">AI學術搜尋引擎介紹與評測</a>： <a href="https://scite.ai/" target="" style="color: #b82226; text-decoration: none;">Scite</a>、 <a href="https://consensus.app/" target="_blank" rel="noopener" style="color: #b82226; text-decoration: none;">Consensus</a>、 <a href="https://typeset.io/" target="_blank" rel="noopener" style="color: #b82226; text-decoration: none;">SciSpace</a>、 <a href="https://www.perplexity.ai/" target="_blank" rel="noopener" style="color: #b82226; text-decoration: none;">Perplexity</a> AI 四大工具介紹</p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">26.</span> <a href="https://www.airitilibrary.com/Article/Detail/0047262x-N202410050011-00004" target="_blank" title="ChatGPT 於系統性文獻回顧和統合分析之應用, ChatGPT作研究, ChatGPT寫論文" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">ChatGPT 於系統性文獻回顧和統合分析之應用</a></p>
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">27.</span> <span style="color: #666;">2025/02/13-【教學影片】</span> <a href="https://youtu.be/tAX4ppSNv4M" target="_blank" title="ChatGPT做研究、ChatGPT學習專業" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">有AI，還需要學習專業的統計知識嗎？</a></p>
-</div>
-<!--  第28項：AI 文獻品管師（方案B：統一品牌+層級區分） -->
-<div style="background: linear-gradient(135deg, #B82226 0%, #8B1A1D 100%); border-radius: 14px; padding: 32px 38px; margin-bottom: 20px; box-shadow: 0 6px 20px rgba(184,34,38,0.3); border: 3px solid rgba(196,164,109,0.4);">
-<!-- 標籤區 -->
-<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
-<span style="background-color: rgba(196,164,109,0.35); color: #fff8e1; padding: 7px 18px; border-radius: 20px; font-size: 10.5pt; font-weight: bold;">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align: middle; margin-right: 6px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-NEW 推薦工具</span>
-<span style="color: rgba(255,255,255,0.85); font-size: 10.5pt; font-weight: 600;">28. AI 文獻品管師</span>
-</div>
-
-<!-- 主標題 -->
-<h3 style="color: white; margin: 0 0 15px 0; font-size: 20pt; font-family: 微軟正黑體; font-weight: 900; letter-spacing: 0.5px;">
-<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align: middle; margin-right: 8px;">
-<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>
-</svg>AI 文獻品管師 — 杜絕 AI 幻覺文獻</h3>
-
-<!-- ===== Pro 版區域（主推）===== -->
-<div style="background: rgba(0,0,0,0.15); border-radius: 12px; padding: 22px 26px; margin-bottom: 18px; border-left: 4px solid #C4A46D;">
-<div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
-<span style="background: linear-gradient(135deg, #C4A46D 0%, #A8884D 100%); color: #fff; padding: 5px 14px; border-radius: 15px; font-size: 10pt; font-weight: 900; letter-spacing: 1px;">Pro 版</span>
-<span style="color: rgba(255,255,255,0.7); font-size: 10pt;">NT$4,999/年 或 $499/月</span>
-</div>
-<p style="color: rgba(255,255,255,0.92); margin: 0 0 14px 0; font-size: 12pt; line-height: 1.7;">
-整合 <strong>8 大學術資料庫</strong>，提供 DOI 批次驗證（50篇/次）、PubMed 驗證、SJR 期刊評級、撤稿與爭議性期刊警示、OA 全文獲取、RIS/BibTeX 匯出（含 SJR 標籤）、引用分析。</p>
-<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
-<span style="background-color: rgba(196,164,109,0.4); color: #fff8e1; padding: 6px 14px; border-radius: 15px; font-size: 10pt; font-weight: 600;">✓ 50 篇批次驗證</span>
-<span style="background-color: rgba(196,164,109,0.4); color: #fff8e1; padding: 6px 14px; border-radius: 15px; font-size: 10pt; font-weight: 600;">✓ PubMed + SJR</span>
-<span style="background-color: rgba(196,164,109,0.4); color: #fff8e1; padding: 6px 14px; border-radius: 15px; font-size: 10pt; font-weight: 600;">✓ 撤稿警示</span>
-<span style="background-color: rgba(196,164,109,0.4); color: #fff8e1; padding: 6px 14px; border-radius: 15px; font-size: 10pt; font-weight: 600;">✓ 引用分析</span>
-</div>
-<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 16px;">
-<a href="https://doi-verifier-pro.vercel.app/login.html" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; background: linear-gradient(135deg, #C4A46D 0%, #A8884D 100%); color: white !important; padding: 12px 28px; border-radius: 30px; text-decoration: none !important; font-weight: bold; font-size: 12pt; box-shadow: 0 4px 14px rgba(196,164,109,0.35); border: 2px solid rgba(255,255,255,0.3); background-color: transparent !important;">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 10px;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-免費試用 Pro 版 14 天</a>
-<a href="https://youtu.be/w-1kPekFOtU" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%); color: white !important; padding: 12px 24px; border-radius: 30px; text-decoration: none !important; font-weight: bold; font-size: 11pt; box-shadow: 0 4px 14px rgba(255,0,0,0.35); border: 2px solid rgba(255,255,255,0.35); background-color: transparent !important;">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-Pro 版教學影片</a>
-</div>
-</div>
-
-<!-- ===== 免費體驗版（精簡）===== -->
-<div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px; margin-top: 6px;">
-<p style="color: rgba(255,255,255,0.7); margin: 0 0 10px 0; font-size: 11pt; line-height: 1.6;">
-<strong style="color: rgba(255,255,255,0.9);">免費體驗版</strong>　基礎 DOI 驗證（20 篇/次）+ 單篇 OA 全文 + RIS/BibTeX 基本匯出，無需註冊即開即用。</p>
-<a href="https://cshowme.github.io/doi-verifier/" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; background-color: rgba(255,255,255,0.12) !important; color: rgba(255,255,255,0.9) !important; padding: 8px 22px; border-radius: 25px; text-decoration: none !important; font-weight: bold; font-size: 10.5pt; border: 1px solid rgba(255,255,255,0.3); box-shadow: none !important;">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 8px;"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg>
-免費使用</a>
-</div>
-
-<!-- 底部連結 -->
-<p style="color: rgba(255,255,255,0.6); margin: 16px 0 0 0; font-size: 10pt;">
-<a href="ai文獻品管師pro.html" style="color: #C4A46D !important; text-decoration: underline !important; font-weight: bold; background: transparent !important; border: none !important; padding: 0 !important;">查看完整產品介紹 →</a></p>
-</div>
-<!-- 第29項：Zotero + AI 教學影片 -->
-<p style="margin: 8px 0; line-height: 1.9; font-size: 11.5pt;"><span style="display: inline-block; width: 32px; color: #b82226; font-weight: bold;">29.</span> <span style="color: #666;">2026/03/30-【教學影片】</span> <a href="zotero-ai-匯入文獻筆記與ris檔.html" target="_blank" title="Zotero教學：匯入AI生成內容含文獻RIS檔到Zotero" rel="noopener" style="color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s;">【Zotero 教學】不再弄丟 AI 對話！完美匯入文獻、筆記與 RIS 檔的實用技巧</a> <a href="https://youtu.be/rvYZjy0aYSE" target="_blank" rel="noopener" style="color: #b82226; text-decoration: none; font-size: 10pt;">▶ YouTube</a></p>
-</div></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk2" class="b_html" block_type="html" tpba_id="3869649"><h4><span style="color: #800000; font-size: 24pt;"><span class="fa fa-bar-chart"></span>&nbsp;統計分析</span></h4>
+<p><a href="匯東華服務項目價目表v2_20210918_sm.pdf" target="">服務價目表 (未含5%營業稅)</a><br />透過嚴謹的數據整理，提供有價值的資訊，形塑知識，提高決策品質。包括信達雅三執行原則。</p>
+<p><span class="fa fa-check-square-o"></span>&nbsp;信：確保資料品質可信賴<br /><span class="fa fa-check-square-o"></span>&nbsp;達：確保統計方法適切性<br /><span class="fa fa-check-square-o"></span>&nbsp;雅：確保圖文表格正規化<br />協助代執行統計分析與進一步加值服務。</p>
+<p>在匯東華與夥伴的專業背景知識配合下，能有效地處理面對的問題。<br /><span style="color: #800000; font-size: 18pt;"><strong>統計分析成果</strong></span><br /><img src="營業項目/_imagecache/1.jpg" mouseover_src="" mouseout_src="" alt="" /></p></div>
 </div>
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2" class="b_bg" block_type="bg" tpba_id="3869650"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_blk1" class="b_html" block_type="html" tpba_id="3869651"><p><img src="static/images/icons/parallax_home_icon2.png" /></p></div>
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_blk2" class="b_html" block_type="html" tpba_id="3869652"><h4><span style="font-size: 24pt; color: #800000;"><span class="fa fa-bar-chart"></span>&nbsp;數據串接與清洗</span></h4>
@@ -3008,23 +3220,6 @@ Pro 版教學影片</a>
 <hr />
 <p><span style="color: #800000;"><strong><span style="font-size: 18pt;">概念與流程示意圖</span></strong></span><br /><img src="營業項目/_imagecache/0-4.jpg" mouseover_src="" mouseout_src="" alt="" /></p></div>
 </div>
-<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk3" class="b_bg" block_type="bg" tpba_id="3869653"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk3_blk1" class="b_html" block_type="html" tpba_id="3869654"><p><img src="static/images/icons/parallax_home_icon3.png" /></p></div>
-<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk3_blk2" class="b_html" block_type="html" tpba_id="3869655"><h4><span style="font-size: 24pt; color: #800000;"><span class="fa fa-book"></span>&nbsp;教育培訓</span></h4>
-<p>課程規劃核心為以「學習者」為中心進行「傳承」</p>
-<p>以學習者為中心，結合陳秀敏博士十多年來的統計實務以及教學經驗，設計適合學員學習方式，開設課程，達到有效學習。</p>
-<p>&nbsp;</p>
-<p>開設線上統計學院</p>
-<p><a href="https://medata.teaches.cc/" target="">https://medata.teaches.cc/</a></p>
-<p>SPSS基礎統計實戰班：第一次分析SCI研究就上手(上、下)</p>
-<p><a href="https://medata.teaches.cc/">課程網址：https://medata.teaches.cc/</a></p>
-<p><a href="https://www.youtube.com/watch?v=MPz2wqN0v2M" target="">課程介紹1：https://www.youtube.com/watch?v=MPz2wqN0v2M</a></p>
-<p><a href="https://www.youtube.com/watch?v=nd5A5duxO5E" target="">課程介紹2：https://www.youtube.com/watch?v=nd5A5duxO5E</a></p>
-<p>&nbsp;</p>
-<p>臨床研究思維-Open your mind</p>
-<p><a href="https://medata.teaches.cc/" target="">課程網址：https://medata.teaches.cc/</a></p>
-<p><a href="https://www.youtube.com/watch?v=yTHdBnCdSnY" target="">課程介紹1：https://www.youtube.com/watch?v=yTHdBnCdSnY</a><br /><a href="https://www.youtube.com/watch?v=kE9tXraICqk" target="">課程介紹2 : https://www.youtube.com/watch?v=kE9tXraICqk</a></p>
-<p><a href="https://www.youtube.com/watch?v=1tTApx1hjn0" target="">臨床研究基本原則 : https://www.youtube.com/watch?v=1tTApx1hjn0</a></p></div>
-</div>
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4" class="b_bg" block_type="bg" tpba_id="3869656"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4_blk1" class="b_html" block_type="html" tpba_id="3869657"><p><img src="static/images/icons/parallax_home_icon4.png" /></p></div>
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4_blk2" class="b_html" block_type="html" tpba_id="3869658"><h4><span style="font-size: 24pt; color: #800000;"><span class="fa fa-id-badge"></span>&nbsp;計畫撰寫與統計諮詢</span></h4>
 <p><img src="營業項目/_imagecache/00.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="營業項目/_imagecache/00-1.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="營業項目/_imagecache/00-2.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="營業項目/_imagecache/00-3.jpg" mouseover_src="" mouseout_src="" alt="" /><br />為了讓匯東華的顧客與學員有更好的合作和消費體驗，故匯東華特別依據營業項目開發周邊產品，提供使用、購買。目前已有針對公共衛生師的題庫以及模擬試題，未來將針對醫學研究領域發展產品。</p></div>
@@ -3039,7 +3234,7 @@ Pro 版教學影片</a>
 </div>
 
     
-    <script src="__system/__js/h_e58719cf46d3a2e83c4ce5a34ec2922b/2759931_combined.min.js"></script>
+    <script src="__system/__js/h_c85fc092c9b73d09b283c81b29f5d475/2786399_combined.min.js"></script>
     <script>
       (function() {
         var domain = window.location.hostname;
