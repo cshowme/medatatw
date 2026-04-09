@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<script>
+/* 防止輪播自動跳轉 - 2026-02-04 */
+(function(){
+  // 保存原始 setInterval
+  var originalSetInterval = window.setInterval;
+
+  // 攔截 setInterval，過濾掉輪播自動點擊
+  window.setInterval = function(fn, delay) {
+    // 如果是短間隔（輪播通常 3-10 秒），檢查是否包含 click
+    if (typeof fn === 'function') {
+      var fnStr = fn.toString();
+      // 檢測輪播點擊模式
+      if (fnStr.indexOf('click') !== -1 && fnStr.indexOf('slideshow') !== -1) {
+        console.log('[Anti-Redirect] Blocked slideshow auto-click interval');
+        return 0; // 返回無效 ID，阻止執行
+      }
+    }
+    return originalSetInterval.apply(this, arguments);
+  };
+
+  // 額外保護：攔截可疑的 location 修改
+  var originalAssign = window.location.assign;
+  var originalReplace = window.location.replace;
+
+  window.location.assign = function(url) {
+    // 只阻擋自動跳轉，不阻擋用戶點擊
+    if (!window._userClicked) {
+      console.log('[Anti-Redirect] Blocked location.assign:', url);
+      return;
+    }
+    return originalAssign.call(this, url);
+  };
+
+  window.location.replace = function(url) {
+    if (!window._userClicked) {
+      console.log('[Anti-Redirect] Blocked location.replace:', url);
+      return;
+    }
+    return originalReplace.call(this, url);
+  };
+
+  // 標記用戶點擊事件
+  document.addEventListener('click', function() {
+    window._userClicked = true;
+    setTimeout(function() { window._userClicked = false; }, 100);
+  }, true);
+})();
+</script>
+
+    <script>
+      document.cookie = 'resolution=' + Math.max(screen.width,screen.height) + '; path=/; SameSite=Lax';
+    </script>
+    <link href='//fonts.googleapis.com/css2?family=Raleway&display=swap' rel='stylesheet' type='text/css'>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <meta name="description" content="DAG 因果推論專欄:為什麼不能只靠統計相關性選擇控制變數?解析 confounder、mediator、collider 的因果角色,避免調整變數時越調越偏。含 BMJ 與 BMC Medical Research Methodology 文獻引用。匯東華統計顧問。" />
+    <meta name="keywords" content="DAG,有向無環圖,因果推論,控制變數,干擾因子,confounder,中介變數,mediator,碰撞因子,collider,BMJ,Shrier,變數選擇,匯東華,Live26-04" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="breakpoints" content="1000,499,770"/>
+    <title>匯東華統計顧問有限公司 - 為什麼不能只靠統計相關性選擇控制變數?|DAG 因果推論專欄</title>
+    <script src="static/js/website/jquery-3.5.1.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="__system/__css/h_bcf6f692c32b6914ddacd7d817ecbec2/2786399_combined.min.css" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5BV97ZDMV7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5BV97ZDMV7');
+</script>
+
+
+
+<!-- Messenger 洽談外掛程式 Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your 洽談外掛程式 code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "101440118904985");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v14.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/zh_TW/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+
+<!-- ========== Meta-Analysis 課程頁面專屬樣式 v2.0 ========== -->
+<style>
+/* 配色變數 */
+.ma-course-content {
+  --hdh-red: #B82226;
+  --hdh-gold: #C4A46D;
+  --hdh-dark: #333333;
+  --hdh-gray: #666666;
+  --hdh-light: #f8f6f0;
+  --hdh-border: #e0e0e0;
+  font-family: 'Microsoft JhengHei', '微軟正黑體', sans-serif;
+  line-height: 1.8;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Hero 區塊 */
+.ma-hero {
+  background: linear-gradient(135deg, #2d2d2d 0%, #4a4a4a 100%);
+  color: #fff;
+  padding: 60px 40px;
+  text-align: center;
+  margin-bottom: 50px;
+  border-radius: 8px;
+}
+
+.ma-hero-badge {
+  display: inline-block;
+  background: #C4A46D;
+  color: #2d2d2d;
+  padding: 8px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.ma-hero h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.ma-hero .subtitle {
+  font-size: 22px;
+  opacity: 0.95;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.ma-hero .tagline {
+  font-size: 18px;
+  color: #C4A46D;
+  line-height: 1.6;
+}
+
+/* 影片區塊 */
+.ma-video-section {
+  text-align: center;
+  margin: 40px 0;
+  padding: 30px;
+  background: #f8f6f0;
+  border-radius: 8px;
+}
+
+.ma-video-section iframe {
+  max-width: 100%;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+.ma-video-caption {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #666;
+}
+
+.ma-video-caption a {
+  color: #B82226;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ma-video-caption a:hover {
+  text-decoration: underline;
+}
+
+/* 區塊標題 */
+.ma-section-title {
+  font-size: 28px;
+  color: #B82226;
+  border-bottom: 4px solid #C4A46D;
+  padding-bottom: 12px;
+  margin: 50px 0 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 課程介紹文字 */
+.ma-intro {
+  background: #fff;
+  padding: 35px;
+  border-left: 5px solid #C4A46D;
+  margin: 30px 0;
+  font-size: 18px;
+  line-height: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 4px;
+}
+
+.ma-intro p {
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.ma-intro strong {
+  color: #B82226;
+  font-weight: bold;
+}
+
+/* 痛點卡片 */
+.ma-pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.ma-pain-card {
+  background: #f8f6f0;
+  border: 2px solid #e0e0e0;
+  padding: 35px 25px;
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.ma-pain-card:hover {
+  border-color: #C4A46D;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+}
+
+.ma-pain-card .icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.ma-pain-card h3 {
+  color: #B82226;
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.ma-pain-card p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* 課程特色區塊 */
+.ma-features {
+  background: #2d2d2d;
+  color: #fff;
+  padding: 50px 40px;
+  margin: 50px -20px;
+  border-radius: 8px;
+}
+
+.ma-features-title {
+  text-align: center;
+  font-size: 28px;
+  color: #C4A46D;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.ma-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.ma-feature-item {
+  text-align: center;
+  padding: 20px;
+}
+
+.ma-feature-item .number {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  background: #C4A46D;
+  color: #2d2d2d;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+}
+
+.ma-feature-item h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.ma-feature-item p {
+  font-size: 15px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* 課程大綱表格 - 兩欄式 */
+.ma-curriculum {
+  margin: 30px 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.ma-curriculum-unit {
+  background: #fff;
+  border-left: 5px solid #C4A46D;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border-radius: 4px;
+}
+
+.ma-curriculum-unit h3 {
+  color: #B82226;
+  font-size: 19px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.ma-curriculum-unit h3 .step-badge {
+  background: #C4A46D;
+  color: #2d2d2d;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.ma-curriculum-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ma-curriculum-list li {
+  padding: 10px 0;
+  border-bottom: 1px dashed #e0e0e0;
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.ma-curriculum-list li:last-child {
+  border-bottom: none;
+}
+
+.ma-curriculum-list li::before {
+  content: "▸ ";
+  color: #C4A46D;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+/* 適用對象 */
+.ma-audience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.ma-audience-card {
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.ma-audience-card:hover {
+  border-color: #C4A46D;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.ma-audience-card h3 {
+  color: #B82226;
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.ma-audience-card p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* 課程資訊表 */
+.ma-info-box {
+  background: #f8f6f0;
+  border: 2px solid #e0e0e0;
+  padding: 35px;
+  max-width: 700px;
+  margin: 30px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.ma-info-item {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px solid #e0e0e0;
+  align-items: flex-start;
+}
+
+.ma-info-item:last-child {
+  border-bottom: none;
+}
+
+.ma-info-label {
+  width: 120px;
+  font-weight: bold;
+  color: #C4A46D;
+  flex-shrink: 0;
+  font-size: 17px;
+}
+
+.ma-info-value {
+  flex: 1;
+  color: #333;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.ma-info-value .price {
+  font-size: 28px;
+  font-weight: bold;
+  color: #B82226;
+}
+
+.ma-info-value small {
+  display: block;
+  color: #999;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* CTA 區塊 */
+.ma-cta {
+  background: linear-gradient(135deg, #B82226 0%, #8a1a1d 100%);
+  color: #fff;
+  padding: 50px 40px;
+  text-align: center;
+  margin: 50px -20px;
+  border-radius: 8px;
+}
+
+.ma-cta h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.ma-cta p {
+  margin-bottom: 30px;
+  opacity: 0.95;
+  font-size: 18px;
+}
+
+.ma-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ma-btn {
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s;
+  border-radius: 6px;
+}
+
+.ma-btn-primary {
+  background: #C4A46D;
+  color: #2d2d2d;
+}
+
+.ma-btn-primary:hover {
+  background: #d4b47d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(196, 164, 109, 0.4);
+}
+
+.ma-btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.ma-btn-secondary:hover {
+  background: #fff;
+  color: #B82226;
+  transform: translateY(-2px);
+}
+
+/* 聯絡資訊 - 橫向排列 */
+.ma-contact {
+  background: #f8f6f0;
+  padding: 40px;
+  margin: 40px 0;
+  border-radius: 8px;
+}
+
+.ma-contact h3 {
+  color: #B82226;
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.ma-contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px 30px;
+}
+
+.ma-contact-list li {
+  padding: 12px 20px;
+  font-size: 16px;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+.ma-contact-list li:hover {
+  border-color: #C4A46D;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.ma-contact-list li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.ma-contact-list li a:hover {
+  color: #B82226;
+}
+
+/* 線上課程提示 */
+.ma-online-notice {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  padding: 25px;
+  margin: 30px 0;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.ma-online-notice p {
+  font-size: 17px;
+  margin-bottom: 10px;
+  line-height: 1.8;
+}
+
+.ma-online-notice strong {
+  color: #B82226;
+}
+
+.ma-online-notice a {
+  color: #B82226;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ma-online-notice a:hover {
+  text-decoration: underline;
+}
+
+/* RWD 響應式設計 */
+@media (max-width: 768px) {
+  .ma-course-content {
+    padding: 0 15px;
+  }
+
+  .ma-hero {
+    padding: 40px 25px;
+  }
+
+  .ma-hero h1 {
+    font-size: 26px;
+  }
+
+  .ma-hero .subtitle {
+    font-size: 18px;
+  }
+
+  .ma-section-title {
+    font-size: 24px;
+  }
+
+  .ma-intro {
+    padding: 25px;
+    font-size: 16px;
+  }
+
+  .ma-btn-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ma-btn {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+
+  .ma-info-item {
+    flex-direction: column;
+  }
+
+  .ma-info-label {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .ma-curriculum {
+    grid-template-columns: 1fr;
+  }
+
+  .ma-contact-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ma-contact-list li {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  .ma-features {
+    margin: 40px -15px;
+    padding: 40px 25px;
+  }
+
+  .ma-cta {
+    margin: 40px -15px;
+    padding: 40px 25px;
+  }
+}
+</style>
+
+
+<!-- ========== AI素養專用樣式 v1.0 (2026.03.30 CSX) ========== -->
+<style>
+/* ================================================================
+   匯東華統計顧問 - 課程網頁 CSS 合併檔
+   ================================================================
+   版本：v1.0
+   日期：2026.03.30
+   作者：CSX（匯東華統計顧問）
+
+   說明：
+   - 此檔案合併 hdh_course_base.css + ai_literacy.css
+   - 可直接貼入官網進階設定使用
+   - 包含：基礎樣式 + AI素養專用樣式
+
+   結構：
+   - Part 1: 基礎樣式（hdh- 前綴）
+   - Part 2: AI素養專用樣式（ai- 前綴）
+   ================================================================ */
+
+
+/* ================================================================
+   ██████╗  █████╗ ██████╗ ████████╗     ██╗
+   ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝    ███║
+   ██████╔╝███████║██████╔╝   ██║       ╚██║
+   ██╔═══╝ ██╔══██║██╔══██╗   ██║        ██║
+   ██║     ██║  ██║██║  ██║   ██║        ██║
+   ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝        ╚═╝
+
+   基礎樣式（hdh_course_base.css）
+   適用於所有課程網頁
+   ================================================================ */
+
+/* ==================== CSS 變數定義（全域） ==================== */
+:root {
+  /* 匯東華品牌色 */
+  --hdh-red: #B82226;
+  --hdh-red-dark: #8a1a1d;
+  --hdh-red-light: #d43a3e;
+  --hdh-gold: #C4A46D;
+  --hdh-gold-dark: #a68b5b;
+  --hdh-gold-light: #d4b47d;
+
+  /* 中性色 */
+  --hdh-dark: #333333;
+  --hdh-gray: #666666;
+  --hdh-gray-light: #999999;
+  --hdh-light: #f8f6f0;
+  --hdh-white: #ffffff;
+  --hdh-border: #e0e0e0;
+  --hdh-border-light: #f0f0f0;
+
+  /* 功能色 */
+  --hdh-success: #28a745;
+  --hdh-warning: #ffc107;
+  --hdh-danger: #dc3545;
+  --hdh-info: #17a2b8;
+
+  /* 陰影 */
+  --hdh-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --hdh-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --hdh-shadow-lg: 0 6px 20px rgba(0, 0, 0, 0.15);
+
+  /* 圓角（統一 8px） */
+  --hdh-radius-sm: 4px;
+  --hdh-radius: 8px;
+  --hdh-radius-lg: 12px;
+  --hdh-radius-pill: 50px;
+  --hdh-radius-circle: 50%;
+
+  /* 字型 */
+  --hdh-font-family: 'Microsoft JhengHei', '微軟正黑體', 'Noto Sans TC', sans-serif;
+  --hdh-font-family-serif: 'Times New Roman', 'Noto Serif TC', serif;
+
+  /* 行高 */
+  --hdh-line-height: 1.8;
+  --hdh-line-height-tight: 1.4;
+  --hdh-line-height-loose: 2.0;
+
+  /* 內容寬度 */
+  --hdh-content-width: 1200px;
+  --hdh-content-narrow: 800px;
+  --hdh-content-wide: 1400px;
+
+  /* 間距 */
+  --hdh-spacing-xs: 5px;
+  --hdh-spacing-sm: 10px;
+  --hdh-spacing-md: 20px;
+  --hdh-spacing-lg: 30px;
+  --hdh-spacing-xl: 40px;
+  --hdh-spacing-xxl: 60px;
+
+  /* 動畫時間 */
+  --hdh-transition: 0.3s ease;
+  --hdh-transition-fast: 0.15s ease;
+
+  /* Hero 預設色（可被課程專用 CSS 覆蓋） */
+  --hdh-hero-primary: var(--hdh-red);
+  --hdh-hero-secondary: var(--hdh-red-dark);
+}
+
+/* ==================== 基礎容器 ==================== */
+.hdh-course-content {
+  font-family: var(--hdh-font-family);
+  line-height: var(--hdh-line-height);
+  color: var(--hdh-dark);
+  max-width: var(--hdh-content-width);
+  margin: 0 auto;
+  padding: 0 var(--hdh-spacing-md);
+  box-sizing: border-box;
+}
+
+.hdh-course-content *,
+.hdh-course-content *::before,
+.hdh-course-content *::after {
+  box-sizing: inherit;
+}
+
+/* ==================== 基礎 RWD 響應式設計 ==================== */
+@media (max-width: 768px) {
+  .hdh-course-content {
+    padding: 0 15px;
+  }
+}
+
+
+/* ================================================================
+   ██████╗  █████╗ ██████╗ ████████╗    ██████╗
+   ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝    ╚════██╗
+   ██████╔╝███████║██████╔╝   ██║        █████╔╝
+   ██╔═══╝ ██╔══██║██╔══██╗   ██║       ██╔═══╝
+   ██║     ██║  ██║██║  ██║   ██║       ███████╗
+   ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚══════╝
+
+   AI素養專用樣式（ai_literacy.css）
+   使用 ai-（AI Literacy）前綴
+   Hero 區塊使用紫色系 #44337a
+   ================================================================ */
+
+/* ==================== 覆蓋 CSS 變數（AI素養專用紫色系） ==================== */
+.ai-course-content {
+  --hdh-red: #B82226;
+  --hdh-gold: #C4A46D;
+  --hdh-dark: #333333;
+  --hdh-gray: #666666;
+  --hdh-light: #f8f6f0;
+  --hdh-border: #e0e0e0;
+
+  --ai-purple-dark: #44337a;
+  --ai-purple-medium: #553c9a;
+  --ai-purple-light: #6b46c1;
+  --ai-purple-accent: #805ad5;
+  --ai-purple-pale: #f5f0ff;
+
+  --hdh-hero-primary: var(--ai-purple-dark);
+  --hdh-hero-secondary: var(--ai-purple-medium);
+
+  font-family: 'Microsoft JhengHei', sans-serif;
+  line-height: 1.8;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ==================== Hero 區塊（紫色系） ==================== */
+.ai-hero {
+  background: linear-gradient(135deg, var(--ai-purple-dark) 0%, var(--ai-purple-medium) 50%, var(--ai-purple-dark) 100%);
+  color: #fff;
+  padding: 60px 40px;
+  text-align: center;
+  margin-bottom: 50px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-hero::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(196, 164, 109, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.ai-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.ai-hero-badge {
+  display: inline-block;
+  background: var(--hdh-gold);
+  color: var(--ai-purple-dark);
+  padding: 8px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-hero h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  line-height: 1.4;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-hero .subtitle {
+  font-size: 22px;
+  opacity: 0.95;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-hero .tagline {
+  font-size: 18px;
+  color: var(--hdh-gold);
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==================== 影片/圖片區塊 ==================== */
+.ai-video-section {
+  text-align: center;
+  margin: 40px 0;
+  padding: 30px;
+  background: var(--hdh-light);
+  border-radius: 8px;
+}
+
+.ai-video-section iframe {
+  max-width: 100%;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+.ai-video-caption {
+  margin-top: 15px;
+  font-size: 16px;
+  color: var(--hdh-gray);
+}
+
+.ai-video-caption a {
+  color: var(--hdh-red);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ai-video-caption a:hover {
+  text-decoration: underline;
+}
+
+/* ==================== 區塊標題 ==================== */
+.ai-section-title {
+  font-size: 28px;
+  color: var(--ai-purple-dark);
+  border-bottom: 4px solid var(--hdh-gold);
+  padding-bottom: 12px;
+  margin: 50px 0 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.ai-section-title-red {
+  font-size: 28px;
+  color: var(--hdh-red);
+  border-bottom: 4px solid var(--hdh-gold);
+  padding-bottom: 12px;
+  margin: 50px 0 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* ==================== 文章介紹文字 ==================== */
+.ai-intro {
+  background: #fff;
+  padding: 35px;
+  border-left: 5px solid var(--ai-purple-dark);
+  margin: 30px 0;
+  font-size: 18px;
+  line-height: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 4px;
+}
+
+.ai-intro p {
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.ai-intro strong {
+  color: var(--ai-purple-dark);
+  font-weight: bold;
+}
+
+.ai-intro .highlight-red {
+  color: var(--hdh-red);
+  font-weight: bold;
+}
+
+/* ==================== 痛點卡片 ==================== */
+.ai-pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.ai-pain-card {
+  background: var(--hdh-light);
+  border: 2px solid var(--hdh-border);
+  padding: 35px 25px;
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.ai-pain-card:hover {
+  border-color: var(--ai-purple-dark);
+  box-shadow: 0 4px 12px rgba(68, 51, 122, 0.15);
+  transform: translateY(-3px);
+}
+
+.ai-pain-card .icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.ai-pain-card h3 {
+  color: var(--ai-purple-dark);
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.ai-pain-card p {
+  font-size: 16px;
+  color: var(--hdh-gray);
+  line-height: 1.8;
+}
+
+/* ==================== 特色區塊（紫色深底） ==================== */
+.ai-features {
+  background: linear-gradient(135deg, var(--ai-purple-dark) 0%, var(--ai-purple-medium) 100%);
+  color: #fff;
+  padding: 50px 40px;
+  margin: 50px -20px;
+  border-radius: 8px;
+}
+
+.ai-features-title {
+  text-align: center;
+  font-size: 28px;
+  color: var(--hdh-gold);
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.ai-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.ai-feature-item {
+  text-align: center;
+  padding: 20px;
+}
+
+.ai-feature-item .number {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  background: var(--hdh-gold);
+  color: var(--ai-purple-dark);
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+}
+
+.ai-feature-item h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.ai-feature-item p {
+  font-size: 15px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* ==================== CTA 區塊（紫色版本） ==================== */
+.ai-cta {
+  background: linear-gradient(135deg, var(--ai-purple-dark) 0%, var(--ai-purple-medium) 100%);
+  color: #fff;
+  padding: 50px 40px;
+  text-align: center;
+  margin: 50px -20px;
+  border-radius: 8px;
+}
+
+.ai-cta h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.ai-cta p {
+  margin-bottom: 30px;
+  opacity: 0.95;
+  font-size: 18px;
+}
+
+.ai-cta-red {
+  background: linear-gradient(135deg, var(--hdh-red) 0%, #8a1a1d 100%);
+  color: #fff;
+  padding: 50px 40px;
+  text-align: center;
+  margin: 50px -20px;
+  border-radius: 8px;
+}
+
+.ai-cta-red h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.ai-cta-red p {
+  margin-bottom: 30px;
+  opacity: 0.95;
+  font-size: 18px;
+}
+
+.ai-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ai-btn {
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+}
+
+.ai-btn-primary {
+  background: var(--hdh-gold);
+  color: var(--ai-purple-dark);
+}
+
+.ai-btn-primary:hover {
+  background: #d4b47d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(196, 164, 109, 0.4);
+}
+
+.ai-btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.ai-btn-secondary:hover {
+  background: #fff;
+  color: var(--ai-purple-dark);
+  transform: translateY(-2px);
+}
+
+/* ==================== 聯絡資訊 - 橫向排列 ==================== */
+.ai-contact {
+  background: var(--hdh-light);
+  padding: 40px;
+  margin: 40px 0;
+  border-radius: 8px;
+}
+
+.ai-contact h3 {
+  color: var(--ai-purple-dark);
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.ai-contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px 30px;
+}
+
+.ai-contact-list li {
+  padding: 12px 20px;
+  font-size: 16px;
+  background: #fff;
+  border: 2px solid var(--hdh-border);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.ai-contact-list li:hover {
+  border-color: var(--ai-purple-dark);
+  box-shadow: 0 2px 8px rgba(68, 51, 122, 0.15);
+  transform: translateY(-2px);
+}
+
+.ai-contact-list li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.ai-contact-list li a:hover {
+  color: var(--ai-purple-dark);
+}
+
+/* ==================== 提示/注意區塊 ==================== */
+.ai-notice {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  padding: 25px;
+  margin: 30px 0;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.ai-notice p {
+  font-size: 17px;
+  margin-bottom: 10px;
+  line-height: 1.8;
+}
+
+.ai-notice strong {
+  color: var(--ai-purple-dark);
+}
+
+.ai-notice a {
+  color: var(--hdh-red);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ai-notice a:hover {
+  text-decoration: underline;
+}
+
+.ai-notice-blue {
+  background: var(--ai-purple-pale);
+  border: 2px solid var(--ai-purple-dark);
+  padding: 25px;
+  margin: 30px 0;
+  border-radius: 8px;
+}
+
+.ai-notice-blue p {
+  font-size: 17px;
+  margin-bottom: 10px;
+  line-height: 1.8;
+}
+
+.ai-notice-red {
+  background: #ffe5e5;
+  border: 2px solid var(--hdh-red);
+  padding: 25px;
+  margin: 30px 0;
+  border-radius: 8px;
+}
+
+/* ==================== AI素養 RWD 響應式設計 ==================== */
+@media (max-width: 768px) {
+  .ai-course-content {
+    padding: 0 15px;
+  }
+
+  .ai-hero {
+    padding: 40px 25px;
+  }
+
+  .ai-hero h1 {
+    font-size: 26px;
+  }
+
+  .ai-hero .subtitle {
+    font-size: 18px;
+  }
+
+  .ai-section-title,
+  .ai-section-title-red {
+    font-size: 24px;
+  }
+
+  .ai-intro {
+    padding: 25px;
+    font-size: 16px;
+  }
+
+  .ai-btn-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ai-btn {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+
+  .ai-pain-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-contact-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ai-contact-list li {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  .ai-features {
+    margin: 40px -15px;
+    padding: 40px 25px;
+  }
+
+  .ai-cta,
+  .ai-cta-red {
+    margin: 40px -15px;
+    padding: 40px 25px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ai-pain-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .ai-pain-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .ai-hero h1 {
+    font-size: 22px;
+  }
+
+  .ai-hero .subtitle {
+    font-size: 16px;
+  }
+
+  .ai-hero .tagline {
+    font-size: 15px;
+  }
+
+  .ai-section-title,
+  .ai-section-title-red {
+    font-size: 20px;
+  }
+
+  .ai-features-title {
+    font-size: 20px;
+  }
+
+  .ai-pain-card {
+    padding: 25px 20px;
+  }
+}
+
+@media print {
+  .ai-course-content {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .ai-hero,
+  .ai-features,
+  .ai-cta,
+  .ai-cta-red {
+    background: #f8f9fa !important;
+    color: #333 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .ai-btn-group {
+    display: none;
+  }
+
+  .ai-video-section iframe {
+    display: none;
+  }
+}
+
+/* ================================================================
+   ██╗     ██╗███╗   ██╗██╗  ██╗    ███████╗██╗██╗  ██╗
+   ██║     ██║████╗  ██║██║ ██╔╝    ██╔════╝██║╚██╗██╔╝
+   ██║     ██║██╔██╗ ██║█████╔╝     █████╗  ██║ ╚███╔╝
+   ██║     ██║██║╚██╗██║██╔═██╗     ██╔══╝  ██║ ██╔██╗
+   ███████╗██║██║ ╚████║██║  ██╗    ██║     ██║██╔╝ ██╗
+   ╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝    ╚═╝     ╚═╝╚═╝  ╚═╝
+
+   連結樣式修正（覆蓋官網預設按鈕樣式）
+   v1.0 - 2026.03.30
+   ================================================================ */
+
+/* === 文章內容區塊內的文字連結（覆蓋官網全域 <a> 按鈕樣式） === */
+.ai-course-content a,
+.ai-intro a,
+.ai-notice a,
+.ai-notice-blue a,
+.hdh-course-content a,
+.hdh-intro a,
+.hdh-notice a {
+    display: inline !important;
+    padding: 0 !important;
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+    color: #B82226 !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+    box-shadow: none !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    transform: none !important;
+}
+
+.ai-course-content a:hover,
+.ai-intro a:hover,
+.ai-notice a:hover,
+.ai-notice-blue a:hover,
+.hdh-course-content a:hover,
+.hdh-intro a:hover,
+.hdh-notice a:hover {
+    text-decoration: underline !important;
+    color: #8a1a1d !important;
+    background: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* === 保留 CTA 按鈕原有樣式 === */
+.ai-btn,
+.ai-btn-primary,
+.ai-btn-secondary,
+.hdh-btn,
+.hdh-btn-primary,
+.hdh-btn-secondary,
+.ai-cta a.ai-btn,
+.ai-cta-red a.ai-btn,
+.hdh-cta a.hdh-btn {
+    display: inline-block !important;
+    padding: 15px 40px !important;
+    background: var(--hdh-gold, #C4A46D) !important;
+    color: #2d2d2d !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+    border-radius: 6px !important;
+    transition: all 0.3s ease !important;
+}
+
+.ai-btn-secondary,
+.hdh-btn-secondary {
+    background: transparent !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+}
+
+.ai-btn:hover,
+.ai-btn-primary:hover,
+.hdh-btn:hover,
+.hdh-btn-primary:hover {
+    background: #d4b47d !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(196, 164, 109, 0.4) !important;
+    text-decoration: none !important;
+}
+
+.ai-btn-secondary:hover,
+.hdh-btn-secondary:hover {
+    background: #fff !important;
+    color: #B82226 !important;
+    transform: translateY(-2px) !important;
+    text-decoration: none !important;
+}
+
+/* === 聯絡資訊區塊連結 === */
+.ai-contact-list li a,
+.hdh-contact-list li a {
+    color: #333 !important;
+    font-weight: normal !important;
+}
+
+.ai-contact-list li a:hover,
+.hdh-contact-list li a:hover {
+    color: #B82226 !important;
+}
+
+</style>
+<!-- ========== End: AI素養專用樣式 v1.0 ========== -->
+
+  <style>
+/* CSS Hover Fix for Dropdown Menus - 2026-02-06 */
+.b_menu li:hover > .sub_menu {
+  display: block !important;
+}
+.b_menu .sub_menu {
+  z-index: 9999;
+}
+</style>
+<!-- 匯東華全站搜尋 v1.0 -->
+<script src="/pagefind-search.js"></script>
+</head>
+  <body style="">
+
+    <div id="rot" class="b_body" block_type="body" tpba_id="3869616"><div id="rot_ctr1" class="b_bg" block_type="bg" tpba_id="3869617"><div id="rot_ctr1_bod" class="b_bg" block_type="bg" tpba_id="3869618"><div id="rot_ctr1_bod_ctr1" class="b_bg" block_type="bg" tpba_id="3869619"><div id="rot_ctr1_bod_ctr1_blk1_custom" class="b_websitesearch" block_type="websitesearch"><div id="35d4bbc6c295dd35ea0412ad067ddf1e" class="__iv_dynamic_widget" style="display: none;">
+  <img src="static/images/global/loading_circle.svg" alt="載入中..." width="50" height="50"/>
+</div>
+</div>
+<div id="rot_ctr1_bod_ctr1_blk1" class="b_html" block_type="html" tpba_id="3869620"><p><img src="首頁/_imagecache/logo.png" caption="false" /><span style="font-size: 20pt; color: #e8cc8b; font-family: 微軟正黑體;"><span style="color: #b3800b;">匯東華統計顧問有限公司</span>&nbsp;</span></p></div>
+<div id="rot_ctr1_bod_ctr1_blk3" class="b_bg" block_type="bg" tpba_id="3869622"></div>
+<div id="rot_ctr1_bod_ctr1_bod" class="b_menu" block_type="menu" tpba_id="3869621"><!--UdmComment--><input type="checkbox" id="__res_main_nav_button"/><label id="__res_main_nav_label" for="__res_main_nav_button" onclick></label><ul menu_position="top"><li class="first menu_1995434" class="first menu_1995434"><a href="index.html" title="首頁" id="menu_1995434" class="menu_1995434">首頁</a></li><li class="menu_1995432"><a href="aboutus.html" title="關於我們" id="menu_1995432" class="menu_1995432 parent_menu_item">關於我們</a><input type="checkbox" id="__res_main_nav_button_2" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_2" onclick></label><ul menu_position="top" id="sub_menu_1995432" class="sub_menu" style="display:none; position: absolute;"><li class="menu_2018076" style=""><a href="行事曆.html" title="行事曆" style="float: none;" id="menu_2018076" class="menu_2018076">行事曆</a></li><li class="menu_2045981" style=""><a href="會員入會方案.html" title="會員入會方案" style="float: none;" id="menu_2045981" class="menu_2045981">入會方案</a></li><li class="menu_2033787" style=""><a href="匯東華週報.html" title="匯東華週報" style="float: none;" id="menu_2033787" class="menu_2033787">匯東華週報</a></li><li class="last menu_1995710" class="last menu_1995710" style=""><a href="未來發展.html" title="未來發展" style="float: none;" id="menu_1995710" class="menu_1995710">未來發展</a></li></ul></li><li class="menu_1995435"><a href="services.html" title="營業項目" id="menu_1995435" class="menu_1995435 parent_menu_item">營業項目</a><input type="checkbox" id="__res_main_nav_button_3" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_3" onclick></label><ul menu_position="top" id="sub_menu_1995435" class="sub_menu" style="display:none; position: absolute;"><li class="menu_1995468" style=""><a href="統計分析.html" title="統計分析" style="float: none;" id="menu_1995468" class="menu_1995468">統計分析</a></li><li class="menu_1995469" style=""><a href="數據串接與清洗.html" title="數據串接與清洗" style="float: none;" id="menu_1995469" class="menu_1995469">數據串接與清洗</a></li><li class="menu_1995470" style=""><a href="教育培訓.html" title="教育培訓" style="float: none;" id="menu_1995470" class="menu_1995470">教育培訓</a></li><li class="menu_1995471" style=""><a href="統計諮詢.html" title="統計諮詢" style="float: none;" id="menu_1995471" class="menu_1995471">統計諮詢</a></li><li class="last menu_1995472" class="last menu_1995472" style=""><a href="周邊商品.html" title="周邊商品" style="float: none;" id="menu_1995472" class="menu_1995472">周邊商品</a></li></ul></li><li class="menu_2014573"><a href="課程報名.html" title="課程報名" id="menu_2014573" class="menu_2014573">課程報名</a></li><li class="menu_2056823"><a href="直播課程區.html" title="直播課程區" id="menu_2056823" class="menu_2056823">直播課程區</a></li><li class="menu_2019127"><a href="學習專區.html" title="學習專區" id="menu_2019127" class="menu_2019127 parent_menu_item">學習專區</a><input type="checkbox" id="__res_main_nav_button_4" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_4" onclick></label><ul menu_position="top" id="sub_menu_2019127" class="sub_menu" style="display:none; position: absolute;"><li class="menu_2019309" style=""><a href="bmj文章總覽.html" title="BMJ小小統計問題" style="float: none;" id="menu_2019309" class="menu_2019309">BMJ小小統計問題</a></li><li class="menu_2015907" style=""><a href="教材勘誤.html" title="教材勘誤" style="float: none;" id="menu_2015907" class="menu_2015907">教材勘誤</a></li><li class="last menu_2019132" class="last menu_2019132" style=""><a href="精選文獻與其他資源.html" target="_blank" title="精選文獻與其他資源" style="float: none;" id="menu_2019132" class="menu_2019132">精選文獻與其他資源</a></li></ul></li><li class="menu_1995479"><a href="最新消息.html" title="最新消息" id="menu_1995479" class="menu_1995479">最新消息</a></li><li class="menu_2034290"><a href="常見問題.html" title="常見問題" id="menu_2034290" class="menu_2034290">常見問題</a></li><li class="last menu_1995433" class="last menu_1995433"><a href="contactus.html" title="聯絡我們" id="menu_1995433" class="menu_1995433">聯絡我們</a></li></ul><!--/UdmComment--></div>
+</div>
+<div id="rot_ctr1_bod_ctr2" class="b_bg" block_type="bg" tpba_id="3869623"><div id="rot_ctr1_bod_ctr2_bod" class="b_bg" block_type="bg" tpba_id="3869624"><div id="rot_ctr1_bod_ctr2_bod_wrp1" class="b_pagebg" block_type="pagebg" tpba_id="3869625"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk3_custom" class="b_bg" block_type="bg"></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk1" class="b_bg" block_type="bg" tpba_id="3869630"></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2" class="b_bg" block_type="bg" tpba_id="3869646"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_custom" class="b_carousel2" block_type="carousel2">
+
+<div widget="carousel2" type="carousel2" epoch="" values="26147" id="carousel2_26147" class="carousel2_widget" style="overflow:hidden">
+    <div style="display:none">
+      <div class="mfp-wrap">
+        <div class="mfp-title"></div>
+        <div class="mfp-counter"></div>
+      </div>
+      <ul class="slick-dots">
+        <li class="slick-active">
+          <div id="button"></div>
+        </li>
+      </ul>
+      <div class="slick-slide"><img /></div>
+      <div class="captionjs animated">
+        <figcaption></figcaption>
+      </div>
+    </div>
+  <div id="carousel2_container_26147" class="carousel2_container">
+    <div class="slider lazy" id="slick_index_26147">
+<div><div class="image"><img class="slick-slider-img" data-caption="DAG 實作直播課程" data-lazy="_imagecache/P%3DMW800%2CMH800%2CF%2CBFFFFFF/%E8%BC%AA%E6%92%AD%E5%9C%961.jpg" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="DAG 範例" data-lazy="_imagecache/P%3DMW800%2CMH800%2CF%2CBFFFFFF/%E8%BC%AA%E6%92%AD%E5%9C%962-DAG%E7%AF%84%E4%BE%8B.png" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="教學內容" data-lazy="_imagecache/P%3DMW800%2CMH800%2CF%2CBFFFFFF/%E8%BC%AA%E6%92%AD%E5%9C%963.jpg" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="學員互動" data-lazy="_imagecache/P%3DMW800%2CMH800%2CF%2CBFFFFFF/%E8%BC%AA%E6%92%AD%E5%9C%964.jpg" /></div></div><div><div class="image"><img class="slick-slider-img" data-caption="DAG 語言" data-lazy="_imagecache/P%3DMW800%2CMH800%2CF%2CBFFFFFF/%E8%BC%AA%E6%92%AD%E5%9C%965-DAG%E8%AA%9E%E8%A8%80.png" /></div></div></div>
+  </div>
+</div>
+
+
+
+<style>
+  .slick-slide { outline: none; }
+  .slick-slide .image{padding: 5px;}
+  .slick-slide img{border:0px solid #FFF;display:block;width:100%;}
+  .slick-slide img.slick-loading{border:0 }
+  .slick-slider{margin:30px auto 50px; padding-left:22px; padding-right:22px;}
+
+  .slick-list { position: relative; overflow: hidden; display: block; margin: 0; padding: 0; }
+  .slick-list:focus { outline: none; }
+  .slick-loading .slick-list { background: white url(https://i.imgur.com/YWGUhK4.gif) center center no-repeat; }
+  .slick-list.dragging { cursor: pointer; cursor: hand; }
+
+  .slick-track { position: relative; left: 0; top: 0; display: block; zoom: 1; }
+  .slick-track:before, .slick-track:after { content: ""; display: table; }
+  .slick-track:after { clear: both; }
+  .slick-loading .slick-track { visibility: hidden; }
+
+  .slick-slide.dragging img { pointer-events: none; }
+  .slick-initialized .slick-slide { display: block; }
+  .slick-loading .slick-slide { visibility: hidden; }
+  .slick-vertical .slick-slide { display: block; height: auto; border: 1px solid transparent; }
+
+
+  /* Icons */
+  @font-face {
+    font-family: "slick";
+    src: url("/static/css/slick/slick.eot");
+    src: url("/static/css/slick/slick.eot?#iefix") format("embedded-opentype"),
+         url("/static/css/slick/slick.woff") format("woff"),
+         url("/static/css/slick/slick.ttf") format("truetype"),
+         url("/static/css/slick/slick.svg#slick") format("svg");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  /* Arrows */
+  #carousel2_26147 .slick-next {
+    position: absolute; display: block; height: 20px; width: 20px; line-height: 0; font-size: 0;
+    cursor: pointer; top: 50%; margin-top: -10px; padding: 0; border: none; outline: none; }
+
+  #carousel2_26147 .slick-prev {
+    position: absolute; display: block; height: 20px; width: 20px; line-height: 0; font-size: 0;
+    cursor: pointer; top: 50%; margin-top: -10px; padding: 0; border: none; outline: none; }
+
+  #carousel2_26147 .slick-prev:focus, .slick-next:focus { outline: none; }
+  #carousel2_26147 .slick-prev.slick-disabled:before, .slick-next.slick-disabled:before { opacity: 0.25; }
+  #carousel2_26147 .slick-prev:before, .slick-next:before {
+    font-family: "slick"; font-size: 20px; line-height: 1;
+    color: white; opacity: 0.85; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+
+
+    #carousel2_26147 .slick-prev { background: transparent; color: transparent; }
+    #carousel2_26147 .slick-prev { left: 2px; }
+    #carousel2_26147 [dir='rtl'] .slick-prev { right: 2px; left: auto; }
+    #carousel2_26147 .slick-prev:before {
+      content: '\2190';
+    }
+    #carousel2_26147 [dir='rtl'] .slick-prev:before {
+      content: '\2192';
+    }
+
+    #carousel2_26147 .slick-next { background: transparent; color: transparent; }
+    #carousel2_26147 .slick-next { right: 2px; }
+    #carousel2_26147 [dir='rtl'] .slick-next { right: auto; left: 0px; }
+    #carousel2_26147 .slick-next:before {
+      content: '\2192';
+    }
+    #carousel2_26147 [dir='rtl'] .slick-next:before {
+      content: '\2190';
+    }
+
+
+
+  /* Dots */
+  #carousel2_26147 .slick-dots { position: absolute; bottom: -25px; list-style: none; display: block; text-align: center; padding: 0px; width: 100%; }
+  #carousel2_26147 .slick-dots li { position: relative; display: inline-block; height: 20px; width: 20px; margin: 0px 5px; padding: 0px; cursor: pointer; }
+  #carousel2_26147 .slick-dots li button {
+      border: 0; background: transparent; display: block; height: 20px; width: 20px;
+      outline: none; line-height: 0; font-size: 0; color: black; padding: 5px; cursor: pointer; outline: none;
+  }
+  #carousel2_26147 .slick-dots li button:focus { outline: none; }
+  #carousel2_26147 .slick-dots li button:before {
+    position: absolute; top: 0; left: 0; content: '\2022'; width: 20px; height: 20px;
+    font-family: "slick"; font-size: 6px; line-height: 20px; text-align: center; opacity: 0.25; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  #carousel2_26147 .slick-dots li.slick-active button:before { opacity: 0.75; }
+  #carousel2_26147 .slick-prev:before, .slick-next:before {
+    color: #000;
+  }
+
+  /* Lightshow */
+  /* .mfp-counter { display:none; } */
+
+</style>
+
+
+
+
+
+
+
+
+
+
+</div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_custom" class="b_html" block_type="html"><!-- ====================================================
+
+     DAG 因果推論專欄 01 - 為什麼不能只靠統計相關性選擇控制變數？
+
+     版本：v1.0_20260409_CSX
+
+     說明：此為純內容區塊，需配合官網 CSS 設定
+
+     ==================================================== -->
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<!-- 無需內嵌樣式，使用官網 CSS 設定 -->
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<!-- ==================== 文章內容開始 ==================== -->
+<div class="ai-course-content">
+<!-- Hero 區塊 -->
+<div class="ai-hero" style="position: relative; overflow: hidden;">
+<img style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -45%); width: 350px; height: auto; opacity: 0.12; z-index: 1; pointer-events: none;" src="課程報名/曇月靈01-去背景.png" alt="曇月靈" class="hdh-mascot" />
+<div style="position: absolute; top: 15px; left: 15px; background: #B82226; color: white; padding: 6px 14px; font-size: 14px; font-weight: bold; border-radius: 4px; z-index: 10; letter-spacing: 2px;">匯東華</div>
+<span class="ai-hero-badge">DAG 因果推論專欄</span>
+<h1>為什麼不能只靠統計相關性選擇控制變數？<br>DAG 一畫就知道</h1>
+<p class="subtitle">Confounder, Mediator, Collider — 在因果結構裡的角色決定你該不該調整</p>
+<p class="tagline">匯東華統計顧問　·　陳秀敏 博士　·　2026／4／9</p>
+</div>
+
+<!-- 摘要（Abstract）區塊 -->
+<div style="background: #faf6ed; border-left: 6px solid #C4A46D; padding: 32px 38px; margin: 35px 0 45px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+<div style="display: flex; align-items: center; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid #e6dcc4;">
+<span style="display: inline-block; background: #C4A46D; color: #fff; padding: 4px 14px; font-size: 13px; font-weight: bold; letter-spacing: 3px; border-radius: 3px; margin-right: 14px;">ABSTRACT</span>
+<span style="color: #B82226; font-size: 20px; font-weight: bold; letter-spacing: 2px;">摘要</span>
+</div>
+<p style="font-size: 16px; line-height: 2; color: #2a2a2a; text-align: justify; margin: 0 0 14px;">在觀察性研究（Observational Study）中，變數選擇始終是研究者最常陷入的方法學陷阱之一。傳統作法──以單變項相關、顯著性、逐步回歸（Stepwise Regression），或「文獻常用變數」作為控制變數的依據──實際上處理的是統計關聯，而非因果結構（Causal Structure）。</p>
+<p style="font-size: 16px; line-height: 2; color: #2a2a2a; text-align: justify; margin: 0 0 14px;">本文以方法學文獻為憑據，論證一個核心命題：<strong style="color: #B82226;">變數該不該放進模型，取決於它在因果結構中的角色，而非它與結果的統計相關強度</strong>。文中將援引 Shrier 與 Platt 在 BMC Medical Research Methodology 的方法學論文，以及 Feeney、Hartwig 與 Davies 於 BMJ 發表的臨床研究指引，系統說明干擾因子（Confounder）、中介變數（Mediator）、碰撞因子（Collider）三類變數在因果推論（Causal Inference）上之本質差異。</p>
+<p style="font-size: 16px; line-height: 2; color: #2a2a2a; text-align: justify; margin: 0;">本文同時介紹有向無環圖（Directed Acyclic Graph, DAG）作為一套讓隱含假設公開化的方法論工具，並透過三類最常見的誤用情境，說明為何「越調整不一定越準」、為何相同變數在不同研究問題下，有時該控制、有時必須放手。本文的目標讀者是醫學研究者、流行病學家與統計顧問實務工作者，期能為觀察性研究之變數選擇提供一套以因果邏輯為核心之判斷框架。</p>
+</div>
+
+<!-- ============ Section I:問題的起點 ============ -->
+<h2 class="ai-section-title"><span style="display: inline-block; background: #C4A46D; color: #fff; padding: 6px 16px; font-size: 20px; margin-right: 14px; border-radius: 4px; vertical-align: middle; letter-spacing: 2px;">I</span>問題的起點──觀察性研究的變數選擇困境</h2>
+<div class="ai-intro">
+<p>幾乎每一位從事觀察性研究的醫學研究者，都曾在分析計畫的擬定階段遭遇同一個問題：<strong>「這個變數，究竟該不該放進模型？」</strong>當資料中可用的變數數以十計，而每一個變數又都看似與結果（Outcome）有那麼一點關聯時，研究者往往訴諸最直覺、最廣為流傳的策略──看單變項分析的相關性、看 p 值、執行一輪逐步回歸（Stepwise Regression），或乾脆引用「文獻上大家都這樣放」作為判準。此套作法在學術期刊中如此普遍，以致幾乎已成為一種隱性的方法學規範。</p>
+
+<p>然而，此套規範背後其實隱藏著一個未被檢驗的前提：<strong>變數與結果之間「有相關」就等於「應該被控制」</strong>。此一前提乍看合理，實際上卻是一個危險的心智模型。它把統計層次的關聯（Association）與因果層次的調整需求混為一談，從而讓研究者在尚未釐清因果結構的情況下，就匆忙地以統計工具去回答因果問題。換言之，研究者所操作的，是一場以統計表現為依據、卻冠上因果語言的推論遊戲。</p>
+
+<div style="background: #f8f6fb; border-left: 5px solid #44337a; padding: 22px 28px; margin: 28px 0; border-radius: 4px;">
+<h4 style="color: #44337a; font-size: 17px; font-weight: bold; margin: 0 0 10px;">關鍵概念｜因果結構（Causal Structure）</h4>
+<p style="font-size: 16px; line-height: 1.9; color: #333; margin: 0; text-align: justify;">所謂「因果結構」，係指研究中各變數之間真實的因果關係網絡──誰是誰的原因、誰是誰的後果、誰扮演中介角色、誰由共同來源產生。任何回歸、配對或分層分析，事實上都建立在一套關於因果結構的隱含假設之上，只是此等假設往往沒有被研究者明確寫出來。</p>
+</div>
+
+<p>因果結構之中，某一個變數可能扮演的角色不只一種。<strong>首先，它可能是干擾因子（Confounder）</strong>，亦即同時影響暴露（Exposure）與結果的共同原因，此類變數若不調整，將導致估計值偏移。<strong>其次，它可能是中介變數（Mediator）</strong>，位於暴露對結果的因果路徑之上，代表著暴露之所以會影響結果的中介機制。<strong>再者，它可能是碰撞因子（Collider）</strong>，亦即由兩個或多個變數共同影響的「下游節點」，此類變數一旦被條件化，將打開原本不存在的非因果關聯。<strong>最後，它也可能只是某個變數的後代節點（Descendant）</strong>，亦即某真實因果節點的下游量測代理變數，其控制效果取決於它所代表的母節點。</p>
+
+<p>此四種角色在統計表現上，往往看不出明顯差別。它們可能都與結果有相關，也都可能在單變項分析中顯著。然而，從因果推論的角度來看，它們對應到的處理策略卻是截然不同──有些必須調整，有些絕對不能調整，有些則必須先釐清研究問題本身才能決定。若研究者僅以相關性作為篩選依據，結果便可能是<strong>漏掉真正該調整的干擾因子、誤調整中介或碰撞因子、打開原本關閉的偏差路徑，並讓估計值「更偏，而不是更準」</strong>。</p>
+
+<div style="background: linear-gradient(135deg, #faf6ed 0%, #f5edd8 100%); border-left: 5px solid #C4A46D; padding: 20px 26px; margin: 30px 0 10px; border-radius: 4px;">
+<div style="font-size: 13px; color: #8a6d3a; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px;">KEY TAKEAWAY ｜ 本節重點</div>
+<p style="font-size: 16px; line-height: 1.85; color: #2a2a2a; margin: 0; text-align: justify;">變數選擇之關鍵，不在於它與結果的統計相關有多強，而在於它在因果結構之中扮演何種角色。不同角色對應到截然不同之處理策略，以單一相關性指標作為判準，等同於用統計工具去回答因果問題，結果往往導致估計值更偏。</p>
+</div>
+</div>
+
+<!-- ============ Section II:文獻的警示 ============ -->
+<h2 class="ai-section-title"><span style="display: inline-block; background: #C4A46D; color: #fff; padding: 6px 16px; font-size: 20px; margin-right: 14px; border-radius: 4px; vertical-align: middle; letter-spacing: 2px;">II</span>文獻的警示──傳統方法的方法學侷限</h2>
+<div class="ai-intro">
+<p>傳統觀察性研究中所採用的變數選擇策略，大致可歸納為四種典型路徑：其一，以單變項分析的顯著性為門檻；其二，以「換入或移除某變數後估計值改變超過 10%」作為干擾因子的判準；其三，藉逐步回歸自動篩選變數；其四，直接沿用前人文獻中常見的調整變數清單。此四種策略在當代統計教學中仍被廣泛傳授，並被許多臨床期刊視為合理的方法學標準。然而，過去二十年的方法學文獻已逐步指出，此等策略之共同問題在於──它們處理的全部是「統計關聯」此一層次的問題，卻被誤用以回答「因果效應」此一層次的問題。</p>
+
+<p>Shrier 與 Platt 在其 2008 年發表於《BMC Medical Research Methodology》的方法學論文中，對此一錯置問題提出極具份量的警告：</p>
+</div>
+
+<div class="ai-notice-blue" style="background: #fefdf8; border: 1px solid #e6dcc4; border-left: 6px solid #C4A46D; padding: 28px 32px; margin: 30px 0; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+<div style="display: flex; align-items: baseline; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px dashed #d4c397;">
+<span style="font-size: 28px; color: #C4A46D; font-family: serif; line-height: 1; margin-right: 10px;">「</span>
+<span style="font-size: 13px; color: #8a6d3a; font-weight: bold; letter-spacing: 2px;">SHRIER &amp; PLATT (2008) — ORIGINAL TEXT</span>
+</div>
+<p style="font-style: italic; font-size: 17px; line-height: 1.95; color: #2a2a2a; margin: 0 0 16px; padding: 0 8px; text-align: justify;">"The traditional methods of adjusting for 'potential confounders' may introduce <strong>conditional associations</strong> and bias rather than minimize it."</p>
+<p style="font-size: 14px; color: #8a6d3a; margin: 0; text-align: right; font-weight: 500;">— Shrier I, Platt RW. <em>BMC Med Res Methodol</em>. 2008;8:70.（詳見文末參考文獻 1）</p>
+</div>
+
+<div class="ai-intro">
+<p>此一論點的核心，並非否定所有干擾因子的調整，而是揭示一個更為基本的事實：傳統的調整方法之所以可能<strong>製造而非減少偏差</strong>，正是因為它將判斷依據建立在統計關係之上，而非建立在變數於因果結構中所扮演的角色之上。當研究者僅以「看到相關就調整」、「納入模型讓統計自行篩選」、「只要與結果有關就先放」等策略行事時，他所引入的不是干擾的去除，而是 Shrier 與 Platt 所稱的「條件化關聯（Conditional Association）」──亦即一種因為錯誤條件化所產生、原本並不存在的虛假關聯。</p>
+
+<p>值得注意的是，Shrier 與 Platt 在同一篇論文中進一步明確界定生物醫學研究的核心目標，並以此區辨統計問題與因果問題之根本分野：</p>
+</div>
+
+<div class="ai-notice-blue" style="background: #fefdf8; border: 1px solid #e6dcc4; border-left: 6px solid #C4A46D; padding: 28px 32px; margin: 30px 0; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+<div style="display: flex; align-items: baseline; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px dashed #d4c397;">
+<span style="font-size: 28px; color: #C4A46D; font-family: serif; line-height: 1; margin-right: 10px;">「</span>
+<span style="font-size: 13px; color: #8a6d3a; font-weight: bold; letter-spacing: 2px;">SHRIER &amp; PLATT (2008) — RESEARCH OBJECTIVE</span>
+</div>
+<p style="font-style: italic; font-size: 17px; line-height: 1.95; color: #2a2a2a; margin: 0 0 16px; padding: 0 8px; text-align: justify;">"The objective of most biomedical research is to determine an unbiased estimate of effect for an exposure on an outcome, i.e. to make causal inferences about the exposure."</p>
+<p style="font-size: 14px; color: #8a6d3a; margin: 0; text-align: right; font-weight: 500;">— Shrier I, Platt RW. <em>BMC Med Res Methodol</em>. 2008;8:70.（詳見文末參考文獻 1）</p>
+</div>
+
+<div class="ai-intro">
+<p>此處的關鍵在於：絕大多數生物醫學研究真正想回答的，並非「在資料中，X 與 Y 是否有統計相關」此類描述性問題，而是「如果暴露 X 改變，結果 Y 會如何變化」此一因果問題。前者屬於統計學的範疇，後者則屬於因果推論（Causal Inference）的範疇──兩者使用相似的數學工具，卻有著根本不同的判讀邏輯。當研究者以統計篩選方法去回答因果問題時，工具與目標之間的錯置便成為偏差的主要來源。</p>
+
+<p>因此，若研究目標是估計暴露對結果的因果效應，變數選擇的判準便不應只看「它與結果是否相關」，而必須回到一個更根本的問題：它在因果結構中位於哪一條路徑、扮演哪一個角色？要系統化地回答此一問題，我們需要一套讓因果假設可被攤開、可被檢視、可被同儕質疑的方法論工具。而這，正是有向無環圖之所以被引入流行病學與生物統計領域的原因。</p>
+</div>
+
+<div style="background: linear-gradient(135deg, #faf6ed 0%, #f5edd8 100%); border-left: 5px solid #C4A46D; padding: 20px 26px; margin: 30px 0 50px; border-radius: 4px;">
+<div style="font-size: 13px; color: #8a6d3a; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px;">KEY TAKEAWAY ｜ 本節重點</div>
+<p style="font-size: 16px; line-height: 1.85; color: #2a2a2a; margin: 0; text-align: justify;">傳統的「相關即調整」策略之所以可能製造偏差，根源在於它將統計關聯的判準誤用於因果問題。Shrier 與 Platt 的論證提醒我們：生物醫學研究之核心目標是因果推論，而要服務於因果推論，變數選擇必須回到因果結構之層次。</p>
+</div>
+
+<!-- ============ Section III:DAG 方法論的價值 ============ -->
+<h2 class="ai-section-title"><span style="display: inline-block; background: #C4A46D; color: #fff; padding: 6px 16px; font-size: 20px; margin-right: 14px; border-radius: 4px; vertical-align: middle; letter-spacing: 2px;">III</span>DAG 方法論的價值──把隱含假設攤開來</h2>
+<div class="ai-intro">
+<p>有向無環圖（Directed Acyclic Graph，DAG）為當代因果推論方法論中最具影響力的圖形語言之一。它的核心並非「將研究流程畫成漂亮的示意圖」，而是<strong>將原本只存在於研究者腦中的因果假設，以一種公開、結構化、可被同儕檢視的方式表達出來</strong>。一張 DAG 不只描繪「誰指向誰」，它同時也決定哪些路徑是因果路徑（Causal Path）、哪些是後門路徑（Back-door Path）、哪些變數一旦被條件化會打開非因果關聯，以及──最關鍵的──為了估計某個因果效應，究竟需要（或不能）調整哪些變數。</p>
+
+<p>關於 DAG 方法論的本質，Shrier 與 Platt 在其論文中有一段極為精準的論述，值得完整引用：</p>
+</div>
+
+<div class="ai-notice-blue" style="background: #fefdf8; border: 1px solid #e6dcc4; border-left: 6px solid #C4A46D; padding: 28px 32px; margin: 30px 0; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+<div style="display: flex; align-items: baseline; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px dashed #d4c397;">
+<span style="font-size: 28px; color: #C4A46D; font-family: serif; line-height: 1; margin-right: 10px;">「</span>
+<span style="font-size: 13px; color: #8a6d3a; font-weight: bold; letter-spacing: 2px;">SHRIER &amp; PLATT (2008) — ON DAG METHODOLOGY</span>
+</div>
+<p style="font-style: italic; font-size: 17px; line-height: 1.95; color: #2a2a2a; margin: 0 0 16px; padding: 0 8px; text-align: justify;">"In other words, the DAG representing the true causal structure exists even if we do not know what it is, and all causal inferences based on statistical models are implicitly based on a causal structure – the DAG approach simply makes the assumptions explicit."</p>
+<p style="font-size: 14px; color: #8a6d3a; margin: 0; text-align: right; font-weight: 500;">— Shrier I, Platt RW. <em>BMC Med Res Methodol</em>. 2008;8:70.（詳見文末參考文獻 1）</p>
+</div>
+
+<div class="ai-intro">
+<p>此段論述蘊含一個深刻而往往被忽略的事實：<strong>不論研究者是否畫出 DAG，只要他在執行回歸、配對、傾向分數或分層分析，他就已經默默地在使用某一套因果結構假設</strong>。換言之，因果假設並非「畫了 DAG 之後才存在」，而是任何因果性聲稱所必然蘊含的前提。研究者選擇不畫 DAG，並非「擺脫了假設」，而是讓那些假設停留在隱性、未被檢驗、不可挑戰的狀態。</p>
+
+<p>DAG 方法論真正的價值，因此並不在於它提供某種「更正確的答案」，而在於它<strong>強迫研究者把假設攤開來</strong>。一旦因果結構被明確繪製，研究者便能依據圖形拓撲規則（如後門準則 Backdoor Criterion）系統化地判斷：為了估計暴露 X 對結果 Y 的因果效應，哪些路徑必須被關閉、哪些路徑絕對不能關閉、哪一個變數集合構成最小充分調整集（Minimal Sufficient Adjustment Set）。此套判斷不再依賴研究者的個人經驗，也不再受制於統計篩選方法的隨機性，而是奠基於明確、可被質疑、可被修改的因果假設之上。</p>
+
+<p>總而言之，DAG 與傳統統計調整策略之根本差異，在於兩者所處理的問題層次完全不同。傳統策略試圖回答「在資料中，加上此一變數後 R² 增加多少、估計值改變多少」；DAG 方法論則回答「依據我所繪製的因果結構，特定變數是否會打開或關閉某條路徑」。前者是描述性的，後者是結構性的；前者由資料驅動（Data-driven），後者由假設驅動（Hypothesis-driven）；前者輸出的是統計指標，後者輸出的是調整集合（Adjustment Set）。理解兩者間處理的層次差異，為進入 DAG 方法論的第一道門檻，也是判讀後續所有變數選擇爭議的基礎。</p>
+</div>
+
+<div style="background: linear-gradient(135deg, #faf6ed 0%, #f5edd8 100%); border-left: 5px solid #C4A46D; padding: 20px 26px; margin: 30px 0 50px; border-radius: 4px;">
+<div style="font-size: 13px; color: #8a6d3a; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px;">KEY TAKEAWAY ｜ 本節重點</div>
+<p style="font-size: 16px; line-height: 1.85; color: #2a2a2a; margin: 0; text-align: justify;">DAG 並未為因果推論引入新的假設，它只是強迫研究者把原本就在使用、卻未被寫明的假設攤開來。其價值不在於提供更漂亮的圖示，而在於提供一套讓因果假設可被檢視與挑戰之結構化語言。</p>
+</div>
+
+<!-- ============ Section IV:三類常見誤用情境 ============ -->
+<h2 class="ai-section-title"><span style="display: inline-block; background: #C4A46D; color: #fff; padding: 6px 16px; font-size: 20px; margin-right: 14px; border-radius: 4px; vertical-align: middle; letter-spacing: 2px;">IV</span>三類常見誤用情境</h2>
+<div class="ai-intro">
+<p>在實務研究中，變數選擇的失誤雖然形式多樣，卻往往可歸納為三類最具代表性的情境。第一類，是研究者把「對結果具有強預測力」的變數，直接等同於「應該被控制的變數」；第二類，是研究者調整了一個碰撞因子，從而打開了原本並不存在的非因果關聯路徑；第三類，則是研究者在估計總效果時，誤將位於因果路徑上的中介變數納入模型，導致回答的問題已經偏離原本的研究設定。以下分別說明此三類誤用情境之內在邏輯與其在因果結構上的根源。</p>
+</div>
+
+<!-- 情境 4.1 -->
+<div class="ai-intro">
+<h3 style="color: #44337a; font-size: 22px; margin: 10px 0 18px; font-weight: bold; border-left: 5px solid #B82226; padding-left: 16px;">情境 4.1｜把「預測重要」誤當成「應該控制」</h3>
+<p>第一類誤用發生於研究者面對「看似很重要」的變數時。在臨床研究中，某些變數──例如疾病史、檢驗指標、疾病嚴重度評分──確實在單變項分析中與結果高度相關，並在預測模型中具有不容忽視的解釋力。研究者於是憑直覺認為：「既然它這麼重要，就應該放進模型控制。」然而，此一直覺混淆兩個本質不同的問題──「預測」與「因果」。</p>
+
+<p>所謂高預測力，意味著該變數的數值能夠協助我們在已知資料中推估結果的可能值。但這並不等同於該變數位於暴露對結果的因果路徑之外、且為兩者的共同原因。事實上，一個與結果高度相關的變數，可能是暴露對結果之中介機制的下游量測；可能是某個碰撞因子的後代節點；也可能是研究選擇機制（如住院、轉診、或某種篩檢）所產生的條件化節點。在此等情境下，將其納入模型非但無助於減少偏差，反而可能引入額外的條件化關聯。</p>
+
+<p>上述情境之根本啟示在於：預測建模（Predictive Modeling）與因果效果估計（Causal Effect Estimation）所遵循的變數選擇邏輯，本質上是兩種不同的工作。前者追求模型在驗證資料上的預測準確度，因此鼓勵納入所有與結果有關的變數；後者追求暴露對結果之因果效應的無偏估計（Unbiased Estimate），因此必須依據因果結構而非統計表現來決定變數。若研究目的是因果推論，卻沿用預測建模的變數選擇思維，等同於用錯誤的工具去做對的事情。</p>
+
+<div style="background: linear-gradient(135deg, #faf6ed 0%, #f5edd8 100%); border-left: 5px solid #C4A46D; padding: 20px 26px; margin: 28px 0 10px; border-radius: 4px;">
+<div style="font-size: 13px; color: #8a6d3a; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px;">本節重點</div>
+<p style="font-size: 16px; line-height: 1.85; color: #2a2a2a; margin: 0; text-align: justify;">「預測重要」與「應該控制」是兩個層次的問題。預測模型由資料驅動，因果效應估計由因果結構驅動；若研究目標是後者，就不能用前者的選變數邏輯。</p>
+</div>
+</div>
+
+<!-- 情境 4.2 -->
+<div class="ai-intro">
+<h3 style="color: #44337a; font-size: 22px; margin: 10px 0 18px; font-weight: bold; border-left: 5px solid #B82226; padding-left: 16px;">情境 4.2｜調整碰撞因子，打開假路徑</h3>
+<p>第二類誤用涉及碰撞因子（Collider）──此為 DAG 方法論中最具教學價值、也最容易被傳統統計訓練忽略的一類變數。所謂碰撞因子，係指一個變數是兩個（或多個）變數的共同結果（Common Effect）。以最簡單的三節點結構為例：當 X 與 U 各自指向 C（亦即 X → C ← U）,C 即為 X 與 U 的碰撞因子。在此一結構之下，若我們不對 C 做任何條件化，X 與 U 之間的路徑是「關閉的」──兩者並無非因果關聯。</p>
+
+<p>然而，一旦研究者透過迴歸調整、分層，或匹配等方式，將 C 條件化（亦即「控制」C），原本封閉的 X ↔ U 路徑就會被「打開」，使得 X 與 U 之間在條件化後出現一種<strong>原本並不存在的非因果關聯</strong>。Feeney、Hartwig 與 Davies 在其 2025 年發表於《BMJ》的臨床研究指引中，對碰撞因子提出精準而具操作意義的定義：</p>
+</div>
+
+<div class="ai-notice-blue" style="background: #fefdf8; border: 1px solid #e6dcc4; border-left: 6px solid #C4A46D; padding: 28px 32px; margin: 30px 0; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+<div style="display: flex; align-items: baseline; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px dashed #d4c397;">
+<span style="font-size: 28px; color: #C4A46D; font-family: serif; line-height: 1; margin-right: 10px;">「</span>
+<span style="font-size: 13px; color: #8a6d3a; font-weight: bold; letter-spacing: 2px;">FEENEY, HARTWIG &amp; DAVIES (2025) — DEFINITION OF COLLIDER</span>
+</div>
+<p style="font-style: italic; font-size: 17px; line-height: 1.95; color: #2a2a2a; margin: 0 0 16px; padding: 0 8px; text-align: justify;">"A variable that is a common consequence of two variables that, if conditioned on (eg, through regression adjustment, stratification, or matching), can open a non-causal path of association between the exposure or treatment and the outcome of interest."</p>
+<p style="font-size: 14px; color: #8a6d3a; margin: 0; text-align: right; font-weight: 500;">— Feeney T, Hartwig FP, Davies NM. <em>BMJ</em>. 2025;388:e078226.（詳見文末參考文獻 2）</p>
+</div>
+
+<div class="ai-intro">
+<p>此一定義之所以重要，在於它將「條件化會發生什麼事」此一問題從直覺層次提升到方法論層次。傳統訓練告訴研究者「相關就調整」，但 DAG 方法論告訴我們：對於一個與暴露及未量測干擾源有共同結果關係的變數，調整它非但不會減少偏差，反而會在原本無關的兩個變數之間製造出一條虛假的關聯路徑。此即所謂的「碰撞偏差（Collider Bias）」，也是當代流行病學中最常被援引的一類選擇偏差來源。</p>
+
+<p style="text-align: center; color: #555; font-size: 15px; margin: 32px 0 12px; font-style: italic;">下方兩張 DAG 圖以最簡明的方式對比「未控制 C」與「控制 C」的差異：</p>
+</div>
+
+<!-- SVG DAG 雙圖並排 -->
+<div class="ai-features-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin: 30px 0;">
+
+<!-- 圖 4.1:未控制 C -->
+<div style="background: #fff; border: 2px solid #e6dcc4; border-radius: 8px; padding: 24px 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+<h4 style="color: #44337a; font-size: 18px; margin-bottom: 15px; font-weight: bold;">圖 4.1｜未控制 C（路徑關閉）</h4>
+<svg width="100%" height="240" viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg" style="max-width: 340px;">
+  <!-- 定義箭頭 -->
+  <defs>
+    <marker id="arrow1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+    </marker>
+  </defs>
+  <!-- 節點位置: X(60,170) C(180,170) U(300,50) Y(300,170) -->
+  <!-- 邊: X -> C -->
+  <line x1="88" y1="170" x2="152" y2="170" stroke="#333" stroke-width="2.5" marker-end="url(#arrow1)"/>
+  <!-- 邊: U -> C -->
+  <line x1="282" y1="72" x2="200" y2="152" stroke="#333" stroke-width="2.5" marker-end="url(#arrow1)"/>
+  <!-- 邊: U -> Y -->
+  <line x1="300" y1="80" x2="300" y2="142" stroke="#333" stroke-width="2.5" marker-end="url(#arrow1)"/>
+  <!-- 節點: X(紅) -->
+  <circle cx="60" cy="170" r="28" fill="#B82226" stroke="#8a1a1d" stroke-width="2"/>
+  <text x="60" y="177" font-size="22" font-weight="bold" fill="#fff" text-anchor="middle" font-family="serif">X</text>
+  <text x="60" y="215" font-size="12" fill="#666" text-anchor="middle">暴露</text>
+  <!-- 節點: C(金) -->
+  <circle cx="180" cy="170" r="28" fill="#C4A46D" stroke="#8a6d3a" stroke-width="2"/>
+  <text x="180" y="177" font-size="22" font-weight="bold" fill="#fff" text-anchor="middle" font-family="serif">C</text>
+  <text x="180" y="215" font-size="12" fill="#666" text-anchor="middle">碰撞因子</text>
+  <!-- 節點: U(灰虛線,未量測) -->
+  <circle cx="300" cy="50" r="28" fill="#f8f6f0" stroke="#999" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="300" y="57" font-size="22" font-weight="bold" fill="#666" text-anchor="middle" font-family="serif">U</text>
+  <text x="300" y="20" font-size="12" fill="#999" text-anchor="middle">未量測</text>
+  <!-- 節點: Y(紫) -->
+  <circle cx="300" cy="170" r="28" fill="#44337a" stroke="#2d2150" stroke-width="2"/>
+  <text x="300" y="177" font-size="22" font-weight="bold" fill="#fff" text-anchor="middle" font-family="serif">Y</text>
+  <text x="300" y="215" font-size="12" fill="#666" text-anchor="middle">結果</text>
+</svg>
+<p style="font-size: 14px; color: #333; margin-top: 15px; line-height: 1.7;">路徑 <strong>X → C ← U</strong> 關閉，X 與 Y 之間<strong style="color: #44337a;">無非因果關聯</strong>。此為碰撞結構的「自然封閉狀態」。</p>
+</div>
+
+<!-- 圖 4.2:控制 C -->
+<div style="background: #fff; border: 2px solid #B82226; border-radius: 8px; padding: 24px 20px; text-align: center; box-shadow: 0 2px 8px rgba(184, 34, 38, 0.08);">
+<h4 style="color: #B82226; font-size: 18px; margin-bottom: 15px; font-weight: bold;">圖 4.2｜控制 C（打開偏差路徑）</h4>
+<svg width="100%" height="240" viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg" style="max-width: 340px;">
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#333"/>
+    </marker>
+    <marker id="arrow2red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#B82226"/>
+    </marker>
+    <marker id="arrow2redStart" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#B82226"/>
+    </marker>
+  </defs>
+  <!-- 第一層：節點（底層，先畫） -->
+  <circle cx="60" cy="170" r="28" fill="#B82226" stroke="#8a1a1d" stroke-width="2"/>
+  <text x="60" y="177" font-size="22" font-weight="bold" fill="#fff" text-anchor="middle" font-family="serif">X</text>
+  <text x="60" y="215" font-size="12" fill="#666" text-anchor="middle">暴露</text>
+  <rect x="150" y="140" width="60" height="60" fill="#C4A46D" stroke="#B82226" stroke-width="3"/>
+  <text x="180" y="177" font-size="22" font-weight="bold" fill="#fff" text-anchor="middle" font-family="serif">C</text>
+  <text x="180" y="215" font-size="12" fill="#B82226" text-anchor="middle" font-weight="bold">[被控制]</text>
+  <circle cx="300" cy="50" r="28" fill="#f8f6f0" stroke="#999" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="300" y="57" font-size="22" font-weight="bold" fill="#666" text-anchor="middle" font-family="serif">U</text>
+  <text x="300" y="20" font-size="12" fill="#999" text-anchor="middle">未量測</text>
+  <circle cx="300" cy="170" r="28" fill="#44337a" stroke="#2d2150" stroke-width="2"/>
+  <text x="300" y="177" font-size="22" font-weight="bold" fill="#fff" text-anchor="middle" font-family="serif">Y</text>
+  <text x="300" y="215" font-size="12" fill="#666" text-anchor="middle">結果</text>
+  <!-- 第二層：邊（中層，畫在節點上方，箭頭不被蓋住） -->
+  <line x1="88" y1="170" x2="152" y2="170" stroke="#333" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <line x1="300" y1="80" x2="300" y2="142" stroke="#333" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <line x1="282" y1="72" x2="208" y2="144" stroke="#333" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <!-- 第三層：雙向虛線弧（最上層，X ↔ U 非因果關聯） -->
+  <path d="M 88 140 Q 180 20 272 42" fill="none" stroke="#B82226" stroke-width="2.5" stroke-dasharray="6,4"
+        marker-end="url(#arrow2red)"/>
+  <!-- X 端雙向箭頭（手動繪製，等腰三角形指向 X） -->
+  <polygon points="79,151 94,144 82,136" fill="#B82226"/>
+  <!-- U 端箭頭由 marker-end 處理 -->
+  <text x="175" y="22" font-size="12" fill="#B82226" text-anchor="middle" font-weight="bold">非因果關聯（打開）</text>
+</svg>
+<p style="font-size: 14px; color: #333; margin-top: 15px; line-height: 1.7;">條件化 <strong style="color: #B82226;">C</strong> → 打開 X ↔ U 路徑 → X 與 Y 之間出現<strong style="color: #B82226;">非因果關聯</strong>，即典型的碰撞偏差。</p>
+</div>
+
+</div>
+<!-- /SVG DAG 雙圖 -->
+
+<!-- 情境 4.3 -->
+<div class="ai-intro">
+<h3 style="color: #44337a; font-size: 22px; margin: 30px 0 18px; font-weight: bold; border-left: 5px solid #B82226; padding-left: 16px;">情境 4.3｜調整中介變數，改變研究問題</h3>
+<p>第三類誤用涉及中介變數（Mediator），亦即位於暴露對結果之因果路徑上的中間節點。中介變數所代表的，正是暴露之所以能夠影響結果的「機制」──例如肥胖之所以提升死亡風險，可能透過代謝異常、慢性發炎、心血管事件等中介機制逐步傳遞其因果效應。在此類研究中，中介變數既與暴露高度相關，也與結果高度相關，因此在統計篩選方法之下，它幾乎必然會被選入模型。然而，將中介變數放入模型，究竟是減少了偏差、還是改變了問題本身，卻取決於研究者真正想回答的因果效應類型。</p>
+
+<p>關於此一要點，Shrier 與 Platt 提供了一段方法論上極為清楚的論述：</p>
+</div>
+
+<div class="ai-notice-blue" style="background: #fefdf8; border: 1px solid #e6dcc4; border-left: 6px solid #C4A46D; padding: 28px 32px; margin: 30px 0; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+<div style="display: flex; align-items: baseline; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px dashed #d4c397;">
+<span style="font-size: 28px; color: #C4A46D; font-family: serif; line-height: 1; margin-right: 10px;">「</span>
+<span style="font-size: 13px; color: #8a6d3a; font-weight: bold; letter-spacing: 2px;">SHRIER &amp; PLATT (2008) — ON MEDIATOR ADJUSTMENT</span>
+</div>
+<p style="font-style: italic; font-size: 17px; line-height: 1.95; color: #2a2a2a; margin: 0 0 16px; padding: 0 8px; text-align: justify;">"Although researchers should generally not adjust for a covariate (or a marker for a covariate) that lies along a causal pathway when assessing the total causal effect, this may not be the case for researchers interested in decomposing total causal effects into direct and indirect effects."</p>
+<p style="font-size: 14px; color: #8a6d3a; margin: 0; text-align: right; font-weight: 500;">— Shrier I, Platt RW. <em>BMC Med Res Methodol</em>. 2008;8:70.（詳見文末參考文獻 1）</p>
+</div>
+
+<div class="ai-intro">
+<p>此段論述的精妙之處，在於它將中介變數的「該不該調整」問題，轉化為「研究問題本身是什麼」的問題。如果研究者想估計的是<strong>總效果（Total Effect）</strong>──亦即暴露透過所有可能管道對結果產生的整體影響──那麼任何中介變數都不應被納入模型，因為將中介條件化等同於「拿掉了暴露之所以會影響結果的部分機制」，所得到的估計值便不再是總效果。反之，若研究者所關注的是<strong>直接效果（Direct Effect）</strong>──亦即暴露不經過某些特定中介機制所產生的影響──那麼針對該中介的條件化，反而是回答此問題的必要手段。</p>
+
+<p>換言之，中介變數的處理並無絕對的「對」或「錯」，只有「與研究問題是否相符」此一判準。當研究者在報告中宣稱估計「肥胖對死亡的影響」時，他必須清楚地告訴讀者：此一「影響」是包含所有中介機制的總效果，還是排除特定中介之後的直接效果？兩者具有截然不同的因果意義，而能夠協助研究者在分析之前做出此項判斷的工具，正是 DAG。</p>
+
+<div style="background: linear-gradient(135deg, #faf6ed 0%, #f5edd8 100%); border-left: 5px solid #C4A46D; padding: 20px 26px; margin: 30px 0 50px; border-radius: 4px;">
+<div style="font-size: 13px; color: #8a6d3a; font-weight: bold; letter-spacing: 2px; margin-bottom: 8px;">KEY TAKEAWAY ｜ 本節重點</div>
+<p style="font-size: 16px; line-height: 1.85; color: #2a2a2a; margin: 0; text-align: justify;">中介變數之處理沒有絕對對錯，但有研究問題是否相符之問題。若研究目標是總效果，則不應調整中介；若目標是直接效果，則必須調整。研究者必須先回答自己想問的是哪一種效果，才能決定變數之去留。</p>
+</div>
+</div>
+
+<!-- ============ Section V:結語 + CTA ============ -->
+<h2 class="ai-section-title"><span style="display: inline-block; background: #C4A46D; color: #fff; padding: 6px 16px; font-size: 20px; margin-right: 14px; border-radius: 4px; vertical-align: middle; letter-spacing: 2px;">V</span>結語｜變數選擇的因果邏輯，決定研究問題的答案</h2>
+<div class="ai-intro">
+<p>回顧本文的論證脈絡，我們可以看出一個一以貫之的核心主張：<strong>觀察性研究中之變數選擇問題，本質上不是統計問題，而是因果問題</strong>。當研究者意識到此一要點之後，許多原本看似「該找更進階統計方法解決」之困境，其實都可以被重新定位為「該先把因果結構釐清」之方法學前置工作。換言之，許多分析上的困擾，並非出在估計工具不夠精巧，而是出在因果邏輯尚未先行被攤開、被檢視、被同儕質疑。</p>
+
+<p>有向無環圖並非萬靈丹，它無法替研究者決定哪一個因果結構才是「真正正確」的。事實上，一張 DAG 的價值，並不取決於它是否「畫對了」，而取決於它<strong>是否將所有研究者所依賴的假設，以一種公開、結構化、可被同儕修改的方式呈現出來</strong>。研究團隊可以對同一個研究問題畫出多張 DAG，反映不同的理論立場或文獻證據；他們也可以在同行審查中根據新的證據修改 DAG。重要的是，所有的調整與爭辯都發生在因果結構此一層次，而不再被混雜進「哪個變數的 p 值較低」此類無關之統計判準之中。</p>
+
+<p>對於從事臨床研究、流行病學研究或統計顧問實務的工作者而言，熟練 DAG 方法論並非一項額外的技能，而是一項基本的方法學素養。它讓我們能夠在分析啟動之前，就先回答最關鍵的問題──「我究竟想估計的是什麼？為了估計此一量，我必須調整哪些變數？哪些變數又絕對不能調整？」唯有先回答此等因果層次的問題，後續的統計分析才能真正地服務於研究目標，而非讓研究目標被工具反過來牽著走。</p>
+</div>
+
+<!-- 結語 CTA -->
+<div class="ai-cta">
+<h2>從方法論到實作──Live26-04 直播課程邀請</h2>
+<p>本文所闡述的因果結構觀點與 DAG 方法論，僅是進入此一研究典範的起點。若您希望系統化地學習如何從研究問題出發繪製 DAG、如何辨識干擾、中介與碰撞因子、如何避免「越調整越偏」的常見陷阱，以及如何運用 DAGitty 等工具找出最小充分調整集（Minimal Sufficient Adjustment Set），我們誠摯邀請您參加匯東華統計顧問所開設的直播課程「這個變數該不該控制？DAG（Directed Acyclic Graphs）一畫就知道」（Live26-04）。本課程將以實際醫學研究案例為核心，帶領學員一步一步將因果思維轉化為可操作的方法論工具。</p>
+<div class="ai-btn-group">
+<a href="live26-04-dag%E5%AF%A6%E4%BD%9C%E5%B7%A5%E4%BD%9C%E5%9D%8A_%E7%94%A8%E5%9C%96%E8%AA%AA%E5%9B%A0%E6%9E%9C.html" target="_blank" rel="noopener" class="ai-btn ai-btn-primary">了解 Live26-04｜這個變數該不該控制？DAG（Directed Acyclic Graphs）一畫就知道</a>
+</div>
+</div>
+
+<!-- 參考文獻 -->
+<div style="background: #faf6ed; border-left: 4px solid #C4A46D; padding: 25px 30px; margin: 40px 0 30px; border-radius: 4px;">
+<h3 style="color: #B82226; font-size: 22px; margin-bottom: 18px; font-weight: bold; border-bottom: 2px solid #C4A46D; padding-bottom: 8px;">參考文獻</h3>
+<ol style="font-size: 15px; line-height: 1.9; color: #333; margin: 0 0 0 20px; padding: 0;">
+<li style="margin-bottom: 14px;">
+Shrier I, Platt RW. Reducing bias through directed acyclic graphs. <em>BMC Med Res Methodol</em>. 2008;8:70.
+<br>DOI: <a href="https://doi.org/10.1186/1471-2288-8-70" target="_blank" rel="noopener" style="color: #44337a !important; text-decoration: underline !important;">10.1186/1471-2288-8-70</a>
+</li>
+<li>
+Feeney T, Hartwig FP, Davies NM. How to use directed acyclic graphs: guide for clinical researchers. <em>BMJ</em>. 2025;388:e078226.
+<br>DOI: <a href="https://doi.org/10.1136/bmj-2023-078226" target="_blank" rel="noopener" style="color: #44337a !important; text-decoration: underline !important;">10.1136/bmj-2023-078226</a>
+</li>
+</ol>
+</div>
+
+<!-- 致謝 -->
+<div style="background: #f5f0ff; border-left: 4px solid #C4A46D; padding: 18px 24px; margin: 30px 0; border-radius: 4px; font-size: 14px; color: #666; line-height: 1.8;">
+<p style="margin: 0;">本文撰寫過程中，感謝匯東華統計顧問有限公司智慧體部智澄辰（Claude Opus 4.6）協助進行內容整理與 HTML 結構化。最終內容已由作者審閱並修訂定稿。日期：2026 年 4 月 9 日。</p>
+</div>
+
+<!-- 聯絡資訊 -->
+<div class="ai-contact">
+<h3>聯絡我們</h3>
+<ul class="ai-contact-list">
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#44337a" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> LINE:<a href="https://line.me/R/ti/p/@medatatw" target="_blank" rel="noopener">@medatatw</a></li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#44337a" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Email:<a href="mailto:info@medatatw.com">info@medatatw.com</a></li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#44337a" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 電話：07-9721586</li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#44337a" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 官網：<a href="https://www.medatatw.com" target="_blank" rel="noopener">www.medatatw.com</a></li>
+</ul>
+</div>
+</div>
+
+<!-- ==================== 文章內容結束 ==================== --></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk3_custom" class="b_html" block_type="html"></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1" class="b_bg" block_type="bg" tpba_id="3869647"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk1" class="b_html" block_type="html" tpba_id="3869648"><p><img src="static/images/icons/parallax_home_icon1.png" /></p></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk2" class="b_html" block_type="html" tpba_id="3869649"><h4><span style="color: #800000; font-size: 24pt;"><span class="fa fa-bar-chart"></span>&nbsp;統計分析</span></h4>
+<p><a href="匯東華服務項目價目表v2_20210918_sm.pdf" target="">服務價目表 (未含5%營業稅)</a><br />透過嚴謹的數據整理，提供有價值的資訊，形塑知識，提高決策品質。包括信達雅三執行原則。</p>
+<p><span class="fa fa-check-square-o"></span>&nbsp;信：確保資料品質可信賴<br /><span class="fa fa-check-square-o"></span>&nbsp;達：確保統計方法適切性<br /><span class="fa fa-check-square-o"></span>&nbsp;雅：確保圖文表格正規化<br />協助代執行統計分析與進一步加值服務。</p>
+<p>在匯東華與夥伴的專業背景知識配合下，能有效地處理面對的問題。<br /><span style="color: #800000; font-size: 18pt;"><strong>統計分析成果</strong></span><br /><img src="營業項目/_imagecache/1.jpg" mouseover_src="" mouseout_src="" alt="" /></p></div>
+</div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2" class="b_bg" block_type="bg" tpba_id="3869650"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_blk1" class="b_html" block_type="html" tpba_id="3869651"><p><img src="static/images/icons/parallax_home_icon2.png" /></p></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_blk2" class="b_html" block_type="html" tpba_id="3869652"><h4><span style="font-size: 24pt; color: #800000;"><span class="fa fa-bar-chart"></span>&nbsp;數據串接與清洗</span></h4>
+<p>數據是礦藏，數據清洗是挖出鑽石的第一步，尤其是巨量知識。數據清洗或串接執行過程需要細心與專注，且有可能會消耗許多時間和精力，就由我們來替各位處理掉這個大麻煩。<br /><img src="營業項目/_imagecache/0.jpg" mouseover_src="" mouseout_src="" alt="" /></p>
+<p></p>
+<p>全民健保研究資料庫、國外大型資料庫資料非常齊全，種類多，需要串接與清洗，進行正規化後才能更進一步進行資料探勘與統計分析。</p>
+<hr />
+<p><br /><img src="營業項目/_imagecache/0-1.jpg" mouseover_src="" mouseout_src="" alt="" /><br />Fig1.同一個Project資料散落在不同tables，無法使用</p>
+<hr />
+<p><br /><img src="營業項目/_imagecache/0-2.jpg" mouseover_src="" mouseout_src="" alt="" /><br />Fig2.整併與清理為可分析的table</p>
+<hr />
+<p><br /><img src="__edited_images/_imagecache/imagetools0_edited.jpg" mouseover_src="" mouseout_src="" alt="" /><br />Fig.3整理和分析後形成有意義的知識</p>
+<hr />
+<p><span style="color: #800000;"><strong><span style="font-size: 18pt;">概念與流程示意圖</span></strong></span><br /><img src="營業項目/_imagecache/0-4.jpg" mouseover_src="" mouseout_src="" alt="" /></p></div>
+</div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4" class="b_bg" block_type="bg" tpba_id="3869656"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4_blk1" class="b_html" block_type="html" tpba_id="3869657"><p><img src="static/images/icons/parallax_home_icon4.png" /></p></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4_blk2" class="b_html" block_type="html" tpba_id="3869658"><h4><span style="font-size: 24pt; color: #800000;"><span class="fa fa-id-badge"></span>&nbsp;計畫撰寫與統計諮詢</span></h4>
+<p><img src="營業項目/_imagecache/00.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="營業項目/_imagecache/00-1.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="營業項目/_imagecache/00-2.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="營業項目/_imagecache/00-3.jpg" mouseover_src="" mouseout_src="" alt="" /><br />為了讓匯東華的顧客與學員有更好的合作和消費體驗，故匯東華特別依據營業項目開發周邊產品，提供使用、購買。目前已有針對公共衛生師的題庫以及模擬試題，未來將針對醫學研究領域發展產品。</p></div>
+</div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk5" class="b_bg" block_type="bg" tpba_id="3869659"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+    <script src="__system/__js/h_c85fc092c9b73d09b283c81b29f5d475/2786399_combined.min.js"></script>
+    <script>
+      (function() {
+        var domain = window.location.hostname;
+        var ga_map = jQuery('#__gamap').attr('content').replace(/&quot;/g, '"');
+        if (typeof(ga_map) === 'string') { ga_map = JSON.parse(ga_map); }
+        if (typeof(ga_map) === 'object') {
+          if (ga_map[domain]) {
+            var ga_id = ga_map[domain];
+            if (ga_id.startsWith('UA-')) {
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', ga_id, 'auto');
+              ga('send', 'pageview');
+            } else if (ga_id.startsWith('G-')) {
+              (function(i,s,o,g,a,m){a=s.createElement(o),m=s.getElementsByTagName(o)[0];
+              a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.googletagmanager.com/gtag/js?id='+ga_id);
+
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', ga_id);
+            }
+          }
+        }
+      })();
+      </script>
+  </body>
+</html>
