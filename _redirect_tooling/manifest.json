@@ -1,10 +1,28 @@
 {
-  "generated_at": "2026-07-02T06:18:13Z",
+  "generated_at": "2026-07-02T06:38:28Z",
   "source_csv": "_redirect_tooling/redirects.csv",
   "managed_paths": [
+    "about",
+    "calendar",
+    "consulting",
+    "contact",
+    "data-pipeline",
+    "errata",
+    "faq",
+    "learning",
+    "live",
+    "membership",
+    "merch",
+    "news",
     "nma-basic",
     "nma-pro",
+    "offerings",
     "register",
-    "signup"
+    "resources",
+    "roadmap",
+    "signup",
+    "stats-analysis",
+    "training",
+    "weekly"
   ]
 }
