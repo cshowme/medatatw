@@ -1,5 +1,5 @@
 path,target,note
-signup,https://docs.google.com/forms/d/e/1FAIpQLSdFd8lzInkZbCTJTc0Jtb0VvrQIrGkFN0hMcBpjsx3aRHkA7A/viewform,2026課程報名表單（Google，Chair確認）
+signup,https://docs.google.com/forms/d/e/1FAIpQLSdFd8lzInkZbCTJTc0Jtb0VvrQIrGkFN0hMcBpjsx3aRHkA7A/viewform,2026 課程・工作坊報名表單
 register,https://www.medatatw.com/%E8%AA%B2%E7%A8%8B%E5%A0%B1%E5%90%8D.html,課程報名說明頁（須知與流程）
 nma-basic,https://www.medatatw.com/f26-04-%E9%9B%B6%E7%A8%8B%E5%BC%8F%E7%A2%BCai%E5%8A%A9%E5%8A%9B%E7%B6%B2%E7%B5%A1%E7%B5%B1%E5%90%88%E5%88%86%E6%9E%90%E5%9F%BA%E7%A4%8E%E7%8F%AD.html,F26-04 零程式碼AI網絡統合分析基礎班
 nma-pro,https://www.medatatw.com/f26-05-%E9%9B%B6%E7%A8%8B%E5%BC%8F%E7%A2%BCai%E5%8A%A9%E5%8A%9B%E7%B6%B2%E7%B5%A1%E7%B5%B1%E5%90%88%E5%88%86%E6%9E%90%E5%AF%A6%E6%88%B0%E7%8F%AD.html,F26-05 零程式碼AI網絡統合分析實戰班
@@ -27,4 +27,4 @@ student-package,https://www.medatatw.com/%E6%87%B6%E4%BA%BA%E5%A5%97%E9%A4%90-%E
 medical-package-1,https://www.medatatw.com/%E9%86%AB%E5%AD%B8%E7%A0%94%E7%A9%B6%E6%87%B6%E4%BA%BA%E4%B8%80%E8%99%9F%E9%A4%90.html,醫學研究懶人一號餐
 rwd-package,https://www.medatatw.com/%E7%9C%9F%E5%AF%A6%E4%B8%96%E7%95%8C%E7%A0%94%E7%A9%B6%E5%A5%97%E9%A4%90.html,真實世界研究設計與分析套餐
 prediction-package,https://www.medatatw.com/%E9%A0%90%E6%B8%AC%E6%A8%A1%E5%9E%8B.html,預測模型與驗證套餐
-eicu,https://medata12p.blogspot.com/2022/05/eicu-collaborative-research-database.html,eICU-CRD介紹（外部blogspot，未來或接手遷移）
+eicu,https://medata12p.blogspot.com/2022/05/eicu-collaborative-research-database.html,eICU-CRD 資料庫介紹

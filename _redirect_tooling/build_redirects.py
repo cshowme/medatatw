@@ -51,7 +51,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
-from _common import MANAGED_MARKER, js_escape_target, reconfigure_utf8_streams
+from _common import (
+    MANAGED_MARKER,
+    compute_display_title,
+    js_escape_target,
+    reconfigure_utf8_streams,
+)
 
 reconfigure_utf8_streams()
 
@@ -85,6 +90,15 @@ RESERVED_NAMES = {
 MASS_DELETE_RATIO = 0.5
 
 BRAND_RED = "#B82226"
+
+# 社群預覽（OG / Twitter Card）用的固定內容。這些是本公司自訂的靜態文案，
+# 不是使用者輸入，但仍統一走 html.escape() 輸出（見 render_redirect_html），
+# 避免日後這些常數被改成可參數化來源時忘記補上跳脫。
+OG_SITE_NAME = "匯東華統計顧問有限公司"
+OG_DESCRIPTION = "統計分析・教育培訓・數據串接・真實世界研究｜匯東華統計顧問"
+TWITTER_DESCRIPTION = "統計分析・教育培訓・數據服務｜匯東華統計顧問"
+OG_IMAGE_URL = "https://www.medatatw.com/assets/og-card.png"
+OG_IMAGE_ALT = "匯東華統計顧問"
 
 
 class ValidationError(Exception):
@@ -268,7 +282,14 @@ def check_mass_delete(stale_paths: list[str], previously_managed_count: int, all
 
 
 def render_redirect_html(path: str, target: str, note: str) -> str:
-    safe_target_attr = html.escape(target, quote=True)
+    # 屬性值一律用 html.escape(quote=True)：target / note 都是 CSV 提供、
+    # 不受信任的輸入，quote=True 才會把 `"` 也跳脫成 &quot;，避免在
+    # content="..." / href="..." 這類屬性中提早結束引號、插入額外屬性
+    # 或跑出屬性範圍（attribute breakout）。
+    def esc(value: str) -> str:
+        return html.escape(value, quote=True)
+
+    safe_target_attr = esc(target)
     safe_target_text = html.escape(target, quote=False)
     safe_note = html.escape(note, quote=False) if note else ""
     # H-1 修復：<script> 內嵌的 target 必須用 JS-safe 跳脫，避免 target
@@ -276,6 +297,21 @@ def render_redirect_html(path: str, target: str, note: str) -> str:
     js_target = js_escape_target(target)
 
     note_html = f'<p class="note">{safe_note}</p>' if safe_note else ""
+
+    # 社群預覽（OG / Twitter Card）：title 用 note（CSV 第 3 欄）當頁面
+    # 名稱，note 留空則回退公司名稱（compute_display_title，與
+    # test_redirects.py 共用同一份邏輯，見 _common.py）。所有塞進屬性的
+    # 值一律 esc()，包含公司自訂的靜態文案，避免日後改參數化來源時
+    # 忘記補上跳脫。
+    display_title = compute_display_title(note)
+    safe_display_title = esc(display_title)
+    title_text = f"{safe_display_title} ｜ 匯東華統計顧問" if note and note.strip() else safe_display_title
+
+    safe_og_site_name = esc(OG_SITE_NAME)
+    safe_og_description = esc(OG_DESCRIPTION)
+    safe_twitter_description = esc(TWITTER_DESCRIPTION)
+    safe_og_image = esc(OG_IMAGE_URL)
+    safe_og_image_alt = esc(OG_IMAGE_ALT)
 
     return f"""<!DOCTYPE html>
 <html lang="zh-Hant-TW">
@@ -285,7 +321,20 @@ def render_redirect_html(path: str, target: str, note: str) -> str:
 <meta http-equiv="refresh" content="0; url={safe_target_attr}">
 <link rel="canonical" href="{safe_target_attr}">
 <meta name="robots" content="noindex">
-<title>轉址中... | 匯東華統計顧問</title>
+<title>{title_text}</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{safe_og_site_name}">
+<meta property="og:title" content="{safe_display_title}">
+<meta property="og:description" content="{safe_og_description}">
+<meta property="og:url" content="{safe_target_attr}">
+<meta property="og:image" content="{safe_og_image}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{safe_og_image_alt}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{safe_display_title}">
+<meta name="twitter:description" content="{safe_twitter_description}">
+<meta name="twitter:image" content="{safe_og_image}">
 <!-- {MANAGED_MARKER} -->
 <!-- source-path: {html.escape(path, quote=False)} -->
 <style>

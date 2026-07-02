@@ -19,7 +19,10 @@ test_redirects.py — 驗證 build_redirects.py 的產出是否正確
            跳脫前的原始 target —— 否則含 </script> 的 target 會被
            build 正確跳脫，卻在這裡被誤判 FAIL）
          - <noscript> 區塊內 <a href="TARGET"> 可點擊連結
-    4. 全文只出現一次「</script」字面序列（H-1 script-breakout 迴歸測試：
+    4. 社群預覽標籤是否正確帶入 note（<title> 與 og:title 是否為
+       compute_display_title(note) 的跳脫結果——與 build_redirects.py
+       共用同一份 fallback 邏輯，見 _common.py）、og:url 是否等於 target
+    5. 全文只出現一次「</script」字面序列（H-1 script-breakout 迴歸測試：
        若 target 未正確跳脫，含 </script> 的惡意/特殊 target 會讓這個
        字面序列出現第二次）
 
@@ -36,7 +39,12 @@ import re
 import sys
 from pathlib import Path
 
-from _common import MANAGED_MARKER, js_escape_target, reconfigure_utf8_streams
+from _common import (
+    MANAGED_MARKER,
+    compute_display_title,
+    js_escape_target,
+    reconfigure_utf8_streams,
+)
 
 reconfigure_utf8_streams()
 
@@ -53,7 +61,7 @@ def load_json(path: Path, label: str) -> object:
         sys.exit(1)
 
 
-def check_one(repo_root: Path, path: str, target: str) -> tuple[bool, str]:
+def check_one(repo_root: Path, path: str, target: str, note: str) -> tuple[bool, str]:
     index_path = repo_root / path / "index.html"
 
     if not index_path.exists():
@@ -69,10 +77,11 @@ def check_one(repo_root: Path, path: str, target: str) -> tuple[bool, str]:
 
     safe_target_attr = html.escape(target, quote=True)
     js_target = js_escape_target(target)
+    safe_display_title = html.escape(compute_display_title(note), quote=True)
 
-    # 四種轉址機制各自用「鎖定標籤上下文」的正則檢查，而不是單純
-    # 「字串是否出現在檔案某處」，避免誤判（例如 target 字串剛好出現在
-    # 別的地方、或跳脫方式不對但恰好子字串相符）。
+    # 四種轉址機制 + 社群預覽標籤各自用「鎖定標籤上下文」的正則檢查，
+    # 而不是單純「字串是否出現在檔案某處」，避免誤判（例如 target 字串
+    # 剛好出現在別的地方、或跳脫方式不對但恰好子字串相符）。
     checks = {
         "meta refresh": re.search(
             r'<meta\s+http-equiv="refresh"\s+content="0;\s*url='
@@ -98,11 +107,27 @@ def check_one(repo_root: Path, path: str, target: str) -> tuple[bool, str]:
             content,
             re.DOTALL,
         ),
+        "og:title": re.search(
+            r'<meta\s+property="og:title"\s+content="'
+            + re.escape(safe_display_title)
+            + r'"\s*>',
+            content,
+        ),
+        "og:url": re.search(
+            r'<meta\s+property="og:url"\s+content="' + re.escape(safe_target_attr) + r'"\s*>',
+            content,
+        ),
+        "twitter:title": re.search(
+            r'<meta\s+name="twitter:title"\s+content="'
+            + re.escape(safe_display_title)
+            + r'"\s*>',
+            content,
+        ),
     }
 
     failed = [name for name, m in checks.items() if not m]
     if failed:
-        return False, f"target 不一致（缺少：{', '.join(failed)}）"
+        return False, f"target/note 不一致（缺少：{', '.join(failed)}）"
 
     # 額外的 script-breakout 防護檢查（H-1 迴歸測試用）：
     # 確認整份文件中，「</script」這個會被 HTML 解析器辨識為關閉標籤的
@@ -145,7 +170,7 @@ def main() -> int:
     manifest = load_json(args.manifest, "manifest.json")
     mirror = load_json(args.mirror_json, "redirects.json")
 
-    target_by_path = {row["path"]: row["target"] for row in mirror}
+    row_by_path = {row["path"]: row for row in mirror}
 
     managed_paths = manifest.get("managed_paths", [])
     if not managed_paths:
@@ -162,13 +187,13 @@ def main() -> int:
     fail_count = 0
 
     for path in managed_paths:
-        target = target_by_path.get(path)
-        if target is None:
+        row = row_by_path.get(path)
+        if row is None:
             print(f"{'FAIL':<6}{path:<24}redirects.json 中找不到對應 target")
             fail_count += 1
             continue
 
-        ok, msg = check_one(repo_root, path, target)
+        ok, msg = check_one(repo_root, path, row["target"], row.get("note", ""))
         status = "PASS" if ok else "FAIL"
         print(f"{status:<6}{path:<24}{msg}")
         if ok:

@@ -12,6 +12,9 @@ _common.py — build_redirects.py 與 test_redirects.py 共用的常數與函式
       build 用它「寫」，test 用它「驗證寫得對不對」，必須是同一份函式，
       不能各寫一份，否則其中一邊改了跳脫規則、另一邊沒跟著改，
       驗證就會失去意義（誤判 PASS 或誤判 FAIL）。
+    - compute_display_title()：<title> / og:title / twitter:title 用的
+      顯示名稱（note 為空時的 fallback 規則）。同樣是 build 用它「寫」、
+      test 用它「驗證」，必須共用同一份，理由同上。
 
 用法：
     import 前，兩支腳本檔案必須跟本檔放在同一個目錄
@@ -29,6 +32,9 @@ import sys
 # 本工具產生的 index.html 一律帶這個管理標記；覆寫/刪除舊資料夾前都要先
 # 檢查此標記是否存在，才允許覆寫/刪除，避免動到被人工接手改過的頁面。
 MANAGED_MARKER = "hdh-redirect-tooling:managed"
+
+# note 為空時，<title> / og:title / twitter:title 的預設顯示名稱。
+DEFAULT_DISPLAY_TITLE = "匯東華統計顧問"
 
 
 def reconfigure_utf8_streams() -> None:
@@ -65,3 +71,16 @@ def js_escape_target(target: str) -> str:
     encoded = encoded.replace(">", "\\u003e")
     encoded = encoded.replace("&", "\\u0026")
     return encoded
+
+
+def compute_display_title(note: str) -> str:
+    """
+    <title> / og:title / twitter:title 共用的顯示名稱。
+
+    note 來自 CSV 第 3 欄，是使用者可自由填寫的頁面名稱，用於解決
+    LINE/FB 貼轉址短網址時預覽卡顯示「轉址中」的問題。若 note 留空，
+    回退成公司名稱，避免出現開頭多一個分隔符號、後面卻沒有名稱的
+    畸形標題（例如「｜ 匯東華統計顧問」）。
+    """
+    stripped = note.strip() if note else ""
+    return stripped if stripped else DEFAULT_DISPLAY_TITLE
