@@ -138,5 +138,10 @@
     "path": "prediction-package",
     "target": "https://www.medatatw.com/%E9%A0%90%E6%B8%AC%E6%A8%A1%E5%9E%8B.html",
     "note": "預測模型與驗證套餐"
+  },
+  {
+    "path": "eicu",
+    "target": "https://medata12p.blogspot.com/2022/05/eicu-collaborative-research-database.html",
+    "note": "eICU-CRD介紹（外部blogspot，未來或接手遷移）"
   }
 ]

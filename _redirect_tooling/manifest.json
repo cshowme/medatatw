@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T08:57:30Z",
+  "generated_at": "2026-07-02T09:41:47Z",
   "source_csv": "_redirect_tooling/redirects.csv",
   "managed_paths": [
     "about",
@@ -7,6 +7,7 @@
     "consulting",
     "contact",
     "data-pipeline",
+    "eicu",
     "errata",
     "faq",
     "learning",
