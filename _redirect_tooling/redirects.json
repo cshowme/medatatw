@@ -113,5 +113,15 @@
     "path": "regression-package",
     "target": "https://www.medatatw.com/%E6%AD%A3%E5%BC%8F%E5%88%86%E6%9E%90%E5%A5%97%E9%A4%901%E8%BF%B4%E6%AD%B8%E6%A8%A1%E5%9E%8B%E5%A5%97%E9%A4%90.html",
     "note": "正式分析套餐1 迴歸模型套餐"
+  },
+  {
+    "path": "pretest-package",
+    "target": "https://www.medatatw.com/%E9%A0%90%E8%A9%A6%E5%88%86%E6%9E%90%E5%A5%97%E9%A4%90.html",
+    "note": "預試分析套餐"
+  },
+  {
+    "path": "student-package",
+    "target": "https://www.medatatw.com/%E6%87%B6%E4%BA%BA%E5%A5%97%E9%A4%90-%E4%B8%AD%E5%AD%B8%E7%94%9F%E5%B0%8F%E8%AB%96%E6%96%87%E5%95%8F%E5%8D%B7%E5%88%86%E6%9E%90%E5%A5%97%E9%A4%90.html",
+    "note": "懶人套餐-中學生小論文問卷分析套餐"
   }
 ]

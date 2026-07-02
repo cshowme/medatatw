@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T08:28:01Z",
+  "generated_at": "2026-07-02T08:38:55Z",
   "source_csv": "_redirect_tooling/redirects.csv",
   "managed_paths": [
     "about",
@@ -17,12 +17,14 @@
     "nma-basic",
     "nma-pro",
     "offerings",
+    "pretest-package",
     "register",
     "regression-package",
     "resources",
     "roadmap",
     "signup",
     "stats-analysis",
+    "student-package",
     "training",
     "weekly"
   ]
