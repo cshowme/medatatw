@@ -3,5 +3,10 @@
     "path": "signup",
     "target": "https://docs.google.com/forms/d/e/1FAIpQLSdFd8lzInkZbCTJTc0Jtb0VvrQIrGkFN0hMcBpjsx3aRHkA7A/viewform",
     "note": "2026課程報名表單（Google，Chair確認）"
+  },
+  {
+    "path": "register",
+    "target": "https://www.medatatw.com/%E8%AA%B2%E7%A8%8B%E5%A0%B1%E5%90%8D.html",
+    "note": "課程報名說明頁（須知與流程）"
   }
 ]
