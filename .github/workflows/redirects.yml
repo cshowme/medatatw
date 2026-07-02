@@ -1,0 +1,77 @@
+name: Build Redirects
+
+# 只在 redirects.csv 有變動時觸發，另外保留手動觸發方便重跑
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '_redirect_tooling/redirects.csv'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# 避免同時有多次 run 交錯 commit/push（例如短時間內連續改多次 CSV），
+# 後一次排隊等前一次完成，而不是取消進行中的那次（cancel-in-progress:
+# false），因為取消寫到一半的 commit/push 步驟可能留下不一致的狀態。
+concurrency:
+  group: redirects
+  cancel-in-progress: false
+
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build redirect pages
+        run: python _redirect_tooling/build_redirects.py
+
+      - name: Verify redirect pages
+        run: python _redirect_tooling/test_redirects.py
+
+      - name: Commit and push redirect artifacts only
+        run: |
+          set -e
+          git config user.name "hdh-redirect-bot"
+          git config user.email "actions@users.noreply.github.com"
+
+          # 只加入本次 build 實際異動的根目錄，以及 tooling 自己的追蹤檔，
+          # 絕不觸碰網站其他既有內容。用單行 python -c 避免 heredoc 縮排
+          # 與 YAML block scalar 縮排規則衝突。輸出檔案末尾補一個換行，
+          # 避免 bash while-read 在最後一行沒有換行符時被跳過；newline='\n'
+          # 強制輸出 LF（在 Windows 上本機測試時實測踩過 CRLF 坑：Python
+          # 文字模式預設會把 \n 轉成 \r\n，導致路徑字串多帶一個 \r）。
+          python -c "import json, pathlib; touched = json.loads(pathlib.Path('_redirect_tooling/touched_paths.json').read_text(encoding='utf-8')); pathlib.Path('_redirect_tooling/.git_add_list.txt').write_text((chr(10).join(touched) + chr(10)) if touched else '', encoding='utf-8', newline='\n')"
+
+          git add _redirect_tooling/manifest.json _redirect_tooling/redirects.json _redirect_tooling/touched_paths.json
+
+          if [ -s _redirect_tooling/.git_add_list.txt ]; then
+            # `|| [ -n "$p" ]` 是必要的防呆：即使檔案最後一行沒有換行符，
+            # read 仍會取到內容但回傳非 0，若沒有這個條件迴圈本體就不會執行，
+            # 導致最後一個 path 被漏掉（實測踩過這個坑）。
+            # `p="${p%$'\r'}"` 是第二層防呆：無論上游檔案是否夾帶 \r，
+            # 都先去除，避免 pathspec 帶入不可見字元。
+            while IFS= read -r p || [ -n "$p" ]; do
+              p="${p%$'\r'}"
+              [ -z "$p" ] && continue
+              git add -A -- "$p"
+            done < _redirect_tooling/.git_add_list.txt
+          fi
+          rm -f _redirect_tooling/.git_add_list.txt
+
+          if git diff --cached --quiet; then
+            echo "沒有需要 commit 的變更。"
+            exit 0
+          fi
+
+          git commit -m "chore(redirects): 自動更新靜態轉址頁 [skip ci]"
+          git push
