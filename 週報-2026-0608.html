@@ -3469,5 +3469,166 @@
   匯東華訂閱浮動按鈕 / Pop-up 片段結束
 ============================================================ -->
 
+
+<!-- ============================================================
+  匯東華統計顧問｜曇月靈客服吉祥物 浮動按鈕（原型）
+  ------------------------------------------------------------
+  用途：批次注入全站每頁 body 結束標籤前，不需任何外部資源即可運作。
+  命名：所有 id/class 均以 hdh-mascot- 前綴，避免與既有頁面樣式衝突。
+  定位：固定於畫面【左下角】（left/bottom），與既有「訂閱電子報」浮動
+       按鈕（右下角 #hdh-nlpop-fab, right:24/bottom:24）分居畫面兩端，
+       零重疊風險，不需更動訂閱按鈕既有程式碼。
+  圖片：曇月靈客服裁切圖，正式上線前請先將下方 IMG_SRC 對應檔案上傳至
+       repo「課程報名/」資料夾（與原始曇月靈 01 去背景圖同層），
+       目前 src 已依相同 URL 編碼慣例預先寫好正式路徑：
+       課程報名/曇月靈_客服裁切_v2.png
+       【v2 修正】v1 為整隻神獸裁切（394x385），縮到 90px 小尺寸時
+       臉/角糊成一團暗紅色塊、無法辨識。v2 改為「頭部特寫」裁切：
+       原圖 曇月靈01-去背景.png（1088x976）僅保留臉、眼睛、頭頂月相環
+       周邊的金色鬃毛／角、與少許頸部金色彩帶，捨棄過長身軀與尾部，
+       使臉部在小尺寸下佔滿畫面、清楚可愛。裁切內容 208x219，
+       四周加 18px 透明邊界＝244x255（近正方形）。品牌意涵依據：
+       ~/.claude/knowledge/brand_tanyueling_story.md（角＝智慧體部，
+       月相環＝真理之眼，皆為曇月靈辨識度核心，縮小後仍須清楚可辨）。
+  版本：v2.0 原型（2026-07-04，頭部特寫裁切修正）
+============================================================ -->
+<div id="hdh-mascot-root">
+<style>
+  #hdh-mascot-root, #hdh-mascot-root *{ box-sizing:border-box; }
+  #hdh-mascot-root{
+    --hdh-mascot-red:#B82226;
+    --hdh-mascot-gold:#C4A46D;
+    --hdh-mascot-dark:#2D2D2D;
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+  }
+
+  /* ---------- 輕輕漂浮動畫（節制：幅度小、速度慢，非誇張彈跳） ---------- */
+  @keyframes hdh-mascot-float{
+    0%   { transform:translateY(0); }
+    50%  { transform:translateY(-9px); }
+    100% { transform:translateY(0); }
+  }
+
+  /* ---------- 定位錨點（左下角，與右下角訂閱鈕分居兩端） ---------- */
+  /* v2：尺寸由 104x102 放大為 116x121（頭部特寫裁切 244x255 同比例），
+     left 由 20px 調整為 24px，確保連同透明邊界在內的完整圖像
+     不會貼齊或溢出視窗左邊界而被切到。 */
+  #hdh-mascot-fab{
+    position:fixed;
+    left:24px;
+    bottom:20px;
+    z-index:999997; /* 略低於訂閱鈕的 999998/999999，但仍高於一般頁面內容 */
+    width:116px;
+    height:121px;
+  }
+
+  #hdh-mascot-link{
+    display:block;
+    width:100%;
+    height:100%;
+    text-decoration:none;
+    outline:none;
+  }
+
+  /* 漂浮效果掛在外層 div，避免與 hover 縮放的 transform 互相覆蓋 */
+  #hdh-mascot-float{
+    width:100%;
+    height:100%;
+    animation:hdh-mascot-float 3.6s ease-in-out infinite;
+  }
+
+  #hdh-mascot-img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+    cursor:pointer;
+    filter:drop-shadow(0 10px 16px rgba(45,45,45,.30));
+    transition:transform .25s ease, filter .25s ease;
+  }
+  #hdh-mascot-link:hover #hdh-mascot-img{
+    transform:scale(1.08);
+    filter:drop-shadow(0 14px 22px rgba(184,34,38,.38));
+  }
+  #hdh-mascot-link:active #hdh-mascot-img{ transform:scale(1.02); }
+
+  /* ---------- 小對話氣泡（常駐、載入後淡入一次，不再自動收起） ---------- */
+  #hdh-mascot-bubble{
+    position:absolute;
+    left:82px;
+    bottom:104px;
+    /* 注意（血淚教訓）：絕對定位元素在 left 已指定、right 未指定時，
+       shrink-to-fit 寬度會以「容器寬度 - left」當作可用寬度計算，
+       在這裡等於 116-82=34px，导致中文文字被迫換成多行、氣泡暴衝到
+       100px+ 高，進而蓋住曇月靈的頭部。故明確指定 width，不可只寫
+       max-width。（v2：left/bottom 依新容器 116x121 等比例微調，維持
+       氣泡尖角指向曇月靈頭部右上方、不遮住臉部的位置） */
+    width:168px;
+    width:max-content;
+    max-width:168px;
+    background:#fff;
+    border:1px solid var(--hdh-mascot-gold);
+    border-radius:16px 16px 16px 4px; /* 右下角捏出說話氣泡尖角，指向曇月靈 */
+    padding:9px 13px;
+    font-size:12.5px;
+    line-height:1.5;
+    color:var(--hdh-mascot-dark);
+    box-shadow:0 8px 20px rgba(0,0,0,.14);
+    text-decoration:none;
+    opacity:0;
+    transform:translateY(6px) scale(.94);
+    transition:opacity .45s ease, transform .45s ease;
+    z-index:1;
+  }
+  #hdh-mascot-bubble.hdh-mascot-bubble-show{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+  #hdh-mascot-bubble:hover{
+    border-color:var(--hdh-mascot-red);
+  }
+
+  @media (max-width:480px){
+    #hdh-mascot-fab{ left:14px; bottom:14px; width:84px; height:88px; }
+    #hdh-mascot-bubble{ display:none !important; } /* 手機版不顯示氣泡，避免遮擋內容（比照訂閱鈕慣例） */
+  }
+</style>
+
+<div id="hdh-mascot-fab">
+  <!-- 小氣泡：本身即為連結，無 JS 也能點擊開啟 Messenger -->
+  <a id="hdh-mascot-bubble" href="https://m.me/medata12p" target="_blank" rel="noopener" aria-label="私訊匯東華統計顧問 Messenger">私訊我們 💬</a>
+
+  <!-- 曇月靈客服：整隻可點擊，開新分頁至 Messenger -->
+  <a id="hdh-mascot-link" href="https://m.me/medata12p" target="_blank" rel="noopener" aria-label="用 Messenger 聯絡匯東華統計顧問（曇月靈客服）">
+    <div id="hdh-mascot-float">
+      <img id="hdh-mascot-img"
+           src="https://www.medatatw.com/assets/mascot-chat.png"
+           alt="曇月靈客服吉祥物頭部特寫（臉、眼睛與頭頂角／月相環），點擊可用 Messenger 聯絡匯東華統計顧問"
+           width="244" height="255">
+    </div>
+  </a>
+</div>
+
+<script>
+(function(){
+  if (window.__hdhMascotInit) { return; } // 防止同頁重複注入導致重複執行
+  window.__hdhMascotInit = true;
+
+  var bubble = document.getElementById('hdh-mascot-bubble');
+  if (!bubble) { return; }
+
+  var isMobile = window.matchMedia && window.matchMedia('(max-width:480px)').matches;
+  if (isMobile) { return; } // 手機版氣泡本來就 CSS 隱藏，略過淡入排程
+
+  setTimeout(function(){
+    bubble.classList.add('hdh-mascot-bubble-show');
+  }, 900); // 頁面載入後 0.9 秒溫和淡入，不與訂閱鈕的 2 秒氣泡搶注意力
+})();
+</script>
+</div>
+<!-- ============================================================
+  匯東華曇月靈客服吉祥物片段結束
+============================================================ -->
+
 </body>
 </html>
