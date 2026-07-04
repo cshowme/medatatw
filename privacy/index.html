@@ -21,6 +21,16 @@
     color:#fff; padding:46px 22px 40px; text-align:center;
     border-bottom:5px solid var(--gold);
   }
+  /* 商標 logo 徽章：logo.png 主體為紅色蓮花＋金色文字（透明底），直接放在
+     紅色 hero 背景上會與底色糊在一起難以辨識，故加白色圓形底板襯托，
+     確保商標在紅底上清楚可見。 */
+  header.hero .logo-badge{ display:flex; justify-content:center; margin-bottom:16px; }
+  header.hero .logo-badge a{ display:inline-block; line-height:0; outline:none; }
+  header.hero .logo-badge img{
+    display:block; width:64px; height:64px; padding:9px;
+    background:#fff; border-radius:50%;
+    box-shadow:0 4px 14px rgba(0,0,0,.25);
+  }
   header.hero .brand{font-size:14px; letter-spacing:3px; color:var(--gold); font-weight:700; margin-bottom:12px;}
   header.hero h1{margin:0; font-size:30px; font-weight:800; letter-spacing:2px;}
   header.hero .company{margin-top:12px; font-size:15.5px; opacity:.94;}
@@ -96,6 +106,11 @@
 <body>
 
 <header class="hero">
+  <div class="logo-badge">
+    <a href="https://www.medatatw.com/" aria-label="回匯東華統計顧問有限公司首頁">
+      <img src="/assets/logo.png" alt="匯東華統計顧問有限公司" width="64" height="64">
+    </a>
+  </div>
   <div class="brand">匯 東 華 統 計 顧 問</div>
   <h1>隱私權政策</h1>
   <div class="company">匯東華統計顧問有限公司</div>
