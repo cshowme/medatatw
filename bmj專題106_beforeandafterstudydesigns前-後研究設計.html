@@ -3239,5 +3239,450 @@
 }
 </style>
 
-  </body>
+  
+<!-- ============================================================
+  匯東華統計顧問｜全站訂閱電子報 浮動按鈕 + Pop-up Modal
+  ------------------------------------------------------------
+  用途：批次注入全站每頁 body 結束標籤前，不需任何外部資源即可運作。
+  命名：所有 id/class 均以 hdh-nlpop- 前綴，避免與既有頁面樣式衝突。
+  表單：直接 POST 至 Brevo（sibforms）既有 endpoint，與 /subscribe 頁
+       使用同一支表單、同一組欄位（EMAIL、email_address_check、locale），
+       勿更動 action 網址與欄位 name（來源：subscribe/index.html 第 145、
+       168、188-189 行）。
+  版本：v1.0 原型（2026-07-03）
+============================================================ -->
+<div id="hdh-nlpop-root">
+<style>
+  #hdh-nlpop-root, #hdh-nlpop-root *{box-sizing:border-box;}
+  #hdh-nlpop-root{
+    --hdh-nlpop-red:#B82226;
+    --hdh-nlpop-red-dark:#8f1a1d;
+    --hdh-nlpop-gold:#C4A46D;
+    --hdh-nlpop-dark:#2D2D2D;
+    --hdh-nlpop-light:#F8F6F0;
+    --hdh-nlpop-gray:#666666;
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+  }
+
+  /* ---------- 浮動按鈕吸睛脈動效果（節制：跑 6 次後自動停止） ---------- */
+  @keyframes hdh-nlpop-pulse{
+    0%   { box-shadow:0 8px 24px rgba(184,34,38,.35), 0 0 0 0 rgba(184,34,38,.45); }
+    70%  { box-shadow:0 8px 24px rgba(184,34,38,.35), 0 0 0 16px rgba(184,34,38,0); }
+    100% { box-shadow:0 8px 24px rgba(184,34,38,.35), 0 0 0 0 rgba(184,34,38,0); }
+  }
+
+  /* ---------- 浮動按鈕 ---------- */
+  #hdh-nlpop-fab{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:999999;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 22px 14px 18px;
+    border:2px solid var(--hdh-nlpop-gold);
+    border-radius:999px;
+    background:linear-gradient(135deg,var(--hdh-nlpop-red) 0%,var(--hdh-nlpop-red-dark) 100%);
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.5px;
+    cursor:pointer;
+    box-shadow:0 8px 24px rgba(184,34,38,.35);
+    transition:transform .25s ease, box-shadow .25s ease;
+    animation:hdh-nlpop-pulse 2.6s ease-out 6;
+  }
+  #hdh-nlpop-fab:hover{
+    transform:translateY(-2px) scale(1.04);
+    box-shadow:0 12px 30px rgba(184,34,38,.45);
+    animation-play-state:paused;
+  }
+  #hdh-nlpop-fab:active{ transform:translateY(0) scale(.98); }
+  #hdh-nlpop-fab .hdh-nlpop-fab-icon{ font-size:18px; line-height:1; }
+  #hdh-nlpop-fab .hdh-nlpop-fab-text{ white-space:nowrap; }
+
+  @media (max-width:480px){
+    #hdh-nlpop-fab{
+      right:16px;
+      bottom:16px;
+      width:56px;
+      height:56px;
+      padding:0;
+      justify-content:center;
+      border-radius:50%;
+    }
+    #hdh-nlpop-fab .hdh-nlpop-fab-text{ display:none; }
+    #hdh-nlpop-fab .hdh-nlpop-fab-icon{ font-size:22px; }
+  }
+
+  /* ---------- 一次性提示氣泡 ---------- */
+  #hdh-nlpop-bubble{
+    position:fixed;
+    right:20px;
+    bottom:88px;
+    z-index:999998;
+    max-width:230px;
+    background:#fff;
+    border:1px solid var(--hdh-nlpop-gold);
+    border-radius:14px;
+    padding:12px 16px;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--hdh-nlpop-dark);
+    box-shadow:0 10px 28px rgba(0,0,0,.16);
+    opacity:0;
+    transform:translateY(8px) scale(.96);
+    transition:opacity .3s ease, transform .3s ease;
+    cursor:pointer;
+  }
+  #hdh-nlpop-bubble[hidden]{ display:none; }
+  #hdh-nlpop-bubble.hdh-nlpop-bubble-show{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+  #hdh-nlpop-bubble::after{
+    content:"";
+    position:absolute;
+    right:26px;
+    bottom:-7px;
+    width:14px;
+    height:14px;
+    background:#fff;
+    border-right:1px solid var(--hdh-nlpop-gold);
+    border-bottom:1px solid var(--hdh-nlpop-gold);
+    transform:rotate(45deg);
+  }
+  @media (max-width:480px){
+    #hdh-nlpop-bubble{ display:none !important; }
+  }
+
+  /* ---------- 遮罩 ---------- */
+  #hdh-nlpop-overlay{
+    position:fixed;
+    inset:0;
+    z-index:1000000;
+    background:rgba(45,45,45,.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  #hdh-nlpop-overlay[hidden]{ display:none; }
+  #hdh-nlpop-overlay.hdh-nlpop-show{ opacity:1; }
+
+  /* ---------- Modal 卡片 ---------- */
+  #hdh-nlpop-modal{
+    position:relative;
+    width:100%;
+    max-width:420px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:#fff;
+    border-radius:16px;
+    padding:36px 28px 26px;
+    box-shadow:0 24px 60px rgba(0,0,0,.28);
+    transform:translateY(14px) scale(.96);
+    opacity:0;
+    transition:transform .28s ease, opacity .28s ease;
+  }
+  #hdh-nlpop-overlay.hdh-nlpop-show #hdh-nlpop-modal{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+  #hdh-nlpop-modal::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:5px;
+    border-radius:16px 16px 0 0;
+    background:linear-gradient(90deg,var(--hdh-nlpop-gold),var(--hdh-nlpop-red));
+  }
+
+  #hdh-nlpop-close{
+    position:absolute;
+    top:14px;
+    right:14px;
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:50%;
+    background:var(--hdh-nlpop-light);
+    color:var(--hdh-nlpop-gray);
+    font-size:15px;
+    line-height:1;
+    cursor:pointer;
+    transition:background .2s,color .2s;
+  }
+  #hdh-nlpop-close:hover{ background:var(--hdh-nlpop-gold); color:#fff; }
+
+  #hdh-nlpop-header{ text-align:center; margin-bottom:18px; }
+  .hdh-nlpop-badge{
+    display:inline-block;
+    background:var(--hdh-nlpop-red);
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:2px;
+    padding:4px 14px;
+    border-radius:20px;
+    margin-bottom:12px;
+  }
+  #hdh-nlpop-title{
+    margin:0 0 8px;
+    font-size:21px;
+    font-weight:700;
+    color:var(--hdh-nlpop-dark);
+  }
+  .hdh-nlpop-subtitle{
+    margin:0;
+    font-size:13.5px;
+    line-height:1.7;
+    color:var(--hdh-nlpop-gray);
+  }
+
+  #hdh-nlpop-form{ display:flex; flex-direction:column; gap:6px; margin-top:6px; }
+  .hdh-nlpop-label{
+    font-size:13px;
+    font-weight:700;
+    color:#3C4858;
+    text-align:left;
+  }
+  .hdh-nlpop-input{
+    width:100%;
+    padding:12px 14px;
+    font-size:15px;
+    border:1px solid #dcdcdc;
+    border-radius:8px;
+    color:var(--hdh-nlpop-dark);
+    outline:none;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .hdh-nlpop-input:focus{
+    border-color:var(--hdh-nlpop-gold);
+    box-shadow:0 0 0 3px rgba(196,164,109,.25);
+  }
+  .hdh-nlpop-hidden-field{
+    position:absolute !important;
+    left:-9999px !important;
+    width:1px; height:1px;
+    overflow:hidden;
+  }
+  .hdh-nlpop-submit{
+    margin-top:8px;
+    padding:13px;
+    border:none;
+    border-radius:8px;
+    background:var(--hdh-nlpop-red);
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:1px;
+    cursor:pointer;
+    transition:background .2s;
+  }
+  .hdh-nlpop-submit:hover{ background:var(--hdh-nlpop-red-dark); }
+
+  .hdh-nlpop-privacy{
+    margin:16px 0 0;
+    font-size:12px;
+    color:#9a9a9a;
+    text-align:center;
+    line-height:1.6;
+  }
+
+  /* ---------- 送出成功訊息（取代表單顯示） ---------- */
+  #hdh-nlpop-successview{ text-align:center; padding:22px 4px 8px; }
+  #hdh-nlpop-successview[hidden]{ display:none; }
+  .hdh-nlpop-success-icon{ font-size:42px; margin-bottom:14px; line-height:1; }
+  .hdh-nlpop-success-text{
+    font-size:15px;
+    line-height:1.8;
+    color:var(--hdh-nlpop-dark);
+    margin:0;
+  }
+  .hdh-nlpop-success-note{
+    font-size:12.5px;
+    line-height:1.7;
+    color:var(--hdh-nlpop-gray);
+    margin:10px 0 0;
+  }
+
+  /* ---------- 隱藏 iframe（送出不離頁用，勿移除） ---------- */
+  #hdh-nlpop-sink{ display:none; width:0; height:0; border:0; }
+</style>
+
+<!-- 浮動按鈕 -->
+<button id="hdh-nlpop-fab" type="button" aria-haspopup="dialog" aria-controls="hdh-nlpop-modal" aria-label="訂閱匯東華電子報">
+  <span class="hdh-nlpop-fab-icon">📧</span>
+  <span class="hdh-nlpop-fab-text">訂閱電子報</span>
+</button>
+
+<!-- 一次性提示氣泡（只顯示一次，見下方 script 的 localStorage 判斷） -->
+<div id="hdh-nlpop-bubble" hidden role="status">📩 訂閱電子報，不漏接課程情報</div>
+
+<!-- 遮罩 + Pop-up 表單 -->
+<div id="hdh-nlpop-overlay" hidden>
+  <div id="hdh-nlpop-modal" role="dialog" aria-modal="true" aria-labelledby="hdh-nlpop-title">
+    <button id="hdh-nlpop-close" type="button" aria-label="關閉視窗">&times;</button>
+
+    <div id="hdh-nlpop-formview">
+      <div id="hdh-nlpop-header">
+        <span class="hdh-nlpop-badge">匯東華</span>
+        <h2 id="hdh-nlpop-title">訂閱匯東華電子報</h2>
+        <p class="hdh-nlpop-subtitle">統計不是終點，決策才是。<br>研究方法、統計實務技巧與數據決策思維，每期送到你的信箱。</p>
+      </div>
+
+      <!-- Begin Brevo Form（沿用 /subscribe 頁相同 endpoint 與欄位，勿更動；
+           target 指向下方隱藏 iframe，送出後頁面不跳轉）-->
+      <form id="hdh-nlpop-form" method="POST" action="https://ad7b376c.sibforms.com/serve/MUIFAMI5bRn7Bhbw17lZV94Hqhh5Py6Q8QJ3IIeR0vJBjCuogIZJEgDA-B44LNcaWoUTB-8yQbrUmaYjfrp1SYRBuB3wjE0X0x7WTEAawJFFZCs76GBej6wKROG1CfWBAiUfwqsv_Ktpv0wBGhIQhCURjpCIXXHsYdNn-AjALVjmdEYBVbQqu79W9OAj1apVNFFmpIK1kpWbNk_6FQ==" data-type="subscription" target="hdh-nlpop-sink" novalidate>
+        <label class="hdh-nlpop-label" for="hdh-nlpop-email">請輸入你的 Email</label>
+        <input class="hdh-nlpop-input" type="email" id="hdh-nlpop-email" name="EMAIL" autocomplete="email" placeholder="you@example.com" data-required="true" required>
+        <!-- Brevo 反垃圾郵件必要隱藏欄位，請勿刪除或更名 -->
+        <input type="text" name="email_address_check" value="" class="hdh-nlpop-hidden-field" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="locale" value="en">
+        <button class="hdh-nlpop-submit" type="submit">免費訂閱</button>
+      </form>
+      <!-- End Brevo Form -->
+
+      <p class="hdh-nlpop-privacy">我們僅將你的 Email 用於寄送匯東華電子報，你可隨時一鍵退訂。</p>
+    </div>
+
+    <!-- 送出成功後顯示（取代上方表單），關閉視窗後下次開啟會重置回表單 -->
+    <div id="hdh-nlpop-successview" hidden>
+      <div class="hdh-nlpop-success-icon">🎉</div>
+      <p class="hdh-nlpop-success-text">訂閱成功！感謝訂閱匯東華電子報，請至信箱查收確認信。</p>
+      <p class="hdh-nlpop-success-note">（若沒看到，請檢查「廣告信／垃圾郵件匣」，並將我們加入聯絡人，以後才不會漏信。）</p>
+    </div>
+  </div>
+</div>
+
+<!-- 隱藏 iframe：表單 POST 目標，避免送出後頁面跳轉離開 -->
+<iframe name="hdh-nlpop-sink" id="hdh-nlpop-sink" src="about:blank" title="訂閱表單送出結果（隱藏）" tabindex="-1" aria-hidden="true"></iframe>
+
+<script>
+(function(){
+  if (window.__hdhNlpopInit) { return; } // 防止同頁重複注入導致事件重複綁定
+  window.__hdhNlpopInit = true;
+
+  var fab         = document.getElementById('hdh-nlpop-fab');
+  var overlay     = document.getElementById('hdh-nlpop-overlay');
+  var closeBt     = document.getElementById('hdh-nlpop-close');
+  var bubble      = document.getElementById('hdh-nlpop-bubble');
+  var form        = document.getElementById('hdh-nlpop-form');
+  var sink        = document.getElementById('hdh-nlpop-sink');
+  var formview    = document.getElementById('hdh-nlpop-formview');
+  var successview = document.getElementById('hdh-nlpop-successview');
+  var emailInput  = document.getElementById('hdh-nlpop-email');
+
+  var bubbleHideTimer = null;
+  var pendingSubmit = false; // 用來分辨隱藏 iframe 觸發的 load 是「頁面初始空白載入」還是「表單真的送出後」
+  var savedOverflow = ''; // 開窗前 body overflow 的原值，關窗時還原（避免覆蓋頁面既有設定）
+
+  /* ---------- Modal 開關 ---------- */
+  function resetToForm(){
+    if (successview) { successview.hidden = true; }
+    if (formview) { formview.hidden = false; }
+    if (form) { form.reset(); }
+  }
+
+  function openModal(){
+    hideBubble();
+    resetToForm(); // 每次開窗都回到表單初始態（即使上次是送出成功後關閉的）
+    overlay.hidden = false;
+    if (fab) { fab.style.display = 'none'; } // 開啟時隱藏浮動鈕，避免與遮罩重疊
+    savedOverflow = document.body.style.overflow; // 先存舊值，關窗時還原（而非清空）
+    document.body.style.overflow = 'hidden';
+    window.requestAnimationFrame(function(){
+      overlay.classList.add('hdh-nlpop-show');
+    });
+    if (emailInput) { setTimeout(function(){ emailInput.focus(); }, 260); }
+  }
+
+  function closeModal(){
+    overlay.classList.remove('hdh-nlpop-show');
+    document.body.style.overflow = savedOverflow; // 還原成開窗前的原值
+    if (fab) { fab.style.display = ''; } // 關閉時還原浮動鈕
+    setTimeout(function(){ overlay.hidden = true; }, 260);
+  }
+
+  if (fab)     { fab.addEventListener('click', openModal); }
+  if (closeBt) { closeBt.addEventListener('click', closeModal); }
+  if (overlay) {
+    overlay.addEventListener('click', function(e){
+      if (e.target === overlay) { closeModal(); }
+    });
+  }
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && overlay && !overlay.hidden) { closeModal(); }
+  });
+
+  /* ---------- 一次性提示氣泡（localStorage 只顯示一次） ---------- */
+  function showBubble(){
+    if (!bubble) { return; }
+    bubble.hidden = false;
+    window.requestAnimationFrame(function(){
+      bubble.classList.add('hdh-nlpop-bubble-show');
+    });
+    bubbleHideTimer = setTimeout(hideBubble, 5000);
+    try { localStorage.setItem('hdh_nlpop_bubble_seen', '1'); } catch (e) { /* 無痕模式等限制，忽略 */ }
+  }
+
+  function hideBubble(){
+    if (!bubble || bubble.hidden) { return; }
+    bubble.classList.remove('hdh-nlpop-bubble-show');
+    if (bubbleHideTimer) { clearTimeout(bubbleHideTimer); bubbleHideTimer = null; }
+    setTimeout(function(){ if (bubble) { bubble.hidden = true; } }, 300);
+  }
+
+  (function initBubble(){
+    if (!bubble) { return; }
+    var isMobile = window.matchMedia && window.matchMedia('(max-width: 480px)').matches;
+    if (isMobile) { return; } // 手機版不顯示氣泡，避免遮擋內容
+
+    var seen = null;
+    try { seen = localStorage.getItem('hdh_nlpop_bubble_seen'); } catch (e) { /* 忽略 */ }
+    if (seen) { return; } // 已顯示過，不再彈出
+
+    setTimeout(function(){
+      if (!overlay.hidden) { return; } // 若使用者已自行開窗，就不再彈出氣泡
+      showBubble();
+    }, 2000);
+
+    bubble.addEventListener('click', openModal);
+  })();
+
+  /* ---------- 送出不離頁：隱藏 iframe + 在地成功訊息 ---------- */
+  if (form) {
+    form.addEventListener('submit', function(e){
+      if (!emailInput || !emailInput.checkValidity || !emailInput.checkValidity()) {
+        e.preventDefault(); // email 未通過必填/格式檢查，阻擋送出並顯示原生提示
+        if (emailInput && typeof emailInput.reportValidity === 'function') {
+          emailInput.reportValidity();
+        }
+        return;
+      }
+      pendingSubmit = true; // 標記「即將送往隱藏 iframe」，供下方 sink.onload 判斷
+      // 不呼叫 preventDefault：讓表單正常 POST 到 target=hdh-nlpop-sink，畫面不跳轉
+    });
+  }
+
+  if (sink) {
+    sink.addEventListener('load', function(){
+      if (!pendingSubmit) { return; } // 忽略頁面初始的空白載入（about:blank），避免誤顯示成功
+      pendingSubmit = false;
+      if (formview) { formview.hidden = true; }
+      if (successview) { successview.hidden = false; }
+    });
+  }
+})();
+</script>
+</div>
+<!-- ============================================================
+  匯東華訂閱浮動按鈕 / Pop-up 片段結束
+============================================================ -->
+
+</body>
 </html>
