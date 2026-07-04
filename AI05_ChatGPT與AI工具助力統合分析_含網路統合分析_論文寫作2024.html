@@ -3695,6 +3695,7 @@
     --hdh-mascot-red:#B82226;
     --hdh-mascot-gold:#C4A46D;
     --hdh-mascot-dark:#2D2D2D;
+    --hdh-mascot-maroon:#7A1B1E; /* 氣泡文字專用：比純紅更深，於半透明玻璃底上對比更足 */
     font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
   }
 
@@ -3748,33 +3749,71 @@
   }
   #hdh-mascot-link:active #hdh-mascot-img{ transform:scale(1.02); }
 
-  /* ---------- 小對話氣泡（常駐、載入後淡入一次，不再自動收起） ---------- */
+  /* ---------- 小對話氣泡（常駐、載入後淡入一次，不再自動收起） ----------
+     v3 重新設計（2026-07-04，依 Chair 意見）：
+     1) 文字放大＋加粗（15px / 700），改水平置中
+     2) 氣泡放大、加寬、內距加大，與曇月靈拉開間距（不再貼著頭部）
+     3) 金色邊框加粗（2.5px），文字改深酒紅色（--hdh-mascot-maroon）加強對比
+     4) 周圍加品牌紅／金雙層光暈（比照右下角訂閱鈕 box-shadow 手法）
+     5) 白底 → Apple 風格液態玻璃：真・backdrop-filter 毛玻璃 + 多層半透明
+        漸層 + 頂部 inset 白色高光，做出水晶質感（不支援 backdrop-filter
+        的瀏覽器則退回不透明米白色，見下方 @supports fallback） */
   #hdh-mascot-bubble{
     position:absolute;
-    left:82px;
-    bottom:104px;
+    left:66px;
+    bottom:138px;
     /* 注意（血淚教訓）：絕對定位元素在 left 已指定、right 未指定時，
-       shrink-to-fit 寬度會以「容器寬度 - left」當作可用寬度計算，
-       在這裡等於 116-82=34px，导致中文文字被迫換成多行、氣泡暴衝到
-       100px+ 高，進而蓋住曇月靈的頭部。故明確指定 width，不可只寫
-       max-width。（v2：left/bottom 依新容器 116x121 等比例微調，維持
-       氣泡尖角指向曇月靈頭部右上方、不遮住臉部的位置） */
-    width:168px;
-    width:max-content;
-    max-width:168px;
-    background:#fff;
-    border:1px solid var(--hdh-mascot-gold);
-    border-radius:16px 16px 16px 4px; /* 右下角捏出說話氣泡尖角，指向曇月靈 */
-    padding:9px 13px;
-    font-size:12.5px;
-    line-height:1.5;
-    color:var(--hdh-mascot-dark);
-    box-shadow:0 8px 20px rgba(0,0,0,.14);
+       shrink-to-fit 寬度會以「容器寬度 - left」當作可用寬度計算，容易
+       导致中文文字被迫換成多行、氣泡暴衝過高，進而蓋住曇月靈的頭部。
+       故明確指定 width，不可只寫 max-width。（v3：因應放大後的字級與
+       內距重新校正 left/bottom，讓氣泡整體上移、右移，與吉祥物頭部
+       拉開間距；bottom 138（而非 128）是因為改用獨立尖角三角形
+       ::after 後，尖角會再往下凸出約 9px，需相應墊高，避免尖角貼到
+       曇月靈頭頂） */
+    width:200px;
+    max-width:200px;
+    background:linear-gradient(135deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.30) 55%, rgba(255,255,255,.46) 100%);
+    backdrop-filter:blur(12px) saturate(1.5);
+    -webkit-backdrop-filter:blur(12px) saturate(1.5);
+    border:2.5px solid var(--hdh-mascot-gold);
+    border-radius:20px; /* v3 改走 iMessage 式：主體統一圓角＋下方獨立
+      尖角三角形（見 ::after），比起「捏角落半徑」在氣泡放大變扁後
+      更能清楚辨識方向，尖角透過 ::after 指向曇月靈 */
+    padding:16px 20px;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.5px;
+    line-height:1.4;
+    text-align:center;
+    color:var(--hdh-mascot-maroon);
+    box-shadow:
+      0 10px 26px rgba(184,34,38,.26),
+      0 0 24px rgba(196,164,109,.38),
+      inset 0 1px 0 rgba(255,255,255,.8),
+      inset 0 -1px 0 rgba(255,255,255,.15);
     text-decoration:none;
     opacity:0;
     transform:translateY(6px) scale(.94);
     transition:opacity .45s ease, transform .45s ease;
     z-index:1;
+  }
+  /* 獨立尖角三角形：旋轉 45 度的正方形，只畫右邊＋下邊框，讓上半段
+     隱沒進氣泡本體、下半段露出形成尖角。位置偏氣泡左側（left:22px），
+     讓尖角落在曇月靈頭部／右側鹿角上方，達成「尖角指向吉祥物」。 */
+  #hdh-mascot-bubble::after{
+    content:"";
+    position:absolute;
+    left:22px;
+    bottom:-9px;
+    width:18px;
+    height:18px;
+    background:rgba(255,255,255,.42);
+    backdrop-filter:blur(12px) saturate(1.5);
+    -webkit-backdrop-filter:blur(12px) saturate(1.5);
+    border-right:2.5px solid var(--hdh-mascot-gold);
+    border-bottom:2.5px solid var(--hdh-mascot-gold);
+    border-radius:0 0 3px 0;
+    transform:rotate(45deg);
   }
   #hdh-mascot-bubble.hdh-mascot-bubble-show{
     opacity:1;
@@ -3782,6 +3821,17 @@
   }
   #hdh-mascot-bubble:hover{
     border-color:var(--hdh-mascot-red);
+    box-shadow:
+      0 12px 32px rgba(184,34,38,.34),
+      0 0 30px rgba(196,164,109,.5),
+      inset 0 1px 0 rgba(255,255,255,.85),
+      inset 0 -1px 0 rgba(255,255,255,.2);
+  }
+  #hdh-mascot-bubble:hover::after{ border-color:var(--hdh-mascot-red); }
+  /* 不支援 backdrop-filter 的瀏覽器（極少數舊版）：退回不透明米白底，
+     確保文字仍有足夠底色可讀，不依賴模糊效果 */
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    #hdh-mascot-bubble, #hdh-mascot-bubble::after{ background:#fdfbf7; }
   }
 
   @media (max-width:480px){
@@ -3825,6 +3875,7 @@
 <!-- ============================================================
   匯東華曇月靈客服吉祥物片段結束
 ============================================================ -->
+
 
 </body>
 </html>
