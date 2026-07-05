@@ -3067,6 +3067,332 @@
        168、188-189 行）。
   版本：v1.0 原型（2026-07-03）
 ============================================================ -->
+<!-- ============================================================
+  匯東華統計顧問｜全站品牌頁尾 hdh-footer v1
+  ------------------------------------------------------------
+  用途：批次注入全站每頁「內容結尾」處（即 <div id="hdh-nlpop-root">
+       之前，見 頁尾盤點_摘要_20260704_CSX.md Q4），不需任何外部資源
+       即可運作（唯一外部資源為既有官網 logo 圖片，已驗證可正常載入）。
+  命名：所有 id/class 均以 hdh-footer- 前綴，避免與既有頁面樣式衝突
+       （作用域寫法比照 #hdh-mascot-root / #hdh-nlpop-root 慣例）。
+  內容來源：Co-Leader 實測官網 SSoT 確認（電話/Email/地址/LINE/FB 皆取
+       全站最多數、最新之版本，見 頁尾盤點_摘要_20260704_CSX.md Q3）。
+  與浮動元件共存：曇月靈（左下 fixed，桌機 116x121／手機 84x88）與
+       電子報彈窗按鈕（右下 fixed，桌機約 56px 高／手機 56x56 圓形）
+       兩者皆固定於視窗角落，會蓋住捲動到頁尾時的畫面下緣。故本頁尾
+       容器下內距（padding-bottom）刻意放大：桌機 160px／手機 120px。
+       【實測校正】原規格建議 70-90px，經 Chrome headless 截圖逐像素
+       量測後發現不足：曇月靈桌機版佔位＝bottom:20px+height:121px＝
+       視窗下緣起 141px 範圍，90px 下內距會讓曇月靈頭頂穿過版權列上方
+       的分隔線（已截圖驗證，見交付截圖）；手機版曇月靈佔位＝
+       14+88=102px，70px 亦不足。故加大至桌機 160px／手機 120px
+       （= 最高浮動元件佔位 + 約20px緩衝），確保頁尾最下方（版權列
+       及分隔線）與兩顆浮動鈕之間留有安全間距，不被遮住。頁尾本身
+       純靜態（無 position:fixed），不與浮動元件搶版位。
+  隱私連結：v1 先不放（官網目前無隱私權政策頁面）。已於版權列旁預留
+       HTML 註解位置，待 Chair 確認是否製作隱私頁後，直接在該處加入
+       <a href="...">隱私權政策</a> 即可，不需更動其餘結構。
+  版本：v1.0 原型（2026-07-04）
+
+  【v2 更新，2026-07-04，Chair 指示新增連結】
+  - 新增第二欄「產品與服務」：匯東華統計學院／AI 文獻品管師（皆外部站，
+    target="_blank" rel="noopener"）／匯東華行事曆（官網內頁，同分頁）。
+    欄位結構由三欄改為四欄：①品牌 ②產品與服務 ③快速聯絡 ④社群與訂閱。
+  - 新增 1000px 寬度斷點：>1000px 四欄一列；768-1000px 兩欄兩列（2x2）；
+    <=768px 單欄置中（沿用 v1 手機邏輯）。四欄較擠，桌機欄距由 36px
+    收窄為 32px，維持版面平衡。
+  - logo 圖源改用 https://www.medatatw.com/assets/logo.png（ASCII 路徑，
+    與隱私頁/訂閱頁一致；512x512 已用 WebFetch+ImageMagick 驗證含透明
+    背景，非純白底圖，可安全疊在深色頁尾上）。
+  - 隱私權政策連結正式啟用（不再只是註解預留），置於版權列旁，
+    Chair 指示「隱私連結一律開新分頁」→ target="_blank" rel="noopener"。
+  - 版權列文字加上「版權所有 All Rights Reserved.」。
+
+  【v3 更新，2026-07-04，Chair 指示改用品牌 icon 取代 emoji】
+  - 8 個連結 icon 全部改用匯東華自家品牌圖示（來源：01_共用資源/icons/），
+    取代原本的 emoji（🎓🔍📅📞✉️💬📘📧）：
+    統計學院=icon_16_online_course.png／AI文獻品管師=icon_51_ai.png（三選一，
+    見下方選用理由）／行事曆=icon_25_calendar.png／電話=icon_09_phone.png／
+    Email=icon_08_email.png／LINE=icon_32_line.png（非 icon_07，見下）／
+    Facebook=icon_30_facebook.png／訂閱電子報鈕=icon_08_email.png（沿用
+    Email 圖示，語意皆為「電子郵件」，與聯絡欄一致）。
+  - AI 文獻品管師選用理由：icon_11_ai_assist.png 過於抽象（金紅線條機械臂，
+    無法一眼辨識與「AI」的關聯）；icon_02_literature.png 能表達「文獻」
+    但缺少「AI」意象；icon_51_ai.png 為白底紅框「AI」文字圖示，兩相權衡
+    後選擇**最能讓使用者秒懂「這是 AI 服務」**的 icon_51_ai.png，且已用
+    ImageMagick 合成深色底測試，白底方框在 #1c1c1c 上對比度最佳。
+  - LINE 選用理由：icon_07_line.png 為 LINE 官方綠色（跳出頁尾紅金主色調），
+    icon_32_line.png 為紅圈「LINE」文字、與頁尾其餘 icon 色調一致，故選
+    icon_32_line.png 以維持視覺統一（仍保留「LINE」文字辨識度不受影響）。
+  - 深色底可見度：8 個 icon 皆已用 ImageMagick 合成 #1c1c1c 實際頁尾底色
+    後目視檢查（見交付訊息screenshots），全部清晰可見（白/金/紅/淺色元素
+    在深色底皆有足夠對比），**無需額外加淺色 badge 襯托**。
+  - 路徑處理（重要）：本注入片段（部署用）icon 路徑一律寫
+    `/assets/icons/icon_XX.png`（根相對，扁平無子夾層），部署時另行將
+    上述 8 個檔案複製進 repo 的 assets/icons/ 目錄。**原型截圖版本**
+    （頁尾原型預覽_20260704_CSX.html）另外用組裝腳本把此路徑置換為本機
+    file:// 絕對路徑指向 Dropbox 來源夾，僅供截圖使用，不寫回 repo。
+  - icon 顯示尺寸：.hdh-footer-icon 20x20px，object-fit:contain，
+    與文字用 flex align-items:center 垂直置中對齊（沿用既有
+    .hdh-footer-link / .hdh-footer-subscribe-btn 的 inline-flex 排列）。
+  - 地址前的 📍 emoji 不在本次置換範圍內（Chair 指示僅列 8 個），維持原樣。
+============================================================ -->
+<div id="hdh-footer-root">
+<style>
+  #hdh-footer-root, #hdh-footer-root *{ box-sizing:border-box; }
+  #hdh-footer-root{
+    --hdh-footer-red:#B82226;
+    --hdh-footer-red-dark:#8f1a1d;
+    --hdh-footer-gold:#C4A46D;
+    --hdh-footer-dark:#2D2D2D;
+    --hdh-footer-text:#dcd7cc;      /* 主要文字：暖灰白，深色底上比純白柔和不刺眼 */
+    --hdh-footer-text-dim:#9a958a;  /* 次要文字：版權列、輔助說明 */
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+  }
+
+  /* ---------- 頁尾主容器 ---------- */
+  #hdh-footer-main{
+    position:relative;
+    margin-top:48px;
+    padding:48px 24px 160px; /* 下內距 160px：實測曇月靈佔位141px後校正，見上方註解 */
+    background:linear-gradient(160deg,#262626 0%,#1c1c1c 100%);
+    color:var(--hdh-footer-text);
+    overflow:hidden;
+  }
+  /* 頂部金紅漸層裝飾線（比照訂閱彈窗 modal 手法，維持全站視覺語彙一致） */
+  #hdh-footer-main::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:4px;
+    background:linear-gradient(90deg,var(--hdh-footer-gold),var(--hdh-footer-red));
+  }
+
+  #hdh-footer-inner{
+    max-width:1150px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.15fr 1fr 1fr 1fr; /* v2：四欄（品牌/產品與服務/快速聯絡/社群與訂閱） */
+    gap:32px;
+  }
+
+  .hdh-footer-col-title{
+    margin:0 0 14px;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    color:var(--hdh-footer-gold);
+  }
+
+  /* ---------- 第一欄：品牌 + 地址 ---------- */
+  .hdh-footer-brand-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  #hdh-footer-logo{
+    height:44px;
+    width:auto;
+    display:block;
+    flex-shrink:0;
+  }
+  .hdh-footer-brand-name{
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    line-height:1.4;
+  }
+  .hdh-footer-addr{
+    margin:0;
+    font-size:13.5px;
+    line-height:1.8;
+    color:var(--hdh-footer-text);
+  }
+
+  /* ---------- 第二／三欄：聯絡與社群連結 ---------- */
+  .hdh-footer-linklist{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .hdh-footer-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--hdh-footer-text);
+    text-decoration:none;
+    font-size:14px;
+    transition:color .2s ease;
+  }
+  .hdh-footer-link:hover{
+    color:var(--hdh-footer-gold);
+    text-decoration:underline;
+  }
+  /* v3：品牌 icon（取代 emoji），20x20，flex 內與文字自動垂直置中 */
+  .hdh-footer-icon{
+    width:20px;
+    height:20px;
+    object-fit:contain;
+    display:block;
+    flex-shrink:0;
+  }
+
+  .hdh-footer-subscribe-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    align-self:flex-start;
+    margin-top:2px;
+    padding:10px 22px;
+    background:linear-gradient(135deg,var(--hdh-footer-red) 0%,var(--hdh-footer-red-dark) 100%);
+    color:#fff !important;
+    border:1.5px solid var(--hdh-footer-gold);
+    border-radius:999px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:.5px;
+    text-decoration:none !important;
+    box-shadow:0 6px 16px rgba(184,34,38,.28);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .hdh-footer-subscribe-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(184,34,38,.4);
+  }
+
+  /* ---------- 版權列 ---------- */
+  #hdh-footer-bottom{
+    max-width:1100px;
+    margin:36px auto 0;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:16px;
+    font-size:12.5px;
+    color:var(--hdh-footer-text-dim);
+    text-align:center;
+  }
+  .hdh-footer-copyright{ min-width:0; } /* 防止版權文字加長後在 flex 列中被撐開溢出視窗 */
+  .hdh-footer-bottom-link{
+    color:var(--hdh-footer-text-dim);
+    text-decoration:underline;
+    transition:color .2s ease;
+  }
+  .hdh-footer-bottom-link:hover{ color:var(--hdh-footer-gold); }
+
+  /* ---------- 平板：四欄擠不下，改 2x2 兩欄兩列 ---------- */
+  @media (max-width:1000px){
+    #hdh-footer-inner{
+      grid-template-columns:1fr 1fr;
+      row-gap:34px;
+    }
+  }
+
+  /* ---------- 手機版：單欄堆疊、置中 ---------- */
+  @media (max-width:768px){
+    #hdh-footer-main{ padding:40px 20px 120px; } /* 手機曇月靈佔位102px，下內距實測校正為120px */
+    #hdh-footer-inner{
+      grid-template-columns:1fr;
+      gap:32px;
+      text-align:center;
+    }
+    .hdh-footer-brand-row{ justify-content:center; }
+    .hdh-footer-linklist{ align-items:center; }
+    .hdh-footer-subscribe-btn{ align-self:center; }
+    /* v2 修正（共兩輪實測才定案，記錄避免日後重踩）：
+       第一輪：版權文字加長（版權所有 All Rights Reserved.）後，手機寬度
+       下 flex-row 排列被文字內容撐開溢出視窗右緣（align-items:center 使
+       子項以 fit-content 寬度計算，不會自動換行），改 flex-direction:column
+       仍不夠，因為 cross-axis 對齊一樣是 fit-content。
+       第二輪：加上 display:block+width:100% 後才真正撐滿容器寬度正常
+       換行；但**首次修正誤用了裸 `span` 標籤選擇器**，連年份用的內層
+       <span id="hdh-footer-year"> 也一併被選到、被迫變成獨立一行，導致
+       「©」「2026」各自斷成一行的怪異排版。已改用 .hdh-footer-copyright
+       這個明確 class 只包住最外層版權文字 span，內層年份 span 不受影響。
+       第三輪：display:block+width:100% 仍整行溢出視窗、被 overflow:hidden
+       裁切；加 flex-wrap:nowrap 也無效（debug 用黃底外框截圖比對前後
+       竟位元級相同，證明問題不在 flex-wrap）。
+       第四輪（真正解法）：放棄在 flex 容器內用 width:100% 跟 flex 的
+       自動尺寸演算法（cross-size auto/fit-content 的抵消行為，跨瀏覽器
+       行為不一致）搏鬥，改為手機斷點下**直接把 #hdh-footer-bottom 由
+       flex 改回 block**，讓版權文字與隱私連結變回一般行內內容，用最
+       單純的 normal flow 文字換行（已用最小化測試檔驗證：純 div 內同
+       樣文字在 350px 寬度下換行完全正常），不再依賴任何 flex 尺寸計算。*/
+    #hdh-footer-bottom{ display:block; }
+    .hdh-footer-copyright{ display:inline; }
+    .hdh-footer-bottom-link{ display:inline-block; margin-top:6px; }
+  }
+</style>
+
+<footer id="hdh-footer-main" role="contentinfo" aria-label="匯東華統計顧問網站頁尾">
+  <div id="hdh-footer-inner">
+
+    <!-- 第一欄：公司資訊 + 地址 -->
+    <div class="hdh-footer-col">
+      <div class="hdh-footer-brand-row">
+        <img id="hdh-footer-logo"
+             src="https://www.medatatw.com/assets/logo.png"
+             alt="匯東華統計顧問有限公司 Logo（蓮花與月相環標誌）">
+        <span class="hdh-footer-brand-name">匯東華統計顧問有限公司</span>
+      </div>
+      <p class="hdh-footer-addr">📍 (806) 高雄市前鎮區中山二路 91 號 11 樓之1</p>
+    </div>
+
+    <!-- 第二欄：產品與服務（v2 新增） -->
+    <div class="hdh-footer-col">
+      <h3 class="hdh-footer-col-title">產品與服務</h3>
+      <div class="hdh-footer-linklist">
+        <a class="hdh-footer-link" href="https://medata.teaches.cc/" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_16_online_course.png" alt=""> 匯東華統計學院</a>
+        <a class="hdh-footer-link" href="https://doi-verifier-pro.vercel.app/login.html" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_51_ai.png" alt=""> AI 文獻品管師</a>
+        <a class="hdh-footer-link" href="https://www.medatatw.com/%E8%A1%8C%E4%BA%8B%E6%9B%86.html"><img class="hdh-footer-icon" src="/assets/icons/icon_25_calendar.png" alt=""> 匯東華行事曆</a>
+      </div>
+    </div>
+
+    <!-- 第三欄：快速聯絡 -->
+    <div class="hdh-footer-col">
+      <h3 class="hdh-footer-col-title">快速聯絡</h3>
+      <div class="hdh-footer-linklist">
+        <a class="hdh-footer-link" href="tel:+886-7-9721586"><img class="hdh-footer-icon" src="/assets/icons/icon_09_phone.png" alt=""> 07-9721586</a>
+        <a class="hdh-footer-link" href="mailto:info@medatatw.com"><img class="hdh-footer-icon" src="/assets/icons/icon_08_email.png" alt=""> info@medatatw.com</a>
+      </div>
+    </div>
+
+    <!-- 第四欄：社群與訂閱 -->
+    <div class="hdh-footer-col">
+      <h3 class="hdh-footer-col-title">社群與訂閱</h3>
+      <div class="hdh-footer-linklist">
+        <a class="hdh-footer-link" href="https://lin.ee/YcV3eSs" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_32_line.png" alt=""> LINE 官方帳號 @medatatw</a>
+        <a class="hdh-footer-link" href="https://www.facebook.com/medata12p" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_30_facebook.png" alt=""> Facebook 粉絲專頁</a>
+        <a class="hdh-footer-subscribe-btn" href="https://medatatw.com/subscribe"><img class="hdh-footer-icon" src="/assets/icons/icon_08_email.png" alt=""> 訂閱電子報</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="hdh-footer-bottom">
+    <span class="hdh-footer-copyright">&copy; <span id="hdh-footer-year">2026</span> 匯東華統計顧問有限公司　版權所有 All Rights Reserved.</span>
+    <a class="hdh-footer-bottom-link" href="/privacy" target="_blank" rel="noopener">隱私權政策</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  if (window.__hdhFooterInit) { return; } // 防止同頁重複注入導致重複執行
+  window.__hdhFooterInit = true;
+
+  var yearEl = document.getElementById('hdh-footer-year');
+  if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
+})();
+</script>
+</div>
+<!-- ============================================================
+  匯東華全站品牌頁尾片段結束
+============================================================ -->
+
 <div id="hdh-nlpop-root">
 <style>
   #hdh-nlpop-root, #hdh-nlpop-root *{box-sizing:border-box;}
