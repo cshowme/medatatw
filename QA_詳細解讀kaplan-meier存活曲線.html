@@ -3203,6 +3203,70 @@
     cover 讓圖片依容器裁切、必要時放大聚焦於較有顆粒的區域，不會再出現
     大片平滑無紋理的橫帶；核心「不加半透明疊色、圖片以近全不透明直接
     顯示」的原則不變，僅縮放模式因版面比例差異而調整）。
+
+  【v6 更新，2026-07-05，Chair 指出下緣間距仍太大，參考隱私頁】
+  - Step1 研究隱私頁（`privacy/index.html` + 實測 https://www.medatatw.com/privacy
+    底部截圖）：頁面本身 `.wrap{padding:0 22px 64px}`，並無為曇月靈刻意
+    加大留白；頁尾另有一個既存的深底聯絡列（公司名/地址/電話/Email 皆
+    **置中**）。實測截圖發現：曇月靈氣泡「私訊我們」在該頁其實**有蓋到
+    聯絡列的同一列高度區間**，但因為那列文字是置中（約在畫面 x=450-950），
+    而氣泡固定在最左側（x=66-266），兩者**水平上本來就不重疊**，才會
+    看起來「OK、沒問題」——本質是「置中版面 + 角落浮動元件」天然不衝突，
+    而非刻意做了什麼特別的間距處理。
+  - Step2 嘗試比照精神縮小：先試桌機 44px／手機 40px（貼近隱私頁
+    64px 的量級），**截圖後證實**：曇月靈氣泡再次直接蓋住品牌欄地址
+    文字（跟 v4 第一版 36px 時的問題一樣）。
+  - **精確計算為何無法只靠壓縮左欄彌補**（桌機為例）：
+    - 氣泡佔位帶＝距視窗底 158px～218px（bottom:138+高度約60px，見
+      曇月靈原始碼）。
+    - 44px padding 時，頁尾總高≈303px，品牌欄地址文字底部＝頁尾頂端
+      往下約122px＝距頁尾底（＝頁面底）181px。158<181<218，**確實落在
+      氣泡佔位帶內**，與截圖吻合。
+    - 若想讓地址完全避開氣泡佔位帶，地址底部至少要距頁面底 218px。
+      地址在欄位內的位置（logo/名稱列+地址列，實務上最多只能壓縮到
+      約100px）+ padding-bottom 才等於地址距頁面底的距離。即使壓到
+      100px，仍需 padding-bottom≈218-100=118px，**跟目前 110px 幾乎
+      一樣**——結論：**只調整品牌欄內容排版無法在維持 30-50px 目標
+      間距的同時避開常駐氣泡**，兩者在數學上互斥。
+  - 因此**維持 v5 已驗證乾淨的桌機110px／手機100px**，不採用 44/40px。
+  - 若要真正壓到 24-40px 區間，**根本解法**：修正曇月靈氣泡「淡入後
+    永久顯示、無 timer 自動收起」的行為（比照訂閱鈕氣泡 5 秒後淡出的
+    邏輯）。此為曇月靈自身注入片段的修改，不在本頁尾任務範圍內，已
+    回報 Co-Leader 另案處理。
+
+  【v7 更新，2026-07-05，Chair 定案：曇月靈回左下角，重新精確量測佔位】
+  - Chair 定案曇月靈（含常駐氣泡+貼地陰影）回到左下角（中央方案已
+    取消，見曇月靈客服_注入片段 P4-r3 註解），故頁尾 padding 需求
+    重新計算。
+  - **精確量測**（非估算，用 JS getBoundingClientRect() 實測，見曇月靈
+    測試檔）：桌機視窗 innerHeight=805px 時，氣泡（#hdh-mascot-bubble）
+    top=587.0，即氣泡頂端距視窗底＝805-587=**218.0px**（此為「曇月靈+
+    氣泡+陰影」整組的最高點，決定頁尾需要多少 padding-bottom 才能讓
+    版權列完全避開，陰影本身 bottom=6px 雖然比曇月靈本體更貼近視窗底，
+    但陰影不是最高點，不影響此計算）。手機版氣泡 CSS 隱藏
+    （BUBBLE h=0），最高點回到曇月靈本體本身：FAB h=88+bottom:14＝
+    距視窗底 **102.0px**。
+  - **頁尾 padding-bottom 更新**：依 Chair 指示「padding-bottom ≥ 總
+    佔位」的簡單安全原則（不依賴頁尾其他列高度的額外緩衝，讓數值本身
+    就是安全下限，全站不同頁面版型也適用），桌機由 110px 調整為
+    **230px**（218px 佔位 + 12px 緩衝），手機由 100px 調整為
+    **115px**（102px 佔位 + 13px 緩衝）。
+
+  【v8 修正，2026-07-05，Chair 用真實瀏覽器糾正 v7 公式前提】
+  - v7「padding-bottom ≥ 總佔位」的公式**前提有誤**：headless 渲染在
+    寬螢幕下會誤判為內容滿版，但**真實瀏覽器頁尾內容是 max-width 置中
+    的，寬螢幕下左右是背景留白**。曇月靈固定在左下角，實際上是浮在
+    頁尾左側的背景留白上，跟置中的頁尾內容**沒有垂直方向的版位衝突**，
+    故頁尾根本不需要為了讓開曇月靈而預留 218px/102px 這麼大的
+    padding-bottom。窄螢幕/手機可能會有輕微壓到，Chair 已接受（使用者
+    仍可捲動閱讀，非致命遮擋）。
+  - **padding-bottom 改回一般頁尾呼吸感的正常小值**：桌機
+    230px→**40px**、手機 115px→**40px**（不再依曇月靈佔位計算，回歸
+    純視覺留白）。
+  - **驗證方式改變**：本輪起 padding 是否足夠**不再由 Co-Leader 用
+    headless 原型截圖判斷**，改由**真實線上部署後**、Team Lead 親自
+    以多種真實寬度（寬螢幕/窄筆電/手機）檢視決定；若真實環境發現手機
+    版權列/隱私連結被壓到無法點擊，屆時再回來做手機專屬微調。
 ============================================================ -->
 <div id="hdh-footer-root">
 <style>
@@ -3225,8 +3289,8 @@
   #hdh-footer-main{
     position:relative;
     margin-top:48px;
-    padding:40px 24px 110px; /* v4 實測校正：36px 時曇月靈「常駐不消失」對話氣泡（bottom:138+高度約60px＝
-    離視窗底約218px）會直接蓋住品牌欄地址文字（已截圖證實），非僅裝飾區域。改110px 為實測可清空氣泡的最小值。 */
+    padding:40px 24px 40px; /* v8 修正：真實瀏覽器下頁尾內容置中、曇月靈浮在左側背景留白上，不需為佔位預留大
+    padding（v7 的 230px 是誤判前提下的計算），改回一般呼吸感小值，見上方 v8 註解。 */
     background-image:url('https://www.medatatw.com/首頁/white-1866105_1920.jpg');
     background-size:cover; /* v5 second-pass：100% auto 在手機瘦高版面會露出原圖較平滑的區塊，見上方註解 */
     background-position:center center;
@@ -3370,8 +3434,8 @@
 
   /* ---------- 手機版：單欄堆疊、置中 ---------- */
   @media (max-width:768px){
-    #hdh-footer-main{ padding:32px 20px 100px; } /* v4 實測校正：32px 時曇月靈圖片（手機無氣泡，但佔位14+88=102px）
-    直接蓋住版權文字（已截圖證實）。改100px 為實測可清空版權列的最小值（手機無常駐氣泡問題，故仍比桌機110px略省）。 */
+    #hdh-footer-main{ padding:32px 20px 40px; } /* v8 修正：同桌機理由，不再為曇月靈佔位預留 padding，改回一般
+    呼吸感小值；手機若真實環境發現版權/隱私連結被壓到，屆時再做手機專屬微調（見上方 v8 註解）。 */
     #hdh-footer-inner{
       grid-template-columns:1fr;
       gap:32px;
@@ -3925,6 +3989,50 @@
        ~/.claude/knowledge/brand_tanyueling_story.md（角＝智慧體部，
        月相環＝真理之眼，皆為曇月靈辨識度核心，縮小後仍須清楚可辨）。
   版本：v2.0 原型（2026-07-04，頭部特寫裁切修正）
+
+  【P4 更新，2026-07-05，Chair 拍板：解鎖頁尾間距 + 視覺加強】
+  【P4-r2 修正，2026-07-05，Chair 改方向：取消氣泡自動收起，改移位解決碰撞】
+  ⛔ 取消：①氣泡自動收起（P4 第一版做法）。Chair 指出曇月靈是客服
+    入口，氣泡收起後使用者會不知道它的用途，故**氣泡改回常駐顯示，
+    不做自動收起**（bubbleHideTimer／hideBubble() 邏輯已移除）。
+  ✅ 改為：曇月靈整體移到**視窗左側垂直置中**（`top:50%` +
+    `transform:translateY(-50%)`，取代原本的 `bottom:20px`）。原本
+    固定在左下角會跟頁尾底部打架（這才是這幾輪頁尾 padding 一直無法
+    縮小的根因），移到左側中央後**完全脫離頁尾範圍**，之後頁尾下緣
+    間距即可正常縮小（不再需要為曇月靈預留清空區）。手機版比照同樣
+    改為左側垂直置中（原本機版 bottom:14px 亦一併移除）。
+  ②氣泡文字放大兩級：15px→20px（+2 級），維持不變（Chair 確認 OK）。
+  ③陰影效果改為「懸浮景深光影」：因曇月靈現在飄在半空（視窗中央，
+    不再貼近任何「地面」），原本「貼地橢圓陰影」的視覺邏輯不再合理
+    （半空中不會有地面投影）。改為**曇月靈本體背後的柔光暈**（暖金/
+    紅色系模糊光暈，置中疊在曇月靈身後），一樣用**與飄浮動畫完全
+    相同的 duration(3.6s)／easing(ease-in-out)／infinite** 讓
+    scale／opacity 同步脈動：曇月靈在 0%／100%（低點，感覺較「近」）
+    時光暈最大最亮；50%（高點，感覺較「遠」）時光暈最小最淡，模擬
+    「景深」錯覺（近大遠小/近亮遠淡），非貼地投影。
+  🔴 中央位置遮擋內文驗證（本輪重點）：已用 Chrome headless 對「真實
+    內容頁」（統計諮詢.html）截桌機 1280px + 手機 390px 整頁/中段圖，
+    確認曇月靈+氣泡置於視窗左側中央時是否蓋到內文文字/圖片，結果見
+    交付訊息（回報時逐一列出桌機/手機是否遮擋）。
+
+  【P4-r3 定案，2026-07-05，Chair 用真實瀏覽器糾正：中央方案取消】
+  Chair 指出 Co-Leader 誤把 1280 headless render 當真實前端判讀；真實
+  瀏覽器畫面是「寬螢幕內容置中、左右是背景留白」，曇月靈在左下角其實
+  是浮在背景留白上，不會蓋到置中的內文——r2 版本的「中央遮擋」問題
+  評估基準有誤。**曇月靈定案改回左下角**（v1-v3 原始定位）：
+  - `#hdh-mascot-fab` 由 `top:50%+translateY(-50%)` 改回
+    `bottom:20px`（桌機）／`bottom:14px`（手機），`top`/`transform`
+    定位一併移除。
+  - 氣泡常駐可見（不自動收起）維持 r2 的做法。
+  - 字級 20px 維持。
+  - 陰影**改回「貼地橢圓陰影」**（P4 第一版做法，非 r2 的懸浮光暈）：
+    曇月靈回到接近視窗底部，貼地陰影的視覺邏輯重新成立，比懸浮光暈
+    更適合現在的定位。scale/opacity 脈動邏輯不變（與 float 同步）。
+  - **頁尾 padding 計算依據更新**：曇月靈回到左下角後，「曇月靈＋氣泡
+    ＋地面陰影」整組從視窗底部往上的**總佔位**必須重新量測（陰影會
+    讓總佔位比曇月靈本體更高，因為陰影 bottom 比曇月靈本體 bottom
+    更低、但真正決定頁尾需要多少 padding 的是**氣泡頂端**這個最高點，
+    非陰影本身）。實測數字與最終頁尾 padding 值見交付訊息。
 ============================================================ -->
 <div id="hdh-mascot-root">
 <style>
@@ -3944,10 +4052,22 @@
     100% { transform:translateY(0); }
   }
 
-  /* ---------- 定位錨點（左下角，與右下角訂閱鈕分居兩端） ---------- */
+  /* P4-r3：陰影明暗/大小脈動改回「貼地」語意，與上面 float 完全同 duration/easing 才會同步
+     （0%/100% 對應曇月靈落地＝陰影最大最深；50% 對應曇月靈飄最高＝陰影最小最淡） */
+  @keyframes hdh-mascot-shadow-pulse{
+    0%   { transform:translateX(-50%) scale(1);   opacity:.5; }
+    50%  { transform:translateX(-50%) scale(.62); opacity:.18; }
+    100% { transform:translateX(-50%) scale(1);   opacity:.5; }
+  }
+
+  /* ---------- 定位錨點（P4-r3 定案：回到左下角，v1-v3 原始定位） ---------- */
   /* v2：尺寸由 104x102 放大為 116x121（頭部特寫裁切 244x255 同比例），
      left 由 20px 調整為 24px，確保連同透明邊界在內的完整圖像
-     不會貼齊或溢出視窗左邊界而被切到。 */
+     不會貼齊或溢出視窗左邊界而被切到。
+     P4-r3：r2 曾改為 top:50%+translateY(-50%)（左側垂直置中），但
+     Chair 用真實瀏覽器畫面糾正：寬螢幕內容置中、左右是背景留白，
+     左下角其實浮在背景上、不會蓋到置中內文，中央方案的疑慮評估基準
+     有誤，定案改回左下角 bottom 定位。 */
   #hdh-mascot-fab{
     position:fixed;
     left:24px;
@@ -3965,8 +4085,28 @@
     outline:none;
   }
 
+  /* P4-r3：改回貼地橢圓陰影（曇月靈回到左下角，貼近視窗底部，「地面」
+     語意重新成立）。陰影固定貼地（不隨曇月靈 translateY 上下飄），
+     只用 scale/opacity 動畫模擬「離地面越遠陰影越淡越小」的懸浮感 */
+  #hdh-mascot-shadow{
+    position:absolute;
+    left:50%;
+    bottom:6px;
+    width:72px;
+    height:16px;
+    background:radial-gradient(ellipse at center, rgba(45,45,45,.75) 0%, rgba(45,45,45,0) 72%);
+    border-radius:50%;
+    filter:blur(1.5px);
+    transform:translateX(-50%) scale(1);
+    animation:hdh-mascot-shadow-pulse 3.6s ease-in-out infinite;
+    pointer-events:none;
+    z-index:0; /* 墊在曇月靈本體之下 */
+  }
+
   /* 漂浮效果掛在外層 div，避免與 hover 縮放的 transform 互相覆蓋 */
   #hdh-mascot-float{
+    position:relative; /* P4③：明確蓋過陰影的 z-index，確保曇月靈本體永遠疊在陰影上方 */
+    z-index:1;
     width:100%;
     height:100%;
     animation:hdh-mascot-float 3.6s ease-in-out infinite;
@@ -3987,7 +4127,7 @@
   }
   #hdh-mascot-link:active #hdh-mascot-img{ transform:scale(1.02); }
 
-  /* ---------- 小對話氣泡（常駐、載入後淡入一次，不再自動收起） ----------
+  /* ---------- 小對話氣泡（常駐顯示，載入後淡入一次，P4-r2 取消自動收起） ----------
      v3 重新設計（2026-07-04，依 Chair 意見）：
      1) 文字放大＋加粗（15px / 700），改水平置中
      2) 氣泡放大、加寬、內距加大，與曇月靈拉開間距（不再貼著頭部）
@@ -3995,10 +4135,12 @@
      4) 周圍加品牌紅／金雙層光暈（比照右下角訂閱鈕 box-shadow 手法）
      5) 白底 → Apple 風格液態玻璃：真・backdrop-filter 毛玻璃 + 多層半透明
         漸層 + 頂部 inset 白色高光，做出水晶質感（不支援 backdrop-filter
-        的瀏覽器則退回不透明米白色，見下方 @supports fallback） */
+        的瀏覽器則退回不透明米白色，見下方 @supports fallback）
+     P4② 再放大：字級 15px→20px（+2 級），width 200→236px、
+        padding 16px 20px→18px 24px 同步放大避免擁擠換行。 */
   #hdh-mascot-bubble{
     position:absolute;
-    left:66px;
+    left:48px;
     bottom:138px;
     /* 注意（血淚教訓）：絕對定位元素在 left 已指定、right 未指定時，
        shrink-to-fit 寬度會以「容器寬度 - left」當作可用寬度計算，容易
@@ -4007,9 +4149,10 @@
        內距重新校正 left/bottom，讓氣泡整體上移、右移，與吉祥物頭部
        拉開間距；bottom 138（而非 128）是因為改用獨立尖角三角形
        ::after 後，尖角會再往下凸出約 9px，需相應墊高，避免尖角貼到
-       曇月靈頭頂） */
-    width:200px;
-    max-width:200px;
+       曇月靈頭頂。P4：字級放大後 width 由 200 加寬為 236，left 由 66
+       收窄為 48，讓變寬的氣泡不會右側超出視窗過多） */
+    width:236px;
+    max-width:236px;
     background:linear-gradient(135deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.30) 55%, rgba(255,255,255,.46) 100%);
     backdrop-filter:blur(12px) saturate(1.5);
     -webkit-backdrop-filter:blur(12px) saturate(1.5);
@@ -4017,8 +4160,8 @@
     border-radius:20px; /* v3 改走 iMessage 式：主體統一圓角＋下方獨立
       尖角三角形（見 ::after），比起「捏角落半徑」在氣泡放大變扁後
       更能清楚辨識方向，尖角透過 ::after 指向曇月靈 */
-    padding:16px 20px;
-    font-size:15px;
+    padding:18px 24px; /* P4②：同步放大（原 16px 20px） */
+    font-size:20px; /* P4②：15px→20px，放大兩級更醒目 */
     font-weight:700;
     letter-spacing:.5px;
     line-height:1.4;
@@ -4073,14 +4216,19 @@
   }
 
   @media (max-width:480px){
+    /* P4-r3：手機版同樣改回左下角（bottom:14px，取代 r2 的 top:50%+translateY(-50%)） */
     #hdh-mascot-fab{ left:14px; bottom:14px; width:84px; height:88px; }
-    #hdh-mascot-bubble{ display:none !important; } /* 手機版不顯示氣泡，避免遮擋內容（比照訂閱鈕慣例） */
+    #hdh-mascot-bubble{ display:none !important; } /* 手機版不顯示氣泡，避免遮擋內容（比照訂閱鈕慣例，P4-r3 未變更此項） */
+    #hdh-mascot-shadow{ width:52px; height:12px; bottom:4px; } /* P4-r3：手機版曇月靈本體較小，貼地陰影同比例縮小 */
   }
 </style>
 
 <div id="hdh-mascot-fab">
   <!-- 小氣泡：本身即為連結，無 JS 也能點擊開啟 Messenger -->
   <a id="hdh-mascot-bubble" href="https://m.me/medata12p" target="_blank" rel="noopener" aria-label="私訊匯東華統計顧問 Messenger">私訊我們 💬</a>
+
+  <!-- P4-r3：貼地橢圓陰影，與 #hdh-mascot-float 同層手足元素、不進 float 內部（原因見上方註解） -->
+  <div id="hdh-mascot-shadow" aria-hidden="true"></div>
 
   <!-- 曇月靈客服：整隻可點擊，開新分頁至 Messenger -->
   <a id="hdh-mascot-link" href="https://m.me/medata12p" target="_blank" rel="noopener" aria-label="用 Messenger 聯絡匯東華統計顧問（曇月靈客服）">
@@ -4104,6 +4252,8 @@
   var isMobile = window.matchMedia && window.matchMedia('(max-width:480px)').matches;
   if (isMobile) { return; } // 手機版氣泡本來就 CSS 隱藏，略過淡入排程
 
+  // P4-r2：氣泡淡入後常駐顯示，不自動收起（Chair 指示：曇月靈是客服入口，
+  // 收起後使用者不知道用途；改由「移到左側垂直置中」解決與頁尾的碰撞問題）。
   setTimeout(function(){
     bubble.classList.add('hdh-mascot-bubble-show');
   }, 900); // 頁面載入後 0.9 秒溫和淡入，不與訂閱鈕的 2 秒氣泡搶注意力
