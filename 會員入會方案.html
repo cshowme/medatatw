@@ -3344,6 +3344,39 @@
   - 兩欄由原本各 3 項增為 6 項，桌機/平板/手機版排版邏輯不變（grid
     欄數與 row-gap 沿用 v11），僅欄內容變高，MVP 先在 會員入會方案.html
     單頁部署＋真實線上驗證，Co-Leader 確認後才批次全站（325+ 頁）。
+
+  【v13 更新，2026-07-06，Chair 定案：「產品與服務」拆為「服務」＋「產品」】
+  - 背景：v12 把 6 項塞在同一欄「產品與服務」，語意上其實是兩類：
+    顧問本業服務（統計分析／統計諮詢／教育培訓）vs. 產品/工具/賣場
+    （統計學院／AI 文獻品管師／蝦皮賣場／行事曆）。Chair 定案拆成
+    「服務」「產品」兩個獨立欄，語意更清楚。
+  - **服務**欄（3 項，維持不變）：統計分析／統計諮詢／教育培訓。
+  - **產品**欄（4 項）：匯東華統計學院／AI 文獻品管師／**蝦皮賣場**
+    （原本在「社群與訂閱」欄，本輪移到「產品」欄，因為蝦皮賣場本質是
+    銷售通路而非社群媒體，語意上更貼近「產品」；icon／連結／
+    target="_blank" 皆沿用不變）／**匯東華全年課程行事曆**（連結
+    `href` 不變，僅顯示文字從「匯東華行事曆」改為「匯東華全年課程
+    行事曆」，更精準說明此連結內容是全年度課程時間表，icon 沿用
+    icon_25_calendar.png）。
+  - **社群與訂閱**欄：蝦皮賣場移出後剩 5 項：LINE／Facebook／YouTube
+    頻道／加入會員／訂閱電子報，其餘 4 項內容與 v12 完全相同。
+  - **五欄響應式設計**（原四欄：品牌/產品與服務/快速聯絡/社群與訂閱，
+    現五欄：品牌/服務/產品/快速聯絡/社群與訂閱）：
+    - 桌機（>1300px）：五欄同列，grid-template-columns 改用不等寬
+      `0.85fr 1fr 1fr 0.8fr 1.15fr`（品牌欄內容變短可窄一點；快速聯絡
+      僅 2 項可窄一點；社群與訂閱有「LINE 官方帳號 @medatatw」長文字
+      ＋按鈕，加寬一點），gap 由 32px 收窄為 24px（五欄比四欄更擠，
+      需要多擠出空間給內容，經實測 1440px 寬度下仍不會擠壓或換行）。
+    - 中寬（769px～1300px，新增斷點）：五欄擠不下也不到手機寬度，改
+      3 欄 grid（`repeat(3,1fr)`），5 個欄位自動換行為 3+2 兩列
+      （grid 預設 auto-flow，不需手動指定哪欄在第二列），row-gap 34px
+      沿用 v11 邏輯。取代原本 v11 的「>1000px 四欄一列／≤1000px 兩欄
+      兩列」，因為欄數從 4 變 5，兩欄可能造成單欄過高（如社群與訂閱
+      5 項+按鈕），改 3 欄較均衡。
+    - 手機（≤768px）：單欄堆疊置中，邏輯完全不變（沿用 v10/v11 的
+      118px 下緣 padding、flex→block 版權列修正等，皆不受本次影響）。
+  - MVP 延續在 會員入會方案.html 單頁重新驗證（桌機 1440／手機 390／
+    額外驗證中寬斷點是否會擠壓），確認 OK 後才批次全站。
 ============================================================ -->
 <div id="hdh-footer-root">
 <style>
@@ -3389,8 +3422,11 @@
     max-width:1150px;
     margin:0 auto;
     display:grid;
-    grid-template-columns:1.15fr 1fr 1fr 1fr; /* v2：四欄（品牌/產品與服務/快速聯絡/社群與訂閱） */
-    gap:32px;
+    /* v13：五欄（品牌/服務/產品/快速聯絡/社群與訂閱），不等寬——品牌欄
+       內容變短、快速聯絡僅2項可窄一點；社群與訂閱有長文字+按鈕需加寬。
+       gap 由 v2 的 32px 收窄為 24px，五欄比四欄更擠，需要多擠出空間。 */
+    grid-template-columns:0.85fr 1fr 1fr 0.8fr 1.15fr;
+    gap:24px;
   }
 
   .hdh-footer-col-title{
@@ -3515,10 +3551,13 @@
   }
   .hdh-footer-bottom-link:hover{ color:var(--hdh-footer-red); } /* v4：淺底改紅 */
 
-  /* ---------- 平板：四欄擠不下，改 2x2 兩欄兩列 ---------- */
-  @media (max-width:1000px){
+  /* ---------- 中寬：五欄擠不下，改 3 欄（5 項自動換行為 3+2 兩列） ----------
+     v13：取代 v11 的「>1000px 四欄一列／≤1000px 兩欄兩列」。欄數從 4 變 5
+     後，兩欄會讓單欄過高（如社群與訂閱 5 項+按鈕堆在一欄），改 3 欄較均衡；
+     斷點也從 1000px 放寬到 1300px，因為五欄比四欄需要更多寬度才不擠。 */
+  @media (max-width:1300px){
     #hdh-footer-inner{
-      grid-template-columns:1fr 1fr;
+      grid-template-columns:repeat(3,1fr);
       row-gap:34px;
     }
   }
@@ -3592,21 +3631,29 @@
       </div>
     </div>
 
-    <!-- 第二欄：產品與服務（v2 新增；v12：補上核心本業 3 項，統計學院／AI
-         文獻品管師／行事曆改排後 3 項） -->
+    <!-- 第二欄：服務（v13 新增，從 v12「產品與服務」拆出顧問本業 3 項） -->
     <div class="hdh-footer-col">
-      <h3 class="hdh-footer-col-title">產品與服務</h3>
+      <h3 class="hdh-footer-col-title">服務</h3>
       <div class="hdh-footer-linklist">
         <a class="hdh-footer-link" href="統計分析.html"><img class="hdh-footer-icon" src="/assets/icons/icon_01_statistics.png" alt=""> 統計分析</a>
         <a class="hdh-footer-link" href="統計諮詢.html"><img class="hdh-footer-icon" src="/assets/icons/icon_23_consulting.png" alt=""> 統計諮詢</a>
         <a class="hdh-footer-link" href="教育培訓.html"><img class="hdh-footer-icon" src="/assets/icons/icon_17_hands_on.png" alt=""> 教育培訓</a>
-        <a class="hdh-footer-link" href="https://medata.teaches.cc/" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_16_online_course.png" alt=""> 匯東華統計學院</a>
-        <a class="hdh-footer-link" href="https://doi-verifier-pro.vercel.app/login.html" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_51_ai.png" alt=""> AI 文獻品管師</a>
-        <a class="hdh-footer-link" href="https://www.medatatw.com/%E8%A1%8C%E4%BA%8B%E6%9B%86.html"><img class="hdh-footer-icon" src="/assets/icons/icon_25_calendar.png" alt=""> 匯東華行事曆</a>
       </div>
     </div>
 
-    <!-- 第三欄：快速聯絡 -->
+    <!-- 第三欄：產品（v13 新增，從 v12「產品與服務」拆出＋蝦皮賣場從社群欄
+         移入＋行事曆文字改為「匯東華全年課程行事曆」） -->
+    <div class="hdh-footer-col">
+      <h3 class="hdh-footer-col-title">產品</h3>
+      <div class="hdh-footer-linklist">
+        <a class="hdh-footer-link" href="https://medata.teaches.cc/" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_16_online_course.png" alt=""> 匯東華統計學院</a>
+        <a class="hdh-footer-link" href="https://doi-verifier-pro.vercel.app/login.html" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_51_ai.png" alt=""> AI 文獻品管師</a>
+        <a class="hdh-footer-link" href="https://shopee.tw/shop/129421165" target="_blank" rel="noopener"><svg class="hdh-footer-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5.5 10h13l1 9.6a1.4 1.4 0 0 1-1.4 1.5H5.9a1.4 1.4 0 0 1-1.4-1.5l1-9.6z" fill="#EE4D2D"/><circle cx="9" cy="9.5" r="1.6" stroke="#EE4D2D" stroke-width="1.4" fill="none"/><circle cx="15" cy="9.5" r="1.6" stroke="#EE4D2D" stroke-width="1.4" fill="none"/></svg> 蝦皮賣場</a>
+        <a class="hdh-footer-link" href="https://www.medatatw.com/%E8%A1%8C%E4%BA%8B%E6%9B%86.html"><img class="hdh-footer-icon" src="/assets/icons/icon_25_calendar.png" alt=""> 匯東華全年課程行事曆</a>
+      </div>
+    </div>
+
+    <!-- 第四欄：快速聯絡 -->
     <div class="hdh-footer-col">
       <h3 class="hdh-footer-col-title">快速聯絡</h3>
       <div class="hdh-footer-linklist">
@@ -3615,7 +3662,7 @@
       </div>
     </div>
 
-    <!-- 第四欄：社群與訂閱（v12：新增 YouTube／加入會員／蝦皮賣場 3 項） -->
+    <!-- 第五欄：社群與訂閱（v13：蝦皮賣場移到「產品」欄，此欄剩 5 項） -->
     <div class="hdh-footer-col">
       <h3 class="hdh-footer-col-title">社群與訂閱</h3>
       <div class="hdh-footer-linklist">
@@ -3623,7 +3670,6 @@
         <a class="hdh-footer-link" href="https://www.facebook.com/medata12p" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_30_facebook.png" alt=""> Facebook 粉絲專頁</a>
         <a class="hdh-footer-link" href="https://www.youtube.com/channel/UCbLKj63qrGU5-kCoootYqIg?sub_confirmation=1" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_33_youtube.png" alt=""> YouTube 頻道</a>
         <a class="hdh-footer-link" href="會員入會方案.html"><svg class="hdh-footer-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5" fill="#B82226"/><path d="M4.5 20c0-4.1 3.4-6.8 7.5-6.8s7.5 2.7 7.5 6.8" fill="#B82226"/></svg> 加入會員</a>
-        <a class="hdh-footer-link" href="https://shopee.tw/shop/129421165" target="_blank" rel="noopener"><svg class="hdh-footer-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5.5 10h13l1 9.6a1.4 1.4 0 0 1-1.4 1.5H5.9a1.4 1.4 0 0 1-1.4-1.5l1-9.6z" fill="#EE4D2D"/><circle cx="9" cy="9.5" r="1.6" stroke="#EE4D2D" stroke-width="1.4" fill="none"/><circle cx="15" cy="9.5" r="1.6" stroke="#EE4D2D" stroke-width="1.4" fill="none"/></svg> 蝦皮賣場</a>
         <a class="hdh-footer-subscribe-btn" href="https://medatatw.com/subscribe"><img class="hdh-footer-icon" src="/assets/icons/icon_08_email.png" alt=""> 訂閱電子報</a>
       </div>
     </div>
