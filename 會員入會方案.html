@@ -3395,6 +3395,31 @@
     斷行問題（max-content 定義就是「不換行所需寬度」）。中寬 3 欄斷點
     （≤1300px）維持原本 1fr 撐滿邏輯不受影響（justify-content 還原、
     gap 還原 24px）。
+  - 【v13 四修，2026-07-06，Chair 定案：改變方向為等寬五欄】Chair 用真實
+    瀏覽器複驗 max-content 版後，決定不要「貼合內容」的鬆緊感，改要
+    「等寬、左緣規律對齊」的網格感——短欄右側留白視為預期正常。改
+    grid-template-columns 為 `repeat(5, 1fr)`（五欄完全等寬），移除
+    justify-content:center（等寬撐滿本身已均勻，不需要置中技巧），
+    #hdh-footer-inner max-width 由 1150px 加寬到 1260px（每欄可分到
+    232.8px，高於品牌欄公司全名單行所需的約 230px，留 2.8px 緩衝），
+    gap 維持 24px。此法同樣副作用解決品牌欄斷行（實測 1366/1440/1920px
+    三個寬度品牌名皆單行、五欄寬度精確相等 232.8px、間距精確相等
+    24.0px）。中寬 3 欄斷點不受影響，並移除該斷點內已不需要的
+    justify-content/gap override（等寬版 base 已是 24px，不必重複設定）。
+  - 【v14 更新，2026-07-06，Team Lead 指示：地址加 Google Maps 連結】
+    版權區地址「📍 (806) 高雄市前鎮區中山二路 91 號 11 樓之1」的地址
+    文字部分（不含 📍 圖示）包成連結，href 為
+    `https://www.google.com/maps/search/?api=1&query=<公司名URL編碼>
+    &query_place_id=ChIJ99f619wDbjQRndlWRdw0jXk`（target="_blank"
+    rel="noopener"）。place_id 已驗證：用 Chrome CDP 實際載入
+    `maps/place/?q=place_id:...` 並等待 JS 完成解析，
+    `document.title` 回傳「匯東華統計顧問有限公司 - Google 地圖」，
+    頁面可見文字含完整地址「806高雄市前鎮區振興里中山二路91號11樓之1」、
+    電話「07 972 1586」、官網「medatatw.com」，皆與官網現有資訊一致，
+    非僅格式檢查（見交付訊息 place_id_verify_screenshot.png）。
+    新增 `.hdh-footer-addr-link` class，樣式刻意低調：color:inherit
+    （維持地址原本顏色，不變藍色連結）、text-decoration:none、
+    cursor:pointer，hover 才顯示底線。
 ============================================================ -->
 <div id="hdh-footer-root">
 <style>
@@ -3570,6 +3595,18 @@
     line-height:1.8;
     color:var(--hdh-footer-text);
   }
+  /* v14：地址加 Google Maps 連結，樣式刻意低調——維持與地址原本相同的顏色
+     （color:inherit，不要變成搶眼的藍色連結），僅 hover 時淡淡底線提示
+     可點擊，符合頁尾整體剋制的視覺語彙（比照 .hdh-footer-link 的處理
+     邏輯，但更低調，因為這裡是純資訊性文字非導覽連結）。 */
+  .hdh-footer-addr-link{
+    color:inherit;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .hdh-footer-addr-link:hover{
+    text-decoration:underline;
+  }
   .hdh-footer-bottom-copyrow{
     display:flex;
     align-items:center;
@@ -3713,7 +3750,7 @@
   </div>
 
   <div id="hdh-footer-bottom">
-    <p class="hdh-footer-bottom-addr">📍 (806) 高雄市前鎮區中山二路 91 號 11 樓之1</p>
+    <p class="hdh-footer-bottom-addr">📍 <a class="hdh-footer-addr-link" href="https://www.google.com/maps/search/?api=1&amp;query=%E5%8C%AF%E6%9D%B1%E8%8F%AF%E7%B5%B1%E8%A8%88%E9%A1%A7%E5%95%8F%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&amp;query_place_id=ChIJ99f619wDbjQRndlWRdw0jXk" target="_blank" rel="noopener">(806) 高雄市前鎮區中山二路 91 號 11 樓之1</a></p>
     <div class="hdh-footer-bottom-copyrow">
       <span class="hdh-footer-copyright">&copy; <span id="hdh-footer-year">2026</span> 匯東華統計顧問有限公司　版權所有 All Rights Reserved.</span>
       <a class="hdh-footer-bottom-link" href="/privacy" target="_blank" rel="noopener">隱私權政策</a>
