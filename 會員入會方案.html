@@ -3385,6 +3385,16 @@
     `1.3fr 1fr 1.05fr 0.75fr 1.25fr`（品牌欄加寬、快速聯絡再窄一點、
     社群與訂閱微調），並在 .hdh-footer-brand-name 加 white-space:nowrap
     保險。實測（CDP 1440px + overflow-check）確認單行顯示且其餘欄無溢出。
+  - 【v13 三修，2026-07-06，Chair 真實瀏覽器抓到欄間距不均】fr 比例無論
+    怎麼調都是「先分配固定欄寬、內容貼左」，短內容欄（服務/產品/快速
+    聯絡）文字後面拖出一片空白看起來鬆，長內容欄（社群與訂閱）幾乎填滿
+    看起來擠。根本解法：grid-template-columns 改
+    `repeat(5, max-content)`（每欄寬度貼合自己最寬子項的實際寬度，不再
+    有「先給固定寬度」），配合 `justify-content:center` 讓五欄整組置中、
+    gap 加大到 48px 讓貼合內容後的欄距視覺均勻。此法副作用一併解決品牌欄
+    斷行問題（max-content 定義就是「不換行所需寬度」）。中寬 3 欄斷點
+    （≤1300px）維持原本 1fr 撐滿邏輯不受影響（justify-content 還原、
+    gap 還原 24px）。
 ============================================================ -->
 <div id="hdh-footer-root">
 <style>
@@ -3430,20 +3440,24 @@
     max-width:1150px;
     margin:0 auto;
     display:grid;
-    /* v13：五欄（品牌/服務/產品/快速聯絡/社群與訂閱），不等寬——品牌欄
-       內容變短、快速聯絡僅2項可窄一點；社群與訂閱有長文字+按鈕需加寬。
-       gap 由 v2 的 32px 收窄為 24px，五欄比四欄更擠，需要多擠出空間。
-       【v13 修正，2026-07-06】品牌欄原 0.85fr 在 1440px 實測會讓公司全名
-       「匯東華統計顧問有限公司」（logo+文字約需 230px）擠成 2 行，改
-       1.3fr（估算 logo44px+gap10px+11字@16px≈230px 所需寬度反推），
-       其餘四欄依實測內容寬度微調比例（服務/產品維持約 1fr 已驗證足夠；
-       快速聯絡 0.8→0.75，僅 2 項可再窄一點；社群與訂閱 1.15→1.25，因
-       仍是最長文字「LINE 官方帳號 @medatatw」+按鈕所在欄，但其餘欄
-       讓出的空間不多，維持原本已驗證 NO_OVERFLOW 的寬鬆度）。
-       實測（Chrome CDP 1440px + overflow-check）確認調整後品牌欄可
-       單行顯示，且其餘欄 scrollWidth/clientWidth 皆無溢出。 */
-    grid-template-columns:1.3fr 1fr 1.05fr 0.75fr 1.25fr;
-    gap:24px;
+    /* 【v13 三修，2026-07-06，Chair 真實瀏覽器抓到欄間距不均】
+       根因：fr 比例（無論 v13 初版或上一輪的 1.3/1/1.05/0.75/1.25）都是
+       「先分配欄寬、內容再貼左對齊」——服務/產品/快速聯絡內容短，分到的
+       欄寬卻是依比例計算出來的固定值，於是文字後面拖出一大片空白，看起來
+       鬆；社群與訂閱內容長，幾乎填滿分到的欄寬，看起來擠。五欄鬆緊不一，
+       間距自然不均。
+       解法：欄寬改用 `max-content`（貼合各欄最寬子項的實際寬度，短欄就是
+       窄欄、長欄就是寬欄，不再有「先給固定寬度」這件事），gap 固定為較
+       寬鬆的 48px（原 24px 是配合 fr 撐滿欄位设计，換成貼合內容後 24px
+       會顯得欄與欄太靠近，48px 實測後間距均勻自然），並用
+       justify-content:center 讓五欄這組整體置中——多出的容器寬度（container
+       max-width 與五欄實際寬度總和的差）平均分散到最左/最右的外側留白，
+       不會讓任何一欄被拉寬。此法同時副作用解決品牌欄斷行問題（max-content
+       定義本身就是「不換行情況下內容所需的寬度」，公司全名自然單行，
+       不需要再手動估算 fr 比例或加 white-space:nowrap 保險，但保險仍保留）。 */
+    grid-template-columns:repeat(5, max-content);
+    justify-content:center;
+    gap:48px;
   }
 
   .hdh-footer-col-title{
@@ -3577,6 +3591,10 @@
   @media (max-width:1300px){
     #hdh-footer-inner{
       grid-template-columns:repeat(3,1fr);
+      justify-content:normal; /* v13三修：桌機專用的 center+max-content 只在寬螢幕單列生效，
+        中寬 3 欄改回 1fr 撐滿邏輯，不需要置中（撐滿本身就是均勻分佈） */
+      gap:24px; /* 還原成撐滿版型原本的 24px，48px 是配合寬螢幕 max-content 貼合內容的間距，
+        3 欄 1fr 撐滿版型不需要這麼大的 gap */
       row-gap:34px;
     }
   }
