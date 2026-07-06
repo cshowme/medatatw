@@ -3378,6 +3378,13 @@
       118px 下緣 padding、flex→block 版權列修正等，皆不受本次影響）。
   - MVP 延續在 會員入會方案.html 單頁重新驗證（桌機 1440／手機 390／
     額外驗證中寬斷點是否會擠壓），確認 OK 後才批次全站。
+  - 【v13 二次修正，2026-07-06，Team Lead 真實線上 1440 抓到】① 產品欄
+    行事曆項最終文字定案為「年度課程行事曆」（去掉「匯東華」前綴，見
+    上方第 314-318 行【修正】說明）。② 品牌欄公司全名在 1440px 因欄寬
+    不足斷成 2 行，改 grid-template-columns 為
+    `1.3fr 1fr 1.05fr 0.75fr 1.25fr`（品牌欄加寬、快速聯絡再窄一點、
+    社群與訂閱微調），並在 .hdh-footer-brand-name 加 white-space:nowrap
+    保險。實測（CDP 1440px + overflow-check）確認單行顯示且其餘欄無溢出。
 ============================================================ -->
 <div id="hdh-footer-root">
 <style>
@@ -3425,8 +3432,17 @@
     display:grid;
     /* v13：五欄（品牌/服務/產品/快速聯絡/社群與訂閱），不等寬——品牌欄
        內容變短、快速聯絡僅2項可窄一點；社群與訂閱有長文字+按鈕需加寬。
-       gap 由 v2 的 32px 收窄為 24px，五欄比四欄更擠，需要多擠出空間。 */
-    grid-template-columns:0.85fr 1fr 1fr 0.8fr 1.15fr;
+       gap 由 v2 的 32px 收窄為 24px，五欄比四欄更擠，需要多擠出空間。
+       【v13 修正，2026-07-06】品牌欄原 0.85fr 在 1440px 實測會讓公司全名
+       「匯東華統計顧問有限公司」（logo+文字約需 230px）擠成 2 行，改
+       1.3fr（估算 logo44px+gap10px+11字@16px≈230px 所需寬度反推），
+       其餘四欄依實測內容寬度微調比例（服務/產品維持約 1fr 已驗證足夠；
+       快速聯絡 0.8→0.75，僅 2 項可再窄一點；社群與訂閱 1.15→1.25，因
+       仍是最長文字「LINE 官方帳號 @medatatw」+按鈕所在欄，但其餘欄
+       讓出的空間不多，維持原本已驗證 NO_OVERFLOW 的寬鬆度）。
+       實測（Chrome CDP 1440px + overflow-check）確認調整後品牌欄可
+       單行顯示，且其餘欄 scrollWidth/clientWidth 皆無溢出。 */
+    grid-template-columns:1.3fr 1fr 1.05fr 0.75fr 1.25fr;
     gap:24px;
   }
 
@@ -3456,6 +3472,8 @@
     font-size:16px;
     font-weight:700;
     line-height:1.4;
+    white-space:nowrap; /* v13 修正：品牌欄加寬後應已單行，此為保險——若仍不足寧可
+      視覺溢出到欄外空白處被看見（進而回頭再調寬度），也不要無聲換行變醜 */
   }
   /* v11：.hdh-footer-addr（品牌欄內地址樣式）已隨地址搬到 #hdh-footer-bottom-addr
      移除，原本的樣式定義併入新的 .hdh-footer-bottom-addr（見版權區 CSS）。 */
