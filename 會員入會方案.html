@@ -3437,7 +3437,6 @@
   }
 
   #hdh-footer-inner{
-    max-width:1150px;
     margin:0 auto;
     display:grid;
     /* 【v13 三修，2026-07-06，Chair 真實瀏覽器抓到欄間距不均】
@@ -3445,19 +3444,23 @@
        「先分配欄寬、內容再貼左對齊」——服務/產品/快速聯絡內容短，分到的
        欄寬卻是依比例計算出來的固定值，於是文字後面拖出一大片空白，看起來
        鬆；社群與訂閱內容長，幾乎填滿分到的欄寬，看起來擠。五欄鬆緊不一，
-       間距自然不均。
-       解法：欄寬改用 `max-content`（貼合各欄最寬子項的實際寬度，短欄就是
-       窄欄、長欄就是寬欄，不再有「先給固定寬度」這件事），gap 固定為較
-       寬鬆的 48px（原 24px 是配合 fr 撐滿欄位设计，換成貼合內容後 24px
-       會顯得欄與欄太靠近，48px 實測後間距均勻自然），並用
-       justify-content:center 讓五欄這組整體置中——多出的容器寬度（container
-       max-width 與五欄實際寬度總和的差）平均分散到最左/最右的外側留白，
-       不會讓任何一欄被拉寬。此法同時副作用解決品牌欄斷行問題（max-content
-       定義本身就是「不換行情況下內容所需的寬度」，公司全名自然單行，
-       不需要再手動估算 fr 比例或加 white-space:nowrap 保險，但保險仍保留）。 */
-    grid-template-columns:repeat(5, max-content);
-    justify-content:center;
-    gap:48px;
+       間距自然不均。曾改用 max-content（貼合各欄內容寬度）+
+       justify-content:center，經 Chair 用真實瀏覽器複驗後決定**改變方向**：
+       要的不是「貼合內容」，而是「等寬、左緣規律對齊」的網格感——短欄
+       右側留白是預期且正常的（這正是「每欄一致」的視覺規律）。
+       【v13 四修，2026-07-06，Chair 定案：改等寬五欄】grid-template-columns
+       改回 `repeat(5, 1fr)`（五欄完全等寬，左緣間距天生規律，不需要
+       justify-content 或置中技巧）。唯一風險：等寬會讓每欄寬度=
+       (容器寬度-4個gap)/5，若容器不夠寬，品牌欄可能分不到公司全名
+       「匯東華統計顧問有限公司」所需的約 230px（logo44px+gap10px+
+       11字@16px）而斷行。故將 max-width 從 1150px 加寬到 1260px（與
+       gap 24px 搭配時，每欄= (1260-4*24)/5 = 232.8px，略高於 230px
+       需求，留一點緩衝），並保留 white-space:nowrap 作最後防線。
+       實測（Chrome CDP 1366/1440/1920px）確認品牌欄單行、五欄左緣
+       間距規律一致（詳見交付訊息的逐欄 x 座標量測）。 */
+    max-width:1260px;
+    grid-template-columns:repeat(5, 1fr);
+    gap:24px;
   }
 
   .hdh-footer-col-title{
@@ -3590,11 +3593,7 @@
      斷點也從 1000px 放寬到 1300px，因為五欄比四欄需要更多寬度才不擠。 */
   @media (max-width:1300px){
     #hdh-footer-inner{
-      grid-template-columns:repeat(3,1fr);
-      justify-content:normal; /* v13三修：桌機專用的 center+max-content 只在寬螢幕單列生效，
-        中寬 3 欄改回 1fr 撐滿邏輯，不需要置中（撐滿本身就是均勻分佈） */
-      gap:24px; /* 還原成撐滿版型原本的 24px，48px 是配合寬螢幕 max-content 貼合內容的間距，
-        3 欄 1fr 撐滿版型不需要這麼大的 gap */
+      grid-template-columns:repeat(3,1fr); /* 中寬維持 3 欄撐滿邏輯，gap 沿用base 24px不變 */
       row-gap:34px;
     }
   }
