@@ -3112,6 +3112,7 @@
   版本：v1.0 原型（2026-07-03）
 ============================================================ -->
 <!-- @hdh-expire date=2026-07-09 type=直播 item=live-km0710 onexpire=移除公告片段 -->
+<!-- @hdh-expire date=2026-07-09 type=直播 item=live-km0710 onexpire=移除公告片段 -->
 <!-- ============================================================
   匯東華統計顧問｜全站自動公告彈窗（Live26-07 存活曲線閱讀術）
   ------------------------------------------------------------
@@ -3126,6 +3127,19 @@
        止卻仍跳出公告。
   課程資訊來源：https://www.medatatw.com/最新消息.html（2026-07-04 查證）
   版本：v1.1 原型（2026-07-04，Chair 定案：下架時機改為報名截止 7/9 17:00）
+
+  【v1.2 更新，2026-07-06，Chair 指示優化：自足化＋減少報名步驟】
+  - 新增「課程單元」精簡清單（Part I~IV，Chair 提供原文逐字放入），
+    讓公告本身就能說明課程內容，不需再跳轉頁面才能了解大綱。
+  - CTA 從連到「最新消息頁」改為**直連 Google 報名表單**（減少一次
+    跳轉），連結經 WebFetch 查證 https://www.medatatw.com/最新消息.html
+    確認 Live26-07 對應之報名表單為
+    https://docs.google.com/forms/d/e/1FAIpQLSdFd8lzInkZbCTJTc0Jtb0VvrQIrGkFN0hMcBpjsx3aRHkA7A/viewform
+    （非憑記憶，查證後採用），target="_blank" rel="noopener" 開新分頁
+    （表單填寫不打斷公告所在頁面）。CTA 文字改為「立即報名」。
+  - 手機高度：內容變高後，modal 既有 `max-height:90vh;overflow-y:auto`
+    設計本就可涵蓋（非本輪新增），確保加了課程單元後手機仍可完整看到
+    ✕ 關閉鈕與捲動閱讀全部內容，不會被裁切在視窗外。
 ============================================================ -->
 <div id="hdh-annc-root">
 <style>
@@ -3269,6 +3283,31 @@
   }
   .hdh-annc-fee strong{ color:var(--hdh-annc-dark); }
 
+  /* ---------- 課程單元（v1.2 新增，精簡列表，避免彈窗過度臃腫） ---------- */
+  .hdh-annc-units{
+    text-align:left;
+    margin:0 0 16px;
+    padding:12px 14px;
+    background:var(--hdh-annc-light);
+    border-radius:8px;
+    border:1px solid #eee0c8;
+  }
+  .hdh-annc-units-title{
+    margin:0 0 7px;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    color:var(--hdh-annc-red-dark);
+  }
+  .hdh-annc-units-list{
+    margin:0;
+    padding-left:18px;
+    font-size:12.5px;
+    line-height:1.65;
+    color:var(--hdh-annc-dark);
+  }
+  .hdh-annc-units-list li{ margin:3px 0; }
+
   .hdh-annc-cta{
     display:block;
     width:100%;
@@ -3314,7 +3353,16 @@
     <div id="hdh-annc-body">
       <p class="hdh-annc-copy">50% 的臨床醫師曾誤讀存活曲線！不談生硬數學公式，只談臨床人員與審稿人最在乎的實務預後。</p>
       <span class="hdh-annc-fee">課程費用：<strong>NT$ 2,500</strong></span>
-      <a class="hdh-annc-cta" href="https://www.medatatw.com/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF.html" target="_self">立即了解 / 報名</a>
+      <div class="hdh-annc-units">
+        <h3 class="hdh-annc-units-title">課程單元</h3>
+        <ul class="hdh-annc-units-list">
+          <li>Part I、何謂存活分析？為何臨床上需要存活分析？</li>
+          <li>Part II、三大核心概念：時間（time）、事件（event）、設限（censoring）如何理解。</li>
+          <li>Part III、Kaplan–Meier 圖怎麼看？到底在說什麼？</li>
+          <li>Part IV、少走彎路，不要為難審稿人：案例剖析＋避坑指引與品質查檢清單。</li>
+        </ul>
+      </div>
+      <a class="hdh-annc-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSdFd8lzInkZbCTJTc0Jtb0VvrQIrGkFN0hMcBpjsx3aRHkA7A/viewform" target="_blank" rel="noopener">立即報名</a>
       <p class="hdh-annc-deadline">報名截止 7/9（四）17:00，額滿為止。</p>
     </div>
   </div>
