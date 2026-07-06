@@ -3615,6 +3615,121 @@
     單欄置中版面（本來就跟桌機的「品牌欄在左側」問題無關），版權區文字
     在窄螢幕換行時第一行仍可能貼近左緣、貼近曇月靈，故 v10 的 118px
     手機下緣加大予以保留，本輪重新測試確認仍需要（見交付截圖）。
+
+  【v12 更新，2026-07-06，Chair 抓到「產品與服務」漏列公司本業服務】
+  - 背景：頁尾「產品與服務」欄原本只有三個連結（統計學院／AI 文獻
+    品管師／行事曆），漏掉公司真正的核心本業：統計分析、統計諮詢、
+    教育培訓（皆為官網已存在的獨立頁面，本次僅新增連結，非新建頁面）。
+  - 「產品與服務」欄改為 6 項（核心本業在前）：統計分析／統計諮詢／
+    教育培訓／匯東華統計學院／AI 文獻品管師／匯東華行事曆。前 3 項
+    為站內既有頁面，沿用全站頂部導覽選單既有寫法──純中文檔名相對
+    路徑（統計分析.html／統計諮詢.html／教育培訓.html），非 URL
+    encode，與全站其他頁面內部連結一致（已用 Grep 比對站內既有連結
+    寫法確認）。
+  - icon 選用（皆取自既有品牌 icon 庫 01_共用資源/icons/01_website_icons/，
+    與其餘 icon 同一視覺家族，無需另外設計）：統計分析=
+    icon_01_statistics.png、統計諮詢=icon_23_consulting.png、
+    教育培訓=icon_17_hands_on.png。
+  - 「社群與訂閱」欄新增 3 項：YouTube 頻道／加入會員／蝦皮賣場，連同
+    既有 LINE／Facebook／訂閱電子報，欄位由 3 項增為 6 項。
+  - YouTube 頻道：品牌 icon 庫其實已有現成 icon_33_youtube.png
+    （01_共用資源/icons/02_social_course_software_icons/），紅底白
+    播放三角形、與官方識別一致，直接沿用（優於另建 SVG，維持圖示
+    家族統一），複製進 repo 的 assets/icons/。
+  - 加入會員／蝦皮賣場：品牌 icon 庫查無對應圖示（會員/人形、購物袋/
+    蝦皮皆無），改用 inline SVG（viewBox 0 0 24 24，顯示 20x20，比照
+    .hdh-footer-icon 尺寸）：
+    - 加入會員：紅色（#B82226）人形剪影（頭部圓形＋肩膀弧線）。
+    - 蝦皮賣場：蝦皮橘（#EE4D2D）購物袋圖示。**經 3 版迭代**：第一版
+      單一弧形提把在 20px 實際尺寸下測試容易被誤讀為「鎖頭」（已用
+      Chrome headless 20px 實測截圖確認，非肉眼猜測）；改良版將提把
+      畫成「兩個獨立圓形提把孔＋梯形袋身」，20px 實測清楚辨識為購物袋，
+      且不依賴背景色配合（無論頁尾背景色為何都不會跑版），故採用此版。
+  - 新增 `.hdh-footer-icon-svg` CSS class（width/height:20px＋
+    flex-shrink:0＋display:block），供 inline `<svg>` icon 使用，
+    對齊邏輯與既有 `.hdh-footer-icon`（img 版）一致。
+  - 連結目的地：YouTube 頻道／蝦皮賣場為外部連結（target="_blank"
+    rel="noopener"）；加入會員連到站內既有頁面 會員入會方案.html
+    （同分頁，站內導覽慣例）。
+  - 兩欄由原本各 3 項增為 6 項，桌機/平板/手機版排版邏輯不變（grid
+    欄數與 row-gap 沿用 v11），僅欄內容變高，MVP 先在 會員入會方案.html
+    單頁部署＋真實線上驗證，Co-Leader 確認後才批次全站（325+ 頁）。
+
+  【v13 更新，2026-07-06，Chair 定案：「產品與服務」拆為「服務」＋「產品」】
+  - 背景：v12 把 6 項塞在同一欄「產品與服務」，語意上其實是兩類：
+    顧問本業服務（統計分析／統計諮詢／教育培訓）vs. 產品/工具/賣場
+    （統計學院／AI 文獻品管師／蝦皮賣場／行事曆）。Chair 定案拆成
+    「服務」「產品」兩個獨立欄，語意更清楚。
+  - **服務**欄（3 項，維持不變）：統計分析／統計諮詢／教育培訓。
+  - **產品**欄（4 項）：匯東華統計學院／AI 文獻品管師／**蝦皮賣場**
+    （原本在「社群與訂閱」欄，本輪移到「產品」欄，因為蝦皮賣場本質是
+    銷售通路而非社群媒體，語意上更貼近「產品」；icon／連結／
+    target="_blank" 皆沿用不變）／**年度課程行事曆**（連結 `href` 不變，
+    僅顯示文字從「匯東華行事曆」改為「年度課程行事曆」，更精準說明此
+    連結內容是全年度課程時間表，icon 沿用 icon_25_calendar.png）。
+    【修正】Chair 定案文字改為精簡版「年度課程行事曆」（去掉「匯東華」
+    前綴），非本欄位最初標註的「匯東華全年課程行事曆」，其餘不變。
+  - **社群與訂閱**欄：蝦皮賣場移出後剩 5 項：LINE／Facebook／YouTube
+    頻道／加入會員／訂閱電子報，其餘 4 項內容與 v12 完全相同。
+  - **五欄響應式設計**（原四欄：品牌/產品與服務/快速聯絡/社群與訂閱，
+    現五欄：品牌/服務/產品/快速聯絡/社群與訂閱）：
+    - 桌機（>1300px）：五欄同列，grid-template-columns 改用不等寬
+      `0.85fr 1fr 1fr 0.8fr 1.15fr`（品牌欄內容變短可窄一點；快速聯絡
+      僅 2 項可窄一點；社群與訂閱有「LINE 官方帳號 @medatatw」長文字
+      ＋按鈕，加寬一點），gap 由 32px 收窄為 24px（五欄比四欄更擠，
+      需要多擠出空間給內容，經實測 1440px 寬度下仍不會擠壓或換行）。
+    - 中寬（769px～1300px，新增斷點）：五欄擠不下也不到手機寬度，改
+      3 欄 grid（`repeat(3,1fr)`），5 個欄位自動換行為 3+2 兩列
+      （grid 預設 auto-flow，不需手動指定哪欄在第二列），row-gap 34px
+      沿用 v11 邏輯。取代原本 v11 的「>1000px 四欄一列／≤1000px 兩欄
+      兩列」，因為欄數從 4 變 5，兩欄可能造成單欄過高（如社群與訂閱
+      5 項+按鈕），改 3 欄較均衡。
+    - 手機（≤768px）：單欄堆疊置中，邏輯完全不變（沿用 v10/v11 的
+      118px 下緣 padding、flex→block 版權列修正等，皆不受本次影響）。
+  - MVP 延續在 會員入會方案.html 單頁重新驗證（桌機 1440／手機 390／
+    額外驗證中寬斷點是否會擠壓），確認 OK 後才批次全站。
+  - 【v13 二次修正，2026-07-06，Team Lead 真實線上 1440 抓到】① 產品欄
+    行事曆項最終文字定案為「年度課程行事曆」（去掉「匯東華」前綴，見
+    上方第 314-318 行【修正】說明）。② 品牌欄公司全名在 1440px 因欄寬
+    不足斷成 2 行，改 grid-template-columns 為
+    `1.3fr 1fr 1.05fr 0.75fr 1.25fr`（品牌欄加寬、快速聯絡再窄一點、
+    社群與訂閱微調），並在 .hdh-footer-brand-name 加 white-space:nowrap
+    保險。實測（CDP 1440px + overflow-check）確認單行顯示且其餘欄無溢出。
+  - 【v13 三修，2026-07-06，Chair 真實瀏覽器抓到欄間距不均】fr 比例無論
+    怎麼調都是「先分配固定欄寬、內容貼左」，短內容欄（服務/產品/快速
+    聯絡）文字後面拖出一片空白看起來鬆，長內容欄（社群與訂閱）幾乎填滿
+    看起來擠。根本解法：grid-template-columns 改
+    `repeat(5, max-content)`（每欄寬度貼合自己最寬子項的實際寬度，不再
+    有「先給固定寬度」），配合 `justify-content:center` 讓五欄整組置中、
+    gap 加大到 48px 讓貼合內容後的欄距視覺均勻。此法副作用一併解決品牌欄
+    斷行問題（max-content 定義就是「不換行所需寬度」）。中寬 3 欄斷點
+    （≤1300px）維持原本 1fr 撐滿邏輯不受影響（justify-content 還原、
+    gap 還原 24px）。
+  - 【v13 四修，2026-07-06，Chair 定案：改變方向為等寬五欄】Chair 用真實
+    瀏覽器複驗 max-content 版後，決定不要「貼合內容」的鬆緊感，改要
+    「等寬、左緣規律對齊」的網格感——短欄右側留白視為預期正常。改
+    grid-template-columns 為 `repeat(5, 1fr)`（五欄完全等寬），移除
+    justify-content:center（等寬撐滿本身已均勻，不需要置中技巧），
+    #hdh-footer-inner max-width 由 1150px 加寬到 1260px（每欄可分到
+    232.8px，高於品牌欄公司全名單行所需的約 230px，留 2.8px 緩衝），
+    gap 維持 24px。此法同樣副作用解決品牌欄斷行（實測 1366/1440/1920px
+    三個寬度品牌名皆單行、五欄寬度精確相等 232.8px、間距精確相等
+    24.0px）。中寬 3 欄斷點不受影響，並移除該斷點內已不需要的
+    justify-content/gap override（等寬版 base 已是 24px，不必重複設定）。
+  - 【v14 更新，2026-07-06，Team Lead 指示：地址加 Google Maps 連結】
+    版權區地址「📍 (806) 高雄市前鎮區中山二路 91 號 11 樓之1」的地址
+    文字部分（不含 📍 圖示）包成連結，href 為
+    `https://www.google.com/maps/search/?api=1&query=<公司名URL編碼>
+    &query_place_id=ChIJ99f619wDbjQRndlWRdw0jXk`（target="_blank"
+    rel="noopener"）。place_id 已驗證：用 Chrome CDP 實際載入
+    `maps/place/?q=place_id:...` 並等待 JS 完成解析，
+    `document.title` 回傳「匯東華統計顧問有限公司 - Google 地圖」，
+    頁面可見文字含完整地址「806高雄市前鎮區振興里中山二路91號11樓之1」、
+    電話「07 972 1586」、官網「medatatw.com」，皆與官網現有資訊一致，
+    非僅格式檢查（見交付訊息 place_id_verify_screenshot.png）。
+    新增 `.hdh-footer-addr-link` class，樣式刻意低調：color:inherit
+    （維持地址原本顏色，不變藍色連結）、text-decoration:none、
+    cursor:pointer，hover 才顯示底線。
 ============================================================ -->
 <div id="hdh-footer-root">
 <style>
@@ -3657,11 +3772,30 @@
   }
 
   #hdh-footer-inner{
-    max-width:1150px;
     margin:0 auto;
     display:grid;
-    grid-template-columns:1.15fr 1fr 1fr 1fr; /* v2：四欄（品牌/產品與服務/快速聯絡/社群與訂閱） */
-    gap:32px;
+    /* 【v13 三修，2026-07-06，Chair 真實瀏覽器抓到欄間距不均】
+       根因：fr 比例（無論 v13 初版或上一輪的 1.3/1/1.05/0.75/1.25）都是
+       「先分配欄寬、內容再貼左對齊」——服務/產品/快速聯絡內容短，分到的
+       欄寬卻是依比例計算出來的固定值，於是文字後面拖出一大片空白，看起來
+       鬆；社群與訂閱內容長，幾乎填滿分到的欄寬，看起來擠。五欄鬆緊不一，
+       間距自然不均。曾改用 max-content（貼合各欄內容寬度）+
+       justify-content:center，經 Chair 用真實瀏覽器複驗後決定**改變方向**：
+       要的不是「貼合內容」，而是「等寬、左緣規律對齊」的網格感——短欄
+       右側留白是預期且正常的（這正是「每欄一致」的視覺規律）。
+       【v13 四修，2026-07-06，Chair 定案：改等寬五欄】grid-template-columns
+       改回 `repeat(5, 1fr)`（五欄完全等寬，左緣間距天生規律，不需要
+       justify-content 或置中技巧）。唯一風險：等寬會讓每欄寬度=
+       (容器寬度-4個gap)/5，若容器不夠寬，品牌欄可能分不到公司全名
+       「匯東華統計顧問有限公司」所需的約 230px（logo44px+gap10px+
+       11字@16px）而斷行。故將 max-width 從 1150px 加寬到 1260px（與
+       gap 24px 搭配時，每欄= (1260-4*24)/5 = 232.8px，略高於 230px
+       需求，留一點緩衝），並保留 white-space:nowrap 作最後防線。
+       實測（Chrome CDP 1366/1440/1920px）確認品牌欄單行、五欄左緣
+       間距規律一致（詳見交付訊息的逐欄 x 座標量測）。 */
+    max-width:1260px;
+    grid-template-columns:repeat(5, 1fr);
+    gap:24px;
   }
 
   .hdh-footer-col-title{
@@ -3690,6 +3824,8 @@
     font-size:16px;
     font-weight:700;
     line-height:1.4;
+    white-space:nowrap; /* v13 修正：品牌欄加寬後應已單行，此為保險——若仍不足寧可
+      視覺溢出到欄外空白處被看見（進而回頭再調寬度），也不要無聲換行變醜 */
   }
   /* v11：.hdh-footer-addr（品牌欄內地址樣式）已隨地址搬到 #hdh-footer-bottom-addr
      移除，原本的樣式定義併入新的 .hdh-footer-bottom-addr（見版權區 CSS）。 */
@@ -3720,6 +3856,14 @@
     object-fit:contain;
     display:block;
     flex-shrink:0;
+  }
+  /* v12：inline SVG icon 專用（品牌 icon 庫無對應圖示時使用，如「加入會員」
+     「蝦皮賣場」），尺寸與對齊邏輯比照上方 .hdh-footer-icon（img 版） */
+  .hdh-footer-icon-svg{
+    width:20px;
+    height:20px;
+    flex-shrink:0;
+    display:block;
   }
 
   .hdh-footer-subscribe-btn{
@@ -3761,6 +3905,18 @@
     line-height:1.8;
     color:var(--hdh-footer-text);
   }
+  /* v14：地址加 Google Maps 連結，樣式刻意低調——維持與地址原本相同的顏色
+     （color:inherit，不要變成搶眼的藍色連結），僅 hover 時淡淡底線提示
+     可點擊，符合頁尾整體剋制的視覺語彙（比照 .hdh-footer-link 的處理
+     邏輯，但更低調，因為這裡是純資訊性文字非導覽連結）。 */
+  .hdh-footer-addr-link{
+    color:inherit;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .hdh-footer-addr-link:hover{
+    text-decoration:underline;
+  }
   .hdh-footer-bottom-copyrow{
     display:flex;
     align-items:center;
@@ -3778,10 +3934,13 @@
   }
   .hdh-footer-bottom-link:hover{ color:var(--hdh-footer-red); } /* v4：淺底改紅 */
 
-  /* ---------- 平板：四欄擠不下，改 2x2 兩欄兩列 ---------- */
-  @media (max-width:1000px){
+  /* ---------- 中寬：五欄擠不下，改 3 欄（5 項自動換行為 3+2 兩列） ----------
+     v13：取代 v11 的「>1000px 四欄一列／≤1000px 兩欄兩列」。欄數從 4 變 5
+     後，兩欄會讓單欄過高（如社群與訂閱 5 項+按鈕堆在一欄），改 3 欄較均衡；
+     斷點也從 1000px 放寬到 1300px，因為五欄比四欄需要更多寬度才不擠。 */
+  @media (max-width:1300px){
     #hdh-footer-inner{
-      grid-template-columns:1fr 1fr;
+      grid-template-columns:repeat(3,1fr); /* 中寬維持 3 欄撐滿邏輯，gap 沿用base 24px不變 */
       row-gap:34px;
     }
   }
@@ -3855,17 +4014,29 @@
       </div>
     </div>
 
-    <!-- 第二欄：產品與服務（v2 新增） -->
+    <!-- 第二欄：服務（v13 新增，從 v12「產品與服務」拆出顧問本業 3 項） -->
     <div class="hdh-footer-col">
-      <h3 class="hdh-footer-col-title">產品與服務</h3>
+      <h3 class="hdh-footer-col-title">服務</h3>
       <div class="hdh-footer-linklist">
-        <a class="hdh-footer-link" href="https://medata.teaches.cc/" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_16_online_course.png" alt=""> 匯東華統計學院</a>
-        <a class="hdh-footer-link" href="https://doi-verifier-pro.vercel.app/login.html" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_51_ai.png" alt=""> AI 文獻品管師</a>
-        <a class="hdh-footer-link" href="https://www.medatatw.com/%E8%A1%8C%E4%BA%8B%E6%9B%86.html"><img class="hdh-footer-icon" src="/assets/icons/icon_25_calendar.png" alt=""> 匯東華行事曆</a>
+        <a class="hdh-footer-link" href="統計分析.html"><img class="hdh-footer-icon" src="/assets/icons/icon_01_statistics.png" alt=""> 統計分析</a>
+        <a class="hdh-footer-link" href="統計諮詢.html"><img class="hdh-footer-icon" src="/assets/icons/icon_23_consulting.png" alt=""> 統計諮詢</a>
+        <a class="hdh-footer-link" href="教育培訓.html"><img class="hdh-footer-icon" src="/assets/icons/icon_17_hands_on.png" alt=""> 教育培訓</a>
       </div>
     </div>
 
-    <!-- 第三欄：快速聯絡 -->
+    <!-- 第三欄：產品（v13 新增，從 v12「產品與服務」拆出＋蝦皮賣場從社群欄
+         移入＋行事曆文字改為「年度課程行事曆」） -->
+    <div class="hdh-footer-col">
+      <h3 class="hdh-footer-col-title">產品</h3>
+      <div class="hdh-footer-linklist">
+        <a class="hdh-footer-link" href="https://medata.teaches.cc/" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_16_online_course.png" alt=""> 匯東華統計學院</a>
+        <a class="hdh-footer-link" href="https://doi-verifier-pro.vercel.app/login.html" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_51_ai.png" alt=""> AI 文獻品管師</a>
+        <a class="hdh-footer-link" href="https://shopee.tw/shop/129421165" target="_blank" rel="noopener"><svg class="hdh-footer-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5.5 10h13l1 9.6a1.4 1.4 0 0 1-1.4 1.5H5.9a1.4 1.4 0 0 1-1.4-1.5l1-9.6z" fill="#EE4D2D"/><circle cx="9" cy="9.5" r="1.6" stroke="#EE4D2D" stroke-width="1.4" fill="none"/><circle cx="15" cy="9.5" r="1.6" stroke="#EE4D2D" stroke-width="1.4" fill="none"/></svg> 蝦皮賣場</a>
+        <a class="hdh-footer-link" href="https://www.medatatw.com/%E8%A1%8C%E4%BA%8B%E6%9B%86.html"><img class="hdh-footer-icon" src="/assets/icons/icon_25_calendar.png" alt=""> 年度課程行事曆</a>
+      </div>
+    </div>
+
+    <!-- 第四欄：快速聯絡 -->
     <div class="hdh-footer-col">
       <h3 class="hdh-footer-col-title">快速聯絡</h3>
       <div class="hdh-footer-linklist">
@@ -3874,12 +4045,14 @@
       </div>
     </div>
 
-    <!-- 第四欄：社群與訂閱 -->
+    <!-- 第五欄：社群與訂閱（v13：蝦皮賣場移到「產品」欄，此欄剩 5 項） -->
     <div class="hdh-footer-col">
       <h3 class="hdh-footer-col-title">社群與訂閱</h3>
       <div class="hdh-footer-linklist">
         <a class="hdh-footer-link" href="https://lin.ee/YcV3eSs" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_32_line.png" alt=""> LINE 官方帳號 @medatatw</a>
         <a class="hdh-footer-link" href="https://www.facebook.com/medata12p" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_30_facebook.png" alt=""> Facebook 粉絲專頁</a>
+        <a class="hdh-footer-link" href="https://www.youtube.com/channel/UCbLKj63qrGU5-kCoootYqIg?sub_confirmation=1" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_33_youtube.png" alt=""> YouTube 頻道</a>
+        <a class="hdh-footer-link" href="會員入會方案.html"><svg class="hdh-footer-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5" fill="#B82226"/><path d="M4.5 20c0-4.1 3.4-6.8 7.5-6.8s7.5 2.7 7.5 6.8" fill="#B82226"/></svg> 加入會員</a>
         <a class="hdh-footer-subscribe-btn" href="https://medatatw.com/subscribe"><img class="hdh-footer-icon" src="/assets/icons/icon_08_email.png" alt=""> 訂閱電子報</a>
       </div>
     </div>
@@ -3887,7 +4060,7 @@
   </div>
 
   <div id="hdh-footer-bottom">
-    <p class="hdh-footer-bottom-addr">📍 (806) 高雄市前鎮區中山二路 91 號 11 樓之1</p>
+    <p class="hdh-footer-bottom-addr">📍 <a class="hdh-footer-addr-link" href="https://www.google.com/maps/search/?api=1&amp;query=%E5%8C%AF%E6%9D%B1%E8%8F%AF%E7%B5%B1%E8%A8%88%E9%A1%A7%E5%95%8F%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&amp;query_place_id=ChIJ99f619wDbjQRndlWRdw0jXk" target="_blank" rel="noopener">(806) 高雄市前鎮區中山二路 91 號 11 樓之1</a></p>
     <div class="hdh-footer-bottom-copyrow">
       <span class="hdh-footer-copyright">&copy; <span id="hdh-footer-year">2026</span> 匯東華統計顧問有限公司　版權所有 All Rights Reserved.</span>
       <a class="hdh-footer-bottom-link" href="/privacy" target="_blank" rel="noopener">隱私權政策</a>
