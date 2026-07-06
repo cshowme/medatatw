@@ -4246,6 +4246,563 @@
 <!-- ============================================================
   匯東華公告彈窗片段結束（Live26-07）
 ============================================================ -->
+<!-- ============================================================
+  匯東華統計顧問｜全站品牌頁尾 hdh-footer v1
+  ------------------------------------------------------------
+  用途：批次注入全站每頁「內容結尾」處（即 <div id="hdh-nlpop-root">
+       之前，見 頁尾盤點_摘要_20260704_CSX.md Q4），不需任何外部資源
+       即可運作（唯一外部資源為既有官網 logo 圖片，已驗證可正常載入）。
+  命名：所有 id/class 均以 hdh-footer- 前綴，避免與既有頁面樣式衝突
+       （作用域寫法比照 #hdh-mascot-root / #hdh-nlpop-root 慣例）。
+  內容來源：Co-Leader 實測官網 SSoT 確認（電話/Email/地址/LINE/FB 皆取
+       全站最多數、最新之版本，見 頁尾盤點_摘要_20260704_CSX.md Q3）。
+  與浮動元件共存：曇月靈（左下 fixed，桌機 116x121／手機 84x88）與
+       電子報彈窗按鈕（右下 fixed，桌機約 56px 高／手機 56x56 圓形）
+       兩者皆固定於視窗角落，會蓋住捲動到頁尾時的畫面下緣。故本頁尾
+       容器下內距（padding-bottom）刻意放大：桌機 160px／手機 120px。
+       【實測校正】原規格建議 70-90px，經 Chrome headless 截圖逐像素
+       量測後發現不足：曇月靈桌機版佔位＝bottom:20px+height:121px＝
+       視窗下緣起 141px 範圍，90px 下內距會讓曇月靈頭頂穿過版權列上方
+       的分隔線（已截圖驗證，見交付截圖）；手機版曇月靈佔位＝
+       14+88=102px，70px 亦不足。故加大至桌機 160px／手機 120px
+       （= 最高浮動元件佔位 + 約20px緩衝），確保頁尾最下方（版權列
+       及分隔線）與兩顆浮動鈕之間留有安全間距，不被遮住。頁尾本身
+       純靜態（無 position:fixed），不與浮動元件搶版位。
+  隱私連結：v1 先不放（官網目前無隱私權政策頁面）。已於版權列旁預留
+       HTML 註解位置，待 Chair 確認是否製作隱私頁後，直接在該處加入
+       <a href="...">隱私權政策</a> 即可，不需更動其餘結構。
+  版本：v1.0 原型（2026-07-04）
+
+  【v2 更新，2026-07-04，Chair 指示新增連結】
+  - 新增第二欄「產品與服務」：匯東華統計學院／AI 文獻品管師（皆外部站，
+    target="_blank" rel="noopener"）／匯東華行事曆（官網內頁，同分頁）。
+    欄位結構由三欄改為四欄：①品牌 ②產品與服務 ③快速聯絡 ④社群與訂閱。
+  - 新增 1000px 寬度斷點：>1000px 四欄一列；768-1000px 兩欄兩列（2x2）；
+    <=768px 單欄置中（沿用 v1 手機邏輯）。四欄較擠，桌機欄距由 36px
+    收窄為 32px，維持版面平衡。
+  - logo 圖源改用 https://www.medatatw.com/assets/logo.png（ASCII 路徑，
+    與隱私頁/訂閱頁一致；512x512 已用 WebFetch+ImageMagick 驗證含透明
+    背景，非純白底圖，可安全疊在深色頁尾上）。
+  - 隱私權政策連結正式啟用（不再只是註解預留），置於版權列旁，
+    Chair 指示「隱私連結一律開新分頁」→ target="_blank" rel="noopener"。
+  - 版權列文字加上「版權所有 All Rights Reserved.」。
+
+  【v3 更新，2026-07-04，Chair 指示改用品牌 icon 取代 emoji】
+  - 8 個連結 icon 全部改用匯東華自家品牌圖示（來源：01_共用資源/icons/），
+    取代原本的 emoji（🎓🔍📅📞✉️💬📘📧）：
+    統計學院=icon_16_online_course.png／AI文獻品管師=icon_51_ai.png（三選一，
+    見下方選用理由）／行事曆=icon_25_calendar.png／電話=icon_09_phone.png／
+    Email=icon_08_email.png／LINE=icon_32_line.png（非 icon_07，見下）／
+    Facebook=icon_30_facebook.png／訂閱電子報鈕=icon_08_email.png（沿用
+    Email 圖示，語意皆為「電子郵件」，與聯絡欄一致）。
+  - AI 文獻品管師選用理由：icon_11_ai_assist.png 過於抽象（金紅線條機械臂，
+    無法一眼辨識與「AI」的關聯）；icon_02_literature.png 能表達「文獻」
+    但缺少「AI」意象；icon_51_ai.png 為白底紅框「AI」文字圖示，兩相權衡
+    後選擇**最能讓使用者秒懂「這是 AI 服務」**的 icon_51_ai.png，且已用
+    ImageMagick 合成深色底測試，白底方框在 #1c1c1c 上對比度最佳。
+  - LINE 選用理由：icon_07_line.png 為 LINE 官方綠色（跳出頁尾紅金主色調），
+    icon_32_line.png 為紅圈「LINE」文字、與頁尾其餘 icon 色調一致，故選
+    icon_32_line.png 以維持視覺統一（仍保留「LINE」文字辨識度不受影響）。
+  - 深色底可見度：8 個 icon 皆已用 ImageMagick 合成 #1c1c1c 實際頁尾底色
+    後目視檢查（見交付訊息screenshots），全部清晰可見（白/金/紅/淺色元素
+    在深色底皆有足夠對比），**無需額外加淺色 badge 襯托**。
+  - 路徑處理（重要）：本注入片段（部署用）icon 路徑一律寫
+    `/assets/icons/icon_XX.png`（根相對，扁平無子夾層），部署時另行將
+    上述 8 個檔案複製進 repo 的 assets/icons/ 目錄。**原型截圖版本**
+    （頁尾原型預覽_20260704_CSX.html）另外用組裝腳本把此路徑置換為本機
+    file:// 絕對路徑指向 Dropbox 來源夾，僅供截圖使用，不寫回 repo。
+  - icon 顯示尺寸：.hdh-footer-icon 20x20px，object-fit:contain，
+    與文字用 flex align-items:center 垂直置中對齊（沿用既有
+    .hdh-footer-link / .hdh-footer-subscribe-btn 的 inline-flex 排列）。
+  - 地址前的 📍 emoji 不在本次置換範圍內（Chair 指示僅列 8 個），維持原樣。
+
+  【v4 更新，2026-07-05，Chair 否決深色底，改配合頁首淺色質感】
+  - 背景研究：實際爬梳官網共用 CSS
+    （__system/__css/h_f4594a2c7cbc81c3420eb1d700798a55/2684815_combined.min.css）
+    找到頁首背景圖為 `首頁/white-1866105_1920.jpg`（白色石膏牆質感照片，
+    Pixabay 圖庫），疊加 rgba(244,229,229,1)（淺粉米色）底色；並用 Chrome
+    headless 截 https://www.medatatw.com/aboutus.html 頁首實際截圖比對，
+    確認為淺白石膏質感牆面 + 金色 logo 字 + 金色導覽文字，非深色。
+  - 頁尾改用**同一張紋理圖片**（絕對正式網址
+    https://www.medatatw.com/首頁/white-1866105_1920.jpg，非另建新檔），
+    疊加品牌「月光白」#F8F6F0 半透明色調（比照頁首疊色手法，改用本公司
+    已定義的品牌淺色而非另抄頁首的 rgba(244,229,229)，兩者色相極接近，
+    但採用品牌色版可與全站其他淺色區塊一致）。
+  - 文字配色反轉：深色底時代文字用暖灰白，現在淺底改回深色系
+    --hdh-footer-text 改為 --hdh-footer-dark(#2D2D2D)，
+    --hdh-footer-text-dim 改為輔助灰 #666666（品牌定義色）。
+  - 標題改用紅：.hdh-footer-col-title 原本金色文字在淺底對比不足
+    （金 #C4A46D 在米白底上偏淡難辨識），改為品牌紅 #B82226；
+    金色僅保留於：頂部裝飾線、版權列分隔線、按鈕邊框等「非內文」用途。
+  - hover 顏色反轉：連結 hover 原本轉金色（深底適用），淺底改為轉紅色
+    （金在淺底對比不足，紅在淺底對比清楚且符合品牌強調色定位）。
+  - 版權列分隔線：原 rgba(255,255,255,.12)（白線，深底用）改為
+    rgba(184,34,38,.15)（淡紅線，淺底用，維持品牌感但不搶眼）。
+  - 8 個 icon 淺底可見度：已用 ImageMagick 合成品牌淺色底
+    #F8F6F0（+ 疊加後的米白紋理近似色）逐一測試，8 個 icon 皆為紅/金/白
+    複合色彩且多數已有內建邊框或深色描邊（如電話紅色實心、Facebook
+    紅圈白字），在淺底同樣清晰，**無需加深色描邊或更換**（僅 Email
+    icon 的白色信封主體在淺底時白色部分與背景較接近但仍有紅色信封蓋
+    與淺褐色描邊可辨識邊界，經截圖確認不糊）。
+  - 間距大幅縮減（解決問題2，垂直空白過長）：padding-bottom 桌機
+    160px→36px、手機 120px→32px。Chair 明確指示浮動鈕（曇月靈/訂閱鈕）
+    為 fixed 浮層，不需要專門留白讓開，只要不直接蓋住頁尾「文字連結」
+    即可（可自然貼在頁尾右下/左下角落，甚至輕微跨過裝飾分隔線也可接受）。
+    已實測確認縮減後浮動鈕未蓋住任何連結文字或版權文字本身。
+
+  【v5 更新，2026-07-05，Chair 指出紋理被疊色蓋平，修正為與頁首完全一致】
+  - 根因：v4 用 `linear-gradient(rgba(248,246,240,.86),...)` 疊在紋理圖上，
+    86% 不透明度幾乎把紋理蓋平，只剩 14% 透出，肉眼看起來是平面色塊。
+  - 精確查證頁首真正的背景 CSS（WebFetch 直接讀共用 CSS 檔逐字引用，
+    非猜測）：`#rot #rot_ctr1_bod_ctr1{background-image:url('../../../
+    首頁/white-1866105_1920.jpg');background-size:100% auto;
+    background-position:left center;box-shadow:0 0 10px 3px #edeaea;
+    background-color:rgba(244,229,229,1)}`。
+  - **關鍵發現**：頁首**沒有用半透明疊色蓋在圖片上**！background-color
+    與 background-image 是分開的兩個獨立屬性（非 linear-gradient 疊層
+    寫法），且 background-color 的 alpha=1（完全不透明）；因為
+    background-image（JPG 無透明通道）疊在 background-color 之上，兩者
+    是「圖蓋色」而非「色蓋圖」，只要圖片覆蓋範圍夠大，底色幾乎不會
+    顯示，紋理圖本身就是以近乎 100% 強度直接顯示，這就是為什麼頁首的
+    石膏顆粒紋理如此清楚可見的原因。
+  - 修正：頁尾比照**完全相同的作法**——移除 v4 的 linear-gradient 疊色
+    層，改為 background-image 直接使用紋理圖（不透明度 100%），
+    background-color 保留品牌月光白 #F8F6F0（純作為圖片邊緣露出時的
+    備援底色，非疊色蓋圖）。
+  - 【v5 second-pass 修正】background-size 一開始比照頁首字面值用
+    `100% auto`＋`left center`，但截圖後發現**手機版**（單欄堆疊，整個
+    頁尾遠比頁首那種矮扁導覽列高很多）出現一段明顯「較平、無顆粒」的
+    橫帶（約在快速聯絡～社群與訂閱之間），比對原圖後研判：紋理來源照片
+    本身各處明暗/顆粒感不均勻（真實牆面照片，非無縫產生的程序紋理），
+    在「100% 寬、高度依比例縮放」下，頁尾這種瘦高容器會把原圖中段一塊
+    本來就較平滑的區域整片放大顯示，肉眼看起來像「該處紋理消失」。
+    頁首因為容器本身矮扁（僅導覽列高度），不會暴露這個問題。改為
+    `background-size:cover`＋`background-position:center center`（頁首
+    是字面抄用 100% auto，頁尾為求兩種版面比例都穩定顯示顆粒感，改用
+    cover 讓圖片依容器裁切、必要時放大聚焦於較有顆粒的區域，不會再出現
+    大片平滑無紋理的橫帶；核心「不加半透明疊色、圖片以近全不透明直接
+    顯示」的原則不變，僅縮放模式因版面比例差異而調整）。
+
+  【v6 更新，2026-07-05，Chair 指出下緣間距仍太大，參考隱私頁】
+  - Step1 研究隱私頁（`privacy/index.html` + 實測 https://www.medatatw.com/privacy
+    底部截圖）：頁面本身 `.wrap{padding:0 22px 64px}`，並無為曇月靈刻意
+    加大留白；頁尾另有一個既存的深底聯絡列（公司名/地址/電話/Email 皆
+    **置中**）。實測截圖發現：曇月靈氣泡「私訊我們」在該頁其實**有蓋到
+    聯絡列的同一列高度區間**，但因為那列文字是置中（約在畫面 x=450-950），
+    而氣泡固定在最左側（x=66-266），兩者**水平上本來就不重疊**，才會
+    看起來「OK、沒問題」——本質是「置中版面 + 角落浮動元件」天然不衝突，
+    而非刻意做了什麼特別的間距處理。
+  - Step2 嘗試比照精神縮小：先試桌機 44px／手機 40px（貼近隱私頁
+    64px 的量級），**截圖後證實**：曇月靈氣泡再次直接蓋住品牌欄地址
+    文字（跟 v4 第一版 36px 時的問題一樣）。
+  - **精確計算為何無法只靠壓縮左欄彌補**（桌機為例）：
+    - 氣泡佔位帶＝距視窗底 158px～218px（bottom:138+高度約60px，見
+      曇月靈原始碼）。
+    - 44px padding 時，頁尾總高≈303px，品牌欄地址文字底部＝頁尾頂端
+      往下約122px＝距頁尾底（＝頁面底）181px。158<181<218，**確實落在
+      氣泡佔位帶內**，與截圖吻合。
+    - 若想讓地址完全避開氣泡佔位帶，地址底部至少要距頁面底 218px。
+      地址在欄位內的位置（logo/名稱列+地址列，實務上最多只能壓縮到
+      約100px）+ padding-bottom 才等於地址距頁面底的距離。即使壓到
+      100px，仍需 padding-bottom≈218-100=118px，**跟目前 110px 幾乎
+      一樣**——結論：**只調整品牌欄內容排版無法在維持 30-50px 目標
+      間距的同時避開常駐氣泡**，兩者在數學上互斥。
+  - 因此**維持 v5 已驗證乾淨的桌機110px／手機100px**，不採用 44/40px。
+  - 若要真正壓到 24-40px 區間，**根本解法**：修正曇月靈氣泡「淡入後
+    永久顯示、無 timer 自動收起」的行為（比照訂閱鈕氣泡 5 秒後淡出的
+    邏輯）。此為曇月靈自身注入片段的修改，不在本頁尾任務範圍內，已
+    回報 Co-Leader 另案處理。
+
+  【v7 更新，2026-07-05，Chair 定案：曇月靈回左下角，重新精確量測佔位】
+  - Chair 定案曇月靈（含常駐氣泡+貼地陰影）回到左下角（中央方案已
+    取消，見曇月靈客服_注入片段 P4-r3 註解），故頁尾 padding 需求
+    重新計算。
+  - **精確量測**（非估算，用 JS getBoundingClientRect() 實測，見曇月靈
+    測試檔）：桌機視窗 innerHeight=805px 時，氣泡（#hdh-mascot-bubble）
+    top=587.0，即氣泡頂端距視窗底＝805-587=**218.0px**（此為「曇月靈+
+    氣泡+陰影」整組的最高點，決定頁尾需要多少 padding-bottom 才能讓
+    版權列完全避開，陰影本身 bottom=6px 雖然比曇月靈本體更貼近視窗底，
+    但陰影不是最高點，不影響此計算）。手機版氣泡 CSS 隱藏
+    （BUBBLE h=0），最高點回到曇月靈本體本身：FAB h=88+bottom:14＝
+    距視窗底 **102.0px**。
+  - **頁尾 padding-bottom 更新**：依 Chair 指示「padding-bottom ≥ 總
+    佔位」的簡單安全原則（不依賴頁尾其他列高度的額外緩衝，讓數值本身
+    就是安全下限，全站不同頁面版型也適用），桌機由 110px 調整為
+    **230px**（218px 佔位 + 12px 緩衝），手機由 100px 調整為
+    **115px**（102px 佔位 + 13px 緩衝）。
+
+  【v8 修正，2026-07-05，Chair 用真實瀏覽器糾正 v7 公式前提】
+  - v7「padding-bottom ≥ 總佔位」的公式**前提有誤**：headless 渲染在
+    寬螢幕下會誤判為內容滿版，但**真實瀏覽器頁尾內容是 max-width 置中
+    的，寬螢幕下左右是背景留白**。曇月靈固定在左下角，實際上是浮在
+    頁尾左側的背景留白上，跟置中的頁尾內容**沒有垂直方向的版位衝突**，
+    故頁尾根本不需要為了讓開曇月靈而預留 218px/102px 這麼大的
+    padding-bottom。窄螢幕/手機可能會有輕微壓到，Chair 已接受（使用者
+    仍可捲動閱讀，非致命遮擋）。
+  - **padding-bottom 改回一般頁尾呼吸感的正常小值**：桌機
+    230px→**40px**、手機 115px→**40px**（不再依曇月靈佔位計算，回歸
+    純視覺留白）。
+  - **驗證方式改變**：本輪起 padding 是否足夠**不再由 Co-Leader 用
+    headless 原型截圖判斷**，改由**真實線上部署後**、Team Lead 親自
+    以多種真實寬度（寬螢幕/窄筆電/手機）檢視決定；若真實環境發現手機
+    版權列/隱私連結被壓到無法點擊，屆時再回來做手機專屬微調。
+
+  【v9 更新，2026-07-06，Team Lead 用真實 CDP 多寬度驗出：筆電寬度品牌
+    欄地址被曇月靈氣泡蓋住】
+  - **問題精確分析**：曇月靈+氣泡固定於左下角，水平佔位＝
+    fab left:24px + bubble left:48px + bubble width:236px＝**308px**
+    （從視窗左緣算起）。頁尾內容 `#hdh-footer-inner` 是
+    `max-width:1150px + margin:0 auto` 置中，兩側留白（gutter）＝
+    `(視窗寬度-48px主容器左右padding-1150) / 2`。寬螢幕（≥1850px 附近）
+    gutter > 308px，曇月靈浮在背景留白、不碰內容；但**多數筆電寬度
+    （約 1000-1850px 之間）gutter 遠小於 308px**，品牌欄（左欄，左對齊）
+    的地址文字會被曇月靈氣泡直接蓋住（1280px 時只剩「樓之1」露出）。
+  - **選擇的做法**：只針對「危險區間」（769px～1850px，即手機斷點
+    之上、寬螢幕自然安全值之下，涵蓋幾乎所有筆電/桌機解析度）讓
+    `#hdh-footer-inner` **放棄 max-width 置中，改用固定 margin-left
+    強制右移**，確保內容起始位置永遠在曇月靈佔位（308px）之外，寬
+    螢幕與手機都不受影響（各自沿用原本邏輯，寬螢幕本來就安全、手機
+    另有單欄置中+氣泡隱藏的獨立處理）。
+  - **為何不用「移動地址位置」等其他方案**：地址搬到別處會打亂既有
+    四欄視覺階層（品牌／產品／聯絡／社群一欄一組的邏輯），且無法從
+    根本解決「左欄固定在危險區間內」的問題（只要品牌欄還在最左側，
+    無論欄內文字如何調整都會被固定佔位的曇月靈蓋到）。用 margin-left
+    直接讓「整個內容區塊」在危險寬度區間內右移，是最不影響現有視覺
+    結構、且對任何未來新增的頁尾內容都通用的解法。
+  - **參數計算**：`margin-left:340px`（308px 佔位 + 32px 緩衝）、
+    `margin-right:0`、`max-width:none`（讓內容改以 margin-left 定位，
+    不再用 max-width+auto 置中）。769px～1850px 範圍測試：1366px 時
+    左邊界＝24(主容器padding)+340＝364px，清楚超過 308px 佔位；1850px
+    邊界處無縫接軌原本的置中邏輯（略高於邊界時原置中公式算出的 gutter
+    已回升到約 326px，同樣安全，兩套機制交接處不會突然掉回危險值）。
+
+  【v10 修正，2026-07-06，手機版版權列被曇月靈遮住】
+  - 真實視窗（390×844）捲到頁底實測發現：版權列文字「© 2026...」開頭
+    被曇月靈鬃毛遮住（手機曇月靈 left:14/bottom:14/84×88，佔位到
+    bottom:102px；手機版下緣 padding 僅 40px，不夠讓版權列避開）。
+  - 修正：手機斷點下緣 padding 由 40px 提高到 118px（102px 佔位+16px
+    緩衝），僅此手機斷點單獨調整，桌機 40px 不受影響。
+
+  【v11 更新，2026-07-06，Chair 提出更根本的解法：騰空左下角，取代 v9
+    的「整體右移」做法】
+  - **問題重新定義**：v9 的「危險區間右移 340px」只是治標——只要品牌欄
+    （含地址）還固定在頁尾最左側、且曇月靈固定佔據視窗左下角，兩者的
+    衝突就會隨視窗寬度變化反覆出現，且需要一條額外的 media query 維護。
+  - **根本解法**：品牌欄本身不再放地址，只留 logo + 公司名（欄位變短，
+    整欄留在頁尾「上半部」）；地址改移到最下方**置中**的版權區，與版權
+    文字、隱私連結排在一起（置中兩行）。如此一來，左下角角落本身就
+    沒有任何文字內容——曇月靈固定在左下角時，浮在的是空白背景，不論
+    視窗多寬都不會蓋到任何東西；地址移到置中區後，離左下角角落最遠，
+    同樣不受影響。此解法不受視窗寬度影響，不需要任何額外的危險區間
+    media query。
+  - **移除 v9 的 margin-left 危險區間規則**：改用此根本解法後，v9 那條
+    `@media (min-width:769px) and (max-width:1850px)` 的 margin-left
+    右移規則不再需要，予以移除，`#hdh-footer-inner` 恢復單純的
+    `max-width:1150px + margin:0 auto` 置中（所有寬度統一邏輯，程式碼
+    更簡潔）。
+  - **版權區新結構**：`#hdh-footer-bottom` 內新增地址列（獨立一行，
+    置中），版權文字＋隱私連結維持原本一列（置中、可換行）：
+    ```
+    (806) 高雄市前鎮區中山二路 91 號 11 樓之1
+    © 2026 匯東華統計顧問有限公司　版權所有 All Rights Reserved.　隱私權政策
+    ```
+  - **手機版 v10 的 118px 是否還需要**：地址搬到置中版權區後，手機版仍是
+    單欄置中版面（本來就跟桌機的「品牌欄在左側」問題無關），版權區文字
+    在窄螢幕換行時第一行仍可能貼近左緣、貼近曇月靈，故 v10 的 118px
+    手機下緣加大予以保留，本輪重新測試確認仍需要（見交付截圖）。
+============================================================ -->
+<div id="hdh-footer-root">
+<style>
+  #hdh-footer-root, #hdh-footer-root *{ box-sizing:border-box; }
+  #hdh-footer-root{
+    --hdh-footer-red:#B82226;
+    --hdh-footer-red-dark:#8f1a1d;
+    --hdh-footer-gold:#C4A46D;
+    --hdh-footer-dark:#2D2D2D;
+    --hdh-footer-light:#F8F6F0;      /* 品牌「月光白」，v4 頁尾主背景疊色 */
+    --hdh-footer-text:#2D2D2D;       /* v4：淺底改用深色主文字（原深底版為暖灰白） */
+    --hdh-footer-text-dim:#666666;   /* v4：淺底次要文字改用品牌輔助灰（原深底版為暖灰） */
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+  }
+
+  /* ---------- 頁尾主容器 ---------- */
+  /* v5：比照頁首「原汁原味」的背景寫法（見上方 v5 註解逐字引用頁首 CSS）
+     ——background-image 不透明直接顯示紋理圖，不加任何半透明疊色層，
+     background-size/position 完全比照頁首的 100% auto + left center。 */
+  #hdh-footer-main{
+    position:relative;
+    margin-top:48px;
+    padding:40px 24px 40px; /* v8 修正：真實瀏覽器下頁尾內容置中、曇月靈浮在左側背景留白上，不需為佔位預留大
+    padding（v7 的 230px 是誤判前提下的計算），改回一般呼吸感小值，見上方 v8 註解。 */
+    background-image:url('https://www.medatatw.com/首頁/white-1866105_1920.jpg');
+    background-size:cover; /* v5 second-pass：100% auto 在手機瘦高版面會露出原圖較平滑的區塊，見上方註解 */
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-color:rgba(248,246,240,1); /* 品牌月光白，備援底色（圖片邊緣露出時），非疊色蓋圖 */
+    color:var(--hdh-footer-text);
+    overflow:hidden;
+  }
+  /* 頂部金紅漸層裝飾線（比照訂閱彈窗 modal 手法，維持全站視覺語彙一致） */
+  #hdh-footer-main::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:4px;
+    background:linear-gradient(90deg,var(--hdh-footer-gold),var(--hdh-footer-red));
+  }
+
+  #hdh-footer-inner{
+    max-width:1150px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.15fr 1fr 1fr 1fr; /* v2：四欄（品牌/產品與服務/快速聯絡/社群與訂閱） */
+    gap:32px;
+  }
+
+  .hdh-footer-col-title{
+    margin:0 0 14px;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    color:var(--hdh-footer-red); /* v4：淺底改用紅色（原金色在淺底對比不足） */
+  }
+
+  /* ---------- 第一欄：品牌 + 地址 ---------- */
+  .hdh-footer-brand-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  #hdh-footer-logo{
+    height:44px;
+    width:auto;
+    display:block;
+    flex-shrink:0;
+  }
+  .hdh-footer-brand-name{
+    color:var(--hdh-footer-dark); /* v4：淺底改深色（原深底版為白色） */
+    font-size:16px;
+    font-weight:700;
+    line-height:1.4;
+  }
+  /* v11：.hdh-footer-addr（品牌欄內地址樣式）已隨地址搬到 #hdh-footer-bottom-addr
+     移除，原本的樣式定義併入新的 .hdh-footer-bottom-addr（見版權區 CSS）。 */
+
+  /* ---------- 第二／三欄：聯絡與社群連結 ---------- */
+  .hdh-footer-linklist{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .hdh-footer-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--hdh-footer-text);
+    text-decoration:none;
+    font-size:14px;
+    transition:color .2s ease;
+  }
+  .hdh-footer-link:hover{
+    color:var(--hdh-footer-red); /* v4：淺底 hover 改紅色（原金色在淺底對比不足） */
+    text-decoration:underline;
+  }
+  /* v3：品牌 icon（取代 emoji），20x20，flex 內與文字自動垂直置中 */
+  .hdh-footer-icon{
+    width:20px;
+    height:20px;
+    object-fit:contain;
+    display:block;
+    flex-shrink:0;
+  }
+
+  .hdh-footer-subscribe-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    align-self:flex-start;
+    margin-top:2px;
+    padding:10px 22px;
+    background:linear-gradient(135deg,var(--hdh-footer-red) 0%,var(--hdh-footer-red-dark) 100%);
+    color:#fff !important;
+    border:1.5px solid var(--hdh-footer-gold);
+    border-radius:999px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:.5px;
+    text-decoration:none !important;
+    box-shadow:0 6px 16px rgba(184,34,38,.28);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .hdh-footer-subscribe-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(184,34,38,.4);
+  }
+
+  /* ---------- 版權區（v11：新增地址列，與版權列一起置中兩行） ---------- */
+  #hdh-footer-bottom{
+    max-width:1100px;
+    margin:36px auto 0;
+    padding-top:20px;
+    border-top:1px solid rgba(184,34,38,.15); /* v4：淺底改淡紅線（原深底版為淡白線） */
+    text-align:center;
+  }
+  /* v11：地址獨立一行，置中，字級與品牌欄原本一致(13.5px)，字色用主文字色
+     （比版權列稍淺的輔助灰更明顯一點，畢竟地址是實用資訊非純法務文字） */
+  .hdh-footer-bottom-addr{
+    margin:0 0 10px;
+    font-size:13.5px;
+    line-height:1.8;
+    color:var(--hdh-footer-text);
+  }
+  .hdh-footer-bottom-copyrow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:16px;
+    font-size:12.5px;
+    color:var(--hdh-footer-text-dim);
+  }
+  .hdh-footer-copyright{ min-width:0; } /* 防止版權文字加長後在 flex 列中被撐開溢出視窗 */
+  .hdh-footer-bottom-link{
+    color:var(--hdh-footer-text-dim);
+    text-decoration:underline;
+    transition:color .2s ease;
+  }
+  .hdh-footer-bottom-link:hover{ color:var(--hdh-footer-red); } /* v4：淺底改紅 */
+
+  /* ---------- 平板：四欄擠不下，改 2x2 兩欄兩列 ---------- */
+  @media (max-width:1000px){
+    #hdh-footer-inner{
+      grid-template-columns:1fr 1fr;
+      row-gap:34px;
+    }
+  }
+
+  /* v11（2026-07-06）：v9 的「769px～1850px 危險區間右移 340px」規則已
+     移除——Chair 提出更根本的解法：品牌欄不再放地址、地址移到置中版權區
+     （見上方 v11 註解），左下角角落本身不再有任何文字內容，曇月靈固定
+     在該處浮的是空白背景，不論視窗多寬都不會蓋到內容，不需要這條額外
+     的危險區間規則。#hdh-footer-inner 恢復單純 max-width+auto 置中
+     （見上方 271-277 行），所有非手機寬度統一適用。 */
+
+  /* ---------- 手機版：單欄堆疊、置中 ---------- */
+  @media (max-width:768px){
+    /* v10（2026-07-06）：v8 當時預留「若真實環境發現版權/隱私連結被壓到，
+       屆時再做手機專屬微調」——今日在 390px 寬度實測（真實視窗＋捲到頁底，
+       非headless大畫布陷阱）證實真的會被壓到：手機版曇月靈固定在左下角
+       （left:14px; bottom:14px; width:84px; height:88px → 佔位到
+       bottom:14~102px），版權列文字置中換行時第一行常從螢幕左緣附近開始，
+       與曇月靈鬃毛/頭部重疊，導致「© 2026」開頭被遮住幾個字。
+       修正：手機版下緣 padding 由 40px 提高到 118px（102px 佔位 +16px
+       緩衝，與桌機 40px 互不影響，僅此手機斷點單獨調整）。 */
+    #hdh-footer-main{ padding:32px 20px 118px; }
+    #hdh-footer-inner{
+      grid-template-columns:1fr;
+      gap:32px;
+      text-align:center;
+    }
+    .hdh-footer-brand-row{ justify-content:center; }
+    .hdh-footer-linklist{ align-items:center; }
+    .hdh-footer-subscribe-btn{ align-self:center; }
+    /* v2 修正（共兩輪實測才定案，記錄避免日後重踩）：
+       第一輪：版權文字加長（版權所有 All Rights Reserved.）後，手機寬度
+       下 flex-row 排列被文字內容撐開溢出視窗右緣（align-items:center 使
+       子項以 fit-content 寬度計算，不會自動換行），改 flex-direction:column
+       仍不夠，因為 cross-axis 對齊一樣是 fit-content。
+       第二輪：加上 display:block+width:100% 後才真正撐滿容器寬度正常
+       換行；但**首次修正誤用了裸 `span` 標籤選擇器**，連年份用的內層
+       <span id="hdh-footer-year"> 也一併被選到、被迫變成獨立一行，導致
+       「©」「2026」各自斷成一行的怪異排版。已改用 .hdh-footer-copyright
+       這個明確 class 只包住最外層版權文字 span，內層年份 span 不受影響。
+       第三輪：display:block+width:100% 仍整行溢出視窗、被 overflow:hidden
+       裁切；加 flex-wrap:nowrap 也無效（debug 用黃底外框截圖比對前後
+       竟位元級相同，證明問題不在 flex-wrap）。
+       第四輪（真正解法）：放棄在 flex 容器內用 width:100% 跟 flex 的
+       自動尺寸演算法（cross-size auto/fit-content 的抵消行為，跨瀏覽器
+       行為不一致）搏鬥，改為手機斷點下**直接把版權列容器由 flex 改回
+       block**，讓版權文字與隱私連結變回一般行內內容，用最單純的
+       normal flow 文字換行（已用最小化測試檔驗證：純 div 內同樣文字
+       在 350px 寬度下換行完全正常），不再依賴任何 flex 尺寸計算。
+       v11 更新：此修正原本作用在 #hdh-footer-bottom 本身，v11 把地址
+       獨立成一行後，#hdh-footer-bottom 變成外層置中容器，原本的版權
+       文字＋隱私連結移到內層 .hdh-footer-bottom-copyrow，故本修正對象
+       同步改為 .hdh-footer-bottom-copyrow，邏輯與結論不變。*/
+    .hdh-footer-bottom-copyrow{ display:block; }
+    .hdh-footer-copyright{ display:inline; }
+    .hdh-footer-bottom-link{ display:inline-block; margin-top:6px; }
+  }
+</style>
+
+<footer id="hdh-footer-main" role="contentinfo" aria-label="匯東華統計顧問網站頁尾">
+  <div id="hdh-footer-inner">
+
+    <!-- 第一欄：公司資訊（v11：地址移到頁尾最下方置中版權區，見 #hdh-footer-bottom，
+         此欄只留 logo + 公司名，讓左下角角落不再有文字內容） -->
+    <div class="hdh-footer-col">
+      <div class="hdh-footer-brand-row">
+        <img id="hdh-footer-logo"
+             src="https://www.medatatw.com/assets/logo.png"
+             alt="匯東華統計顧問有限公司 Logo（蓮花與月相環標誌）">
+        <span class="hdh-footer-brand-name">匯東華統計顧問有限公司</span>
+      </div>
+    </div>
+
+    <!-- 第二欄：產品與服務（v2 新增） -->
+    <div class="hdh-footer-col">
+      <h3 class="hdh-footer-col-title">產品與服務</h3>
+      <div class="hdh-footer-linklist">
+        <a class="hdh-footer-link" href="https://medata.teaches.cc/" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_16_online_course.png" alt=""> 匯東華統計學院</a>
+        <a class="hdh-footer-link" href="https://doi-verifier-pro.vercel.app/login.html" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_51_ai.png" alt=""> AI 文獻品管師</a>
+        <a class="hdh-footer-link" href="https://www.medatatw.com/%E8%A1%8C%E4%BA%8B%E6%9B%86.html"><img class="hdh-footer-icon" src="/assets/icons/icon_25_calendar.png" alt=""> 匯東華行事曆</a>
+      </div>
+    </div>
+
+    <!-- 第三欄：快速聯絡 -->
+    <div class="hdh-footer-col">
+      <h3 class="hdh-footer-col-title">快速聯絡</h3>
+      <div class="hdh-footer-linklist">
+        <a class="hdh-footer-link" href="tel:+886-7-9721586"><img class="hdh-footer-icon" src="/assets/icons/icon_09_phone.png" alt=""> 07-9721586</a>
+        <a class="hdh-footer-link" href="mailto:info@medatatw.com"><img class="hdh-footer-icon" src="/assets/icons/icon_08_email.png" alt=""> info@medatatw.com</a>
+      </div>
+    </div>
+
+    <!-- 第四欄：社群與訂閱 -->
+    <div class="hdh-footer-col">
+      <h3 class="hdh-footer-col-title">社群與訂閱</h3>
+      <div class="hdh-footer-linklist">
+        <a class="hdh-footer-link" href="https://lin.ee/YcV3eSs" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_32_line.png" alt=""> LINE 官方帳號 @medatatw</a>
+        <a class="hdh-footer-link" href="https://www.facebook.com/medata12p" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_30_facebook.png" alt=""> Facebook 粉絲專頁</a>
+        <a class="hdh-footer-subscribe-btn" href="https://medatatw.com/subscribe"><img class="hdh-footer-icon" src="/assets/icons/icon_08_email.png" alt=""> 訂閱電子報</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="hdh-footer-bottom">
+    <p class="hdh-footer-bottom-addr">📍 (806) 高雄市前鎮區中山二路 91 號 11 樓之1</p>
+    <div class="hdh-footer-bottom-copyrow">
+      <span class="hdh-footer-copyright">&copy; <span id="hdh-footer-year">2026</span> 匯東華統計顧問有限公司　版權所有 All Rights Reserved.</span>
+      <a class="hdh-footer-bottom-link" href="/privacy" target="_blank" rel="noopener">隱私權政策</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  if (window.__hdhFooterInit) { return; } // 防止同頁重複注入導致重複執行
+  window.__hdhFooterInit = true;
+
+  var yearEl = document.getElementById('hdh-footer-year');
+  if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
+})();
+</script>
+</div>
+<!-- ============================================================
+  匯東華全站品牌頁尾片段結束
+============================================================ -->
 <div id="hdh-nlpop-root">
 <style>
   #hdh-nlpop-root, #hdh-nlpop-root *{box-sizing:border-box;}
@@ -4701,6 +5258,69 @@
        ~/.claude/knowledge/brand_tanyueling_story.md（角＝智慧體部，
        月相環＝真理之眼，皆為曇月靈辨識度核心，縮小後仍須清楚可辨）。
   版本：v2.0 原型（2026-07-04，頭部特寫裁切修正）
+
+  【P4 更新，2026-07-05，Chair 拍板：解鎖頁尾間距 + 視覺加強】
+  【P4-r2 修正，2026-07-05，Chair 改方向：取消氣泡自動收起，改移位解決碰撞】
+  ⛔ 取消：①氣泡自動收起（P4 第一版做法）。Chair 指出曇月靈是客服
+    入口，氣泡收起後使用者會不知道它的用途，故**氣泡改回常駐顯示，
+    不做自動收起**（bubbleHideTimer／hideBubble() 邏輯已移除）。
+  ✅ 改為：曇月靈整體移到**視窗左側垂直置中**（`top:50%` +
+    `transform:translateY(-50%)`，取代原本的 `bottom:20px`）。原本
+    固定在左下角會跟頁尾底部打架（這才是這幾輪頁尾 padding 一直無法
+    縮小的根因），移到左側中央後**完全脫離頁尾範圍**，之後頁尾下緣
+    間距即可正常縮小（不再需要為曇月靈預留清空區）。手機版比照同樣
+    改為左側垂直置中（原本機版 bottom:14px 亦一併移除）。
+  ②氣泡文字放大兩級：15px→20px（+2 級），維持不變（Chair 確認 OK）。
+  ③陰影效果改為「懸浮景深光影」：因曇月靈現在飄在半空（視窗中央，
+    不再貼近任何「地面」），原本「貼地橢圓陰影」的視覺邏輯不再合理
+    （半空中不會有地面投影）。改為**曇月靈本體背後的柔光暈**（暖金/
+    紅色系模糊光暈，置中疊在曇月靈身後），一樣用**與飄浮動畫完全
+    相同的 duration(3.6s)／easing(ease-in-out)／infinite** 讓
+    scale／opacity 同步脈動：曇月靈在 0%／100%（低點，感覺較「近」）
+    時光暈最大最亮；50%（高點，感覺較「遠」）時光暈最小最淡，模擬
+    「景深」錯覺（近大遠小/近亮遠淡），非貼地投影。
+  🔴 中央位置遮擋內文驗證（本輪重點）：已用 Chrome headless 對「真實
+    內容頁」（統計諮詢.html）截桌機 1280px + 手機 390px 整頁/中段圖，
+    確認曇月靈+氣泡置於視窗左側中央時是否蓋到內文文字/圖片，結果見
+    交付訊息（回報時逐一列出桌機/手機是否遮擋）。
+
+  【P4-r3 定案，2026-07-05，Chair 用真實瀏覽器糾正：中央方案取消】
+  Chair 指出 Co-Leader 誤把 1280 headless render 當真實前端判讀；真實
+  瀏覽器畫面是「寬螢幕內容置中、左右是背景留白」，曇月靈在左下角其實
+  是浮在背景留白上，不會蓋到置中的內文——r2 版本的「中央遮擋」問題
+  評估基準有誤。**曇月靈定案改回左下角**（v1-v3 原始定位）：
+  - `#hdh-mascot-fab` 由 `top:50%+translateY(-50%)` 改回
+    `bottom:20px`（桌機）／`bottom:14px`（手機），`top`/`transform`
+    定位一併移除。
+  - 氣泡常駐可見（不自動收起）維持 r2 的做法。
+  - 字級 20px 維持。
+  - 陰影**改回「貼地橢圓陰影」**（P4 第一版做法，非 r2 的懸浮光暈）：
+    曇月靈回到接近視窗底部，貼地陰影的視覺邏輯重新成立，比懸浮光暈
+    更適合現在的定位。scale/opacity 脈動邏輯不變（與 float 同步）。
+  - **頁尾 padding 計算依據更新**：曇月靈回到左下角後，「曇月靈＋氣泡
+    ＋地面陰影」整組從視窗底部往上的**總佔位**必須重新量測（陰影會
+    讓總佔位比曇月靈本體更高，因為陰影 bottom 比曇月靈本體 bottom
+    更低、但真正決定頁尾需要多少 padding 的是**氣泡頂端**這個最高點，
+    非陰影本身）。實測數字與最終頁尾 padding 值見交付訊息。
+  【P4-r4 修正，2026-07-05，Chair 用真實瀏覽器發現：陰影被龍身擋住看不到】
+  - 根因（Read 實際圖檔 assets/mascot-chat.png 逐格分析找到）：原圖
+    244x255，用 `magick -trim` 量出實際不透明內容範圍為 244x255+18+18
+    （即上下左右各 18px 透明邊界，內容 208x219）。換算到桌機 121px
+    高的渲染框內，龍身不透明區塊的**底緣距框底僅約 8.5px**（121 ×
+    18/255 ≈ 8.5）。而原本陰影 `bottom:6px, height:16px` 落在距框底
+    6～22px 範圍，**幾乎整段都疊在龍身不透明像素之下**，只有底部約
+    2.5px 縫隙露在外面，加上 blur(1.5px) 與漸層本身邊緣就已淡化，
+    肉眼幾乎看不到——這就是「陰影有做但看不到」的真正原因。
+  - 修正：陰影**下移探出龍身輪廓之外**（`bottom` 改為負值，讓陰影整段
+    落在距框底 8.5px 以下的「真空區」，不再被龍身像素覆蓋），並**加大
+    尺寸**讓橢圓更明顯：桌機 width 72→84px、height 16→20px、
+    bottom:6px→**-13px**（陰影範圍變成 -13～7px，全數低於龍身底緣
+    8.5px，完全露出）。
+  - **提高最低透明度**：脈動 opacity 原本 .5→.18，Chair 指出 .18
+    太淡幾乎消失。改為 **.55→.32**，確保飄浮週期中任何時刻都至少
+    隱約可見、峰值更明顯。
+  - 手機版同比例縮放（84/116≈0.72 的縮放比）：width 52→60px、
+    height 12→14px、bottom:4px→**-9px**。
 ============================================================ -->
 <div id="hdh-mascot-root">
 <style>
@@ -4720,10 +5340,22 @@
     100% { transform:translateY(0); }
   }
 
-  /* ---------- 定位錨點（左下角，與右下角訂閱鈕分居兩端） ---------- */
+  /* P4-r4：最低 opacity 由 .18 提高為 .32（原本太淡幾乎消失，見上方註解），
+     確保任何時刻都至少隱約可見；峰值 .55 更明顯 */
+  @keyframes hdh-mascot-shadow-pulse{
+    0%   { transform:translateX(-50%) scale(1);   opacity:.55; }
+    50%  { transform:translateX(-50%) scale(.62); opacity:.32; }
+    100% { transform:translateX(-50%) scale(1);   opacity:.55; }
+  }
+
+  /* ---------- 定位錨點（P4-r3 定案：回到左下角，v1-v3 原始定位） ---------- */
   /* v2：尺寸由 104x102 放大為 116x121（頭部特寫裁切 244x255 同比例），
      left 由 20px 調整為 24px，確保連同透明邊界在內的完整圖像
-     不會貼齊或溢出視窗左邊界而被切到。 */
+     不會貼齊或溢出視窗左邊界而被切到。
+     P4-r3：r2 曾改為 top:50%+translateY(-50%)（左側垂直置中），但
+     Chair 用真實瀏覽器畫面糾正：寬螢幕內容置中、左右是背景留白，
+     左下角其實浮在背景上、不會蓋到置中內文，中央方案的疑慮評估基準
+     有誤，定案改回左下角 bottom 定位。 */
   #hdh-mascot-fab{
     position:fixed;
     left:24px;
@@ -4741,8 +5373,29 @@
     outline:none;
   }
 
+  /* P4-r4：陰影下移探出龍身輪廓之外，確保「真的看得到」（見上方 P4-r4
+     註解的精確量測：龍身不透明底緣距框底約8.5px，陰影必須整段落在
+     8.5px 以下才不會被龍身像素蓋住）。陰影固定貼地（不隨曇月靈
+     translateY 上下飄），只用 scale/opacity 動畫模擬懸浮感 */
+  #hdh-mascot-shadow{
+    position:absolute;
+    left:50%;
+    bottom:-13px;
+    width:84px;
+    height:20px;
+    background:radial-gradient(ellipse at center, rgba(45,45,45,.75) 0%, rgba(45,45,45,0) 72%);
+    border-radius:50%;
+    filter:blur(1.5px);
+    transform:translateX(-50%) scale(1);
+    animation:hdh-mascot-shadow-pulse 3.6s ease-in-out infinite;
+    pointer-events:none;
+    z-index:0; /* 墊在曇月靈本體之下 */
+  }
+
   /* 漂浮效果掛在外層 div，避免與 hover 縮放的 transform 互相覆蓋 */
   #hdh-mascot-float{
+    position:relative; /* P4③：明確蓋過陰影的 z-index，確保曇月靈本體永遠疊在陰影上方 */
+    z-index:1;
     width:100%;
     height:100%;
     animation:hdh-mascot-float 3.6s ease-in-out infinite;
@@ -4763,7 +5416,7 @@
   }
   #hdh-mascot-link:active #hdh-mascot-img{ transform:scale(1.02); }
 
-  /* ---------- 小對話氣泡（常駐、載入後淡入一次，不再自動收起） ----------
+  /* ---------- 小對話氣泡（常駐顯示，載入後淡入一次，P4-r2 取消自動收起） ----------
      v3 重新設計（2026-07-04，依 Chair 意見）：
      1) 文字放大＋加粗（15px / 700），改水平置中
      2) 氣泡放大、加寬、內距加大，與曇月靈拉開間距（不再貼著頭部）
@@ -4771,10 +5424,12 @@
      4) 周圍加品牌紅／金雙層光暈（比照右下角訂閱鈕 box-shadow 手法）
      5) 白底 → Apple 風格液態玻璃：真・backdrop-filter 毛玻璃 + 多層半透明
         漸層 + 頂部 inset 白色高光，做出水晶質感（不支援 backdrop-filter
-        的瀏覽器則退回不透明米白色，見下方 @supports fallback） */
+        的瀏覽器則退回不透明米白色，見下方 @supports fallback）
+     P4② 再放大：字級 15px→20px（+2 級），width 200→236px、
+        padding 16px 20px→18px 24px 同步放大避免擁擠換行。 */
   #hdh-mascot-bubble{
     position:absolute;
-    left:66px;
+    left:48px;
     bottom:138px;
     /* 注意（血淚教訓）：絕對定位元素在 left 已指定、right 未指定時，
        shrink-to-fit 寬度會以「容器寬度 - left」當作可用寬度計算，容易
@@ -4783,9 +5438,10 @@
        內距重新校正 left/bottom，讓氣泡整體上移、右移，與吉祥物頭部
        拉開間距；bottom 138（而非 128）是因為改用獨立尖角三角形
        ::after 後，尖角會再往下凸出約 9px，需相應墊高，避免尖角貼到
-       曇月靈頭頂） */
-    width:200px;
-    max-width:200px;
+       曇月靈頭頂。P4：字級放大後 width 由 200 加寬為 236，left 由 66
+       收窄為 48，讓變寬的氣泡不會右側超出視窗過多） */
+    width:236px;
+    max-width:236px;
     background:linear-gradient(135deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.30) 55%, rgba(255,255,255,.46) 100%);
     backdrop-filter:blur(12px) saturate(1.5);
     -webkit-backdrop-filter:blur(12px) saturate(1.5);
@@ -4793,8 +5449,8 @@
     border-radius:20px; /* v3 改走 iMessage 式：主體統一圓角＋下方獨立
       尖角三角形（見 ::after），比起「捏角落半徑」在氣泡放大變扁後
       更能清楚辨識方向，尖角透過 ::after 指向曇月靈 */
-    padding:16px 20px;
-    font-size:15px;
+    padding:18px 24px; /* P4②：同步放大（原 16px 20px） */
+    font-size:20px; /* P4②：15px→20px，放大兩級更醒目 */
     font-weight:700;
     letter-spacing:.5px;
     line-height:1.4;
@@ -4849,14 +5505,19 @@
   }
 
   @media (max-width:480px){
+    /* P4-r3：手機版同樣改回左下角（bottom:14px，取代 r2 的 top:50%+translateY(-50%)） */
     #hdh-mascot-fab{ left:14px; bottom:14px; width:84px; height:88px; }
-    #hdh-mascot-bubble{ display:none !important; } /* 手機版不顯示氣泡，避免遮擋內容（比照訂閱鈕慣例） */
+    #hdh-mascot-bubble{ display:none !important; } /* 手機版不顯示氣泡，避免遮擋內容（比照訂閱鈕慣例，P4-r3 未變更此項） */
+    #hdh-mascot-shadow{ width:60px; height:14px; bottom:-9px; } /* P4-r4：同桌機理由同比例縮放(84/116≈0.72)，陰影下移探出龍身輪廓 */
   }
 </style>
 
 <div id="hdh-mascot-fab">
   <!-- 小氣泡：本身即為連結，無 JS 也能點擊開啟 Messenger -->
   <a id="hdh-mascot-bubble" href="https://m.me/medata12p" target="_blank" rel="noopener" aria-label="私訊匯東華統計顧問 Messenger">私訊我們 💬</a>
+
+  <!-- P4-r3：貼地橢圓陰影，與 #hdh-mascot-float 同層手足元素、不進 float 內部（原因見上方註解） -->
+  <div id="hdh-mascot-shadow" aria-hidden="true"></div>
 
   <!-- 曇月靈客服：整隻可點擊，開新分頁至 Messenger -->
   <a id="hdh-mascot-link" href="https://m.me/medata12p" target="_blank" rel="noopener" aria-label="用 Messenger 聯絡匯東華統計顧問（曇月靈客服）">
@@ -4880,6 +5541,8 @@
   var isMobile = window.matchMedia && window.matchMedia('(max-width:480px)').matches;
   if (isMobile) { return; } // 手機版氣泡本來就 CSS 隱藏，略過淡入排程
 
+  // P4-r2：氣泡淡入後常駐顯示，不自動收起（Chair 指示：曇月靈是客服入口，
+  // 收起後使用者不知道用途；改由「移到左側垂直置中」解決與頁尾的碰撞問題）。
   setTimeout(function(){
     bubble.classList.add('hdh-mascot-bubble-show');
   }, 900); // 頁面載入後 0.9 秒溫和淡入，不與訂閱鈕的 2 秒氣泡搶注意力
