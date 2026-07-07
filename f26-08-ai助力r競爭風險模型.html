@@ -3781,20 +3781,23 @@
 
   function openModal(){
     if (!overlay) { return; }
+    overlay.__hdhOpen = true;
     overlay.hidden = false;
-    savedOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
     window.requestAnimationFrame(function(){
+      if (!overlay.__hdhOpen) { return; }
+      savedOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
       overlay.classList.add('hdh-annc-show');
+      try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) { /* 無痕模式等限制，忽略 */ }
     });
-    try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) { /* 無痕模式等限制，忽略 */ }
   }
 
   function closeModal(){
     if (!overlay) { return; }
+    overlay.__hdhOpen = false;
     overlay.classList.remove('hdh-annc-show');
     document.body.style.overflow = savedOverflow;
-    setTimeout(function(){ overlay.hidden = true; }, 260);
+    setTimeout(function(){ if (!overlay.__hdhOpen) { overlay.hidden = true; } }, 260);
   }
 
   if (closeBt) { closeBt.addEventListener('click', closeModal); }
