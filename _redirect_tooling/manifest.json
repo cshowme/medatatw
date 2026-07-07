@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-03T11:14:58Z",
+  "generated_at": "2026-07-07T10:04:35Z",
   "source_csv": "_redirect_tooling/redirects.csv",
   "managed_paths": [
     "about",
@@ -10,10 +10,12 @@
     "contact",
     "dag-workshop",
     "data-pipeline",
+    "doi-verifier",
     "eicu",
     "errata",
     "faq",
     "km-curve-reading",
+    "km-guide",
     "learning",
     "lit-review-agent",
     "live",
@@ -22,6 +24,7 @@
     "merch",
     "news",
     "nma-basic",
+    "nma-faq",
     "nma-pro",
     "offerings",
     "prediction-package",

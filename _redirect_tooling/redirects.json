@@ -183,5 +183,20 @@
     "path": "clinical-prediction-model",
     "target": "https://www.medatatw.com/ws5-6-r%E8%AA%9E%E8%A8%80%E9%86%AB%E5%AD%B8%E7%B5%B1%E8%A8%88_%E8%87%A8%E5%BA%8A%E9%A0%90%E6%B8%AC%E6%A8%A1%E5%9E%8B.html",
     "note": "WS5-6 R語言醫學統計臨床預測模型"
+  },
+  {
+    "path": "km-guide",
+    "target": "https://www.medatatw.com/QA_%E8%A9%B3%E7%B4%B0%E8%A7%A3%E8%AE%80kaplan-meier%E5%AD%98%E6%B4%BB%E6%9B%B2%E7%B7%9A.html",
+    "note": "詳細解讀Kaplan-Meier存活曲線(文章)"
+  },
+  {
+    "path": "nma-faq",
+    "target": "https://www.medatatw.com/nma%E5%B0%88%E6%AC%8401-network-meta-analysis%E7%A0%94%E7%A9%B6%E5%B8%B8%E8%A6%8B%E5%95%8F%E9%A1%8C.html",
+    "note": "Network meta-analysis研究常見問題(文章)"
+  },
+  {
+    "path": "doi-verifier",
+    "target": "https://doi-verifier-pro.vercel.app/login.html",
+    "note": "AI文獻品管師登入頁"
   }
 ]
