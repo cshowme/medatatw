@@ -2924,7 +2924,7 @@
 <p data-offset-key="cq217-0-0" class="_1mf _1mj"><span data-offset-key="cq217-0-0">☑️(A)Kaplan-Meier 估計方法，需在兩條存活曲線沒有相交的狀況下進行估計：錯誤。Kaplan-Meier估計方法用於估計存活資料中的存活函數，並繪製存活曲線。此種方法並不要求兩條存活曲線不相交。實際上，在許多情況下，不同組別的存活曲線可能會在某些時間點相交。Kaplan-Meier方法的主要假設包括：</span></p>
 </div>
 <p data-offset-key="7sc0o-0-0" class="_1mf _1mj"><span data-offset-key="7sc0o-0-0">1.存活機率在時間間隔內是恆定的：即在兩次連續事件發生之間，存活機率不變。</span></p>
-<p data-offset-key="1c35b-0-0" class="_1mf _1mj"><span data-offset-key="1c35b-0-0">2.被設限資料（例如，未發生事件的樣本）隨機性：亦即被設限的樣本對於存活時間的分布是具有代表性，與未設限個案同質。</span></p>
+<p data-offset-key="1c35b-0-0" class="_1mf _1mj"><span data-offset-key="1c35b-0-0">2.被設限資料（例如，未發生事件的樣本）隨機性：亦即被設限的樣本對於存活時間的分布具有代表性，與未設限個案同質。</span></p>
 <p data-offset-key="9hn5o-0-0" class="_1mf _1mj"><span data-offset-key="9hn5o-0-0">3.受試者存活時間之獨立性：即一個受試者的存活時間不會影響另一個受試者的存活時間。</span></p>
 <div data-offset-key="bk0l9-0-0" class="_1mf _1mj"><span data-offset-key="bk0l9-0-0">☑️(B)存活曲線解讀：</span></div>
 <p data-offset-key="8a85i-0-0" class="_1mf _1mj"><span data-offset-key="8a85i-0-0">縱軸代表存活機率，從1.0（100%）開始逐漸下降。</span></p>
@@ -2932,7 +2932,7 @@
 <p data-offset-key="4qnlj-0-0" class="_1mf _1mj"><span data-offset-key="4qnlj-0-0">黑線（gender = 0）代表女性，紅線（gender = 1）代表男性。</span></p>
 <p data-offset-key="1j31-0-0" class="_1mf _1mj"><span data-offset-key="1j31-0-0">中位數存活時間：中位數存活時間是存活機率降至0.5的時間點。從圖中Y軸為0.5畫出一條水平線與各組的存活曲線相交，對下來的X軸數值即為中位數存活時間。從圖中以估計：</span></p>
 <p data-offset-key="e1dbv-0-0" class="_1mf _1mj"><span data-offset-key="e1dbv-0-0">男性（紅線）的中位數存活時間約為40個月。</span></p>
-<p data-offset-key="emasc-0-0" class="_1mf _1mj"><span data-offset-key="emasc-0-0">女性（黑線）的中位數存活時間約為70個月之間。</span></p>
+<p data-offset-key="emasc-0-0" class="_1mf _1mj"><span data-offset-key="emasc-0-0">女性（黑線）的中位數存活時間約為70個月。</span></p>
 <p data-offset-key="26gm3-0-0" class="_1mf _1mj"><span data-offset-key="26gm3-0-0">因此，選項(B)正確。</span></p>
 <p data-offset-key="5ua34-0-0" class="_1mf _1mj"><span data-offset-key="5ua34-0-0">☑️(C)曲線下降的含義：</span></p>
 <p data-offset-key="3jojm-0-0" class="_1mf _1mj"><span data-offset-key="3jojm-0-0">選項(C)正確地指出曲線下降表示有因肺癌死亡的事件發生。每一個下降點代表一個或多個死亡事件。符合Kaplan-Meier方法的基本原理。本選項正確。</span></p>
@@ -2945,6 +2945,10 @@
 <div class="" data-block="true" data-editor="9sidg" data-offset-key="lpp4-0-0">
 <p data-offset-key="lpp4-0-0" class="_1mf _1mj"><span data-offset-key="lpp4-0-0">本題為選擇錯誤者，答案為(A)。</span></p>
 </div>
+<h3 class="_1mf _1mj"><span>補充說明：Kaplan-Meier 曲線的判讀要點</span></h3>
+<p class="_1mf _1mj"><span>1. 如何從圖中判讀中位數存活時間：先在縱軸（存活機率）0.5 處畫一條水平線，向右延伸與存活曲線相交，再由交點垂直向下對應到橫軸（時間），該時間即為該組的中位數存活時間，代表約有一半的個案存活超過此時間。若某組曲線始終未降到 0.5（即發生事件的比例未過半），則該組的中位數存活時間無法估計。</span></p>
+<p class="_1mf _1mj"><span>2. 為什麼「+」設限記號不會使存活曲線下降：曲線上的「+」代表設限（censoring），指個案在觀察期間並未發生所關注的結局事件（如因肺癌死亡），可能因研究結束時仍存活、失去追蹤或因其他原因退出研究。設限個案只是在該時間點離開風險集合（risk set），並非發生事件，因此「+」本身不會讓曲線下降；存活曲線只有在發生結局事件時，才會呈階梯狀向下跳動。</span></p>
+<p class="_1mf _1mj"><span>3. 兩組存活曲線的統計比較：若要檢定兩組（如男性與女性）的存活曲線是否有統計上的差異，常用 log-rank 檢定（又稱 Mantel-Cox 檢定），它是綜合整條曲線的比較，而非只看單一時間點；若進一步希望在校正其他變項下估計風險比（hazard ratio），則可採用 Cox 比例風險模型。</span></p>
 <div class="" data-block="true" data-editor="9sidg" data-offset-key="66t49-0-0">
 <div data-offset-key="66t49-0-0" class="_1mf _1mj"><span data-offset-key="66t49-0-0">&nbsp;</span></div>
 </div>
