@@ -2901,88 +2901,163 @@
 <div id="rot_ctr1_bod_ctr2" class="b_bg" block_type="bg" tpba_id="3869623"><div id="rot_ctr1_bod_ctr2_bod" class="b_bg" block_type="bg" tpba_id="3869624"><div id="rot_ctr1_bod_ctr2_bod_wrp1" class="b_pagebg" block_type="pagebg" tpba_id="3869625"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk1" class="b_bg" block_type="bg" tpba_id="3869630"></div>
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2" class="b_bg" block_type="bg" tpba_id="3869646"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_custom" class="b_html" block_type="html"><p><em><span style="font-size: 18pt;"><span style="font-size: 24pt;">"匯東華-認真作好每件事"</span><br />~統計，不再是阻力，而是助力~</span></em><img src="營業項目/_imagecache/graph-6249046_1920.png" caption="false" /></p></div>
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1" class="b_bg" block_type="bg" tpba_id="3869647"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk1" class="b_html" block_type="html" tpba_id="3869648"><p><img src="static/images/icons/parallax_home_icon1.png" /></p></div>
-<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk2" class="b_html" block_type="html" tpba_id="3869649"><h1 style="text-align: center;"><strong><span style="font-size: 24pt; color: #800000;">Q &amp; A：詳細解讀Kaplan-Meier存活曲線</span></strong></h1>
-<div dir="auto">
-<p>&nbsp; <span data-surface-wrapper="1" style="display: contents;" data-surface="/bizweb:composer" data-auto-logging-id="f3d02c05f44ec2c"></span></p>
-<div data-contents="true">
-<div class="" data-block="true" data-editor="9sidg" data-offset-key="6db4j-0-0">
-<h2 data-offset-key="6db4j-0-0" class="_1mf _1mj" style="text-align: left;"><span data-offset-key="6db4j-0-0">Q &amp; A：</span></h2>
-<h4 data-offset-key="6db4j-0-0" class="_1mf _1mj" style="text-align: left;"><span data-offset-key="6db4j-0-0">肺癌發生率為每十萬人口36 人，為臺灣前10 大癌症之一，以下為某醫學中心，肺癌存活率之資料(以月為單位)，是利用Kaplan-Meier 估計方法得到，gender=0 為女性，gender=1 為男性，在曲線上&ldquo;+＂為設限（censor），以下描述何者錯誤？</span></h4>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk2" class="b_html" block_type="html" tpba_id="3869649"><!-- ====================================================
+     詳細解讀 Kaplan-Meier 存活曲線 - QA 內容區塊（sa 存活分析軌道 專業版）
+     版本：v2.0_20260707_CSX
+     說明：純內容區塊重排版，取代原始純文字排版；scoped .kmqa- 前綴
+           （不影響全站樣式，內容文字未變更）
+     對應直播：Live26-07 存活曲線閱讀術（2026/07/10）
+     ==================================================== -->
+<style>
+.kmqa-wrap{--kmqa-purple-dark:#3d2d5c;--kmqa-purple-light:#6b5b95;--kmqa-red:#B82226;--kmqa-red-dark:#8a1a1d;--kmqa-gold:#C4A46D;--kmqa-dark:#2d2d2d;--kmqa-gray:#666666;--kmqa-light:#f8f6f0;--kmqa-border:#e5e0ea;--kmqa-green:#2f9e44;font-family:'Microsoft JhengHei','微軟正黑體',sans-serif;line-height:1.8;color:#333;max-width:900px;margin:0 auto;padding:0 20px 20px;box-sizing:border-box;}
+.kmqa-wrap *,.kmqa-wrap *::before,.kmqa-wrap *::after{box-sizing:inherit;}
+.kmqa-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--kmqa-purple-dark) 0%,var(--kmqa-purple-light) 100%);color:#fff;padding:56px 40px 44px;text-align:center;margin-bottom:36px;border-radius:10px;}
+.kmqa-hero::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" preserveAspectRatio="none"><path d="M0 20 L0 20 L40 20 L40 35 L80 35 L80 50 L120 50 L120 70 L160 70 L160 85 L200 85" stroke="%23ffffff" stroke-width="2" fill="none" opacity="0.18"/><circle cx="40" cy="20" r="3" fill="%23ffffff" opacity="0.22"/><circle cx="80" cy="35" r="3" fill="%23ffffff" opacity="0.22"/><circle cx="120" cy="50" r="3" fill="%23ffffff" opacity="0.22"/><circle cx="160" cy="70" r="3" fill="%23ffffff" opacity="0.22"/></svg>');background-size:cover;opacity:.5;pointer-events:none;}
+.kmqa-brand-tag{position:absolute;top:14px;left:14px;background:var(--kmqa-red);color:#fff;padding:6px 14px;font-size:13px;font-weight:bold;border-radius:4px;z-index:10;letter-spacing:2px;}
+.kmqa-mascot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:350px;height:auto;opacity:.12;z-index:1;pointer-events:none;}
+.kmqa-live-badge{position:relative;z-index:2;display:inline-flex !important;align-items:center;gap:8px;background:#fff !important;border:2px solid var(--kmqa-red);color:var(--kmqa-red) !important;padding:7px 18px;font-size:14px;font-weight:bold;border-radius:20px;text-decoration:none !important;margin-bottom:18px;transition:all .2s;}
+.kmqa-live-badge:hover{background:var(--kmqa-red) !important;color:#fff !important;}
+.kmqa-live-badge .kmqa-dot{width:8px;height:8px;border-radius:50%;background:var(--kmqa-red);animation:kmqa-pulse 1.4s infinite;}
+.kmqa-live-badge:hover .kmqa-dot{background:#fff;}
+@keyframes kmqa-pulse{0%{opacity:1;}50%{opacity:.3;}100%{opacity:1;}}
+.kmqa-hero h1{position:relative;z-index:2;font-size:30px;font-weight:bold;line-height:1.5;margin:0 0 10px;}
+.kmqa-hero .kmqa-tagline{position:relative;z-index:2;font-size:15px;color:var(--kmqa-gold);letter-spacing:1px;margin:0;}
+.kmqa-question-card{background:#fff;border:2px solid var(--kmqa-border);border-left:6px solid var(--kmqa-purple-dark);border-radius:8px;padding:30px 32px;margin:0 0 30px;box-shadow:0 2px 10px rgba(0,0,0,.05);}
+.kmqa-q-badge{display:inline-block;background:var(--kmqa-purple-dark);color:#fff;font-size:13px;font-weight:bold;padding:4px 14px;border-radius:4px;margin-bottom:14px;letter-spacing:2px;}
+.kmqa-q-text{font-size:17px;line-height:1.9;color:var(--kmqa-dark);margin:0 0 18px;}
+.kmqa-options{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+.kmqa-options li{display:flex;gap:10px;align-items:flex-start;background:var(--kmqa-light);border:1px solid var(--kmqa-border);border-radius:6px;padding:12px 16px;font-size:15.5px;line-height:1.7;color:#444;}
+.kmqa-opt-label{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--kmqa-purple-light);color:#fff;font-weight:bold;font-size:13px;display:flex;align-items:center;justify-content:center;}
+.kmqa-figure{text-align:center;margin:0 0 34px;}
+.kmqa-figure-label{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:bold;color:var(--kmqa-purple-dark);margin-bottom:14px;}
+.kmqa-figure img{max-width:540px;width:100%;height:auto;border:1px solid var(--kmqa-border);border-radius:8px;box-shadow:0 4px 16px rgba(61,45,92,.12);background:#fff;padding:14px;}
+.kmqa-figure-caption{font-size:14px;color:var(--kmqa-gray);margin-top:12px;}
+.kmqa-section-title{font-size:24px;color:var(--kmqa-purple-dark);border-bottom:4px solid var(--kmqa-gold);padding-bottom:10px;margin:44px 0 26px;font-weight:bold;text-align:center;}
+.kmqa-analysis-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:8px;}
+.kmqa-analysis-card{background:#fff;border:2px solid var(--kmqa-border);border-radius:8px;padding:22px 24px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.kmqa-analysis-card.is-wrong{border-color:var(--kmqa-red);background:#fff7f7;}
+.kmqa-analysis-card.is-correct{border-color:#bfe3c8;background:#f6fbf7;}
+.kmqa-analysis-head{display:flex;align-items:center;gap:8px;font-weight:bold;font-size:15.5px;margin-bottom:10px;}
+.kmqa-analysis-card.is-wrong .kmqa-analysis-head{color:var(--kmqa-red-dark);}
+.kmqa-analysis-card.is-correct .kmqa-analysis-head{color:var(--kmqa-green);}
+.kmqa-analysis-head svg{flex-shrink:0;}
+.kmqa-analysis-card p{font-size:15px;color:#444;line-height:1.8;margin:0 0 8px;}
+.kmqa-analysis-card p:last-child{margin-bottom:0;}
+.kmqa-answer-banner{text-align:center;background:linear-gradient(135deg,var(--kmqa-gold) 0%,#d4b47d 100%);color:var(--kmqa-purple-dark);font-size:18px;font-weight:bold;padding:18px 24px;border-radius:8px;margin:30px 0 10px;}
+.kmqa-tips{display:grid;gap:16px;}
+.kmqa-tip{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--kmqa-border);border-left:5px solid var(--kmqa-purple-light);border-radius:6px;padding:18px 22px;}
+.kmqa-tip-icon{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--kmqa-purple-dark);display:flex;align-items:center;justify-content:center;}
+.kmqa-tip p{margin:0;font-size:15px;line-height:1.85;color:#444;}
+.kmqa-cta{background:linear-gradient(135deg,var(--kmqa-red) 0%,var(--kmqa-red-dark) 100%);color:#fff;text-align:center;padding:44px 36px;border-radius:10px;margin:46px 0 20px;}
+.kmqa-cta h2{font-size:24px;margin:0 0 12px;font-weight:bold;}
+.kmqa-cta p{font-size:16px;opacity:.95;margin:0 0 26px;}
+.kmqa-cta-btns{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;}
+.kmqa-btn{display:inline-block !important;padding:14px 34px;font-size:16px;font-weight:bold;text-decoration:none !important;border-radius:6px;transition:all .25s;}
+.kmqa-btn-primary{background:var(--kmqa-gold) !important;color:var(--kmqa-purple-dark) !important;}
+.kmqa-btn-primary:hover{background:#d4b47d !important;transform:translateY(-2px);}
+.kmqa-btn-secondary{background:#fff !important;color:var(--kmqa-red) !important;}
+.kmqa-btn-secondary:hover{background:var(--kmqa-light) !important;transform:translateY(-2px);}
+@media (max-width:768px){
+.kmqa-wrap{padding:0 15px 15px;}
+.kmqa-hero{padding:40px 22px 34px;}
+.kmqa-hero h1{font-size:22px;}
+.kmqa-mascot{width:220px;}
+.kmqa-question-card{padding:22px 20px;}
+.kmqa-section-title{font-size:20px;margin:34px 0 20px;}
+.kmqa-analysis-grid{grid-template-columns:1fr;}
+.kmqa-cta{padding:34px 22px;}
+.kmqa-cta-btns{flex-direction:column;align-items:center;}
+.kmqa-btn{width:100%;max-width:320px;text-align:center;}
+.kmqa-figure img{padding:8px;}
+}
+</style>
+<div class="kmqa-wrap">
+
+<div class="kmqa-hero">
+<div class="kmqa-brand-tag">匯東華</div>
+<img class="kmqa-mascot" src="https://www.medatatw.com/課程報名/曇月靈01-去背景.png" alt="曇月靈" />
+<a class="kmqa-live-badge" href="live26-07-存活曲線閱讀術km圖解讀.html"><span class="kmqa-dot"></span>LIVE｜7/10 存活曲線閱讀術</a>
+<h1>詳細解讀 Kaplan-Meier 存活曲線</h1>
+<p class="kmqa-tagline">匯東華 sa 存活分析軌道｜生物統計學 Q&amp;A</p>
 </div>
-<p data-block="true" data-editor="9sidg" data-offset-key="3q888-0-0"><span data-offset-key="3q888-0-0">(A)Kaplan-Meier 估計方法，需在兩條存活曲線沒有相交的狀況下進行估計</span></p>
-<p data-offset-key="atmpc-0-0" class="_1mf _1mj"><span data-offset-key="atmpc-0-0">(B)此Kaplan-Meier 估計結果中，存活中位數，男性為40 個月，女性為70 個月</span></p>
-<p data-offset-key="9mcb9-0-0" class="_1mf _1mj"><span data-offset-key="9mcb9-0-0">(C)曲線有下降表示有因肺癌死亡之事件發生</span></p>
-<p data-block="true" data-editor="9sidg" data-offset-key="7i6va-0-0"><span data-offset-key="7i6va-0-0">(D)第80 個月後曲線為平行線，表示在第80 個月後，無個案因肺癌死亡，但有幾個個案是非因肺癌死亡</span></p>
-</div>
-<a href="https://www.bmj.com/content/350/bmj.h560"><span><br /></span></a></div>
-<div dir="auto"><span><img src="學習資源/_imagecache/112公衛師生物統計學試題_詳細解讀Kaplan-Meier存活曲線.png" mouseover_src="" mouseout_src="" alt="Kaplan-Meier存活曲線、存活分析" style="max-width: 340px; width: 100%; height: auto; display: block; margin: 0 auto;" /><br /></span></div>
-<div dir="auto">
-<div class="" data-block="true" data-editor="9sidg" data-offset-key="6jlir-0-0">
-<h2 data-offset-key="6jlir-0-0" class="_1mf _1mj"><span data-offset-key="6jlir-0-0">詳細解析：</span></h2>
-</div>
-<div class="" data-block="true" data-editor="9sidg" data-offset-key="cq217-0-0">
-<p data-offset-key="cq217-0-0" class="_1mf _1mj"><span data-offset-key="cq217-0-0">☑️(A)Kaplan-Meier 估計方法，需在兩條存活曲線沒有相交的狀況下進行估計：錯誤。Kaplan-Meier估計方法用於估計存活資料中的存活函數，並繪製存活曲線。此種方法並不要求兩條存活曲線不相交。實際上，在許多情況下，不同組別的存活曲線可能會在某些時間點相交。Kaplan-Meier方法的主要假設包括：</span></p>
-</div>
-<p data-offset-key="7sc0o-0-0" class="_1mf _1mj"><span data-offset-key="7sc0o-0-0">1.存活機率在時間間隔內是恆定的：即在兩次連續事件發生之間，存活機率不變。</span></p>
-<p data-offset-key="1c35b-0-0" class="_1mf _1mj"><span data-offset-key="1c35b-0-0">2.被設限資料（例如，未發生事件的樣本）隨機性：亦即被設限的樣本對於存活時間的分布具有代表性，與未設限個案同質。</span></p>
-<p data-offset-key="9hn5o-0-0" class="_1mf _1mj"><span data-offset-key="9hn5o-0-0">3.受試者存活時間之獨立性：即一個受試者的存活時間不會影響另一個受試者的存活時間。</span></p>
-<div data-offset-key="bk0l9-0-0" class="_1mf _1mj"><span data-offset-key="bk0l9-0-0">☑️(B)存活曲線解讀：</span></div>
-<p data-offset-key="8a85i-0-0" class="_1mf _1mj"><span data-offset-key="8a85i-0-0">縱軸代表存活機率，從1.0（100%）開始逐漸下降。</span></p>
-<p data-offset-key="nbd1-0-0" class="_1mf _1mj"><span data-offset-key="nbd1-0-0">橫軸代表時間（本圖中以月為單位）。</span></p>
-<p data-offset-key="4qnlj-0-0" class="_1mf _1mj"><span data-offset-key="4qnlj-0-0">黑線（gender = 0）代表女性，紅線（gender = 1）代表男性。</span></p>
-<p data-offset-key="1j31-0-0" class="_1mf _1mj"><span data-offset-key="1j31-0-0">中位數存活時間：中位數存活時間是存活機率降至0.5的時間點。從圖中Y軸為0.5畫出一條水平線與各組的存活曲線相交，對下來的X軸數值即為中位數存活時間。從圖中以估計：</span></p>
-<p data-offset-key="e1dbv-0-0" class="_1mf _1mj"><span data-offset-key="e1dbv-0-0">男性（紅線）的中位數存活時間約為40個月。</span></p>
-<p data-offset-key="emasc-0-0" class="_1mf _1mj"><span data-offset-key="emasc-0-0">女性（黑線）的中位數存活時間約為70個月。</span></p>
-<p data-offset-key="26gm3-0-0" class="_1mf _1mj"><span data-offset-key="26gm3-0-0">因此，選項(B)正確。</span></p>
-<p data-offset-key="5ua34-0-0" class="_1mf _1mj"><span data-offset-key="5ua34-0-0">☑️(C)曲線下降的含義：</span></p>
-<p data-offset-key="3jojm-0-0" class="_1mf _1mj"><span data-offset-key="3jojm-0-0">選項(C)正確地指出曲線下降表示有因肺癌死亡的事件發生。每一個下降點代表一個或多個死亡事件。符合Kaplan-Meier方法的基本原理。本選項正確。</span></p>
-<p data-offset-key="f28id-0-0" class="_1mf _1mj"><span data-offset-key="f28id-0-0">☑️(D)曲線平坦部分的解釋：</span></p>
-<p data-offset-key="59vil-0-0" class="_1mf _1mj"><span data-offset-key="59vil-0-0">選項(D)對於80個月後曲線變平的解釋正確。僅有發生結局事件才會使存活率產生變化，讓曲線下降。而以下狀況都不會讓曲線產生變化，會產生設限資料，即圖中的"+"符號：</span></p>
-<p data-offset-key="1mec-0-0" class="_1mf _1mj"><span data-offset-key="1mec-0-0">1.資料設限（censoring）：患者在研究結束時仍然存活。</span></p>
-<p data-offset-key="fcl32-0-0" class="_1mf _1mj"><span data-offset-key="fcl32-0-0">2.失去追蹤：部分患者因各種原因無法繼續追蹤。</span></p>
-<p data-offset-key="ahbv8-0-0" class="_1mf _1mj"><span data-offset-key="ahbv8-0-0">3.發生其他非結局變數之事件。</span></p>
-<p data-offset-key="5romr-0-0" class="_1mf _1mj"><span data-offset-key="5romr-0-0">題目中提到曲線上的"+"符號代表設限（censor）資料，表示在該時間點，有患者因非研究終點（如肺癌死亡）的原因退出研究或研究結束時仍然存活。</span></p>
-<div class="" data-block="true" data-editor="9sidg" data-offset-key="lpp4-0-0">
-<p data-offset-key="lpp4-0-0" class="_1mf _1mj"><span data-offset-key="lpp4-0-0">本題為選擇錯誤者，答案為(A)。</span></p>
-</div>
-<h3 class="_1mf _1mj"><span>補充說明：Kaplan-Meier 曲線的判讀要點</span></h3>
-<p class="_1mf _1mj"><span>1. 如何從圖中判讀中位數存活時間：先在縱軸（存活機率）0.5 處畫一條水平線，向右延伸與存活曲線相交，再由交點垂直向下對應到橫軸（時間），該時間即為該組的中位數存活時間，代表約有一半的個案存活超過此時間。若某組曲線始終未降到 0.5（即發生事件的比例未過半），則該組的中位數存活時間無法估計。</span></p>
-<p class="_1mf _1mj"><span>2. 為什麼「+」設限記號不會使存活曲線下降：曲線上的「+」代表設限（censoring），指個案在觀察期間並未發生所關注的結局事件（如因肺癌死亡），可能因研究結束時仍存活、失去追蹤或因其他原因退出研究。設限個案只是在該時間點離開風險集合（risk set），並非發生事件，因此「+」本身不會讓曲線下降；存活曲線只有在發生結局事件時，才會呈階梯狀向下跳動。</span></p>
-<p class="_1mf _1mj"><span>3. 兩組存活曲線的統計比較：若要檢定兩組（如男性與女性）的存活曲線是否有統計上的差異，常用 log-rank 檢定（又稱 Mantel-Cox 檢定），它是綜合整條曲線的比較，而非只看單一時間點；若進一步希望在校正其他變項下估計風險比（hazard ratio），則可採用 Cox 比例風險模型。</span></p>
-<div class="" data-block="true" data-editor="9sidg" data-offset-key="66t49-0-0">
-<div data-offset-key="66t49-0-0" class="_1mf _1mj"><span data-offset-key="66t49-0-0">&nbsp;</span></div>
-</div>
-<div class="" data-block="true" data-editor="9sidg" data-offset-key="cavqh-0-0">
-<h3 data-offset-key="cavqh-0-0" class="_1mf _1mj"><span data-offset-key="cavqh-0-0">更多內容，請見 </span><span data-offset-key="cavqh-1-0" class="_5zk7" spellcheck="false"><span data-offset-key="cavqh-1-0">#<a href="https://medata.teaches.cc/" target="">匯東華統計學院</a></span></span><span data-offset-key="cavqh-2-0"> </span><span data-offset-key="cavqh-3-0" class="_5zk7" spellcheck="false"><span data-offset-key="cavqh-3-0">#生物統計學</span></span><span data-offset-key="cavqh-4-0">、</span><span data-offset-key="cavqh-5-0" class="_5zk7" spellcheck="false"><span data-offset-key="cavqh-5-0">#真實世界的研究設計與分析</span></span><span data-offset-key="cavqh-6-0">、以及， </span><span data-offset-key="cavqh-7-0" class="_5zk7" spellcheck="false"><span data-offset-key="cavqh-7-0">#存活分析</span></span><span data-offset-key="cavqh-8-0"> 線上課程。</span></h3>
-</div>
-<ul>
-<li>
-<h4><span style="font-size: 18pt;">會員專屬權益: <a href="https://www.medatatw.com/%E6%9C%83%E5%93%A1%E5%85%A5%E6%9C%83%E6%96%B9%E6%A1%88.html">會員入會方案</a></span></h4>
-</li>
+
+<div class="kmqa-question-card">
+<span class="kmqa-q-badge">題目</span>
+<p class="kmqa-q-text">肺癌發生率為每十萬人口36 人，為臺灣前10 大癌症之一，以下為某醫學中心，肺癌存活率之資料(以月為單位)，是利用Kaplan-Meier 估計方法得到，gender=0 為女性，gender=1 為男性，在曲線上&ldquo;+＂為設限（censor），以下描述何者錯誤？</p>
+<ul class="kmqa-options">
+<li><span class="kmqa-opt-label">A</span><span>(A)Kaplan-Meier 估計方法，需在兩條存活曲線沒有相交的狀況下進行估計</span></li>
+<li><span class="kmqa-opt-label">B</span><span>(B)此Kaplan-Meier 估計結果中，存活中位數，男性為40 個月，女性為70 個月</span></li>
+<li><span class="kmqa-opt-label">C</span><span>(C)曲線有下降表示有因肺癌死亡之事件發生</span></li>
+<li><span class="kmqa-opt-label">D</span><span>(D)第80 個月後曲線為平行線，表示在第80 個月後，無個案因肺癌死亡，但有幾個個案是非因肺癌死亡</span></li>
 </ul>
-<p><span style="font-size: 18pt;"> <span class="fa fa-thumbs-o-up"></span>更多學習資源:</span></p>
-<ul>
-<li>
-<h4><span style="font-size: 18pt;">BMJ統計問題列表: 匯東華官網/學習專區</span></h4>
-</li>
-<li>
-<h4><a href="https://medata.teaches.cc/" target="_blank" title="醫學統計、統合分析、R語言、SPSS、ChatGPT做研究" rel="noopener">匯東華統計學院</a></h4>
-</li>
-</ul>
-<p><span style="font-size: 18pt;"> <span class="fa fa-user-plus"></span>想了解更多?</span></p>
-<ul>
-<li>
-<p><span style="font-size: 18pt;">最新消息: <a href="https://www.medatatw.com/%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF.html">最新消息</a></span></p>
-</li>
-<li>
-<p><span style="font-size: 18pt;">課程詳情與報名: <a href="https://www.medatatw.com/%E8%AA%B2%E7%A8%8B%E5%A0%B1%E5%90%8D.html">課程報名</a></span></p>
-</li>
-</ul>
-<p><span style="font-size: 18pt;"> 聯繫我們的官方LINE: @medatatw，感謝您一路相伴，讓我們一同在AI時代一起進化! ✨</span></p>
-<hr />
-<p><span style="font-size: 18pt;">&nbsp;</span></p>
 </div>
-<div dir="auto"><span></span></div></div>
+
+<div class="kmqa-figure">
+<div class="kmqa-figure-label"><svg width="18" height="18" viewBox="0 0 24 24"><polyline points="3,20 8,20 8,15 13,15 13,10 18,10 18,6 22,6" fill="none" stroke="#3d2d5c" stroke-width="2"/></svg>Kaplan-Meier 存活曲線圖</div>
+<img src="學習資源/_imagecache/112公衛師生物統計學試題_詳細解讀Kaplan-Meier存活曲線.png" mouseover_src="" mouseout_src="" alt="Kaplan-Meier存活曲線、存活分析" />
+<p class="kmqa-figure-caption">黑線（gender = 0）為女性、紅線（gender = 1）為男性，曲線上「+」為設限（censor）</p>
+</div>
+
+<h2 class="kmqa-section-title">詳細解析</h2>
+<div class="kmqa-analysis-grid">
+
+<div class="kmqa-analysis-card is-wrong">
+<div class="kmqa-analysis-head"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="#B82226" stroke-width="2"/><line x1="8" y1="8" x2="16" y2="16" stroke="#B82226" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="8" x2="8" y2="16" stroke="#B82226" stroke-width="2" stroke-linecap="round"/></svg>選項 (A)　錯誤（本題答案）</div>
+<p>☑️(A)Kaplan-Meier 估計方法，需在兩條存活曲線沒有相交的狀況下進行估計：錯誤。Kaplan-Meier估計方法用於估計存活資料中的存活函數，並繪製存活曲線。此種方法並不要求兩條存活曲線不相交。實際上，在許多情況下，不同組別的存活曲線可能會在某些時間點相交。Kaplan-Meier方法的主要假設包括：</p>
+<p>1.存活機率在時間間隔內是恆定的：即在兩次連續事件發生之間，存活機率不變。</p>
+<p>2.被設限資料（例如，未發生事件的樣本）隨機性：亦即被設限的樣本對於存活時間的分布具有代表性，與未設限個案同質。</p>
+<p>3.受試者存活時間之獨立性：即一個受試者的存活時間不會影響另一個受試者的存活時間。</p>
+</div>
+
+<div class="kmqa-analysis-card is-correct">
+<div class="kmqa-analysis-head"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="#2f9e44" stroke-width="2"/><polyline points="7,12.5 10.5,16 17,8.5" fill="none" stroke="#2f9e44" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>選項 (B)　正確</div>
+<p>☑️(B)存活曲線解讀：</p>
+<p>縱軸代表存活機率，從1.0（100%）開始逐漸下降。</p>
+<p>橫軸代表時間（本圖中以月為單位）。</p>
+<p>黑線（gender = 0）代表女性，紅線（gender = 1）代表男性。</p>
+<p>中位數存活時間：中位數存活時間是存活機率降至0.5的時間點。從圖中Y軸為0.5畫出一條水平線與各組的存活曲線相交，對下來的X軸數值即為中位數存活時間。從圖中以估計：</p>
+<p>男性（紅線）的中位數存活時間約為40個月。</p>
+<p>女性（黑線）的中位數存活時間約為70個月。</p>
+<p>因此，選項(B)正確。</p>
+</div>
+
+<div class="kmqa-analysis-card is-correct">
+<div class="kmqa-analysis-head"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="#2f9e44" stroke-width="2"/><polyline points="7,12.5 10.5,16 17,8.5" fill="none" stroke="#2f9e44" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>選項 (C)　正確</div>
+<p>☑️(C)曲線下降的含義：</p>
+<p>選項(C)正確地指出曲線下降表示有因肺癌死亡的事件發生。每一個下降點代表一個或多個死亡事件。符合Kaplan-Meier方法的基本原理。本選項正確。</p>
+</div>
+
+<div class="kmqa-analysis-card is-correct">
+<div class="kmqa-analysis-head"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="none" stroke="#2f9e44" stroke-width="2"/><polyline points="7,12.5 10.5,16 17,8.5" fill="none" stroke="#2f9e44" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>選項 (D)　正確</div>
+<p>☑️(D)曲線平坦部分的解釋：</p>
+<p>選項(D)對於80個月後曲線變平的解釋正確。僅有發生結局事件才會使存活率產生變化，讓曲線下降。而以下狀況都不會讓曲線產生變化，會產生設限資料，即圖中的"+"符號：</p>
+<p>1.資料設限（censoring）：患者在研究結束時仍然存活。</p>
+<p>2.失去追蹤：部分患者因各種原因無法繼續追蹤。</p>
+<p>3.發生其他非結局變數之事件。</p>
+<p>題目中提到曲線上的"+"符號代表設限（censor）資料，表示在該時間點，有患者因非研究終點（如肺癌死亡）的原因退出研究或研究結束時仍然存活。</p>
+</div>
+
+</div>
+
+<div class="kmqa-answer-banner">本題為選擇錯誤者，答案為(A)。</div>
+
+<h2 class="kmqa-section-title">補充說明：Kaplan-Meier 曲線的判讀要點</h2>
+<div class="kmqa-tips">
+<div class="kmqa-tip"><span class="kmqa-tip-icon"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2 L14.7 8.8 L22 9.3 L16.3 13.9 L18.2 21 L12 17 L5.8 21 L7.7 13.9 L2 9.3 L9.3 8.8 Z" fill="#C4A46D"/></svg></span><p>1. 如何從圖中判讀中位數存活時間：先在縱軸（存活機率）0.5 處畫一條水平線，向右延伸與存活曲線相交，再由交點垂直向下對應到橫軸（時間），該時間即為該組的中位數存活時間，代表約有一半的個案存活超過此時間。若某組曲線始終未降到 0.5（即發生事件的比例未過半），則該組的中位數存活時間無法估計。</p></div>
+<div class="kmqa-tip"><span class="kmqa-tip-icon"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2 L14.7 8.8 L22 9.3 L16.3 13.9 L18.2 21 L12 17 L5.8 21 L7.7 13.9 L2 9.3 L9.3 8.8 Z" fill="#C4A46D"/></svg></span><p>2. 為什麼「+」設限記號不會使存活曲線下降：曲線上的「+」代表設限（censoring），指個案在觀察期間並未發生所關注的結局事件（如因肺癌死亡），可能因研究結束時仍存活、失去追蹤或因其他原因退出研究。設限個案只是在該時間點離開風險集合（risk set），並非發生事件，因此「+」本身不會讓曲線下降；存活曲線只有在發生結局事件時，才會呈階梯狀向下跳動。</p></div>
+<div class="kmqa-tip"><span class="kmqa-tip-icon"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2 L14.7 8.8 L22 9.3 L16.3 13.9 L18.2 21 L12 17 L5.8 21 L7.7 13.9 L2 9.3 L9.3 8.8 Z" fill="#C4A46D"/></svg></span><p>3. 兩組存活曲線的統計比較：若要檢定兩組（如男性與女性）的存活曲線是否有統計上的差異，常用 log-rank 檢定（又稱 Mantel-Cox 檢定），它是綜合整條曲線的比較，而非只看單一時間點；若進一步希望在校正其他變項下估計風險比（hazard ratio），則可採用 Cox 比例風險模型。</p></div>
+</div>
+
+<div class="kmqa-cta">
+<h2>7/10 直播課程：存活曲線閱讀術</h2>
+<p>從「看懂」到「看透」——2 小時掌握 KM 曲線的審稿人視角細節</p>
+<div class="kmqa-cta-btns">
+<a class="kmqa-btn kmqa-btn-primary" href="live26-07-存活曲線閱讀術km圖解讀.html">報名 7/10 直播：存活曲線閱讀術</a>
+<a class="kmqa-btn kmqa-btn-secondary" href="https://medata.teaches.cc/" target="_blank" rel="noopener">前往匯東華統計學院</a>
+</div>
+</div>
+
+</div></div>
 </div>
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2" class="b_bg" block_type="bg" tpba_id="3869650"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_blk1" class="b_html" block_type="html" tpba_id="3869651"><p><img src="static/images/icons/parallax_home_icon2.png" /></p></div>
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_blk2" class="b_html" block_type="html" tpba_id="3869652"><h4><span style="font-size: 24pt; color: #800000;"><span class="fa fa-bar-chart"></span>&nbsp;數據串接與清洗</span></h4>
