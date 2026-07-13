@@ -203,5 +203,10 @@
     "path": "doi-verifier-tutorial",
     "target": "https://www.youtube.com/watch?v=w-1kPekFOtU",
     "note": "AI文獻品管師教學影片（YouTube）"
+  },
+  {
+    "path": "doi-pro",
+    "target": "https://www.medatatw.com/doi-pro-activation.html",
+    "note": "AI文獻品管師Pro一年期開通說明"
   }
 ]
