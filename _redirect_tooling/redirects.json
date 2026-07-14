@@ -208,5 +208,10 @@
     "path": "doi-activate",
     "target": "https://www.medatatw.com/doi-pro-activation.html",
     "note": "AI文獻品管師Pro一年期開通說明"
+  },
+  {
+    "path": "mihe-venue",
+    "target": "https://www.google.com/maps/search/?api=1&query=WORK+HUB+智能商務空間+獅甲三館",
+    "note": "美和包班研習場地WORK HUB獅甲三館地圖"
   }
 ]

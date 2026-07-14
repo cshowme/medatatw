@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-14T00:36:17Z",
+  "generated_at": "2026-07-14T07:01:08Z",
   "source_csv": "_redirect_tooling/redirects.csv",
   "managed_paths": [
     "about",
@@ -24,6 +24,7 @@
     "medical-package-1",
     "membership",
     "merch",
+    "mihe-venue",
     "news",
     "nma-basic",
     "nma-faq",
