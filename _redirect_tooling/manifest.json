@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-13T10:59:34Z",
+  "generated_at": "2026-07-14T00:36:17Z",
   "source_csv": "_redirect_tooling/redirects.csv",
   "managed_paths": [
     "about",
@@ -10,7 +10,7 @@
     "contact",
     "dag-workshop",
     "data-pipeline",
-    "doi-pro",
+    "doi-activate",
     "doi-verifier",
     "doi-verifier-tutorial",
     "eicu",
