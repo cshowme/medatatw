@@ -213,5 +213,35 @@
     "path": "mihe-venue",
     "target": "https://www.google.com/maps/search/?api=1&query=WORK+HUB+智能商務空間+獅甲三館",
     "note": "美和包班研習場地WORK HUB獅甲三館地圖"
+  },
+  {
+    "path": "p-nikko",
+    "target": "https://www.google.com/maps/search/?api=1&query=高雄日航酒店站停車場+前鎮區林森四路268號",
+    "note": "日航酒店站停車場導航"
+  },
+  {
+    "path": "p-xiuwen",
+    "target": "https://www.google.com/maps/search/?api=1&query=中山修文停車場+前鎮區中山二路69號",
+    "note": "中山修文停車場導航"
+  },
+  {
+    "path": "p-linsen",
+    "target": "https://www.google.com/maps/search/?api=1&query=林森文林停車場+前鎮區林森四路253號",
+    "note": "林森文林停車場導航"
+  },
+  {
+    "path": "p-zhensu",
+    "target": "https://www.google.com/maps/search/?api=1&query=真速PAY修文街停車場+前鎮區中山二路50號",
+    "note": "真速PAY修文街停車場導航"
+  },
+  {
+    "path": "p-times",
+    "target": "https://www.google.com/maps/search/?api=1&query=Times+高雄中山復興停車場+前鎮區中山二路13號",
+    "note": "Times高雄中山復興停車場導航"
+  },
+  {
+    "path": "p-city",
+    "target": "https://www.google.com/maps/search/?api=1&query=CITY+PARKING+城市車旅停車場+南北樓站+前鎮區林森三路16號",
+    "note": "城市車旅停車場南北樓站導航"
   }
 ]

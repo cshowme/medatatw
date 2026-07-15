@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-14T07:01:08Z",
+  "generated_at": "2026-07-15T10:44:04Z",
   "source_csv": "_redirect_tooling/redirects.csv",
   "managed_paths": [
     "about",
@@ -30,6 +30,12 @@
     "nma-faq",
     "nma-pro",
     "offerings",
+    "p-city",
+    "p-linsen",
+    "p-nikko",
+    "p-times",
+    "p-xiuwen",
+    "p-zhensu",
     "prediction-package",
     "pretest-package",
     "register",
