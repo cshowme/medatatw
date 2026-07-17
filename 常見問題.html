@@ -2903,55 +2903,116 @@
 <div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2" class="b_bg" block_type="bg" tpba_id="3869646"><div id="hdh-faq-root">
 <style>
 #hdh-faq-root, #hdh-faq-root *{ box-sizing:border-box; }
-#hdh-faq-root{ max-width:960px; margin:0 auto; padding:40px 20px 60px; font-family:"微軟正黑體","Microsoft JhengHei",sans-serif; color:#2D2D2D; }
-#hdh-faq-root .hdh-faq-hero{ background:linear-gradient(135deg,#B82226 0%,#8a1a1d 100%); border-radius:12px; padding:36px 28px; text-align:center; margin-bottom:32px; color:#fff; }
-#hdh-faq-root .hdh-faq-hero h1{ font-size:28px; margin:0 0 8px; letter-spacing:1px; }
-#hdh-faq-root .hdh-faq-hero h1 .fa{ margin-right:10px; color:#C4A46D; }
-#hdh-faq-root .hdh-faq-hero p{ font-size:15px; margin:0; opacity:.92; }
-#hdh-faq-root .hdh-faq-nav{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:36px; }
-#hdh-faq-root .hdh-faq-nav a{ display:inline-block; padding:8px 16px; background:#F8F6F0; border:1px solid #C4A46D; border-radius:20px; color:#B82226 !important; font-size:14px; font-weight:bold; text-decoration:none !important; transition:all .2s; }
-#hdh-faq-root .hdh-faq-nav a:hover{ background:#B82226; color:#fff !important; border-color:#B82226; }
-#hdh-faq-root .hdh-faq-cat{ margin-bottom:34px; scroll-margin-top:90px; }
-#hdh-faq-root .hdh-faq-cat h2{ font-size:19px; color:#B82226; border-left:5px solid #C4A46D; padding-left:12px; margin:0 0 14px; }
-#hdh-faq-root .hdh-faq-cat h2 .fa{ margin-right:8px; }
-#hdh-faq-root details.hdh-faq-item{ background:#fff; border:1px solid #e5e1d6; border-radius:8px; margin-bottom:10px; overflow:hidden; }
-#hdh-faq-root details.hdh-faq-item[open]{ border-color:#C4A46D; box-shadow:0 2px 8px rgba(184,34,38,.08); }
-#hdh-faq-root summary.hdh-faq-q{ cursor:pointer; list-style:none; padding:16px 44px 16px 18px; font-size:16px; font-weight:bold; color:#2D2D2D; position:relative; }
+#hdh-faq-root{ max-width:1100px; margin:0 auto; padding:44px 24px 64px; font-family:"微軟正黑體","Microsoft JhengHei",sans-serif; color:#2D2D2D; text-align:left; }
+
+/* ---------- Hero：乾淨白底 + 曇月靈（取代原本深色漸層方塊） ---------- */
+#hdh-faq-root .hdh-faq-hero{ display:flex; align-items:center; justify-content:space-between; gap:28px; background:#fff; border:1px solid #eee6d8; border-bottom:3px solid #B82226; border-radius:14px; padding:36px 40px; margin-bottom:28px; text-align:left; }
+#hdh-faq-root .hdh-faq-hero-text h1{ font-size:34px; margin:0 0 10px; color:#B82226; letter-spacing:.5px; font-weight:800; }
+#hdh-faq-root .hdh-faq-hero-text p{ font-size:16px; margin:0; color:#5b5b5b; line-height:1.7; max-width:560px; }
+#hdh-faq-root .hdh-faq-hero-mascot{ width:120px; height:auto; flex:0 0 auto; animation:hdh-faq-mascot-float 4.5s ease-in-out infinite; }
+@keyframes hdh-faq-mascot-float{ 0%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } 100%{ transform:translateY(0); } }
+
+/* ---------- 工具列：搜尋 + 全部展開／收合 ---------- */
+#hdh-faq-root .hdh-faq-toolbar{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:30px; }
+#hdh-faq-root .hdh-faq-search{ position:relative; flex:1 1 280px; max-width:360px; }
+#hdh-faq-root .hdh-faq-search .fa{ position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#B0A99A; font-size:14px; }
+#hdh-faq-root .hdh-faq-search input{ width:100%; padding:11px 14px 11px 38px; border:1px solid #ddd6c8; border-radius:8px; font-size:15px; font-family:inherit; color:#2D2D2D; background:#fff; }
+#hdh-faq-root .hdh-faq-search input:focus{ outline:none; border-color:#B82226; box-shadow:0 0 0 3px rgba(184,34,38,.10); }
+#hdh-faq-root .hdh-faq-toggle-group{ display:flex; gap:10px; }
+#hdh-faq-root .hdh-faq-toggle-btn{ background:#fff; border:1px solid #ddd6c8; color:#5b5b5b; font-size:13px; font-weight:bold; padding:9px 16px; border-radius:7px; cursor:pointer; font-family:inherit; transition:all .15s; }
+#hdh-faq-root .hdh-faq-toggle-btn:hover{ border-color:#B82226; color:#B82226; }
+
+/* ---------- 兩欄版面：左側分類側欄（乾淨線框，取代金色漸層 pill）＋右側內容 ---------- */
+#hdh-faq-root .hdh-faq-layout{ display:flex; align-items:flex-start; gap:44px; }
+#hdh-faq-root .hdh-faq-sidebar{ flex:0 0 210px; position:sticky; top:100px; }
+#hdh-faq-root .hdh-faq-sidebar-label{ font-size:12px; font-weight:bold; color:#B0A99A; letter-spacing:2px; text-transform:uppercase; margin:0 0 12px 14px; }
+#hdh-faq-root .hdh-faq-nav{ display:flex; flex-direction:column; gap:2px; }
+#hdh-faq-root .hdh-faq-nav a{ display:block; padding:10px 14px; font-size:15px; font-weight:bold; color:#4a4a4a !important; text-decoration:none !important; border-left:3px solid transparent; border-radius:0 6px 6px 0; transition:all .15s; }
+#hdh-faq-root .hdh-faq-nav a:hover{ color:#B82226 !important; background:#FBF3E3; border-left-color:#B82226; }
+#hdh-faq-root .hdh-faq-main{ flex:1 1 auto; min-width:0; }
+
+/* ---------- 分類標題與手風琴（字級放大、統一左對齊） ---------- */
+#hdh-faq-root .hdh-faq-cat{ margin-bottom:40px; scroll-margin-top:100px; }
+#hdh-faq-root .hdh-faq-cat h2{ font-size:22px; color:#B82226; border-left:5px solid #C4A46D; padding-left:14px; margin:0 0 18px; text-align:left; }
+#hdh-faq-root .hdh-faq-cat h2 .fa{ margin-right:9px; }
+#hdh-faq-root .hdh-faq-cat:target h2{ color:#8a1a1d; }
+#hdh-faq-root details.hdh-faq-item{ background:#fff; border:1px solid #e5e1d6; border-radius:10px; margin-bottom:12px; overflow:hidden; text-align:left; }
+#hdh-faq-root details.hdh-faq-item[open]{ border-color:#C4A46D; box-shadow:0 3px 12px rgba(184,34,38,.08); }
+#hdh-faq-root summary.hdh-faq-q{ cursor:pointer; list-style:none; padding:18px 48px 18px 20px; font-size:18px; font-weight:bold; color:#2D2D2D; position:relative; line-height:1.5; text-align:left; }
+#hdh-faq-root summary.hdh-faq-q:hover{ background:#FCFAF4; }
 #hdh-faq-root summary.hdh-faq-q::-webkit-details-marker{ display:none; }
-#hdh-faq-root summary.hdh-faq-q::after{ content:"+"; position:absolute; right:18px; top:50%; transform:translateY(-50%); font-size:22px; color:#B82226; font-weight:bold; }
+#hdh-faq-root summary.hdh-faq-q::after{ content:"+"; position:absolute; right:20px; top:50%; transform:translateY(-50%); font-size:24px; color:#B82226; font-weight:bold; }
 #hdh-faq-root details.hdh-faq-item[open] summary.hdh-faq-q::after{ content:"\2212"; }
-#hdh-faq-root summary.hdh-faq-q::before{ content:"Q"; display:inline-block; background:#B82226; color:#fff; font-size:13px; font-weight:bold; width:22px; height:22px; line-height:22px; text-align:center; border-radius:50%; margin-right:10px; }
-#hdh-faq-root .hdh-faq-a{ padding:0 18px 18px 50px; font-size:15px; line-height:1.8; color:#444; }
+#hdh-faq-root summary.hdh-faq-q::before{ content:"Q"; display:inline-block; background:#B82226; color:#fff; font-size:13px; font-weight:bold; width:24px; height:24px; line-height:24px; text-align:center; border-radius:50%; margin-right:12px; }
+#hdh-faq-root .hdh-faq-a{ padding:0 20px 20px 52px; font-size:16px; line-height:1.9; color:#444; text-align:left; }
 #hdh-faq-root .hdh-faq-a a{ color:#B82226 !important; font-weight:bold; text-decoration:underline !important; background:none !important; padding:0 !important; }
-#hdh-faq-root .hdh-faq-a ul{ margin:8px 0 0 0; padding-left:20px; }
-#hdh-faq-root .hdh-faq-a li{ margin-bottom:4px; }
+#hdh-faq-root .hdh-faq-a ul{ margin:10px 0 0 0; padding-left:20px; }
+#hdh-faq-root .hdh-faq-a li{ margin-bottom:6px; }
 #hdh-faq-root .hdh-faq-warn{ color:#B82226; font-weight:bold; }
-#hdh-faq-root .hdh-faq-invoice{ background:#FBF3E3; border:2px solid #C4A46D; border-radius:12px; padding:26px 24px; margin:40px 0; scroll-margin-top:90px; }
-#hdh-faq-root .hdh-faq-invoice h2{ font-size:19px; color:#8a1a1d; margin:0 0 12px; }
-#hdh-faq-root .hdh-faq-invoice h2 .fa{ margin-right:8px; color:#B82226; }
-#hdh-faq-root .hdh-faq-invoice ul{ margin:0; padding-left:22px; font-size:15px; line-height:1.9; color:#3a3a3a; }
-#hdh-faq-root .hdh-faq-invoice li{ margin-bottom:6px; }
-#hdh-faq-root .hdh-faq-cta{ text-align:center; margin-top:44px; padding:28px; background:#F8F6F0; border-radius:12px; }
-#hdh-faq-root .hdh-faq-cta h3{ color:#B82226; font-size:18px; margin:0 0 10px; }
-#hdh-faq-root .hdh-faq-cta p{ font-size:14px; color:#555; margin:0 0 14px; }
-#hdh-faq-root .hdh-faq-cta-links{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
-#hdh-faq-root .hdh-faq-cta-links a{ display:inline-block !important; padding:10px 22px !important; background:#B82226 !important; color:#fff !important; font-weight:bold; border-radius:6px !important; text-decoration:none !important; font-size:14px; border:none !important; }
+
+/* ---------- 發票開立小卡 ---------- */
+#hdh-faq-root .hdh-faq-invoice{ background:#FBF3E3; border:1px solid #e8dcc0; border-left:4px solid #C4A46D; border-radius:12px; padding:28px 30px; margin:44px 0; scroll-margin-top:100px; text-align:left; }
+#hdh-faq-root .hdh-faq-invoice h2{ font-size:20px; color:#8a1a1d; margin:0 0 14px; text-align:left; }
+#hdh-faq-root .hdh-faq-invoice h2 .fa{ margin-right:9px; color:#B82226; }
+#hdh-faq-root .hdh-faq-invoice ul{ margin:0; padding-left:22px; font-size:16px; line-height:2; color:#3a3a3a; }
+#hdh-faq-root .hdh-faq-invoice li{ margin-bottom:8px; }
+
+/* ---------- 底部 CTA（改左對齊） ---------- */
+#hdh-faq-root .hdh-faq-cta{ text-align:left; margin-top:48px; padding:32px 34px; background:#F8F6F0; border-radius:12px; }
+#hdh-faq-root .hdh-faq-cta h3{ color:#B82226; font-size:20px; margin:0 0 10px; }
+#hdh-faq-root .hdh-faq-cta p{ font-size:15px; color:#555; margin:0 0 16px; }
+#hdh-faq-root .hdh-faq-cta-links{ display:flex; flex-wrap:wrap; gap:12px; justify-content:flex-start; }
+#hdh-faq-root .hdh-faq-cta-links a{ display:inline-block !important; padding:11px 24px !important; background:#B82226 !important; color:#fff !important; font-weight:bold; border-radius:6px !important; text-decoration:none !important; font-size:14px; border:none !important; }
 #hdh-faq-root .hdh-faq-cta-links a:hover{ background:#8a1a1d !important; }
+
+/* ---------- 平板：側欄轉為頂部分類列（乾淨線框 chips，非金色漸層） ---------- */
+@media (max-width:900px){
+  #hdh-faq-root .hdh-faq-layout{ flex-direction:column; gap:20px; }
+  #hdh-faq-root .hdh-faq-sidebar{ position:static; flex:1 1 auto; width:100%; }
+  #hdh-faq-root .hdh-faq-nav{ flex-direction:row; flex-wrap:wrap; gap:8px; }
+  #hdh-faq-root .hdh-faq-nav a{ border:1px solid #e5e1d6; border-radius:20px; padding:8px 16px; }
+  #hdh-faq-root .hdh-faq-nav a:hover{ border-color:#B82226; }
+  #hdh-faq-root .hdh-faq-hero-mascot{ width:96px; }
+}
+
+/* ---------- 手機 ---------- */
 @media (max-width:600px){
-  #hdh-faq-root{ padding:28px 14px 44px; }
-  #hdh-faq-root .hdh-faq-hero{ padding:26px 18px; }
-  #hdh-faq-root .hdh-faq-hero h1{ font-size:22px; }
-  #hdh-faq-root summary.hdh-faq-q{ font-size:15px; padding:14px 40px 14px 14px; }
-  #hdh-faq-root .hdh-faq-a{ padding:0 14px 16px 42px; font-size:14px; }
-  #hdh-faq-root .hdh-faq-nav a{ font-size:13px; padding:7px 12px; }
+  #hdh-faq-root{ padding:30px 16px 48px; }
+  #hdh-faq-root .hdh-faq-hero{ flex-direction:column-reverse; text-align:center; padding:28px 22px; gap:16px; }
+  #hdh-faq-root .hdh-faq-hero-text{ text-align:center; }
+  #hdh-faq-root .hdh-faq-hero-text p{ max-width:none; }
+  #hdh-faq-root .hdh-faq-hero-text h1{ font-size:25px; }
+  #hdh-faq-root .hdh-faq-toolbar{ flex-direction:column; align-items:stretch; }
+  #hdh-faq-root .hdh-faq-search{ max-width:none; }
+  #hdh-faq-root .hdh-faq-toggle-group{ justify-content:center; }
+  #hdh-faq-root summary.hdh-faq-q{ font-size:16px; padding:15px 42px 15px 16px; }
+  #hdh-faq-root .hdh-faq-a{ padding:0 16px 18px 44px; font-size:15px; }
+  #hdh-faq-root .hdh-faq-cat h2{ font-size:19px; }
 }
 </style>
 
 <div class="hdh-faq-hero">
-<h1><span class="fa fa-question-circle"></span>常見問題 Q&amp;A</h1>
+<div class="hdh-faq-hero-text">
+<h1>常見問題 Q&amp;A</h1>
 <p>報名付款、上課方式、發票核銷、AI 文獻品管師、代分析套餐、會員入會，一次看懂</p>
 </div>
+<img class="hdh-faq-hero-mascot" src="https://www.medatatw.com/assets/mascot-chat.png" alt="曇月靈" width="120" height="120" loading="lazy">
+</div>
 
+<div class="hdh-faq-toolbar">
+<div class="hdh-faq-search">
+<span class="fa fa-search" aria-hidden="true"></span>
+<input type="text" id="hdh-faq-search-input" placeholder="搜尋常見問題…" oninput="hdhFaqFilter(this.value)">
+</div>
+<div class="hdh-faq-toggle-group">
+<button type="button" class="hdh-faq-toggle-btn" onclick="document.querySelectorAll('#hdh-faq-root details.hdh-faq-item').forEach(function(d){ d.open = true; })">全部展開</button>
+<button type="button" class="hdh-faq-toggle-btn" onclick="document.querySelectorAll('#hdh-faq-root details.hdh-faq-item').forEach(function(d){ d.open = false; })">全部收合</button>
+</div>
+</div>
+
+<div class="hdh-faq-layout">
+<aside class="hdh-faq-sidebar">
+<div class="hdh-faq-sidebar-label">分類導覽</div>
 <nav class="hdh-faq-nav">
 <a href="#cat-payment">報名與付款</a>
 <a href="#cat-format">上課方式</a>
@@ -2962,7 +3023,9 @@
 <a href="#invoice-card">發票開立</a>
 <a href="#cat-other">其他</a>
 </nav>
+</aside>
 
+<main class="hdh-faq-main">
 <div class="hdh-faq-cat" id="cat-payment">
 <h2><span class="fa fa-credit-card"></span>一、報名與付款</h2>
 
@@ -3173,6 +3236,29 @@
 <a href="https://lin.ee/YcV3eSs" target="_blank" rel="noopener">加LINE詢問</a>
 </div>
 </div>
+
+</main>
+</div>
+
+<script>
+function hdhFaqFilter(q){
+  q = (q || '').trim().toLowerCase();
+  document.querySelectorAll('#hdh-faq-root .hdh-faq-cat').forEach(function(cat){
+    var items = cat.querySelectorAll('details.hdh-faq-item');
+    var anyMatch = false;
+    items.forEach(function(item){
+      var txt = item.textContent.toLowerCase();
+      var match = (q === '') || (txt.indexOf(q) !== -1);
+      item.style.display = match ? '' : 'none';
+      if(match){
+        anyMatch = true;
+        if(q !== ''){ item.open = true; }
+      }
+    });
+    cat.style.display = anyMatch ? '' : 'none';
+  });
+}
+</script>
 
 </div>
 
