@@ -2971,12 +2971,14 @@
   #hdh-faq-root .hdh-faq-nav{ flex-direction:row; flex-wrap:wrap; gap:8px; }
   #hdh-faq-root .hdh-faq-nav a{ background:#fff !important; border:1px solid #e5e1d6 !important; border-radius:20px !important; padding:8px 16px !important; }
   #hdh-faq-root .hdh-faq-nav a:hover{ border-color:#B82226 !important; background:#FBF3E3 !important; }
+  /* P5-r2：移除hero內曇月靈後標題上移，避開站台頂部絕對定位裝飾header（z-index:10100）遮擋範圍 */
+  #hdh-faq-root .hdh-faq-hero{ margin-top:90px; }
 }
 
 /* ---------- 手機 ---------- */
 @media (max-width:600px){
   #hdh-faq-root{ padding:30px 16px 48px; }
-  #hdh-faq-root .hdh-faq-hero{ text-align:center !important; padding:32px 24px; }
+  #hdh-faq-root .hdh-faq-hero{ text-align:center !important; padding:32px 24px; margin-top:130px; }
   #hdh-faq-root .hdh-faq-hero-text{ text-align:center !important; }
   #hdh-faq-root .hdh-faq-hero-text p{ max-width:none; line-height:1.8; }
   #hdh-faq-root .hdh-faq-hero-text h1{ font-size:25px !important; }
