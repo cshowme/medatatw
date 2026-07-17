@@ -2888,6 +2888,8 @@
 <!-- HDH-CASE-FIX v1 link-case-override -->
 <style>#rot_ctr1_bod_ctr2_bod_wrp1_blk2 a,#rot_ctr1_bod_ctr2_bod_wrp1_blk1_blk1 a{text-transform:none !important;}</style>
 <style id="hdh-pin-fix">.b_pagebg.ivfx_pin{position:static !important;top:auto !important;width:auto !important;left:auto !important;margin:0 !important}</style>
+<!-- HDH-PARALLAX-FIX v1：此頁 ivfx_background_parallax(TweenMax) 會隨捲動改寫 .b_pagebg 的 inline background-position 造成大背景跟著捲動跑；用 !important 覆蓋 inline style 釘回頂端，背景隨內容正常捲動 -->
+<style id="hdh-parallax-fix">#rot_ctr1_bod_ctr2_bod_wrp1{background-position:50% 0 !important}</style>
 </head>
   <body style="">
     
