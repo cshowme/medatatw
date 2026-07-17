@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15T10:44:04Z",
+  "generated_at": "2026-07-17T01:08:41Z",
   "source_csv": "_redirect_tooling/redirects.csv",
   "managed_paths": [
     "about",
@@ -50,6 +50,7 @@
     "stats-analysis",
     "student-package",
     "training",
+    "visit",
     "weekly"
   ]
 }

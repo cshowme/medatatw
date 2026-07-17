@@ -243,5 +243,10 @@
     "path": "p-city",
     "target": "https://www.google.com/maps/search/?api=1&query=CITY+PARKING+城市車旅停車場+南北樓站+前鎮區林森三路16號",
     "note": "城市車旅停車場南北樓站導航"
+  },
+  {
+    "path": "visit",
+    "target": "https://www.medatatw.com/assets/visitor-guide.pdf",
+    "note": "到匯東華交通與報到指引PDF"
   }
 ]
