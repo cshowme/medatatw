@@ -246,7 +246,7 @@
   },
   {
     "path": "visit",
-    "target": "https://www.medatatw.com/assets/visitor-guide.pdf",
-    "note": "到匯東華交通與報到指引PDF"
+    "target": "https://www.medatatw.com/visitor-guide.html",
+    "note": "到匯東華交通與報到指引網頁版"
   }
 ]
