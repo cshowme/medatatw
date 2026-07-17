@@ -2907,9 +2907,9 @@
 
 /* ---------- Hero：乾淨白底 + 曇月靈（取代原本深色漸層方塊） ---------- */
 #hdh-faq-root .hdh-faq-hero{ display:flex; align-items:center; justify-content:space-between; gap:28px; background:#fff; border:1px solid #eee6d8; border-bottom:3px solid #B82226; border-radius:14px; padding:36px 40px; margin-bottom:28px; text-align:left !important; }
-#hdh-faq-root .hdh-faq-hero-text h1{ font-size:34px; margin:0 0 10px; color:#B82226; letter-spacing:.5px; font-weight:800; }
-#hdh-faq-root .hdh-faq-hero-text p{ font-size:16px; margin:0; color:#5b5b5b; line-height:1.7; max-width:560px; }
-#hdh-faq-root .hdh-faq-hero-mascot{ width:120px; height:auto; flex:0 0 auto; animation:hdh-faq-mascot-float 4.5s ease-in-out infinite; }
+#hdh-faq-root .hdh-faq-hero-text h1{ font-size:34px !important; margin:0 0 10px !important; color:#B82226 !important; letter-spacing:.5px; font-weight:800 !important; display:block !important; }
+#hdh-faq-root .hdh-faq-hero-text p{ font-size:16px !important; margin:0 !important; color:#5b5b5b !important; line-height:1.7; max-width:560px; }
+#hdh-faq-root .hdh-faq-hero-mascot{ display:block !important; width:120px !important; height:auto !important; flex:0 0 auto; animation:hdh-faq-mascot-float 4.5s ease-in-out infinite; opacity:1 !important; visibility:visible !important; }
 @keyframes hdh-faq-mascot-float{ 0%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } 100%{ transform:translateY(0); } }
 
 /* ---------- 工具列：搜尋 + 全部展開／收合 ---------- */
@@ -2972,7 +2972,7 @@
   #hdh-faq-root .hdh-faq-nav{ flex-direction:row; flex-wrap:wrap; gap:8px; }
   #hdh-faq-root .hdh-faq-nav a{ background:#fff !important; border:1px solid #e5e1d6 !important; border-radius:20px !important; padding:8px 16px !important; }
   #hdh-faq-root .hdh-faq-nav a:hover{ border-color:#B82226 !important; background:#FBF3E3 !important; }
-  #hdh-faq-root .hdh-faq-hero-mascot{ width:96px; }
+  #hdh-faq-root .hdh-faq-hero-mascot{ width:96px !important; }
 }
 
 /* ---------- 手機 ---------- */
@@ -2981,7 +2981,7 @@
   #hdh-faq-root .hdh-faq-hero{ flex-direction:column-reverse; text-align:center !important; padding:28px 22px; gap:16px; }
   #hdh-faq-root .hdh-faq-hero-text{ text-align:center !important; }
   #hdh-faq-root .hdh-faq-hero-text p{ max-width:none; }
-  #hdh-faq-root .hdh-faq-hero-text h1{ font-size:25px; }
+  #hdh-faq-root .hdh-faq-hero-text h1{ font-size:25px !important; }
   #hdh-faq-root .hdh-faq-toolbar{ flex-direction:column; align-items:stretch; }
   #hdh-faq-root .hdh-faq-search{ max-width:none; }
   #hdh-faq-root .hdh-faq-toggle-group{ justify-content:center; }
@@ -2996,7 +2996,7 @@
 <h1>常見問題 Q&amp;A</h1>
 <p>報名付款、上課方式、發票核銷、AI 文獻品管師、代分析套餐、會員入會，一次看懂</p>
 </div>
-<img class="hdh-faq-hero-mascot" src="https://www.medatatw.com/assets/mascot-chat.png" alt="曇月靈" width="120" height="120" loading="lazy">
+<img class="hdh-faq-hero-mascot" src="https://www.medatatw.com/assets/mascot-chat.png" alt="曇月靈" width="120" height="120">
 </div>
 
 <div class="hdh-faq-toolbar">
