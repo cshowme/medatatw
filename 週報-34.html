@@ -4768,6 +4768,17 @@
     text-align:center;
     line-height:1.6;
   }
+
+  /* ---------- 行動裝置：左靠 + 收窄，避免部分 MAWeb 主題頁面在手機
+       水平溢出（layout viewport 寬於實體螢幕）時，置中的 Modal 被推向
+       右側、關閉鈕 ✕ 落到可視範圍之外而無法點擊。左靠並收窄寬度可確保
+       ✕ 永遠留在畫面內；桌機（>768px）維持置中不受影響。 ---------- */
+  @media (max-width:768px){
+    #hdh-annc-overlay{ justify-content:flex-start; padding:14px; }
+    #hdh-annc-modal{ max-width:340px; padding:28px 20px 22px; }
+    #hdh-annc-close{ top:12px; right:12px; }
+    #hdh-annc-title{ font-size:20px; }
+  }
 </style>
 
 <!-- 遮罩 + 公告 Modal（進站自動彈出一次，見下方 script 判斷邏輯） -->
@@ -4894,6 +4905,7 @@
 <!-- ============================================================
   匯東華公告彈窗片段結束（8月招生）
 ============================================================ -->
+
 
 </body>
 </html>
