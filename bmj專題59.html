@@ -4578,5 +4578,366 @@
 ============================================================ -->
 
 
+
+<!-- @hdh-expire date=2026-08-16 type=最新消息活動 item=aug-enroll onexpire=8月招生結束→撤下公告 -->
+<!-- ============================================================
+  匯東華統計顧問｜全站自動公告彈窗（2026 年 8 月新課．開放報名）
+  ------------------------------------------------------------
+  用途：批次注入全站每頁 body 結束標籤前，不需任何外部資源即可運作。
+  命名：所有 id/class 均以 hdh-annc- 前綴，避免與既有頁面樣式衝突。
+  沿用範本：直播公告_注入片段_20260704_CSX.html（v1.2，已套用 v3 移除
+           body 捲動鎖，促銷型公告不鎖背景捲動，避免整頁凍結 bug）。
+  行為：進站時若 localStorage 無 hdh-annc-seen-aug2026 旗標，且現在時間
+       未超過 2026-08-16 23:59（台灣時間，最後一門課當日），則自動彈出
+       一次；顯示後立即設旗標，同一人不再自動跳出。8/16 一過，JS 日期
+       判斷會直接跳過，永不顯示，等同自動下架（線上錄播 8/1 為隨買隨看，
+       不影響下架時機）。仍建議依 @hdh-expire 註解於到期後整塊移除。
+  CTA 連結（2026-07-19 查證 repo 內既有頁面後決定）：
+    - R 語言預測模型實戰（8/1 線上錄製）：無專屬頁 → 課程報名.html
+    - 這篇 Meta-analysis 結果可信嗎？（8/14 夜間直播）：無專屬頁 → 課程報名.html
+    - Network Meta-analysis 基礎班（8/15 高雄實體）：f26-04-零程式碼ai助力網絡統合分析基礎班.html（頁內日期 2026/08/15，已核）
+    - Network Meta-analysis 實戰班（8/16 高雄實體）：f26-05-零程式碼ai助力網絡統合分析實戰班.html（頁內日期 2026/08/16 + GRADE，已核）
+  版本：v1.0（2026-07-19，思行，沿用 hdh-annc-root 機制，全站注入）
+============================================================ -->
+<div id="hdh-annc-root">
+<style>
+  #hdh-annc-root, #hdh-annc-root *{box-sizing:border-box;}
+  #hdh-annc-root{
+    --hdh-annc-red:#B82226;
+    --hdh-annc-red-dark:#8f1a1d;
+    --hdh-annc-gold:#C4A46D;
+    --hdh-annc-dark:#2D2D2D;
+    --hdh-annc-light:#F8F6F0;
+    --hdh-annc-gray:#666666;
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+  }
+
+  /* ---------- 遮罩 ---------- */
+  #hdh-annc-overlay{
+    position:fixed;
+    inset:0;
+    z-index:1000010;
+    background:rgba(45,45,45,.62);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  #hdh-annc-overlay[hidden]{ display:none; }
+  #hdh-annc-overlay.hdh-annc-show{ opacity:1; }
+
+  /* ---------- Modal 卡片 ---------- */
+  #hdh-annc-modal{
+    position:relative;
+    width:100%;
+    max-width:460px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:#fff;
+    border-radius:16px;
+    padding:32px 26px 24px;
+    box-shadow:0 24px 60px rgba(0,0,0,.32);
+    transform:translateY(14px) scale(.96);
+    opacity:0;
+    transition:transform .28s ease, opacity .28s ease;
+  }
+  #hdh-annc-overlay.hdh-annc-show #hdh-annc-modal{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+  #hdh-annc-modal::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:5px;
+    border-radius:16px 16px 0 0;
+    background:linear-gradient(90deg,var(--hdh-annc-gold),var(--hdh-annc-red));
+  }
+
+  #hdh-annc-close{
+    position:absolute;
+    top:14px;
+    right:14px;
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:50%;
+    background:var(--hdh-annc-light);
+    color:var(--hdh-annc-gray);
+    font-size:15px;
+    line-height:1;
+    cursor:pointer;
+    transition:background .2s,color .2s;
+    z-index:2;
+  }
+  #hdh-annc-close:hover{ background:var(--hdh-annc-gold); color:#fff; }
+
+  #hdh-annc-header{ text-align:center; margin-bottom:16px; }
+  .hdh-annc-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:var(--hdh-annc-red);
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:2px;
+    padding:4px 14px;
+    border-radius:20px;
+    margin-bottom:12px;
+  }
+  .hdh-annc-badge-dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:#fff;
+    animation:hdh-annc-blink 1.4s ease-in-out infinite;
+  }
+  @keyframes hdh-annc-blink{
+    0%,100%{ opacity:1; }
+    50%{ opacity:.25; }
+  }
+  #hdh-annc-title{
+    margin:0 0 6px;
+    font-size:21px;
+    font-weight:700;
+    line-height:1.4;
+    color:var(--hdh-annc-dark);
+  }
+  .hdh-annc-subtitle{
+    margin:0;
+    font-size:13px;
+    color:var(--hdh-annc-gray);
+  }
+
+  #hdh-annc-body{ padding:2px 0 6px; }
+
+  /* ---------- 課程卡片清單（整列可點，各自連到對應頁 / 報名總覽） ---------- */
+  .hdh-annc-list{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+    margin:0 0 16px;
+  }
+  .hdh-annc-course{
+    display:flex;
+    align-items:stretch;
+    gap:12px;
+    padding:11px 12px;
+    background:var(--hdh-annc-light);
+    border:1px solid #eee0c8;
+    border-radius:10px;
+    text-decoration:none !important;
+    color:var(--hdh-annc-dark) !important;
+    transition:border-color .18s, box-shadow .18s, transform .12s;
+  }
+  .hdh-annc-course:hover{
+    border-color:var(--hdh-annc-gold);
+    box-shadow:0 4px 14px rgba(184,34,38,.10);
+    transform:translateY(-1px);
+  }
+  .hdh-annc-date{
+    flex:0 0 auto;
+    width:52px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:var(--hdh-annc-red);
+    color:#fff;
+    border-radius:8px;
+    padding:6px 0;
+    line-height:1.15;
+  }
+  .hdh-annc-date .m{ font-size:11px; font-weight:700; letter-spacing:1px; }
+  .hdh-annc-date .d{ font-size:20px; font-weight:800; }
+  .hdh-annc-date .w{ font-size:10.5px; opacity:.9; }
+  .hdh-annc-info{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; justify-content:center; }
+  .hdh-annc-tag{
+    display:inline-block;
+    align-self:flex-start;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.5px;
+    color:var(--hdh-annc-red-dark);
+    background:#fff;
+    border:1px solid #eee0c8;
+    border-radius:5px;
+    padding:1px 7px;
+    margin-bottom:4px;
+  }
+  .hdh-annc-cname{
+    font-size:13.5px;
+    font-weight:700;
+    line-height:1.4;
+    color:var(--hdh-annc-dark);
+  }
+  .hdh-annc-ctime{
+    font-size:11.5px;
+    color:var(--hdh-annc-gray);
+    margin-top:2px;
+  }
+  .hdh-annc-arrow{
+    flex:0 0 auto;
+    align-self:center;
+    font-size:18px;
+    color:var(--hdh-annc-gold);
+    font-weight:700;
+  }
+
+  .hdh-annc-cta{
+    display:block;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:var(--hdh-annc-red);
+    color:#fff !important;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:1px;
+    text-align:center;
+    text-decoration:none !important;
+    cursor:pointer;
+    transition:background .2s, transform .15s;
+  }
+  .hdh-annc-cta:hover{ background:var(--hdh-annc-red-dark); transform:translateY(-1px); }
+  .hdh-annc-cta:active{ transform:translateY(0); }
+
+  .hdh-annc-deadline{
+    margin:12px 0 0;
+    font-size:12px;
+    color:#9a9a9a;
+    text-align:center;
+    line-height:1.6;
+  }
+</style>
+
+<!-- 遮罩 + 公告 Modal（進站自動彈出一次，見下方 script 判斷邏輯） -->
+<div id="hdh-annc-overlay" hidden>
+  <div id="hdh-annc-modal" role="dialog" aria-modal="true" aria-labelledby="hdh-annc-title">
+    <button id="hdh-annc-close" type="button" aria-label="關閉視窗">&times;</button>
+
+    <div id="hdh-annc-header">
+      <span class="hdh-annc-badge"><span class="hdh-annc-badge-dot"></span>最新課程資訊</span>
+      <h2 id="hdh-annc-title">🎉 8 月新課．開放報名</h2>
+      <p class="hdh-annc-subtitle">四門新課接力登場，點選課程即可前往報名</p>
+    </div>
+
+    <div id="hdh-annc-body">
+      <div class="hdh-annc-list">
+
+        <a class="hdh-annc-course" href="課程報名.html">
+          <span class="hdh-annc-date"><span class="m">8月</span><span class="d">1</span><span class="w">週三</span></span>
+          <span class="hdh-annc-info">
+            <span class="hdh-annc-tag">線上錄製</span>
+            <span class="hdh-annc-cname">Step by Step 從零開始：R 語言預測模型實戰（Predictive Modeling in R）</span>
+            <span class="hdh-annc-ctime">全 8 小時課程．隨買隨看</span>
+          </span>
+          <span class="hdh-annc-arrow">&rsaquo;</span>
+        </a>
+
+        <a class="hdh-annc-course" href="課程報名.html">
+          <span class="hdh-annc-date"><span class="m">8月</span><span class="d">14</span><span class="w">週五</span></span>
+          <span class="hdh-annc-info">
+            <span class="hdh-annc-tag">夜間直播</span>
+            <span class="hdh-annc-cname">這篇 Meta-analysis 結果可信嗎？</span>
+            <span class="hdh-annc-ctime">18:30–20:30 線上直播</span>
+          </span>
+          <span class="hdh-annc-arrow">&rsaquo;</span>
+        </a>
+
+        <a class="hdh-annc-course" href="f26-04-零程式碼ai助力網絡統合分析基礎班.html">
+          <span class="hdh-annc-date"><span class="m">8月</span><span class="d">15</span><span class="w">週六</span></span>
+          <span class="hdh-annc-info">
+            <span class="hdh-annc-tag">高雄實體</span>
+            <span class="hdh-annc-cname">AI 助力 Network Meta-analysis 基礎班：Step by step 從零開始</span>
+            <span class="hdh-annc-ctime">09:30–17:30 高雄實體班</span>
+          </span>
+          <span class="hdh-annc-arrow">&rsaquo;</span>
+        </a>
+
+        <a class="hdh-annc-course" href="f26-05-零程式碼ai助力網絡統合分析實戰班.html">
+          <span class="hdh-annc-date"><span class="m">8月</span><span class="d">16</span><span class="w">週日</span></span>
+          <span class="hdh-annc-info">
+            <span class="hdh-annc-tag">高雄實體</span>
+            <span class="hdh-annc-cname">AI 助力 Network Meta-analysis 實戰班：從分析到 GRADE 評等與報告</span>
+            <span class="hdh-annc-ctime">09:30–17:30 高雄實體班</span>
+          </span>
+          <span class="hdh-annc-arrow">&rsaquo;</span>
+        </a>
+
+      </div>
+
+      <a class="hdh-annc-cta" href="課程報名.html">立即報名 &rarr;</a>
+      <p class="hdh-annc-deadline">名額有限，額滿為止。點選任一課程或「立即報名」前往課程報名頁。</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  if (window.__hdhAnncInit) { return; } // 防止同頁重複注入導致事件重複綁定
+  window.__hdhAnncInit = true;
+
+  var STORAGE_KEY   = 'hdh-annc-seen-aug2026';
+  // 下架時機＝2026-08-16 23:59:59 台灣時間（+08:00，最後一門課當日），過此時刻永不顯示。
+  // 用明確時區的 ISO 字串建構 Date，避免依賴使用者瀏覽器所在時區誤判。
+  var EXPIRE_AT     = new Date('2026-08-16T23:59:59+08:00').getTime();
+  var SHOW_DELAY_MS = 500;          // 稍微延遲，避免與頁面其他載入行為搶焦點
+
+  var overlay = document.getElementById('hdh-annc-overlay');
+  var modal   = document.getElementById('hdh-annc-modal');
+  var closeBt = document.getElementById('hdh-annc-close');
+
+  function isExpired(){
+    return Date.now() > EXPIRE_AT; // 精確到 8/16 23:59，過了即視為過期
+  }
+
+  function openModal(){
+    if (!overlay) { return; }
+    overlay.__hdhOpen = true;
+    overlay.hidden = false;
+    window.requestAnimationFrame(function(){
+      if (!overlay.__hdhOpen) { return; }
+      overlay.classList.add('hdh-annc-show');
+      try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) { /* 無痕模式等限制，忽略 */ }
+    });
+  }
+
+  function closeModal(){
+    if (!overlay) { return; }
+    overlay.__hdhOpen = false;
+    overlay.classList.remove('hdh-annc-show');
+    setTimeout(function(){ if (!overlay.__hdhOpen) { overlay.hidden = true; } }, 260);
+  }
+
+  if (closeBt) { closeBt.addEventListener('click', closeModal); }
+  if (overlay) {
+    overlay.addEventListener('click', function(e){
+      if (e.target === overlay) { closeModal(); }
+    });
+  }
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && overlay && !overlay.hidden) { closeModal(); }
+  });
+
+  (function init(){
+    if (isExpired()) { return; } // 8/16 之後永不顯示，等同自動下架
+
+    var seen = null;
+    try { seen = localStorage.getItem(STORAGE_KEY); } catch (e) { /* 忽略 */ }
+    if (seen) { return; } // 已顯示過，不再自動跳出
+
+    setTimeout(openModal, SHOW_DELAY_MS);
+  })();
+})();
+</script>
+</div>
+<!-- ============================================================
+  匯東華公告彈窗片段結束（8月招生）
+============================================================ -->
+
 </body>
 </html>
