@@ -2887,8 +2887,11 @@
 <script src="/pagefind-search.js"></script>
 <!-- HDH-CASE-FIX v1 link-case-override -->
 <style>#rot_ctr1_bod_ctr2_bod_wrp1_blk2 a,#rot_ctr1_bod_ctr2_bod_wrp1_blk1_blk1 a{text-transform:none !important;}</style>
-<!-- HDH-PARALLAX-FIX v1：此頁 ivfx_background_parallax(TweenMax) 會隨捲動改寫 .b_pagebg 的 inline background-position 造成大背景跟著捲動跑；用 !important 覆蓋 inline style 釘回頂端，背景隨內容正常捲動 -->
-<style id="hdh-parallax-fix">#rot_ctr1_bod_ctr2_bod_wrp1{background-position:50% 0 !important}</style>
+<!-- HDH-PARALLAX-FIX v2：此頁 ivfx_background_parallax(TweenMax) 會隨捲動改寫 .b_pagebg 的 inline background-position 造成大背景跟著捲動跑。
+     v1 只釘 background-position:50% 0 → 背景圖(1920x1280, size:100%, no-repeat)只蓋元素頂端約一個視窗高，捲到中/下方露白（regression）。
+     v2 改用 attachment:fixed + size:cover + position:center：背景固定於視窗、永遠填滿，不隨捲動移動也不露白；!important 同時壓過 parallax JS 的 inline 改寫。
+     已知限制：iOS Safari 不支援 background-attachment:fixed，會降級為隨內容捲動且 cover 以整個元素計算（背景放大但仍全覆蓋、不露白）。 -->
+<style id="hdh-parallax-fix">#rot_ctr1_bod_ctr2_bod_wrp1{background-attachment:fixed !important;background-position:center !important;background-size:cover !important;background-repeat:no-repeat !important}</style>
 </head>
   <body style="">
     
