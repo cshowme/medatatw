@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-17T01:53:10Z",
+  "generated_at": "2026-07-23T12:44:45Z",
   "source_csv": "_redirect_tooling/redirects.csv",
   "managed_paths": [
     "about",
@@ -41,6 +41,7 @@
     "register",
     "regression-package",
     "resources",
+    "retrospective-power",
     "roadmap",
     "rwd-package",
     "samplesize-gpower",
@@ -49,6 +50,7 @@
     "spss-survival-1day",
     "stats-analysis",
     "student-package",
+    "survivorship-bias",
     "training",
     "visit",
     "weekly"

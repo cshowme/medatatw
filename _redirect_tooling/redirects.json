@@ -248,5 +248,15 @@
     "path": "visit",
     "target": "https://www.medatatw.com/visitor-guide.html",
     "note": "到匯東華交通與報到指引網頁版"
+  },
+  {
+    "path": "survivorship-bias",
+    "target": "https://www.medatatw.com/wald%E5%B0%88%E6%AC%8401-%E8%A9%B2%E8%A3%9C%E7%9A%84%E6%98%AF%E6%B2%92%E6%9C%89%E5%BD%88%E5%AD%94%E7%9A%84%E5%9C%B0%E6%96%B9.html",
+    "note": "Wald 倖存者偏差專欄（電子報第1期）"
+  },
+  {
+    "path": "retrospective-power",
+    "target": "https://www.medatatw.com/power%E5%B0%88%E6%AC%8401-%E5%9B%9E%E6%BA%AF%E6%80%A7%E6%AA%A2%E5%AE%9A%E5%8A%9B%E6%95%91%E4%B8%8D%E4%BA%86%E4%B8%8D%E9%A1%AF%E8%91%97%E7%9A%84%E7%B5%90%E6%9E%9C.html",
+    "note": "回溯性檢定力專欄（電子報第1期）"
   }
 ]

@@ -38,6 +38,7 @@
   "register",
   "regression-package",
   "resources",
+  "retrospective-power",
   "roadmap",
   "rwd-package",
   "samplesize-gpower",
@@ -46,6 +47,7 @@
   "spss-survival-1day",
   "stats-analysis",
   "student-package",
+  "survivorship-bias",
   "training",
   "visit",
   "weekly"
