@@ -1,0 +1,3602 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<script>
+/* 防止輪播自動跳轉 - 2026-02-04 */
+(function(){
+  // 保存原始 setInterval
+  var originalSetInterval = window.setInterval;
+
+  // 攔截 setInterval，過濾掉輪播自動點擊
+  window.setInterval = function(fn, delay) {
+    // 如果是短間隔（輪播通常 3-10 秒），檢查是否包含 click
+    if (typeof fn === 'function') {
+      var fnStr = fn.toString();
+      // 檢測輪播點擊模式
+      if (fnStr.indexOf('click') !== -1 && fnStr.indexOf('slideshow') !== -1) {
+        console.log('[Anti-Redirect] Blocked slideshow auto-click interval');
+        return 0; // 返回無效 ID，阻止執行
+      }
+    }
+    return originalSetInterval.apply(this, arguments);
+  };
+
+  // 額外保護：攔截可疑的 location 修改
+  var originalAssign = window.location.assign;
+  var originalReplace = window.location.replace;
+
+  window.location.assign = function(url) {
+    // 只阻擋自動跳轉，不阻擋用戶點擊
+    if (!window._userClicked) {
+      console.log('[Anti-Redirect] Blocked location.assign:', url);
+      return;
+    }
+    return originalAssign.call(this, url);
+  };
+
+  window.location.replace = function(url) {
+    if (!window._userClicked) {
+      console.log('[Anti-Redirect] Blocked location.replace:', url);
+      return;
+    }
+    return originalReplace.call(this, url);
+  };
+
+  // 標記用戶點擊事件
+  document.addEventListener('click', function() {
+    window._userClicked = true;
+    setTimeout(function() { window._userClicked = false; }, 100);
+  }, true);
+})();
+</script>
+
+    <script>
+      document.cookie = 'resolution=' + Math.max(screen.width,screen.height) + '; path=/; SameSite=Lax';
+    </script>
+    <link href='//fonts.googleapis.com/css2?family=Raleway&display=swap' rel='stylesheet' type='text/css'>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <meta name="description" content="倖存者偏差（Survivorship Bias）專欄：從二戰統計學家 Abraham Wald 分析轟炸機彈孔分布的經典案例出發，說明臨床試驗完成者分析、問卷回收率偏誤、投資基金存續偏誤中常見的倖存者偏差陷阱。匯東華統計顧問。" />
+    <meta name="keywords" content="倖存者偏差,survivorship bias,Abraham Wald,選擇偏誤,意向治療分析,intention-to-treat,ITT,研究方法學,匯東華" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="breakpoints" content="1000,499,770"/>
+    <title>匯東華統計顧問有限公司 - 該補的，是沒有彈孔的地方|倖存者偏差專欄</title>
+    <script src="static/js/website/jquery-3.5.1.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="__system/__css/h_bcf6f692c32b6914ddacd7d817ecbec2/2786399_combined.min.css" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5BV97ZDMV7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5BV97ZDMV7');
+</script>
+
+
+
+<!-- Messenger 洽談外掛程式 Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your 洽談外掛程式 code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "101440118904985");
+      chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v14.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/zh_TW/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+
+<!-- ========== Meta-Analysis 課程頁面專屬樣式 v2.0 ========== -->
+<style>
+/* 配色變數 */
+.ma-course-content {
+  --hdh-red: #B82226;
+  --hdh-gold: #C4A46D;
+  --hdh-dark: #333333;
+  --hdh-gray: #666666;
+  --hdh-light: #f8f6f0;
+  --hdh-border: #e0e0e0;
+  font-family: 'Microsoft JhengHei', '微軟正黑體', sans-serif;
+  line-height: 1.8;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Hero 區塊 */
+.ma-hero {
+  background: linear-gradient(135deg, #2d2d2d 0%, #4a4a4a 100%);
+  color: #fff;
+  padding: 60px 40px;
+  text-align: center;
+  margin-bottom: 50px;
+  border-radius: 8px;
+}
+
+.ma-hero-badge {
+  display: inline-block;
+  background: #C4A46D;
+  color: #2d2d2d;
+  padding: 8px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.ma-hero h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.ma-hero .subtitle {
+  font-size: 22px;
+  opacity: 0.95;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.ma-hero .tagline {
+  font-size: 18px;
+  color: #C4A46D;
+  line-height: 1.6;
+}
+
+/* 影片區塊 */
+.ma-video-section {
+  text-align: center;
+  margin: 40px 0;
+  padding: 30px;
+  background: #f8f6f0;
+  border-radius: 8px;
+}
+
+.ma-video-section iframe {
+  max-width: 100%;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+.ma-video-caption {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #666;
+}
+
+.ma-video-caption a {
+  color: #B82226;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ma-video-caption a:hover {
+  text-decoration: underline;
+}
+
+/* 區塊標題 */
+.ma-section-title {
+  font-size: 28px;
+  color: #B82226;
+  border-bottom: 4px solid #C4A46D;
+  padding-bottom: 12px;
+  margin: 50px 0 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 課程介紹文字 */
+.ma-intro {
+  background: #fff;
+  padding: 35px;
+  border-left: 5px solid #C4A46D;
+  margin: 30px 0;
+  font-size: 18px;
+  line-height: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 4px;
+}
+
+.ma-intro p {
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.ma-intro strong {
+  color: #B82226;
+  font-weight: bold;
+}
+
+/* 痛點卡片 */
+.ma-pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.ma-pain-card {
+  background: #f8f6f0;
+  border: 2px solid #e0e0e0;
+  padding: 35px 25px;
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.ma-pain-card:hover {
+  border-color: #C4A46D;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+}
+
+.ma-pain-card .icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.ma-pain-card h3 {
+  color: #B82226;
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.ma-pain-card p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* 課程特色區塊 */
+.ma-features {
+  background: #2d2d2d;
+  color: #fff;
+  padding: 50px 40px;
+  margin: 50px -20px;
+  border-radius: 8px;
+}
+
+.ma-features-title {
+  text-align: center;
+  font-size: 28px;
+  color: #C4A46D;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.ma-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.ma-feature-item {
+  text-align: center;
+  padding: 20px;
+}
+
+.ma-feature-item .number {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  background: #C4A46D;
+  color: #2d2d2d;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+}
+
+.ma-feature-item h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.ma-feature-item p {
+  font-size: 15px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* 課程大綱表格 - 兩欄式 */
+.ma-curriculum {
+  margin: 30px 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.ma-curriculum-unit {
+  background: #fff;
+  border-left: 5px solid #C4A46D;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border-radius: 4px;
+}
+
+.ma-curriculum-unit h3 {
+  color: #B82226;
+  font-size: 19px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.ma-curriculum-unit h3 .step-badge {
+  background: #C4A46D;
+  color: #2d2d2d;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.ma-curriculum-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ma-curriculum-list li {
+  padding: 10px 0;
+  border-bottom: 1px dashed #e0e0e0;
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.ma-curriculum-list li:last-child {
+  border-bottom: none;
+}
+
+.ma-curriculum-list li::before {
+  content: "▸ ";
+  color: #C4A46D;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+/* 適用對象 */
+.ma-audience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.ma-audience-card {
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.ma-audience-card:hover {
+  border-color: #C4A46D;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.ma-audience-card h3 {
+  color: #B82226;
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.ma-audience-card p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.8;
+}
+
+/* 課程資訊表 */
+.ma-info-box {
+  background: #f8f6f0;
+  border: 2px solid #e0e0e0;
+  padding: 35px;
+  max-width: 700px;
+  margin: 30px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.ma-info-item {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px solid #e0e0e0;
+  align-items: flex-start;
+}
+
+.ma-info-item:last-child {
+  border-bottom: none;
+}
+
+.ma-info-label {
+  width: 120px;
+  font-weight: bold;
+  color: #C4A46D;
+  flex-shrink: 0;
+  font-size: 17px;
+}
+
+.ma-info-value {
+  flex: 1;
+  color: #333;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.ma-info-value .price {
+  font-size: 28px;
+  font-weight: bold;
+  color: #B82226;
+}
+
+.ma-info-value small {
+  display: block;
+  color: #999;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* CTA 區塊 */
+.ma-cta {
+  background: linear-gradient(135deg, #B82226 0%, #8a1a1d 100%);
+  color: #fff;
+  padding: 50px 40px;
+  text-align: center;
+  margin: 50px -20px;
+  border-radius: 8px;
+}
+
+.ma-cta h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.ma-cta p {
+  margin-bottom: 30px;
+  opacity: 0.95;
+  font-size: 18px;
+}
+
+.ma-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ma-btn {
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s;
+  border-radius: 6px;
+}
+
+.ma-btn-primary {
+  background: #C4A46D;
+  color: #2d2d2d;
+}
+
+.ma-btn-primary:hover {
+  background: #d4b47d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(196, 164, 109, 0.4);
+}
+
+.ma-btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.ma-btn-secondary:hover {
+  background: #fff;
+  color: #B82226;
+  transform: translateY(-2px);
+}
+
+/* 聯絡資訊 - 橫向排列 */
+.ma-contact {
+  background: #f8f6f0;
+  padding: 40px;
+  margin: 40px 0;
+  border-radius: 8px;
+}
+
+.ma-contact h3 {
+  color: #B82226;
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.ma-contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px 30px;
+}
+
+.ma-contact-list li {
+  padding: 12px 20px;
+  font-size: 16px;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+.ma-contact-list li:hover {
+  border-color: #C4A46D;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.ma-contact-list li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.ma-contact-list li a:hover {
+  color: #B82226;
+}
+
+/* 線上課程提示 */
+.ma-online-notice {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  padding: 25px;
+  margin: 30px 0;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.ma-online-notice p {
+  font-size: 17px;
+  margin-bottom: 10px;
+  line-height: 1.8;
+}
+
+.ma-online-notice strong {
+  color: #B82226;
+}
+
+.ma-online-notice a {
+  color: #B82226;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ma-online-notice a:hover {
+  text-decoration: underline;
+}
+
+/* RWD 響應式設計 */
+@media (max-width: 768px) {
+  .ma-course-content {
+    padding: 0 15px;
+  }
+
+  .ma-hero {
+    padding: 40px 25px;
+  }
+
+  .ma-hero h1 {
+    font-size: 26px;
+  }
+
+  .ma-hero .subtitle {
+    font-size: 18px;
+  }
+
+  .ma-section-title {
+    font-size: 24px;
+  }
+
+  .ma-intro {
+    padding: 25px;
+    font-size: 16px;
+  }
+
+  .ma-btn-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ma-btn {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+
+  .ma-info-item {
+    flex-direction: column;
+  }
+
+  .ma-info-label {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .ma-curriculum {
+    grid-template-columns: 1fr;
+  }
+
+  .ma-contact-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ma-contact-list li {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  .ma-features {
+    margin: 40px -15px;
+    padding: 40px 25px;
+  }
+
+  .ma-cta {
+    margin: 40px -15px;
+    padding: 40px 25px;
+  }
+}
+</style>
+
+
+<!-- ========== AI素養專用樣式 v1.0 (2026.03.30 CSX) ========== -->
+<style>
+/* ================================================================
+   匯東華統計顧問 - 課程網頁 CSS 合併檔
+   ================================================================
+   版本：v1.0
+   日期：2026.03.30
+   作者：CSX（匯東華統計顧問）
+
+   說明：
+   - 此檔案合併 hdh_course_base.css + ai_literacy.css
+   - 可直接貼入官網進階設定使用
+   - 包含：基礎樣式 + AI素養專用樣式
+
+   結構：
+   - Part 1: 基礎樣式（hdh- 前綴）
+   - Part 2: AI素養專用樣式（ai- 前綴）
+   ================================================================ */
+
+
+/* ================================================================
+   ██████╗  █████╗ ██████╗ ████████╗     ██╗
+   ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝    ███║
+   ██████╔╝███████║██████╔╝   ██║       ╚██║
+   ██╔═══╝ ██╔══██║██╔══██╗   ██║        ██║
+   ██║     ██║  ██║██║  ██║   ██║        ██║
+   ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝        ╚═╝
+
+   基礎樣式（hdh_course_base.css）
+   適用於所有課程網頁
+   ================================================================ */
+
+/* ==================== CSS 變數定義（全域） ==================== */
+:root {
+  /* 匯東華品牌色 */
+  --hdh-red: #B82226;
+  --hdh-red-dark: #8a1a1d;
+  --hdh-red-light: #d43a3e;
+  --hdh-gold: #C4A46D;
+  --hdh-gold-dark: #a68b5b;
+  --hdh-gold-light: #d4b47d;
+
+  /* 中性色 */
+  --hdh-dark: #333333;
+  --hdh-gray: #666666;
+  --hdh-gray-light: #999999;
+  --hdh-light: #f8f6f0;
+  --hdh-white: #ffffff;
+  --hdh-border: #e0e0e0;
+  --hdh-border-light: #f0f0f0;
+
+  /* 功能色 */
+  --hdh-success: #28a745;
+  --hdh-warning: #ffc107;
+  --hdh-danger: #dc3545;
+  --hdh-info: #17a2b8;
+
+  /* 陰影 */
+  --hdh-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --hdh-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --hdh-shadow-lg: 0 6px 20px rgba(0, 0, 0, 0.15);
+
+  /* 圓角（統一 8px） */
+  --hdh-radius-sm: 4px;
+  --hdh-radius: 8px;
+  --hdh-radius-lg: 12px;
+  --hdh-radius-pill: 50px;
+  --hdh-radius-circle: 50%;
+
+  /* 字型 */
+  --hdh-font-family: 'Microsoft JhengHei', '微軟正黑體', 'Noto Sans TC', sans-serif;
+  --hdh-font-family-serif: 'Times New Roman', 'Noto Serif TC', serif;
+
+  /* 行高 */
+  --hdh-line-height: 1.8;
+  --hdh-line-height-tight: 1.4;
+  --hdh-line-height-loose: 2.0;
+
+  /* 內容寬度 */
+  --hdh-content-width: 1200px;
+  --hdh-content-narrow: 800px;
+  --hdh-content-wide: 1400px;
+
+  /* 間距 */
+  --hdh-spacing-xs: 5px;
+  --hdh-spacing-sm: 10px;
+  --hdh-spacing-md: 20px;
+  --hdh-spacing-lg: 30px;
+  --hdh-spacing-xl: 40px;
+  --hdh-spacing-xxl: 60px;
+
+  /* 動畫時間 */
+  --hdh-transition: 0.3s ease;
+  --hdh-transition-fast: 0.15s ease;
+
+  /* Hero 預設色（可被課程專用 CSS 覆蓋） */
+  --hdh-hero-primary: var(--hdh-red);
+  --hdh-hero-secondary: var(--hdh-red-dark);
+}
+
+/* ==================== 基礎容器 ==================== */
+.hdh-course-content {
+  font-family: var(--hdh-font-family);
+  line-height: var(--hdh-line-height);
+  color: var(--hdh-dark);
+  max-width: var(--hdh-content-width);
+  margin: 0 auto;
+  padding: 0 var(--hdh-spacing-md);
+  box-sizing: border-box;
+}
+
+.hdh-course-content *,
+.hdh-course-content *::before,
+.hdh-course-content *::after {
+  box-sizing: inherit;
+}
+
+/* ==================== 基礎 RWD 響應式設計 ==================== */
+@media (max-width: 768px) {
+  .hdh-course-content {
+    padding: 0 15px;
+  }
+}
+
+
+/* ================================================================
+   ██████╗  █████╗ ██████╗ ████████╗    ██████╗
+   ██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝    ╚════██╗
+   ██████╔╝███████║██████╔╝   ██║        █████╔╝
+   ██╔═══╝ ██╔══██║██╔══██╗   ██║       ██╔═══╝
+   ██║     ██║  ██║██║  ██║   ██║       ███████╗
+   ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚══════╝
+
+   AI素養專用樣式（ai_literacy.css）
+   使用 ai-（AI Literacy）前綴
+   Hero 區塊使用紫色系 #44337a
+   ================================================================ */
+
+/* ==================== 覆蓋 CSS 變數（AI素養專用紫色系） ==================== */
+.ai-course-content {
+  --hdh-red: #B82226;
+  --hdh-gold: #C4A46D;
+  --hdh-dark: #333333;
+  --hdh-gray: #666666;
+  --hdh-light: #f8f6f0;
+  --hdh-border: #e0e0e0;
+
+  --ai-purple-dark: #44337a;
+  --ai-purple-medium: #553c9a;
+  --ai-purple-light: #6b46c1;
+  --ai-purple-accent: #805ad5;
+  --ai-purple-pale: #f5f0ff;
+
+  --hdh-hero-primary: var(--ai-purple-dark);
+  --hdh-hero-secondary: var(--ai-purple-medium);
+
+  font-family: 'Microsoft JhengHei', sans-serif;
+  line-height: 1.8;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ==================== Hero 區塊（紫色系） ==================== */
+.ai-hero {
+  background: linear-gradient(135deg, var(--ai-purple-dark) 0%, var(--ai-purple-medium) 50%, var(--ai-purple-dark) 100%);
+  color: #fff;
+  padding: 60px 40px;
+  text-align: center;
+  margin-bottom: 50px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-hero::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(196, 164, 109, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.ai-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.ai-hero-badge {
+  display: inline-block;
+  background: var(--hdh-gold);
+  color: var(--ai-purple-dark);
+  padding: 8px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-hero h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  line-height: 1.4;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-hero .subtitle {
+  font-size: 22px;
+  opacity: 0.95;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-hero .tagline {
+  font-size: 18px;
+  color: var(--hdh-gold);
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==================== 影片/圖片區塊 ==================== */
+.ai-video-section {
+  text-align: center;
+  margin: 40px 0;
+  padding: 30px;
+  background: var(--hdh-light);
+  border-radius: 8px;
+}
+
+.ai-video-section iframe {
+  max-width: 100%;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+.ai-video-caption {
+  margin-top: 15px;
+  font-size: 16px;
+  color: var(--hdh-gray);
+}
+
+.ai-video-caption a {
+  color: var(--hdh-red);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ai-video-caption a:hover {
+  text-decoration: underline;
+}
+
+/* ==================== 區塊標題 ==================== */
+.ai-section-title {
+  font-size: 28px;
+  color: var(--ai-purple-dark);
+  border-bottom: 4px solid var(--hdh-gold);
+  padding-bottom: 12px;
+  margin: 50px 0 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.ai-section-title-red {
+  font-size: 28px;
+  color: var(--hdh-red);
+  border-bottom: 4px solid var(--hdh-gold);
+  padding-bottom: 12px;
+  margin: 50px 0 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* ==================== 文章介紹文字 ==================== */
+.ai-intro {
+  background: #fff;
+  padding: 35px;
+  border-left: 5px solid var(--ai-purple-dark);
+  margin: 30px 0;
+  font-size: 18px;
+  line-height: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 4px;
+}
+
+.ai-intro p {
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.ai-intro strong {
+  color: var(--ai-purple-dark);
+  font-weight: bold;
+}
+
+.ai-intro .highlight-red {
+  color: var(--hdh-red);
+  font-weight: bold;
+}
+
+/* ==================== 痛點卡片 ==================== */
+.ai-pain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin: 30px 0;
+}
+
+.ai-pain-card {
+  background: var(--hdh-light);
+  border: 2px solid var(--hdh-border);
+  padding: 35px 25px;
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.ai-pain-card:hover {
+  border-color: var(--ai-purple-dark);
+  box-shadow: 0 4px 12px rgba(68, 51, 122, 0.15);
+  transform: translateY(-3px);
+}
+
+.ai-pain-card .icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.ai-pain-card h3 {
+  color: var(--ai-purple-dark);
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.ai-pain-card p {
+  font-size: 16px;
+  color: var(--hdh-gray);
+  line-height: 1.8;
+}
+
+/* ==================== 特色區塊（紫色深底） ==================== */
+.ai-features {
+  background: linear-gradient(135deg, var(--ai-purple-dark) 0%, var(--ai-purple-medium) 100%);
+  color: #fff;
+  padding: 50px 40px;
+  margin: 50px -20px;
+  border-radius: 8px;
+}
+
+.ai-features-title {
+  text-align: center;
+  font-size: 28px;
+  color: var(--hdh-gold);
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.ai-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.ai-feature-item {
+  text-align: center;
+  padding: 20px;
+}
+
+.ai-feature-item .number {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  background: var(--hdh-gold);
+  color: var(--ai-purple-dark);
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 15px;
+  border-radius: 50%;
+}
+
+.ai-feature-item h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.ai-feature-item p {
+  font-size: 15px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* ==================== CTA 區塊（紫色版本） ==================== */
+.ai-cta {
+  background: linear-gradient(135deg, var(--ai-purple-dark) 0%, var(--ai-purple-medium) 100%);
+  color: #fff;
+  padding: 50px 40px;
+  text-align: center;
+  margin: 50px -20px;
+  border-radius: 8px;
+}
+
+.ai-cta h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.ai-cta p {
+  margin-bottom: 30px;
+  opacity: 0.95;
+  font-size: 18px;
+}
+
+.ai-cta-red {
+  background: linear-gradient(135deg, var(--hdh-red) 0%, #8a1a1d 100%);
+  color: #fff;
+  padding: 50px 40px;
+  text-align: center;
+  margin: 50px -20px;
+  border-radius: 8px;
+}
+
+.ai-cta-red h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.ai-cta-red p {
+  margin-bottom: 30px;
+  opacity: 0.95;
+  font-size: 18px;
+}
+
+.ai-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ai-btn {
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+}
+
+.ai-btn-primary {
+  background: var(--hdh-gold);
+  color: var(--ai-purple-dark);
+}
+
+.ai-btn-primary:hover {
+  background: #d4b47d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(196, 164, 109, 0.4);
+}
+
+.ai-btn-secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.ai-btn-secondary:hover {
+  background: #fff;
+  color: var(--ai-purple-dark);
+  transform: translateY(-2px);
+}
+
+/* ==================== 聯絡資訊 - 橫向排列 ==================== */
+.ai-contact {
+  background: var(--hdh-light);
+  padding: 40px;
+  margin: 40px 0;
+  border-radius: 8px;
+}
+
+.ai-contact h3 {
+  color: var(--ai-purple-dark);
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.ai-contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px 30px;
+}
+
+.ai-contact-list li {
+  padding: 12px 20px;
+  font-size: 16px;
+  background: #fff;
+  border: 2px solid var(--hdh-border);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.ai-contact-list li:hover {
+  border-color: var(--ai-purple-dark);
+  box-shadow: 0 2px 8px rgba(68, 51, 122, 0.15);
+  transform: translateY(-2px);
+}
+
+.ai-contact-list li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.ai-contact-list li a:hover {
+  color: var(--ai-purple-dark);
+}
+
+/* ==================== 提示/注意區塊 ==================== */
+.ai-notice {
+  background: #fff3cd;
+  border: 2px solid #ffc107;
+  padding: 25px;
+  margin: 30px 0;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.ai-notice p {
+  font-size: 17px;
+  margin-bottom: 10px;
+  line-height: 1.8;
+}
+
+.ai-notice strong {
+  color: var(--ai-purple-dark);
+}
+
+.ai-notice a {
+  color: var(--hdh-red);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.ai-notice a:hover {
+  text-decoration: underline;
+}
+
+.ai-notice-blue {
+  background: var(--ai-purple-pale);
+  border: 2px solid var(--ai-purple-dark);
+  padding: 25px;
+  margin: 30px 0;
+  border-radius: 8px;
+}
+
+.ai-notice-blue p {
+  font-size: 17px;
+  margin-bottom: 10px;
+  line-height: 1.8;
+}
+
+.ai-notice-red {
+  background: #ffe5e5;
+  border: 2px solid var(--hdh-red);
+  padding: 25px;
+  margin: 30px 0;
+  border-radius: 8px;
+}
+
+/* ==================== AI素養 RWD 響應式設計 ==================== */
+@media (max-width: 768px) {
+  .ai-course-content {
+    padding: 0 15px;
+  }
+
+  .ai-hero {
+    padding: 40px 25px;
+  }
+
+  .ai-hero h1 {
+    font-size: 26px;
+  }
+
+  .ai-hero .subtitle {
+    font-size: 18px;
+  }
+
+  .ai-section-title,
+  .ai-section-title-red {
+    font-size: 24px;
+  }
+
+  .ai-intro {
+    padding: 25px;
+    font-size: 16px;
+  }
+
+  .ai-btn-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ai-btn {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+
+  .ai-pain-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-contact-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ai-contact-list li {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  .ai-features {
+    margin: 40px -15px;
+    padding: 40px 25px;
+  }
+
+  .ai-cta,
+  .ai-cta-red {
+    margin: 40px -15px;
+    padding: 40px 25px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ai-pain-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .ai-pain-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .ai-hero h1 {
+    font-size: 22px;
+  }
+
+  .ai-hero .subtitle {
+    font-size: 16px;
+  }
+
+  .ai-hero .tagline {
+    font-size: 15px;
+  }
+
+  .ai-section-title,
+  .ai-section-title-red {
+    font-size: 20px;
+  }
+
+  .ai-features-title {
+    font-size: 20px;
+  }
+
+  .ai-pain-card {
+    padding: 25px 20px;
+  }
+}
+
+@media print {
+  .ai-course-content {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .ai-hero,
+  .ai-features,
+  .ai-cta,
+  .ai-cta-red {
+    background: #f8f9fa !important;
+    color: #333 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .ai-btn-group {
+    display: none;
+  }
+
+  .ai-video-section iframe {
+    display: none;
+  }
+}
+
+/* ================================================================
+   ██╗     ██╗███╗   ██╗██╗  ██╗    ███████╗██╗██╗  ██╗
+   ██║     ██║████╗  ██║██║ ██╔╝    ██╔════╝██║╚██╗██╔╝
+   ██║     ██║██╔██╗ ██║█████╔╝     █████╗  ██║ ╚███╔╝
+   ██║     ██║██║╚██╗██║██╔═██╗     ██╔══╝  ██║ ██╔██╗
+   ███████╗██║██║ ╚████║██║  ██╗    ██║     ██║██╔╝ ██╗
+   ╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝    ╚═╝     ╚═╝╚═╝  ╚═╝
+
+   連結樣式修正（覆蓋官網預設按鈕樣式）
+   v1.0 - 2026.03.30
+   ================================================================ */
+
+/* === 文章內容區塊內的文字連結（覆蓋官網全域 <a> 按鈕樣式） === */
+.ai-course-content a,
+.ai-intro a,
+.ai-notice a,
+.ai-notice-blue a,
+.hdh-course-content a,
+.hdh-intro a,
+.hdh-notice a {
+    display: inline !important;
+    padding: 0 !important;
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+    color: #B82226 !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+    box-shadow: none !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    transform: none !important;
+}
+
+.ai-course-content a:hover,
+.ai-intro a:hover,
+.ai-notice a:hover,
+.ai-notice-blue a:hover,
+.hdh-course-content a:hover,
+.hdh-intro a:hover,
+.hdh-notice a:hover {
+    text-decoration: underline !important;
+    color: #8a1a1d !important;
+    background: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* === 保留 CTA 按鈕原有樣式 === */
+.ai-btn,
+.ai-btn-primary,
+.ai-btn-secondary,
+.hdh-btn,
+.hdh-btn-primary,
+.hdh-btn-secondary,
+.ai-cta a.ai-btn,
+.ai-cta-red a.ai-btn,
+.hdh-cta a.hdh-btn {
+    display: inline-block !important;
+    padding: 15px 40px !important;
+    background: var(--hdh-gold, #C4A46D) !important;
+    color: #2d2d2d !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+    border-radius: 6px !important;
+    transition: all 0.3s ease !important;
+}
+
+.ai-btn-secondary,
+.hdh-btn-secondary {
+    background: transparent !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
+}
+
+.ai-btn:hover,
+.ai-btn-primary:hover,
+.hdh-btn:hover,
+.hdh-btn-primary:hover {
+    background: #d4b47d !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(196, 164, 109, 0.4) !important;
+    text-decoration: none !important;
+}
+
+.ai-btn-secondary:hover,
+.hdh-btn-secondary:hover {
+    background: #fff !important;
+    color: #B82226 !important;
+    transform: translateY(-2px) !important;
+    text-decoration: none !important;
+}
+
+/* === 聯絡資訊區塊連結 === */
+.ai-contact-list li a,
+.hdh-contact-list li a {
+    color: #333 !important;
+    font-weight: normal !important;
+}
+
+.ai-contact-list li a:hover,
+.hdh-contact-list li a:hover {
+    color: #B82226 !important;
+}
+
+</style>
+<!-- ========== End: AI素養專用樣式 v1.0 ========== -->
+
+  <style>
+/* CSS Hover Fix for Dropdown Menus - 2026-02-06 */
+.b_menu li:hover > .sub_menu {
+  display: block !important;
+}
+.b_menu .sub_menu {
+  z-index: 9999;
+}
+</style>
+<!-- 匯東華全站搜尋 v1.0 -->
+<script src="/pagefind-search.js"></script>
+<!-- HDH-CASE-FIX v1 link-case-override -->
+<style>#rot_ctr1_bod_ctr2_bod_wrp1_blk2 a,#rot_ctr1_bod_ctr2_bod_wrp1_blk1_blk1 a{text-transform:none !important;}</style>
+</head>
+  <body style="">
+
+    <div id="rot" class="b_body" block_type="body" tpba_id="3869616"><div id="rot_ctr1" class="b_bg" block_type="bg" tpba_id="3869617"><div id="rot_ctr1_bod" class="b_bg" block_type="bg" tpba_id="3869618"><div id="rot_ctr1_bod_ctr1" class="b_bg" block_type="bg" tpba_id="3869619"><div id="rot_ctr1_bod_ctr1_blk1_custom" class="b_websitesearch" block_type="websitesearch"><div id="35d4bbc6c295dd35ea0412ad067ddf1e" class="__iv_dynamic_widget" style="display: none;">
+  <img src="static/images/global/loading_circle.svg" alt="載入中..." width="50" height="50"/>
+</div>
+</div>
+<div id="rot_ctr1_bod_ctr1_blk1" class="b_html" block_type="html" tpba_id="3869620"><p><img src="首頁/_imagecache/logo.png" caption="false" /><span style="font-size: 20pt; color: #e8cc8b; font-family: 微軟正黑體;"><span style="color: #b3800b;">匯東華統計顧問有限公司</span>&nbsp;</span></p></div>
+<div id="rot_ctr1_bod_ctr1_blk3" class="b_bg" block_type="bg" tpba_id="3869622"></div>
+<div id="rot_ctr1_bod_ctr1_bod" class="b_menu" block_type="menu" tpba_id="3869621"><!--UdmComment--><input type="checkbox" id="__res_main_nav_button"/><label id="__res_main_nav_label" for="__res_main_nav_button" onclick></label><ul menu_position="top"><li class="first menu_1995434" class="first menu_1995434"><a href="index.html" title="首頁" id="menu_1995434" class="menu_1995434">首頁</a></li><li class="menu_1995432"><a href="aboutus.html" title="關於我們" id="menu_1995432" class="menu_1995432 parent_menu_item">關於我們</a><input type="checkbox" id="__res_main_nav_button_2" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_2" onclick></label><ul menu_position="top" id="sub_menu_1995432" class="sub_menu" style="display:none; position: absolute;"><li class="menu_2018076" style=""><a href="行事曆.html" title="行事曆" style="float: none;" id="menu_2018076" class="menu_2018076">行事曆</a></li><li class="menu_2045981" style=""><a href="會員入會方案.html" title="會員入會方案" style="float: none;" id="menu_2045981" class="menu_2045981">入會方案</a></li><li class="menu_2033787" style=""><a href="匯東華週報.html" title="匯東華週報" style="float: none;" id="menu_2033787" class="menu_2033787">匯東華週報</a></li><li class="last menu_1995710" class="last menu_1995710" style=""><a href="未來發展.html" title="未來發展" style="float: none;" id="menu_1995710" class="menu_1995710">未來發展</a></li></ul></li><li class="menu_1995435"><a href="services.html" title="營業項目" id="menu_1995435" class="menu_1995435 parent_menu_item">營業項目</a><input type="checkbox" id="__res_main_nav_button_3" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_3" onclick></label><ul menu_position="top" id="sub_menu_1995435" class="sub_menu" style="display:none; position: absolute;"><li class="menu_1995468" style=""><a href="統計分析.html" title="統計分析" style="float: none;" id="menu_1995468" class="menu_1995468">統計分析</a></li><li class="menu_1995469" style=""><a href="數據串接與清洗.html" title="數據串接與清洗" style="float: none;" id="menu_1995469" class="menu_1995469">數據串接與清洗</a></li><li class="menu_1995470" style=""><a href="教育培訓.html" title="教育培訓" style="float: none;" id="menu_1995470" class="menu_1995470">教育培訓</a></li><li class="menu_1995471" style=""><a href="統計諮詢.html" title="統計諮詢" style="float: none;" id="menu_1995471" class="menu_1995471">統計諮詢</a></li><li class="last menu_1995472" class="last menu_1995472" style=""><a href="周邊商品.html" title="周邊商品" style="float: none;" id="menu_1995472" class="menu_1995472">周邊商品</a></li></ul></li><li class="menu_2014573"><a href="課程報名.html" title="課程報名" id="menu_2014573" class="menu_2014573">課程報名</a></li><li class="menu_2056823"><a href="直播課程區.html" title="直播課程區" id="menu_2056823" class="menu_2056823">直播課程區</a></li><li class="menu_2019127"><a href="學習專區.html" title="學習專區" id="menu_2019127" class="menu_2019127 parent_menu_item">學習專區</a><input type="checkbox" id="__res_main_nav_button_4" class="res_main_nav_button_child"/><label class="res_main_nav_label_child" for="__res_main_nav_button_4" onclick></label><ul menu_position="top" id="sub_menu_2019127" class="sub_menu" style="display:none; position: absolute;"><li class="menu_2019309" style=""><a href="bmj文章總覽.html" title="BMJ小小統計問題" style="float: none;" id="menu_2019309" class="menu_2019309">BMJ小小統計問題</a></li><li class="menu_2015907" style=""><a href="教材勘誤.html" title="教材勘誤" style="float: none;" id="menu_2015907" class="menu_2015907">教材勘誤</a></li><li class="last menu_2019132" class="last menu_2019132" style=""><a href="精選文獻與其他資源.html" target="_blank" title="精選文獻與其他資源" style="float: none;" id="menu_2019132" class="menu_2019132">精選文獻與其他資源</a></li></ul></li><li class="menu_1995479"><a href="最新消息.html" title="最新消息" id="menu_1995479" class="menu_1995479">最新消息</a></li><li class="menu_2034290"><a href="常見問題.html" title="常見問題" id="menu_2034290" class="menu_2034290">常見問題</a></li><li class="last menu_1995433" class="last menu_1995433"><a href="contactus.html" title="聯絡我們" id="menu_1995433" class="menu_1995433">聯絡我們</a></li></ul><!--/UdmComment--></div>
+</div>
+<div id="rot_ctr1_bod_ctr2" class="b_bg" block_type="bg" tpba_id="3869623"><div id="rot_ctr1_bod_ctr2_bod" class="b_bg" block_type="bg" tpba_id="3869624"><div id="rot_ctr1_bod_ctr2_bod_wrp1" class="b_pagebg" block_type="pagebg" tpba_id="3869625"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk3_custom" class="b_bg" block_type="bg"></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk1" class="b_bg" block_type="bg" tpba_id="3869630"></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2" class="b_bg" block_type="bg" tpba_id="3869646"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_custom" class="b_html" block_type="html"><!-- ====================================================
+
+     Wald 倖存者偏差專欄 01 - 該補的，是沒有彈孔的地方
+
+     版本：v1.0_20260724_CSX（簡化版，去裝飾）
+
+     說明：此為純內容區塊，需配合官網 CSS 設定
+
+     ==================================================== -->
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<!-- 無需內嵌樣式，使用官網 CSS 設定 -->
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<!-- ==================== 文章內容開始 ==================== -->
+<div class="ai-course-content">
+<!-- Hero 區塊（網站統一樣式，不简化） -->
+<div class="ai-hero" style="position: relative; overflow: hidden;">
+<img style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -45%); width: 350px; height: auto; opacity: 0.12; z-index: 1; pointer-events: none;" src="課程報名/曇月靈01-去背景.png" alt="曇月靈" class="hdh-mascot" />
+<div style="position: absolute; top: 15px; left: 15px; background: #B82226; color: white; padding: 6px 14px; font-size: 14px; font-weight: bold; border-radius: 4px; z-index: 10; letter-spacing: 2px;">匯東華</div>
+<span class="ai-hero-badge">倖存者偏差專欄</span>
+<h1>該補的，是沒有彈孔的地方</h1>
+<p class="subtitle">Survivorship Bias｜我們只看得到留下來的資料，看不到消失的資料</p>
+<p class="tagline">匯東華統計顧問　·　陳秀敏 博士　·　2026／7／24</p>
+</div>
+
+<!-- 文章主體：純標題＋段落，不用卡片/色塊/裝飾框線 -->
+<!-- 修正：容器本身也明確宣告 text-align:left，不依賴繼承（前一版因上層有 center 宣告導致段落被置中） -->
+<div style="max-width: 720px; margin: 0 auto; text-align: left;">
+
+<!-- 配圖：置中＋小字圖說，無邊框無陰影 -->
+<div style="text-align: center; margin: 36px 0 40px;">
+<img src="/assets/news/wald_survivorship_bias.png" alt="Abraham Wald 倖存者偏差示意圖：轟炸機彈孔分布" style="max-width: 560px; width: 100%; height: auto;" />
+<p style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; font-size: 12.5px; color: #999; margin: 10px 0 0; text-align: center;">圖：Martin Grandjean (2021) 向量化／McGeddon (2016) 原圖，CC BY-SA 4.0</p>
+</div>
+
+<p style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; font-size: 17px; line-height: 1.95; color: #333; margin: 0 0 24px; text-align: justify; text-align-last: left;">二戰期間，盟軍轟炸機在歐洲戰場的損耗率居高不下。軍方統計人員蒐集了每一架平安返航的轟炸機，仔細記錄機身彈孔的分布位置，發現機翼與機尾中彈的比例特別高，機身中段與引擎周圍則相對乾淨。依照直覺，工程師最初的結論很直接：機翼和機尾最容易被打中，應該優先在那裡加裝防護鋼板。這個判斷會決定下一批出任務的機組人員能不能活著回來，容不得半點猜測。</p>
+<p style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; font-size: 17px; line-height: 1.95; color: #333; margin: 0 0 24px; text-align: justify; text-align-last: left;">這份提案被送到哥倫比亞大學統計研究小組（Statistical Research Group, SRG）審查，其中一位成員是匈牙利裔數學家 Abraham Wald。Wald 於1902年10月31日生於當時奧匈帝國統治下的科羅茲瓦（Kolozsvár，今屬羅馬尼亞的克盧日），在維也納大學取得博士學位，師從數學家 Karl Menger。1938年，因猶太裔身分被迫離開歐洲，輾轉赴美，1941年正式進入哥倫比亞大學任教，二戰期間加入 SRG，日後更被公認為序貫分析（sequential analysis）這門統計方法的奠基者之一。</p>
+
+<h2 style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; color: #44337a; font-size: 21px; font-weight: bold; margin: 46px 0 18px; text-align: left;">從彈孔到倖存者偏差</h2>
+<p style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; font-size: 17px; line-height: 1.95; color: #333; margin: 0 0 24px; text-align: justify; text-align-last: left;">Wald 看出這批資料背後的邏輯漏洞。軍方統計的樣本，全部來自「平安返航」的飛機。機翼中彈比例高，不代表機翼是要害，反而可能代表機翼中彈的飛機大多還撐得住、飛得回來；真正該擔心的，是那些中彈之後沒能返航的飛機，而這些飛機恰好是資料裡完全看不到的。換句話說，返航機身上彈痕稀疏的部位（如引擎、駕駛艙、油箱周圍），很可能才是真正的致命傷所在，因為一旦這些部位中彈，飛機根本回不來，自然也不會出現在樣本裡。Wald 為此寫下一系列備忘錄，探討如何從返航飛機的受損分布，反推各部位真正的脆弱程度。Wald 的建議因此翻轉了原本的方向：裝甲該補強的，正是資料上看起來「沒事」的地方。</p>
+<p style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; font-size: 17px; line-height: 1.95; color: #333; margin: 0 0 24px; text-align: justify; text-align-last: left;">這個判斷後來被稱為「倖存者偏差」（survivorship bias）：只觀察到「活下來、留下來、回得來」的樣本，卻忽略了那些沒有留下痕跡的失敗案例，得出的結論很可能剛好與事實相反。這段故事流傳多年後，細節在轉述中被加油添醋，出現不少戲劇化的版本（美國數學學會曾有專文討論這個「傳說化」的過程），本文因此僅呈現史料可確認的部分。1950年12月13日，Wald 與夫人在印度講學途中因班機失事罹難，得年48歲。</p>
+
+<h2 style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; color: #44337a; font-size: 21px; font-weight: bold; margin: 46px 0 18px; text-align: left;">倖存者偏差不是二戰的專利</h2>
+<p style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; font-size: 17px; line-height: 1.95; color: #333; margin: 0 0 24px; text-align: justify; text-align-last: left;">倖存者偏差不是二戰的專利，它在今天的研究實務裡同樣常見，甚至更難察覺。</p>
+<p style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; font-size: 17px; line-height: 1.95; color: #333; margin: 0 0 24px; text-align: justify; text-align-last: left;">以臨床試驗為例：若追蹤療效時只分析「完成整個療程」的受試者，卻沒有妥善處理中途退出者（因副作用太強、病情惡化，或死亡而失去追蹤），觀察到的療效很可能被高估，因為撐不下去的個案早已從樣本中消失。這正是為什麼意向治療分析（intention-to-treat, ITT）原則會要求納入所有隨機分組的受試者，而不是只看完成療程的人。</p>
+<p style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; font-size: 17px; line-height: 1.95; color: #333; margin: 0 0 24px; text-align: justify; text-align-last: left;">問卷調查也是常見場景：回收率偏低的調查，若只分析寄回問卷的樣本，很容易系統性偏向特定族群，例如對議題特別有意見、時間較充裕，或教育程度較高者；而那群「沒有回應」的人，往往才是理解偏誤方向的關鍵。線上平台的顧客滿意度調查、校友追蹤研究，也都容易掉進同一個陷阱。</p>
+<p style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; font-size: 17px; line-height: 1.95; color: #333; margin: 0 0 24px; text-align: justify; text-align-last: left;">這個問題不只存在於學術研究。投資與商業分析領域同樣常見：若追蹤基金或企業的長期報酬率，只納入至今仍在市場上營運的標的，而排除早已清算、下市或倒閉的個案，算出來的平均績效會系統性偏高，因為表現太差而消失的樣本早已不在資料庫裡。近年基金評比機構逐漸要求納入「已清算基金」的歷史資料，正是為了修正這個偏誤，道理與 Wald 當年看穿的機翼彈孔如出一轍。</p>
+
+<h2 style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; color: #44337a; font-size: 21px; font-weight: bold; margin: 46px 0 18px; text-align: left;">給審稿與做研究的人：幾句實務檢核</h2>
+<p style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; font-size: 17px; line-height: 1.95; color: #333; margin: 0 0 24px; text-align: justify; text-align-last: left;">對審稿或做研究的人來說，Wald 的提醒可以化為幾句實務檢核：這批資料是怎麼「留下來」的？有沒有一群理應存在、卻因為某種篩選機制而從樣本中悄悄消失的個案？退出、失聯、拒答、清算、下市，這些「不在場」的樣本是否都已在方法學段落交代清楚？當結果看起來特別乾淨漂亮時，更值得回頭確認，資料裡「沒有彈孔的地方」，是不是恰好藏著答案。</p>
+
+<!-- 參考來源：純標題＋清單，無背景方塊 -->
+<h2 style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; color: #44337a; font-size: 21px; font-weight: bold; margin: 46px 0 18px; text-align: left;">參考來源</h2>
+<ol style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; font-size: 14.5px; line-height: 1.9; color: #555; margin: 0 0 0 22px; padding: 0; text-align: left;">
+<li style="margin-bottom: 12px;">
+MacTutor History of Mathematics Archive. Abraham Wald. University of St Andrews.
+<br><a href="https://mathshistory.st-andrews.ac.uk/Biographies/Wald/" target="_blank" rel="noopener" style="color: #44337a;">https://mathshistory.st-andrews.ac.uk/Biographies/Wald/</a>
+</li>
+<li style="margin-bottom: 12px;">
+Wikipedia. Abraham Wald.
+<br><a href="https://en.wikipedia.org/wiki/Abraham_Wald" target="_blank" rel="noopener" style="color: #44337a;">https://en.wikipedia.org/wiki/Abraham_Wald</a>
+</li>
+<li style="margin-bottom: 12px;">
+Wikipedia. Survivorship bias.
+<br><a href="https://en.wikipedia.org/wiki/Survivorship_bias" target="_blank" rel="noopener" style="color: #44337a;">https://en.wikipedia.org/wiki/Survivorship_bias</a>
+</li>
+<li style="margin-bottom: 12px;">
+Casselman B. The Legend of Abraham Wald. AMS Feature Column, American Mathematical Society. 2016.
+<br><a href="https://www.ams.org/publicoutreach/feature-column/fc-2016-06" target="_blank" rel="noopener" style="color: #44337a;">https://www.ams.org/publicoutreach/feature-column/fc-2016-06</a>
+</li>
+<li>
+Wald A. A Method of Estimating Plane Vulnerability Based on Damage of Survivors (CRC 432 reprint, July 1980). Center for Naval Analyses.
+<br><a href="https://www.cna.org/analyses/1980/a-method-of-estimating-plane-vulnerability" target="_blank" rel="noopener" style="color: #44337a;">https://www.cna.org/analyses/1980/a-method-of-estimating-plane-vulnerability</a>
+</li>
+</ol>
+
+<!-- 致謝：小字，不用方塊 -->
+<p style="font-family: 'Microsoft JhengHei','微軟正黑體',sans-serif; font-size: 13px; color: #999; margin: 40px 0 0; text-align: left;">本文撰寫過程中，感謝匯東華統計顧問有限公司智慧體部協助進行內容整理與 HTML 結構化。最終內容已由作者審閱並修訂定稿。日期：2026 年 7 月 24 日。</p>
+
+</div>
+<!-- /文章主體 -->
+
+<!-- 聯絡資訊（網站統一收尾元件，不简化） -->
+<div class="ai-contact">
+<h3>聯絡我們</h3>
+<ul class="ai-contact-list">
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#44337a" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> LINE:<a href="https://line.me/R/ti/p/@medatatw" target="_blank" rel="noopener">@medatatw</a></li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#44337a" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Email:<a href="mailto:info@medatatw.com">info@medatatw.com</a></li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#44337a" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 電話：07-9721586</li>
+<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#44337a" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> 官網：<a href="https://www.medatatw.com" target="_blank" rel="noopener">www.medatatw.com</a></li>
+</ul>
+</div>
+</div>
+
+<!-- ==================== 文章內容結束 ==================== --></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk3_custom" class="b_html" block_type="html"></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1" class="b_bg" block_type="bg" tpba_id="3869647"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk1" class="b_html" block_type="html" tpba_id="3869648"><p><img src="static/images/icons/parallax_home_icon1.png" /></p></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk1_blk2" class="b_html" block_type="html" tpba_id="3869649"><h4><span style="color: #800000; font-size: 24pt;"><span class="fa fa-bar-chart"></span>&nbsp;統計分析</span></h4>
+<p><a href="匯東華服務項目價目表v2_20210918_sm.pdf" target="">服務價目表 (未含5%營業稅)</a><br />透過嚴謹的數據整理，提供有價值的資訊，形塑知識，提高決策品質。包括信達雅三執行原則。</p>
+<p><span class="fa fa-check-square-o"></span>&nbsp;信：確保資料品質可信賴<br /><span class="fa fa-check-square-o"></span>&nbsp;達：確保統計方法適切性<br /><span class="fa fa-check-square-o"></span>&nbsp;雅：確保圖文表格正規化<br />協助代執行統計分析與進一步加值服務。</p>
+<p>在匯東華與夥伴的專業背景知識配合下，能有效地處理面對的問題。<br /><span style="color: #800000; font-size: 18pt;"><strong>統計分析成果</strong></span><br /><img src="營業項目/_imagecache/1.jpg" mouseover_src="" mouseout_src="" alt="" /></p></div>
+</div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2" class="b_bg" block_type="bg" tpba_id="3869650"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_blk1" class="b_html" block_type="html" tpba_id="3869651"><p><img src="static/images/icons/parallax_home_icon2.png" /></p></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk2_blk2" class="b_html" block_type="html" tpba_id="3869652"><h4><span style="font-size: 24pt; color: #800000;"><span class="fa fa-bar-chart"></span>&nbsp;數據串接與清洗</span></h4>
+<p>數據是礦藏，數據清洗是挖出鑽石的第一步，尤其是巨量知識。數據清洗或串接執行過程需要細心與專注，且有可能會消耗許多時間和精力，就由我們來替各位處理掉這個大麻煩。<br /><img src="營業項目/_imagecache/0.jpg" mouseover_src="" mouseout_src="" alt="" /></p>
+<p></p>
+<p>全民健保研究資料庫、國外大型資料庫資料非常齊全，種類多，需要串接與清洗，進行正規化後才能更進一步進行資料探勘與統計分析。</p>
+<hr />
+<p><br /><img src="營業項目/_imagecache/0-1.jpg" mouseover_src="" mouseout_src="" alt="" /><br />Fig1.同一個Project資料散落在不同tables，無法使用</p>
+<hr />
+<p><br /><img src="營業項目/_imagecache/0-2.jpg" mouseover_src="" mouseout_src="" alt="" /><br />Fig2.整併與清理為可分析的table</p>
+<hr />
+<p><br /><img src="__edited_images/_imagecache/imagetools0_edited.jpg" mouseover_src="" mouseout_src="" alt="" /><br />Fig.3整理和分析後形成有意義的知識</p>
+<hr />
+<p><span style="color: #800000;"><strong><span style="font-size: 18pt;">概念與流程示意圖</span></strong></span><br /><img src="營業項目/_imagecache/0-4.jpg" mouseover_src="" mouseout_src="" alt="" /></p></div>
+</div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4" class="b_bg" block_type="bg" tpba_id="3869656"><div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4_blk1" class="b_html" block_type="html" tpba_id="3869657"><p><img src="static/images/icons/parallax_home_icon4.png" /></p></div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk4_blk2" class="b_html" block_type="html" tpba_id="3869658"><h4><span style="font-size: 24pt; color: #800000;"><span class="fa fa-id-badge"></span>&nbsp;計畫撰寫與統計諮詢</span></h4>
+<p><img src="營業項目/_imagecache/00.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="營業項目/_imagecache/00-1.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="營業項目/_imagecache/00-2.jpg" mouseover_src="" mouseout_src="" alt="" /><br /><img src="營業項目/_imagecache/00-3.jpg" mouseover_src="" mouseout_src="" alt="" /><br />為了讓匯東華的顧客與學員有更好的合作和消費體驗，故匯東華特別依據營業項目開發周邊產品，提供使用、購買。目前已有針對公共衛生師的題庫以及模擬試題，未來將針對醫學研究領域發展產品。</p></div>
+</div>
+<div id="rot_ctr1_bod_ctr2_bod_wrp1_blk2_blk5" class="b_bg" block_type="bg" tpba_id="3869659"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+    <script src="__system/__js/h_c85fc092c9b73d09b283c81b29f5d475/2786399_combined.min.js"></script>
+    <script>
+      (function() {
+        var domain = window.location.hostname;
+        var ga_map = jQuery('#__gamap').attr('content').replace(/&quot;/g, '"');
+        if (typeof(ga_map) === 'string') { ga_map = JSON.parse(ga_map); }
+        if (typeof(ga_map) === 'object') {
+          if (ga_map[domain]) {
+            var ga_id = ga_map[domain];
+            if (ga_id.startsWith('UA-')) {
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', ga_id, 'auto');
+              ga('send', 'pageview');
+            } else if (ga_id.startsWith('G-')) {
+              (function(i,s,o,g,a,m){a=s.createElement(o),m=s.getElementsByTagName(o)[0];
+              a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.googletagmanager.com/gtag/js?id='+ga_id);
+
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', ga_id);
+            }
+          }
+        }
+      })();
+      </script>
+  
+<!-- ============================================================
+  匯東華統計顧問｜全站訂閱電子報 浮動按鈕 + Pop-up Modal
+  ------------------------------------------------------------
+  用途：批次注入全站每頁 body 結束標籤前，不需任何外部資源即可運作。
+  命名：所有 id/class 均以 hdh-nlpop- 前綴，避免與既有頁面樣式衝突。
+  表單：直接 POST 至 Brevo（sibforms）既有 endpoint，與 /subscribe 頁
+       使用同一支表單、同一組欄位（EMAIL、email_address_check、locale），
+       勿更動 action 網址與欄位 name（來源：subscribe/index.html 第 145、
+       168、188-189 行）。
+  版本：v1.0 原型（2026-07-03）
+============================================================ -->
+<!-- ============================================================
+  匯東華統計顧問｜全站品牌頁尾 hdh-footer v1
+  ------------------------------------------------------------
+  用途：批次注入全站每頁「內容結尾」處（即 <div id="hdh-nlpop-root">
+       之前，見 頁尾盤點_摘要_20260704_CSX.md Q4），不需任何外部資源
+       即可運作（唯一外部資源為既有官網 logo 圖片，已驗證可正常載入）。
+  命名：所有 id/class 均以 hdh-footer- 前綴，避免與既有頁面樣式衝突
+       （作用域寫法比照 #hdh-mascot-root / #hdh-nlpop-root 慣例）。
+  內容來源：Co-Leader 實測官網 SSoT 確認（電話/Email/地址/LINE/FB 皆取
+       全站最多數、最新之版本，見 頁尾盤點_摘要_20260704_CSX.md Q3）。
+  與浮動元件共存：曇月靈（左下 fixed，桌機 116x121／手機 84x88）與
+       電子報彈窗按鈕（右下 fixed，桌機約 56px 高／手機 56x56 圓形）
+       兩者皆固定於視窗角落，會蓋住捲動到頁尾時的畫面下緣。故本頁尾
+       容器下內距（padding-bottom）刻意放大：桌機 160px／手機 120px。
+       【實測校正】原規格建議 70-90px，經 Chrome headless 截圖逐像素
+       量測後發現不足：曇月靈桌機版佔位＝bottom:20px+height:121px＝
+       視窗下緣起 141px 範圍，90px 下內距會讓曇月靈頭頂穿過版權列上方
+       的分隔線（已截圖驗證，見交付截圖）；手機版曇月靈佔位＝
+       14+88=102px，70px 亦不足。故加大至桌機 160px／手機 120px
+       （= 最高浮動元件佔位 + 約20px緩衝），確保頁尾最下方（版權列
+       及分隔線）與兩顆浮動鈕之間留有安全間距，不被遮住。頁尾本身
+       純靜態（無 position:fixed），不與浮動元件搶版位。
+  隱私連結：v1 先不放（官網目前無隱私權政策頁面）。已於版權列旁預留
+       HTML 註解位置，待 Chair 確認是否製作隱私頁後，直接在該處加入
+       <a href="...">隱私權政策</a> 即可，不需更動其餘結構。
+  版本：v1.0 原型（2026-07-04）
+
+  【v2 更新，2026-07-04，Chair 指示新增連結】
+  - 新增第二欄「產品與服務」：匯東華統計學院／AI 文獻品管師（皆外部站，
+    target="_blank" rel="noopener"）／匯東華行事曆（官網內頁，同分頁）。
+    欄位結構由三欄改為四欄：①品牌 ②產品與服務 ③快速聯絡 ④社群與訂閱。
+  - 新增 1000px 寬度斷點：>1000px 四欄一列；768-1000px 兩欄兩列（2x2）；
+    <=768px 單欄置中（沿用 v1 手機邏輯）。四欄較擠，桌機欄距由 36px
+    收窄為 32px，維持版面平衡。
+  - logo 圖源改用 https://www.medatatw.com/assets/logo.png（ASCII 路徑，
+    與隱私頁/訂閱頁一致；512x512 已用 WebFetch+ImageMagick 驗證含透明
+    背景，非純白底圖，可安全疊在深色頁尾上）。
+  - 隱私權政策連結正式啟用（不再只是註解預留），置於版權列旁，
+    Chair 指示「隱私連結一律開新分頁」→ target="_blank" rel="noopener"。
+  - 版權列文字加上「版權所有 All Rights Reserved.」。
+
+  【v3 更新，2026-07-04，Chair 指示改用品牌 icon 取代 emoji】
+  - 8 個連結 icon 全部改用匯東華自家品牌圖示（來源：01_共用資源/icons/），
+    取代原本的 emoji（🎓🔍📅📞✉️💬📘📧）：
+    統計學院=icon_16_online_course.png／AI文獻品管師=icon_51_ai.png（三選一，
+    見下方選用理由）／行事曆=icon_25_calendar.png／電話=icon_09_phone.png／
+    Email=icon_08_email.png／LINE=icon_32_line.png（非 icon_07，見下）／
+    Facebook=icon_30_facebook.png／訂閱電子報鈕=icon_08_email.png（沿用
+    Email 圖示，語意皆為「電子郵件」，與聯絡欄一致）。
+  - AI 文獻品管師選用理由：icon_11_ai_assist.png 過於抽象（金紅線條機械臂，
+    無法一眼辨識與「AI」的關聯）；icon_02_literature.png 能表達「文獻」
+    但缺少「AI」意象；icon_51_ai.png 為白底紅框「AI」文字圖示，兩相權衡
+    後選擇**最能讓使用者秒懂「這是 AI 服務」**的 icon_51_ai.png，且已用
+    ImageMagick 合成深色底測試，白底方框在 #1c1c1c 上對比度最佳。
+  - LINE 選用理由：icon_07_line.png 為 LINE 官方綠色（跳出頁尾紅金主色調），
+    icon_32_line.png 為紅圈「LINE」文字、與頁尾其餘 icon 色調一致，故選
+    icon_32_line.png 以維持視覺統一（仍保留「LINE」文字辨識度不受影響）。
+  - 深色底可見度：8 個 icon 皆已用 ImageMagick 合成 #1c1c1c 實際頁尾底色
+    後目視檢查（見交付訊息screenshots），全部清晰可見（白/金/紅/淺色元素
+    在深色底皆有足夠對比），**無需額外加淺色 badge 襯托**。
+  - 路徑處理（重要）：本注入片段（部署用）icon 路徑一律寫
+    `/assets/icons/icon_XX.png`（根相對，扁平無子夾層），部署時另行將
+    上述 8 個檔案複製進 repo 的 assets/icons/ 目錄。**原型截圖版本**
+    （頁尾原型預覽_20260704_CSX.html）另外用組裝腳本把此路徑置換為本機
+    file:// 絕對路徑指向 Dropbox 來源夾，僅供截圖使用，不寫回 repo。
+  - icon 顯示尺寸：.hdh-footer-icon 20x20px，object-fit:contain，
+    與文字用 flex align-items:center 垂直置中對齊（沿用既有
+    .hdh-footer-link / .hdh-footer-subscribe-btn 的 inline-flex 排列）。
+  - 地址前的 📍 emoji 不在本次置換範圍內（Chair 指示僅列 8 個），維持原樣。
+
+  【v4 更新，2026-07-05，Chair 否決深色底，改配合頁首淺色質感】
+  - 背景研究：實際爬梳官網共用 CSS
+    （__system/__css/h_f4594a2c7cbc81c3420eb1d700798a55/2684815_combined.min.css）
+    找到頁首背景圖為 `首頁/white-1866105_1920.jpg`（白色石膏牆質感照片，
+    Pixabay 圖庫），疊加 rgba(244,229,229,1)（淺粉米色）底色；並用 Chrome
+    headless 截 https://www.medatatw.com/aboutus.html 頁首實際截圖比對，
+    確認為淺白石膏質感牆面 + 金色 logo 字 + 金色導覽文字，非深色。
+  - 頁尾改用**同一張紋理圖片**（絕對正式網址
+    https://www.medatatw.com/首頁/white-1866105_1920.jpg，非另建新檔），
+    疊加品牌「月光白」#F8F6F0 半透明色調（比照頁首疊色手法，改用本公司
+    已定義的品牌淺色而非另抄頁首的 rgba(244,229,229)，兩者色相極接近，
+    但採用品牌色版可與全站其他淺色區塊一致）。
+  - 文字配色反轉：深色底時代文字用暖灰白，現在淺底改回深色系
+    --hdh-footer-text 改為 --hdh-footer-dark(#2D2D2D)，
+    --hdh-footer-text-dim 改為輔助灰 #666666（品牌定義色）。
+  - 標題改用紅：.hdh-footer-col-title 原本金色文字在淺底對比不足
+    （金 #C4A46D 在米白底上偏淡難辨識），改為品牌紅 #B82226；
+    金色僅保留於：頂部裝飾線、版權列分隔線、按鈕邊框等「非內文」用途。
+  - hover 顏色反轉：連結 hover 原本轉金色（深底適用），淺底改為轉紅色
+    （金在淺底對比不足，紅在淺底對比清楚且符合品牌強調色定位）。
+  - 版權列分隔線：原 rgba(255,255,255,.12)（白線，深底用）改為
+    rgba(184,34,38,.15)（淡紅線，淺底用，維持品牌感但不搶眼）。
+  - 8 個 icon 淺底可見度：已用 ImageMagick 合成品牌淺色底
+    #F8F6F0（+ 疊加後的米白紋理近似色）逐一測試，8 個 icon 皆為紅/金/白
+    複合色彩且多數已有內建邊框或深色描邊（如電話紅色實心、Facebook
+    紅圈白字），在淺底同樣清晰，**無需加深色描邊或更換**（僅 Email
+    icon 的白色信封主體在淺底時白色部分與背景較接近但仍有紅色信封蓋
+    與淺褐色描邊可辨識邊界，經截圖確認不糊）。
+  - 間距大幅縮減（解決問題2，垂直空白過長）：padding-bottom 桌機
+    160px→36px、手機 120px→32px。Chair 明確指示浮動鈕（曇月靈/訂閱鈕）
+    為 fixed 浮層，不需要專門留白讓開，只要不直接蓋住頁尾「文字連結」
+    即可（可自然貼在頁尾右下/左下角落，甚至輕微跨過裝飾分隔線也可接受）。
+    已實測確認縮減後浮動鈕未蓋住任何連結文字或版權文字本身。
+
+  【v5 更新，2026-07-05，Chair 指出紋理被疊色蓋平，修正為與頁首完全一致】
+  - 根因：v4 用 `linear-gradient(rgba(248,246,240,.86),...)` 疊在紋理圖上，
+    86% 不透明度幾乎把紋理蓋平，只剩 14% 透出，肉眼看起來是平面色塊。
+  - 精確查證頁首真正的背景 CSS（WebFetch 直接讀共用 CSS 檔逐字引用，
+    非猜測）：`#rot #rot_ctr1_bod_ctr1{background-image:url('../../../
+    首頁/white-1866105_1920.jpg');background-size:100% auto;
+    background-position:left center;box-shadow:0 0 10px 3px #edeaea;
+    background-color:rgba(244,229,229,1)}`。
+  - **關鍵發現**：頁首**沒有用半透明疊色蓋在圖片上**！background-color
+    與 background-image 是分開的兩個獨立屬性（非 linear-gradient 疊層
+    寫法），且 background-color 的 alpha=1（完全不透明）；因為
+    background-image（JPG 無透明通道）疊在 background-color 之上，兩者
+    是「圖蓋色」而非「色蓋圖」，只要圖片覆蓋範圍夠大，底色幾乎不會
+    顯示，紋理圖本身就是以近乎 100% 強度直接顯示，這就是為什麼頁首的
+    石膏顆粒紋理如此清楚可見的原因。
+  - 修正：頁尾比照**完全相同的作法**——移除 v4 的 linear-gradient 疊色
+    層，改為 background-image 直接使用紋理圖（不透明度 100%），
+    background-color 保留品牌月光白 #F8F6F0（純作為圖片邊緣露出時的
+    備援底色，非疊色蓋圖）。
+  - 【v5 second-pass 修正】background-size 一開始比照頁首字面值用
+    `100% auto`＋`left center`，但截圖後發現**手機版**（單欄堆疊，整個
+    頁尾遠比頁首那種矮扁導覽列高很多）出現一段明顯「較平、無顆粒」的
+    橫帶（約在快速聯絡～社群與訂閱之間），比對原圖後研判：紋理來源照片
+    本身各處明暗/顆粒感不均勻（真實牆面照片，非無縫產生的程序紋理），
+    在「100% 寬、高度依比例縮放」下，頁尾這種瘦高容器會把原圖中段一塊
+    本來就較平滑的區域整片放大顯示，肉眼看起來像「該處紋理消失」。
+    頁首因為容器本身矮扁（僅導覽列高度），不會暴露這個問題。改為
+    `background-size:cover`＋`background-position:center center`（頁首
+    是字面抄用 100% auto，頁尾為求兩種版面比例都穩定顯示顆粒感，改用
+    cover 讓圖片依容器裁切、必要時放大聚焦於較有顆粒的區域，不會再出現
+    大片平滑無紋理的橫帶；核心「不加半透明疊色、圖片以近全不透明直接
+    顯示」的原則不變，僅縮放模式因版面比例差異而調整）。
+
+  【v6 更新，2026-07-05，Chair 指出下緣間距仍太大，參考隱私頁】
+  - Step1 研究隱私頁（`privacy/index.html` + 實測 https://www.medatatw.com/privacy
+    底部截圖）：頁面本身 `.wrap{padding:0 22px 64px}`，並無為曇月靈刻意
+    加大留白；頁尾另有一個既存的深底聯絡列（公司名/地址/電話/Email 皆
+    **置中**）。實測截圖發現：曇月靈氣泡「私訊我們」在該頁其實**有蓋到
+    聯絡列的同一列高度區間**，但因為那列文字是置中（約在畫面 x=450-950），
+    而氣泡固定在最左側（x=66-266），兩者**水平上本來就不重疊**，才會
+    看起來「OK、沒問題」——本質是「置中版面 + 角落浮動元件」天然不衝突，
+    而非刻意做了什麼特別的間距處理。
+  - Step2 嘗試比照精神縮小：先試桌機 44px／手機 40px（貼近隱私頁
+    64px 的量級），**截圖後證實**：曇月靈氣泡再次直接蓋住品牌欄地址
+    文字（跟 v4 第一版 36px 時的問題一樣）。
+  - **精確計算為何無法只靠壓縮左欄彌補**（桌機為例）：
+    - 氣泡佔位帶＝距視窗底 158px～218px（bottom:138+高度約60px，見
+      曇月靈原始碼）。
+    - 44px padding 時，頁尾總高≈303px，品牌欄地址文字底部＝頁尾頂端
+      往下約122px＝距頁尾底（＝頁面底）181px。158<181<218，**確實落在
+      氣泡佔位帶內**，與截圖吻合。
+    - 若想讓地址完全避開氣泡佔位帶，地址底部至少要距頁面底 218px。
+      地址在欄位內的位置（logo/名稱列+地址列，實務上最多只能壓縮到
+      約100px）+ padding-bottom 才等於地址距頁面底的距離。即使壓到
+      100px，仍需 padding-bottom≈218-100=118px，**跟目前 110px 幾乎
+      一樣**——結論：**只調整品牌欄內容排版無法在維持 30-50px 目標
+      間距的同時避開常駐氣泡**，兩者在數學上互斥。
+  - 因此**維持 v5 已驗證乾淨的桌機110px／手機100px**，不採用 44/40px。
+  - 若要真正壓到 24-40px 區間，**根本解法**：修正曇月靈氣泡「淡入後
+    永久顯示、無 timer 自動收起」的行為（比照訂閱鈕氣泡 5 秒後淡出的
+    邏輯）。此為曇月靈自身注入片段的修改，不在本頁尾任務範圍內，已
+    回報 Co-Leader 另案處理。
+
+  【v7 更新，2026-07-05，Chair 定案：曇月靈回左下角，重新精確量測佔位】
+  - Chair 定案曇月靈（含常駐氣泡+貼地陰影）回到左下角（中央方案已
+    取消，見曇月靈客服_注入片段 P4-r3 註解），故頁尾 padding 需求
+    重新計算。
+  - **精確量測**（非估算，用 JS getBoundingClientRect() 實測，見曇月靈
+    測試檔）：桌機視窗 innerHeight=805px 時，氣泡（#hdh-mascot-bubble）
+    top=587.0，即氣泡頂端距視窗底＝805-587=**218.0px**（此為「曇月靈+
+    氣泡+陰影」整組的最高點，決定頁尾需要多少 padding-bottom 才能讓
+    版權列完全避開，陰影本身 bottom=6px 雖然比曇月靈本體更貼近視窗底，
+    但陰影不是最高點，不影響此計算）。手機版氣泡 CSS 隱藏
+    （BUBBLE h=0），最高點回到曇月靈本體本身：FAB h=88+bottom:14＝
+    距視窗底 **102.0px**。
+  - **頁尾 padding-bottom 更新**：依 Chair 指示「padding-bottom ≥ 總
+    佔位」的簡單安全原則（不依賴頁尾其他列高度的額外緩衝，讓數值本身
+    就是安全下限，全站不同頁面版型也適用），桌機由 110px 調整為
+    **230px**（218px 佔位 + 12px 緩衝），手機由 100px 調整為
+    **115px**（102px 佔位 + 13px 緩衝）。
+
+  【v8 修正，2026-07-05，Chair 用真實瀏覽器糾正 v7 公式前提】
+  - v7「padding-bottom ≥ 總佔位」的公式**前提有誤**：headless 渲染在
+    寬螢幕下會誤判為內容滿版，但**真實瀏覽器頁尾內容是 max-width 置中
+    的，寬螢幕下左右是背景留白**。曇月靈固定在左下角，實際上是浮在
+    頁尾左側的背景留白上，跟置中的頁尾內容**沒有垂直方向的版位衝突**，
+    故頁尾根本不需要為了讓開曇月靈而預留 218px/102px 這麼大的
+    padding-bottom。窄螢幕/手機可能會有輕微壓到，Chair 已接受（使用者
+    仍可捲動閱讀，非致命遮擋）。
+  - **padding-bottom 改回一般頁尾呼吸感的正常小值**：桌機
+    230px→**40px**、手機 115px→**40px**（不再依曇月靈佔位計算，回歸
+    純視覺留白）。
+  - **驗證方式改變**：本輪起 padding 是否足夠**不再由 Co-Leader 用
+    headless 原型截圖判斷**，改由**真實線上部署後**、Team Lead 親自
+    以多種真實寬度（寬螢幕/窄筆電/手機）檢視決定；若真實環境發現手機
+    版權列/隱私連結被壓到無法點擊，屆時再回來做手機專屬微調。
+
+  【v9 更新，2026-07-06，Team Lead 用真實 CDP 多寬度驗出：筆電寬度品牌
+    欄地址被曇月靈氣泡蓋住】
+  - **問題精確分析**：曇月靈+氣泡固定於左下角，水平佔位＝
+    fab left:24px + bubble left:48px + bubble width:236px＝**308px**
+    （從視窗左緣算起）。頁尾內容 `#hdh-footer-inner` 是
+    `max-width:1150px + margin:0 auto` 置中，兩側留白（gutter）＝
+    `(視窗寬度-48px主容器左右padding-1150) / 2`。寬螢幕（≥1850px 附近）
+    gutter > 308px，曇月靈浮在背景留白、不碰內容；但**多數筆電寬度
+    （約 1000-1850px 之間）gutter 遠小於 308px**，品牌欄（左欄，左對齊）
+    的地址文字會被曇月靈氣泡直接蓋住（1280px 時只剩「樓之1」露出）。
+  - **選擇的做法**：只針對「危險區間」（769px～1850px，即手機斷點
+    之上、寬螢幕自然安全值之下，涵蓋幾乎所有筆電/桌機解析度）讓
+    `#hdh-footer-inner` **放棄 max-width 置中，改用固定 margin-left
+    強制右移**，確保內容起始位置永遠在曇月靈佔位（308px）之外，寬
+    螢幕與手機都不受影響（各自沿用原本邏輯，寬螢幕本來就安全、手機
+    另有單欄置中+氣泡隱藏的獨立處理）。
+  - **為何不用「移動地址位置」等其他方案**：地址搬到別處會打亂既有
+    四欄視覺階層（品牌／產品／聯絡／社群一欄一組的邏輯），且無法從
+    根本解決「左欄固定在危險區間內」的問題（只要品牌欄還在最左側，
+    無論欄內文字如何調整都會被固定佔位的曇月靈蓋到）。用 margin-left
+    直接讓「整個內容區塊」在危險寬度區間內右移，是最不影響現有視覺
+    結構、且對任何未來新增的頁尾內容都通用的解法。
+  - **參數計算**：`margin-left:340px`（308px 佔位 + 32px 緩衝）、
+    `margin-right:0`、`max-width:none`（讓內容改以 margin-left 定位，
+    不再用 max-width+auto 置中）。769px～1850px 範圍測試：1366px 時
+    左邊界＝24(主容器padding)+340＝364px，清楚超過 308px 佔位；1850px
+    邊界處無縫接軌原本的置中邏輯（略高於邊界時原置中公式算出的 gutter
+    已回升到約 326px，同樣安全，兩套機制交接處不會突然掉回危險值）。
+
+  【v10 修正，2026-07-06，手機版版權列被曇月靈遮住】
+  - 真實視窗（390×844）捲到頁底實測發現：版權列文字「© 2026...」開頭
+    被曇月靈鬃毛遮住（手機曇月靈 left:14/bottom:14/84×88，佔位到
+    bottom:102px；手機版下緣 padding 僅 40px，不夠讓版權列避開）。
+  - 修正：手機斷點下緣 padding 由 40px 提高到 118px（102px 佔位+16px
+    緩衝），僅此手機斷點單獨調整，桌機 40px 不受影響。
+
+  【v11 更新，2026-07-06，Chair 提出更根本的解法：騰空左下角，取代 v9
+    的「整體右移」做法】
+  - **問題重新定義**：v9 的「危險區間右移 340px」只是治標——只要品牌欄
+    （含地址）還固定在頁尾最左側、且曇月靈固定佔據視窗左下角，兩者的
+    衝突就會隨視窗寬度變化反覆出現，且需要一條額外的 media query 維護。
+  - **根本解法**：品牌欄本身不再放地址，只留 logo + 公司名（欄位變短，
+    整欄留在頁尾「上半部」）；地址改移到最下方**置中**的版權區，與版權
+    文字、隱私連結排在一起（置中兩行）。如此一來，左下角角落本身就
+    沒有任何文字內容——曇月靈固定在左下角時，浮在的是空白背景，不論
+    視窗多寬都不會蓋到任何東西；地址移到置中區後，離左下角角落最遠，
+    同樣不受影響。此解法不受視窗寬度影響，不需要任何額外的危險區間
+    media query。
+  - **移除 v9 的 margin-left 危險區間規則**：改用此根本解法後，v9 那條
+    `@media (min-width:769px) and (max-width:1850px)` 的 margin-left
+    右移規則不再需要，予以移除，`#hdh-footer-inner` 恢復單純的
+    `max-width:1150px + margin:0 auto` 置中（所有寬度統一邏輯，程式碼
+    更簡潔）。
+  - **版權區新結構**：`#hdh-footer-bottom` 內新增地址列（獨立一行，
+    置中），版權文字＋隱私連結維持原本一列（置中、可換行）：
+    ```
+    (806) 高雄市前鎮區中山二路 91 號 11 樓之1
+    © 2026 匯東華統計顧問有限公司　版權所有 All Rights Reserved.　隱私權政策
+    ```
+  - **手機版 v10 的 118px 是否還需要**：地址搬到置中版權區後，手機版仍是
+    單欄置中版面（本來就跟桌機的「品牌欄在左側」問題無關），版權區文字
+    在窄螢幕換行時第一行仍可能貼近左緣、貼近曇月靈，故 v10 的 118px
+    手機下緣加大予以保留，本輪重新測試確認仍需要（見交付截圖）。
+
+  【v12 更新，2026-07-06，Chair 抓到「產品與服務」漏列公司本業服務】
+  - 背景：頁尾「產品與服務」欄原本只有三個連結（統計學院／AI 文獻
+    品管師／行事曆），漏掉公司真正的核心本業：統計分析、統計諮詢、
+    教育培訓（皆為官網已存在的獨立頁面，本次僅新增連結，非新建頁面）。
+  - 「產品與服務」欄改為 6 項（核心本業在前）：統計分析／統計諮詢／
+    教育培訓／匯東華統計學院／AI 文獻品管師／匯東華行事曆。前 3 項
+    為站內既有頁面，沿用全站頂部導覽選單既有寫法──純中文檔名相對
+    路徑（統計分析.html／統計諮詢.html／教育培訓.html），非 URL
+    encode，與全站其他頁面內部連結一致（已用 Grep 比對站內既有連結
+    寫法確認）。
+  - icon 選用（皆取自既有品牌 icon 庫 01_共用資源/icons/01_website_icons/，
+    與其餘 icon 同一視覺家族，無需另外設計）：統計分析=
+    icon_01_statistics.png、統計諮詢=icon_23_consulting.png、
+    教育培訓=icon_17_hands_on.png。
+  - 「社群與訂閱」欄新增 3 項：YouTube 頻道／加入會員／蝦皮賣場，連同
+    既有 LINE／Facebook／訂閱電子報，欄位由 3 項增為 6 項。
+  - YouTube 頻道：品牌 icon 庫其實已有現成 icon_33_youtube.png
+    （01_共用資源/icons/02_social_course_software_icons/），紅底白
+    播放三角形、與官方識別一致，直接沿用（優於另建 SVG，維持圖示
+    家族統一），複製進 repo 的 assets/icons/。
+  - 加入會員／蝦皮賣場：品牌 icon 庫查無對應圖示（會員/人形、購物袋/
+    蝦皮皆無），改用 inline SVG（viewBox 0 0 24 24，顯示 20x20，比照
+    .hdh-footer-icon 尺寸）：
+    - 加入會員：紅色（#B82226）人形剪影（頭部圓形＋肩膀弧線）。
+    - 蝦皮賣場：蝦皮橘（#EE4D2D）購物袋圖示。**經 3 版迭代**：第一版
+      單一弧形提把在 20px 實際尺寸下測試容易被誤讀為「鎖頭」（已用
+      Chrome headless 20px 實測截圖確認，非肉眼猜測）；改良版將提把
+      畫成「兩個獨立圓形提把孔＋梯形袋身」，20px 實測清楚辨識為購物袋，
+      且不依賴背景色配合（無論頁尾背景色為何都不會跑版），故採用此版。
+  - 新增 `.hdh-footer-icon-svg` CSS class（width/height:20px＋
+    flex-shrink:0＋display:block），供 inline `<svg>` icon 使用，
+    對齊邏輯與既有 `.hdh-footer-icon`（img 版）一致。
+  - 連結目的地：YouTube 頻道／蝦皮賣場為外部連結（target="_blank"
+    rel="noopener"）；加入會員連到站內既有頁面 會員入會方案.html
+    （同分頁，站內導覽慣例）。
+  - 兩欄由原本各 3 項增為 6 項，桌機/平板/手機版排版邏輯不變（grid
+    欄數與 row-gap 沿用 v11），僅欄內容變高，MVP 先在 會員入會方案.html
+    單頁部署＋真實線上驗證，Co-Leader 確認後才批次全站（325+ 頁）。
+
+  【v13 更新，2026-07-06，Chair 定案：「產品與服務」拆為「服務」＋「產品」】
+  - 背景：v12 把 6 項塞在同一欄「產品與服務」，語意上其實是兩類：
+    顧問本業服務（統計分析／統計諮詢／教育培訓）vs. 產品/工具/賣場
+    （統計學院／AI 文獻品管師／蝦皮賣場／行事曆）。Chair 定案拆成
+    「服務」「產品」兩個獨立欄，語意更清楚。
+  - **服務**欄（3 項，維持不變）：統計分析／統計諮詢／教育培訓。
+  - **產品**欄（4 項）：匯東華統計學院／AI 文獻品管師／**蝦皮賣場**
+    （原本在「社群與訂閱」欄，本輪移到「產品」欄，因為蝦皮賣場本質是
+    銷售通路而非社群媒體，語意上更貼近「產品」；icon／連結／
+    target="_blank" 皆沿用不變）／**年度課程行事曆**（連結 `href` 不變，
+    僅顯示文字從「匯東華行事曆」改為「年度課程行事曆」，更精準說明此
+    連結內容是全年度課程時間表，icon 沿用 icon_25_calendar.png）。
+    【修正】Chair 定案文字改為精簡版「年度課程行事曆」（去掉「匯東華」
+    前綴），非本欄位最初標註的「匯東華全年課程行事曆」，其餘不變。
+  - **社群與訂閱**欄：蝦皮賣場移出後剩 5 項：LINE／Facebook／YouTube
+    頻道／加入會員／訂閱電子報，其餘 4 項內容與 v12 完全相同。
+  - **五欄響應式設計**（原四欄：品牌/產品與服務/快速聯絡/社群與訂閱，
+    現五欄：品牌/服務/產品/快速聯絡/社群與訂閱）：
+    - 桌機（>1300px）：五欄同列，grid-template-columns 改用不等寬
+      `0.85fr 1fr 1fr 0.8fr 1.15fr`（品牌欄內容變短可窄一點；快速聯絡
+      僅 2 項可窄一點；社群與訂閱有「LINE 官方帳號 @medatatw」長文字
+      ＋按鈕，加寬一點），gap 由 32px 收窄為 24px（五欄比四欄更擠，
+      需要多擠出空間給內容，經實測 1440px 寬度下仍不會擠壓或換行）。
+    - 中寬（769px～1300px，新增斷點）：五欄擠不下也不到手機寬度，改
+      3 欄 grid（`repeat(3,1fr)`），5 個欄位自動換行為 3+2 兩列
+      （grid 預設 auto-flow，不需手動指定哪欄在第二列），row-gap 34px
+      沿用 v11 邏輯。取代原本 v11 的「>1000px 四欄一列／≤1000px 兩欄
+      兩列」，因為欄數從 4 變 5，兩欄可能造成單欄過高（如社群與訂閱
+      5 項+按鈕），改 3 欄較均衡。
+    - 手機（≤768px）：單欄堆疊置中，邏輯完全不變（沿用 v10/v11 的
+      118px 下緣 padding、flex→block 版權列修正等，皆不受本次影響）。
+  - MVP 延續在 會員入會方案.html 單頁重新驗證（桌機 1440／手機 390／
+    額外驗證中寬斷點是否會擠壓），確認 OK 後才批次全站。
+  - 【v13 二次修正，2026-07-06，Team Lead 真實線上 1440 抓到】① 產品欄
+    行事曆項最終文字定案為「年度課程行事曆」（去掉「匯東華」前綴，見
+    上方第 314-318 行【修正】說明）。② 品牌欄公司全名在 1440px 因欄寬
+    不足斷成 2 行，改 grid-template-columns 為
+    `1.3fr 1fr 1.05fr 0.75fr 1.25fr`（品牌欄加寬、快速聯絡再窄一點、
+    社群與訂閱微調），並在 .hdh-footer-brand-name 加 white-space:nowrap
+    保險。實測（CDP 1440px + overflow-check）確認單行顯示且其餘欄無溢出。
+  - 【v13 三修，2026-07-06，Chair 真實瀏覽器抓到欄間距不均】fr 比例無論
+    怎麼調都是「先分配固定欄寬、內容貼左」，短內容欄（服務/產品/快速
+    聯絡）文字後面拖出一片空白看起來鬆，長內容欄（社群與訂閱）幾乎填滿
+    看起來擠。根本解法：grid-template-columns 改
+    `repeat(5, max-content)`（每欄寬度貼合自己最寬子項的實際寬度，不再
+    有「先給固定寬度」），配合 `justify-content:center` 讓五欄整組置中、
+    gap 加大到 48px 讓貼合內容後的欄距視覺均勻。此法副作用一併解決品牌欄
+    斷行問題（max-content 定義就是「不換行所需寬度」）。中寬 3 欄斷點
+    （≤1300px）維持原本 1fr 撐滿邏輯不受影響（justify-content 還原、
+    gap 還原 24px）。
+  - 【v13 四修，2026-07-06，Chair 定案：改變方向為等寬五欄】Chair 用真實
+    瀏覽器複驗 max-content 版後，決定不要「貼合內容」的鬆緊感，改要
+    「等寬、左緣規律對齊」的網格感——短欄右側留白視為預期正常。改
+    grid-template-columns 為 `repeat(5, 1fr)`（五欄完全等寬），移除
+    justify-content:center（等寬撐滿本身已均勻，不需要置中技巧），
+    #hdh-footer-inner max-width 由 1150px 加寬到 1260px（每欄可分到
+    232.8px，高於品牌欄公司全名單行所需的約 230px，留 2.8px 緩衝），
+    gap 維持 24px。此法同樣副作用解決品牌欄斷行（實測 1366/1440/1920px
+    三個寬度品牌名皆單行、五欄寬度精確相等 232.8px、間距精確相等
+    24.0px）。中寬 3 欄斷點不受影響，並移除該斷點內已不需要的
+    justify-content/gap override（等寬版 base 已是 24px，不必重複設定）。
+  - 【v14 更新，2026-07-06，Team Lead 指示：地址加 Google Maps 連結】
+    版權區地址「📍 (806) 高雄市前鎮區中山二路 91 號 11 樓之1」的地址
+    文字部分（不含 📍 圖示）包成連結，href 為
+    `https://www.google.com/maps/search/?api=1&query=<公司名URL編碼>
+    &query_place_id=ChIJ99f619wDbjQRndlWRdw0jXk`（target="_blank"
+    rel="noopener"）。place_id 已驗證：用 Chrome CDP 實際載入
+    `maps/place/?q=place_id:...` 並等待 JS 完成解析，
+    `document.title` 回傳「匯東華統計顧問有限公司 - Google 地圖」，
+    頁面可見文字含完整地址「806高雄市前鎮區振興里中山二路91號11樓之1」、
+    電話「07 972 1586」、官網「medatatw.com」，皆與官網現有資訊一致，
+    非僅格式檢查（見交付訊息 place_id_verify_screenshot.png）。
+    新增 `.hdh-footer-addr-link` class，樣式刻意低調：color:inherit
+    （維持地址原本顏色，不變藍色連結）、text-decoration:none、
+    cursor:pointer，hover 才顯示底線。
+============================================================ -->
+<div id="hdh-footer-root">
+<style>
+  #hdh-footer-root, #hdh-footer-root *{ box-sizing:border-box; }
+  #hdh-footer-root{
+    --hdh-footer-red:#B82226;
+    --hdh-footer-red-dark:#8f1a1d;
+    --hdh-footer-gold:#C4A46D;
+    --hdh-footer-dark:#2D2D2D;
+    --hdh-footer-light:#F8F6F0;      /* 品牌「月光白」，v4 頁尾主背景疊色 */
+    --hdh-footer-text:#2D2D2D;       /* v4：淺底改用深色主文字（原深底版為暖灰白） */
+    --hdh-footer-text-dim:#666666;   /* v4：淺底次要文字改用品牌輔助灰（原深底版為暖灰） */
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+  }
+
+  /* ---------- 頁尾主容器 ---------- */
+  /* v5：比照頁首「原汁原味」的背景寫法（見上方 v5 註解逐字引用頁首 CSS）
+     ——background-image 不透明直接顯示紋理圖，不加任何半透明疊色層，
+     background-size/position 完全比照頁首的 100% auto + left center。 */
+  #hdh-footer-main{
+    position:relative;
+    margin-top:48px;
+    padding:40px 24px 40px; /* v8 修正：真實瀏覽器下頁尾內容置中、曇月靈浮在左側背景留白上，不需為佔位預留大
+    padding（v7 的 230px 是誤判前提下的計算），改回一般呼吸感小值，見上方 v8 註解。 */
+    background-image:url('https://www.medatatw.com/首頁/white-1866105_1920.jpg');
+    background-size:cover; /* v5 second-pass：100% auto 在手機瘦高版面會露出原圖較平滑的區塊，見上方註解 */
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-color:rgba(248,246,240,1); /* 品牌月光白，備援底色（圖片邊緣露出時），非疊色蓋圖 */
+    color:var(--hdh-footer-text);
+    overflow:hidden;
+  }
+  /* 頂部金紅漸層裝飾線（比照訂閱彈窗 modal 手法，維持全站視覺語彙一致） */
+  #hdh-footer-main::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:4px;
+    background:linear-gradient(90deg,var(--hdh-footer-gold),var(--hdh-footer-red));
+  }
+
+  #hdh-footer-inner{
+    margin:0 auto;
+    display:grid;
+    /* 【v13 三修，2026-07-06，Chair 真實瀏覽器抓到欄間距不均】
+       根因：fr 比例（無論 v13 初版或上一輪的 1.3/1/1.05/0.75/1.25）都是
+       「先分配欄寬、內容再貼左對齊」——服務/產品/快速聯絡內容短，分到的
+       欄寬卻是依比例計算出來的固定值，於是文字後面拖出一大片空白，看起來
+       鬆；社群與訂閱內容長，幾乎填滿分到的欄寬，看起來擠。五欄鬆緊不一，
+       間距自然不均。曾改用 max-content（貼合各欄內容寬度）+
+       justify-content:center，經 Chair 用真實瀏覽器複驗後決定**改變方向**：
+       要的不是「貼合內容」，而是「等寬、左緣規律對齊」的網格感——短欄
+       右側留白是預期且正常的（這正是「每欄一致」的視覺規律）。
+       【v13 四修，2026-07-06，Chair 定案：改等寬五欄】grid-template-columns
+       改回 `repeat(5, 1fr)`（五欄完全等寬，左緣間距天生規律，不需要
+       justify-content 或置中技巧）。唯一風險：等寬會讓每欄寬度=
+       (容器寬度-4個gap)/5，若容器不夠寬，品牌欄可能分不到公司全名
+       「匯東華統計顧問有限公司」所需的約 230px（logo44px+gap10px+
+       11字@16px）而斷行。故將 max-width 從 1150px 加寬到 1260px（與
+       gap 24px 搭配時，每欄= (1260-4*24)/5 = 232.8px，略高於 230px
+       需求，留一點緩衝），並保留 white-space:nowrap 作最後防線。
+       實測（Chrome CDP 1366/1440/1920px）確認品牌欄單行、五欄左緣
+       間距規律一致（詳見交付訊息的逐欄 x 座標量測）。 */
+    max-width:1260px;
+    grid-template-columns:repeat(5, 1fr);
+    gap:24px;
+  }
+
+  .hdh-footer-col-title{
+    margin:0 0 14px;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    color:var(--hdh-footer-red); /* v4：淺底改用紅色（原金色在淺底對比不足） */
+  }
+
+  /* ---------- 第一欄：品牌 + 地址 ---------- */
+  .hdh-footer-brand-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  #hdh-footer-logo{
+    height:44px;
+    width:auto;
+    display:block;
+    flex-shrink:0;
+  }
+  .hdh-footer-brand-name{
+    color:var(--hdh-footer-dark); /* v4：淺底改深色（原深底版為白色） */
+    font-size:16px;
+    font-weight:700;
+    line-height:1.4;
+    white-space:nowrap; /* v13 修正：品牌欄加寬後應已單行，此為保險——若仍不足寧可
+      視覺溢出到欄外空白處被看見（進而回頭再調寬度），也不要無聲換行變醜 */
+  }
+  /* v11：.hdh-footer-addr（品牌欄內地址樣式）已隨地址搬到 #hdh-footer-bottom-addr
+     移除，原本的樣式定義併入新的 .hdh-footer-bottom-addr（見版權區 CSS）。 */
+
+  /* ---------- 第二／三欄：聯絡與社群連結 ---------- */
+  .hdh-footer-linklist{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .hdh-footer-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:var(--hdh-footer-text);
+    text-decoration:none;
+    font-size:14px;
+    transition:color .2s ease;
+  }
+  .hdh-footer-link:hover{
+    color:var(--hdh-footer-red); /* v4：淺底 hover 改紅色（原金色在淺底對比不足） */
+    text-decoration:underline;
+  }
+  /* v3：品牌 icon（取代 emoji），20x20，flex 內與文字自動垂直置中 */
+  .hdh-footer-icon{
+    width:20px;
+    height:20px;
+    object-fit:contain;
+    display:block;
+    flex-shrink:0;
+  }
+  /* v12：inline SVG icon 專用（品牌 icon 庫無對應圖示時使用，如「加入會員」
+     「蝦皮賣場」），尺寸與對齊邏輯比照上方 .hdh-footer-icon（img 版） */
+  .hdh-footer-icon-svg{
+    width:20px;
+    height:20px;
+    flex-shrink:0;
+    display:block;
+  }
+
+  .hdh-footer-subscribe-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    align-self:flex-start;
+    margin-top:2px;
+    padding:10px 22px;
+    background:linear-gradient(135deg,var(--hdh-footer-red) 0%,var(--hdh-footer-red-dark) 100%);
+    color:#fff !important;
+    border:1.5px solid var(--hdh-footer-gold);
+    border-radius:999px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:.5px;
+    text-decoration:none !important;
+    box-shadow:0 6px 16px rgba(184,34,38,.28);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .hdh-footer-subscribe-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(184,34,38,.4);
+  }
+
+  /* ---------- 版權區（v11：新增地址列，與版權列一起置中兩行） ---------- */
+  #hdh-footer-bottom{
+    max-width:1100px;
+    margin:36px auto 0;
+    padding-top:20px;
+    border-top:1px solid rgba(184,34,38,.15); /* v4：淺底改淡紅線（原深底版為淡白線） */
+    text-align:center;
+  }
+  /* v11：地址獨立一行，置中，字級與品牌欄原本一致(13.5px)，字色用主文字色
+     （比版權列稍淺的輔助灰更明顯一點，畢竟地址是實用資訊非純法務文字） */
+  .hdh-footer-bottom-addr{
+    margin:0 0 10px;
+    font-size:13.5px;
+    line-height:1.8;
+    color:var(--hdh-footer-text);
+  }
+  /* v14：地址加 Google Maps 連結，樣式刻意低調——維持與地址原本相同的顏色
+     （color:inherit，不要變成搶眼的藍色連結），僅 hover 時淡淡底線提示
+     可點擊，符合頁尾整體剋制的視覺語彙（比照 .hdh-footer-link 的處理
+     邏輯，但更低調，因為這裡是純資訊性文字非導覽連結）。 */
+  .hdh-footer-addr-link{
+    color:inherit;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .hdh-footer-addr-link:hover{
+    text-decoration:underline;
+  }
+  .hdh-footer-bottom-copyrow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:16px;
+    font-size:12.5px;
+    color:var(--hdh-footer-text-dim);
+  }
+  .hdh-footer-copyright{ min-width:0; } /* 防止版權文字加長後在 flex 列中被撐開溢出視窗 */
+  .hdh-footer-bottom-link{
+    color:var(--hdh-footer-text-dim);
+    text-decoration:underline;
+    transition:color .2s ease;
+  }
+  .hdh-footer-bottom-link:hover{ color:var(--hdh-footer-red); } /* v4：淺底改紅 */
+
+  /* ---------- 中寬：五欄擠不下，改 3 欄（5 項自動換行為 3+2 兩列） ----------
+     v13：取代 v11 的「>1000px 四欄一列／≤1000px 兩欄兩列」。欄數從 4 變 5
+     後，兩欄會讓單欄過高（如社群與訂閱 5 項+按鈕堆在一欄），改 3 欄較均衡；
+     斷點也從 1000px 放寬到 1300px，因為五欄比四欄需要更多寬度才不擠。 */
+  @media (max-width:1300px){
+    #hdh-footer-inner{
+      grid-template-columns:repeat(3,1fr); /* 中寬維持 3 欄撐滿邏輯，gap 沿用base 24px不變 */
+      row-gap:34px;
+    }
+  }
+
+  /* v11（2026-07-06）：v9 的「769px～1850px 危險區間右移 340px」規則已
+     移除——Chair 提出更根本的解法：品牌欄不再放地址、地址移到置中版權區
+     （見上方 v11 註解），左下角角落本身不再有任何文字內容，曇月靈固定
+     在該處浮的是空白背景，不論視窗多寬都不會蓋到內容，不需要這條額外
+     的危險區間規則。#hdh-footer-inner 恢復單純 max-width+auto 置中
+     （見上方 271-277 行），所有非手機寬度統一適用。 */
+
+  /* ---------- 手機版：單欄堆疊、置中 ---------- */
+  @media (max-width:768px){
+    /* v10（2026-07-06）：v8 當時預留「若真實環境發現版權/隱私連結被壓到，
+       屆時再做手機專屬微調」——今日在 390px 寬度實測（真實視窗＋捲到頁底，
+       非headless大畫布陷阱）證實真的會被壓到：手機版曇月靈固定在左下角
+       （left:14px; bottom:14px; width:84px; height:88px → 佔位到
+       bottom:14~102px），版權列文字置中換行時第一行常從螢幕左緣附近開始，
+       與曇月靈鬃毛/頭部重疊，導致「© 2026」開頭被遮住幾個字。
+       修正：手機版下緣 padding 由 40px 提高到 118px（102px 佔位 +16px
+       緩衝，與桌機 40px 互不影響，僅此手機斷點單獨調整）。 */
+    #hdh-footer-main{ padding:32px 20px 118px; }
+    #hdh-footer-inner{
+      grid-template-columns:1fr;
+      gap:32px;
+      text-align:center;
+    }
+    .hdh-footer-brand-row{ justify-content:center; }
+    .hdh-footer-linklist{ align-items:center; }
+    .hdh-footer-subscribe-btn{ align-self:center; }
+    /* v2 修正（共兩輪實測才定案，記錄避免日後重踩）：
+       第一輪：版權文字加長（版權所有 All Rights Reserved.）後，手機寬度
+       下 flex-row 排列被文字內容撐開溢出視窗右緣（align-items:center 使
+       子項以 fit-content 寬度計算，不會自動換行），改 flex-direction:column
+       仍不夠，因為 cross-axis 對齊一樣是 fit-content。
+       第二輪：加上 display:block+width:100% 後才真正撐滿容器寬度正常
+       換行；但**首次修正誤用了裸 `span` 標籤選擇器**，連年份用的內層
+       <span id="hdh-footer-year"> 也一併被選到、被迫變成獨立一行，導致
+       「©」「2026」各自斷成一行的怪異排版。已改用 .hdh-footer-copyright
+       這個明確 class 只包住最外層版權文字 span，內層年份 span 不受影響。
+       第三輪：display:block+width:100% 仍整行溢出視窗、被 overflow:hidden
+       裁切；加 flex-wrap:nowrap 也無效（debug 用黃底外框截圖比對前後
+       竟位元級相同，證明問題不在 flex-wrap）。
+       第四輪（真正解法）：放棄在 flex 容器內用 width:100% 跟 flex 的
+       自動尺寸演算法（cross-size auto/fit-content 的抵消行為，跨瀏覽器
+       行為不一致）搏鬥，改為手機斷點下**直接把版權列容器由 flex 改回
+       block**，讓版權文字與隱私連結變回一般行內內容，用最單純的
+       normal flow 文字換行（已用最小化測試檔驗證：純 div 內同樣文字
+       在 350px 寬度下換行完全正常），不再依賴任何 flex 尺寸計算。
+       v11 更新：此修正原本作用在 #hdh-footer-bottom 本身，v11 把地址
+       獨立成一行後，#hdh-footer-bottom 變成外層置中容器，原本的版權
+       文字＋隱私連結移到內層 .hdh-footer-bottom-copyrow，故本修正對象
+       同步改為 .hdh-footer-bottom-copyrow，邏輯與結論不變。*/
+    .hdh-footer-bottom-copyrow{ display:block; }
+    .hdh-footer-copyright{ display:inline; }
+    .hdh-footer-bottom-link{ display:inline-block; margin-top:6px; }
+  }
+</style>
+
+<footer id="hdh-footer-main" role="contentinfo" aria-label="匯東華統計顧問網站頁尾">
+  <div id="hdh-footer-inner">
+
+    <!-- 第一欄：公司資訊（v11：地址移到頁尾最下方置中版權區，見 #hdh-footer-bottom，
+         此欄只留 logo + 公司名，讓左下角角落不再有文字內容） -->
+    <div class="hdh-footer-col">
+      <div class="hdh-footer-brand-row">
+        <img id="hdh-footer-logo"
+             src="https://www.medatatw.com/assets/logo.png"
+             alt="匯東華統計顧問有限公司 Logo（蓮花與月相環標誌）">
+        <span class="hdh-footer-brand-name">匯東華統計顧問有限公司</span>
+      </div>
+    </div>
+
+    <!-- 第二欄：服務（v13 新增，從 v12「產品與服務」拆出顧問本業 3 項） -->
+    <div class="hdh-footer-col">
+      <h3 class="hdh-footer-col-title">服務</h3>
+      <div class="hdh-footer-linklist">
+        <a class="hdh-footer-link" href="統計分析.html"><img class="hdh-footer-icon" src="/assets/icons/icon_01_statistics.png" alt=""> 統計分析</a>
+        <a class="hdh-footer-link" href="統計諮詢.html"><img class="hdh-footer-icon" src="/assets/icons/icon_23_consulting.png" alt=""> 統計諮詢</a>
+        <a class="hdh-footer-link" href="教育培訓.html"><img class="hdh-footer-icon" src="/assets/icons/icon_17_hands_on.png" alt=""> 教育培訓</a>
+      </div>
+    </div>
+
+    <!-- 第三欄：產品（v13 新增，從 v12「產品與服務」拆出＋蝦皮賣場從社群欄
+         移入＋行事曆文字改為「年度課程行事曆」） -->
+    <div class="hdh-footer-col">
+      <h3 class="hdh-footer-col-title">產品</h3>
+      <div class="hdh-footer-linklist">
+        <a class="hdh-footer-link" href="https://medata.teaches.cc/" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_16_online_course.png" alt=""> 匯東華統計學院</a>
+        <a class="hdh-footer-link" href="https://doi-verifier-pro.vercel.app/login.html" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_51_ai.png" alt=""> AI 文獻品管師</a>
+        <a class="hdh-footer-link" href="https://shopee.tw/shop/129421165" target="_blank" rel="noopener"><svg class="hdh-footer-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5.5 10h13l1 9.6a1.4 1.4 0 0 1-1.4 1.5H5.9a1.4 1.4 0 0 1-1.4-1.5l1-9.6z" fill="#EE4D2D"/><circle cx="9" cy="9.5" r="1.6" stroke="#EE4D2D" stroke-width="1.4" fill="none"/><circle cx="15" cy="9.5" r="1.6" stroke="#EE4D2D" stroke-width="1.4" fill="none"/></svg> 蝦皮賣場</a>
+        <a class="hdh-footer-link" href="https://www.medatatw.com/%E8%A1%8C%E4%BA%8B%E6%9B%86.html"><img class="hdh-footer-icon" src="/assets/icons/icon_25_calendar.png" alt=""> 年度課程行事曆</a>
+      </div>
+    </div>
+
+    <!-- 第四欄：快速聯絡 -->
+    <div class="hdh-footer-col">
+      <h3 class="hdh-footer-col-title">快速聯絡</h3>
+      <div class="hdh-footer-linklist">
+        <a class="hdh-footer-link" href="tel:+886-7-9721586"><img class="hdh-footer-icon" src="/assets/icons/icon_09_phone.png" alt=""> 07-9721586</a>
+        <a class="hdh-footer-link" href="mailto:info@medatatw.com"><img class="hdh-footer-icon" src="/assets/icons/icon_08_email.png" alt=""> info@medatatw.com</a>
+      </div>
+    </div>
+
+    <!-- 第五欄：社群與訂閱（v13：蝦皮賣場移到「產品」欄，此欄剩 5 項） -->
+    <div class="hdh-footer-col">
+      <h3 class="hdh-footer-col-title">社群與訂閱</h3>
+      <div class="hdh-footer-linklist">
+        <a class="hdh-footer-link" href="https://lin.ee/YcV3eSs" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_32_line.png" alt=""> LINE 官方帳號 @medatatw</a>
+        <a class="hdh-footer-link" href="https://www.facebook.com/medata12p" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_30_facebook.png" alt=""> Facebook 粉絲專頁</a>
+        <a class="hdh-footer-link" href="https://www.youtube.com/channel/UCbLKj63qrGU5-kCoootYqIg?sub_confirmation=1" target="_blank" rel="noopener"><img class="hdh-footer-icon" src="/assets/icons/icon_33_youtube.png" alt=""> YouTube 頻道</a>
+        <a class="hdh-footer-link" href="會員入會方案.html"><svg class="hdh-footer-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5" fill="#B82226"/><path d="M4.5 20c0-4.1 3.4-6.8 7.5-6.8s7.5 2.7 7.5 6.8" fill="#B82226"/></svg> 加入會員</a>
+        <a class="hdh-footer-subscribe-btn" href="https://medatatw.com/subscribe"><img class="hdh-footer-icon" src="/assets/icons/icon_08_email.png" alt=""> 訂閱電子報</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="hdh-footer-bottom">
+    <p class="hdh-footer-bottom-addr">📍 <a class="hdh-footer-addr-link" href="https://www.google.com/maps/search/?api=1&amp;query=%E5%8C%AF%E6%9D%B1%E8%8F%AF%E7%B5%B1%E8%A8%88%E9%A1%A7%E5%95%8F%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&amp;query_place_id=ChIJ99f619wDbjQRndlWRdw0jXk" target="_blank" rel="noopener">(806) 高雄市前鎮區中山二路 91 號 11 樓之1</a></p>
+    <div class="hdh-footer-bottom-copyrow">
+      <span class="hdh-footer-copyright">&copy; <span id="hdh-footer-year">2026</span> 匯東華統計顧問有限公司　版權所有 All Rights Reserved.</span>
+      <a class="hdh-footer-bottom-link" href="/privacy" target="_blank" rel="noopener">隱私權政策</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  if (window.__hdhFooterInit) { return; } // 防止同頁重複注入導致重複執行
+  window.__hdhFooterInit = true;
+
+  var yearEl = document.getElementById('hdh-footer-year');
+  if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
+})();
+</script>
+</div>
+<!-- ============================================================
+  匯東華全站品牌頁尾片段結束
+============================================================ -->
+<div id="hdh-nlpop-root">
+<style>
+  #hdh-nlpop-root, #hdh-nlpop-root *{box-sizing:border-box;}
+  #hdh-nlpop-root{
+    --hdh-nlpop-red:#B82226;
+    --hdh-nlpop-red-dark:#8f1a1d;
+    --hdh-nlpop-gold:#C4A46D;
+    --hdh-nlpop-dark:#2D2D2D;
+    --hdh-nlpop-light:#F8F6F0;
+    --hdh-nlpop-gray:#666666;
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+  }
+
+  /* ---------- 浮動按鈕吸睛脈動效果（節制：跑 6 次後自動停止） ---------- */
+  @keyframes hdh-nlpop-pulse{
+    0%   { box-shadow:0 8px 24px rgba(184,34,38,.35), 0 0 0 0 rgba(184,34,38,.45); }
+    70%  { box-shadow:0 8px 24px rgba(184,34,38,.35), 0 0 0 16px rgba(184,34,38,0); }
+    100% { box-shadow:0 8px 24px rgba(184,34,38,.35), 0 0 0 0 rgba(184,34,38,0); }
+  }
+
+  /* ---------- 浮動按鈕 ---------- */
+  #hdh-nlpop-fab{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:999999;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 22px 14px 18px;
+    border:2px solid var(--hdh-nlpop-gold);
+    border-radius:999px;
+    background:linear-gradient(135deg,var(--hdh-nlpop-red) 0%,var(--hdh-nlpop-red-dark) 100%);
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.5px;
+    cursor:pointer;
+    box-shadow:0 8px 24px rgba(184,34,38,.35);
+    transition:transform .25s ease, box-shadow .25s ease;
+    animation:hdh-nlpop-pulse 2.6s ease-out 6;
+  }
+  #hdh-nlpop-fab:hover{
+    transform:translateY(-2px) scale(1.04);
+    box-shadow:0 12px 30px rgba(184,34,38,.45);
+    animation-play-state:paused;
+  }
+  #hdh-nlpop-fab:active{ transform:translateY(0) scale(.98); }
+  #hdh-nlpop-fab .hdh-nlpop-fab-icon{ font-size:18px; line-height:1; }
+  #hdh-nlpop-fab .hdh-nlpop-fab-text{ white-space:nowrap; }
+
+  @media (max-width:480px){
+    #hdh-nlpop-fab{
+      right:16px;
+      bottom:16px;
+      width:56px;
+      height:56px;
+      padding:0;
+      justify-content:center;
+      border-radius:50%;
+    }
+    #hdh-nlpop-fab .hdh-nlpop-fab-text{ display:none; }
+    #hdh-nlpop-fab .hdh-nlpop-fab-icon{ font-size:22px; }
+  }
+
+  /* ---------- 一次性提示氣泡 ---------- */
+  #hdh-nlpop-bubble{
+    position:fixed;
+    right:20px;
+    bottom:88px;
+    z-index:999998;
+    max-width:230px;
+    background:#fff;
+    border:1px solid var(--hdh-nlpop-gold);
+    border-radius:14px;
+    padding:12px 16px;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--hdh-nlpop-dark);
+    box-shadow:0 10px 28px rgba(0,0,0,.16);
+    opacity:0;
+    transform:translateY(8px) scale(.96);
+    transition:opacity .3s ease, transform .3s ease;
+    cursor:pointer;
+  }
+  #hdh-nlpop-bubble[hidden]{ display:none; }
+  #hdh-nlpop-bubble.hdh-nlpop-bubble-show{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+  #hdh-nlpop-bubble::after{
+    content:"";
+    position:absolute;
+    right:26px;
+    bottom:-7px;
+    width:14px;
+    height:14px;
+    background:#fff;
+    border-right:1px solid var(--hdh-nlpop-gold);
+    border-bottom:1px solid var(--hdh-nlpop-gold);
+    transform:rotate(45deg);
+  }
+  @media (max-width:480px){
+    #hdh-nlpop-bubble{ display:none !important; }
+  }
+
+  /* ---------- 遮罩 ---------- */
+  #hdh-nlpop-overlay{
+    position:fixed;
+    inset:0;
+    z-index:1000000;
+    background:rgba(45,45,45,.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  #hdh-nlpop-overlay[hidden]{ display:none; }
+  #hdh-nlpop-overlay.hdh-nlpop-show{ opacity:1; }
+
+  /* ---------- Modal 卡片 ---------- */
+  #hdh-nlpop-modal{
+    position:relative;
+    width:100%;
+    max-width:420px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:#fff;
+    border-radius:16px;
+    padding:36px 28px 26px;
+    box-shadow:0 24px 60px rgba(0,0,0,.28);
+    transform:translateY(14px) scale(.96);
+    opacity:0;
+    transition:transform .28s ease, opacity .28s ease;
+  }
+  #hdh-nlpop-overlay.hdh-nlpop-show #hdh-nlpop-modal{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+  #hdh-nlpop-modal::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:5px;
+    border-radius:16px 16px 0 0;
+    background:linear-gradient(90deg,var(--hdh-nlpop-gold),var(--hdh-nlpop-red));
+  }
+
+  #hdh-nlpop-close{
+    position:absolute;
+    top:14px;
+    right:14px;
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:50%;
+    background:var(--hdh-nlpop-light);
+    color:var(--hdh-nlpop-gray);
+    font-size:15px;
+    line-height:1;
+    cursor:pointer;
+    transition:background .2s,color .2s;
+  }
+  #hdh-nlpop-close:hover{ background:var(--hdh-nlpop-gold); color:#fff; }
+
+  #hdh-nlpop-header{ text-align:center; margin-bottom:18px; }
+  .hdh-nlpop-badge{
+    display:inline-block;
+    background:var(--hdh-nlpop-red);
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:2px;
+    padding:4px 14px;
+    border-radius:20px;
+    margin-bottom:12px;
+  }
+  #hdh-nlpop-title{
+    margin:0 0 8px;
+    font-size:21px;
+    font-weight:700;
+    color:var(--hdh-nlpop-dark);
+  }
+  .hdh-nlpop-subtitle{
+    margin:0;
+    font-size:13.5px;
+    line-height:1.7;
+    color:var(--hdh-nlpop-gray);
+  }
+
+  #hdh-nlpop-form{ display:flex; flex-direction:column; gap:6px; margin-top:6px; }
+  .hdh-nlpop-label{
+    font-size:13px;
+    font-weight:700;
+    color:#3C4858;
+    text-align:left;
+  }
+  .hdh-nlpop-input{
+    width:100%;
+    padding:12px 14px;
+    font-size:15px;
+    border:1px solid #dcdcdc;
+    border-radius:8px;
+    color:var(--hdh-nlpop-dark);
+    outline:none;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .hdh-nlpop-input:focus{
+    border-color:var(--hdh-nlpop-gold);
+    box-shadow:0 0 0 3px rgba(196,164,109,.25);
+  }
+  .hdh-nlpop-hidden-field{
+    position:absolute !important;
+    left:-9999px !important;
+    width:1px; height:1px;
+    overflow:hidden;
+  }
+  .hdh-nlpop-submit{
+    margin-top:8px;
+    padding:13px;
+    border:none;
+    border-radius:8px;
+    background:var(--hdh-nlpop-red);
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:1px;
+    cursor:pointer;
+    transition:background .2s;
+  }
+  .hdh-nlpop-submit:hover{ background:var(--hdh-nlpop-red-dark); }
+
+  .hdh-nlpop-privacy{
+    margin:16px 0 0;
+    font-size:12px;
+    color:#9a9a9a;
+    text-align:center;
+    line-height:1.6;
+  }
+
+  /* ---------- 送出成功訊息（取代表單顯示） ---------- */
+  #hdh-nlpop-successview{ text-align:center; padding:22px 4px 8px; }
+  #hdh-nlpop-successview[hidden]{ display:none; }
+  .hdh-nlpop-success-icon{ font-size:42px; margin-bottom:14px; line-height:1; }
+  .hdh-nlpop-success-text{
+    font-size:15px;
+    line-height:1.8;
+    color:var(--hdh-nlpop-dark);
+    margin:0;
+  }
+  .hdh-nlpop-success-note{
+    font-size:12.5px;
+    line-height:1.7;
+    color:var(--hdh-nlpop-gray);
+    margin:10px 0 0;
+  }
+
+  /* ---------- 隱藏 iframe（送出不離頁用，勿移除） ---------- */
+  #hdh-nlpop-sink{ display:none; width:0; height:0; border:0; }
+</style>
+
+<!-- 浮動按鈕 -->
+<button id="hdh-nlpop-fab" type="button" aria-haspopup="dialog" aria-controls="hdh-nlpop-modal" aria-label="訂閱匯東華電子報">
+  <span class="hdh-nlpop-fab-icon">📧</span>
+  <span class="hdh-nlpop-fab-text">訂閱電子報</span>
+</button>
+
+<!-- 一次性提示氣泡（只顯示一次，見下方 script 的 localStorage 判斷） -->
+<div id="hdh-nlpop-bubble" hidden role="status">📩 訂閱電子報，不漏接課程情報</div>
+
+<!-- 遮罩 + Pop-up 表單 -->
+<div id="hdh-nlpop-overlay" hidden>
+  <div id="hdh-nlpop-modal" role="dialog" aria-modal="true" aria-labelledby="hdh-nlpop-title">
+    <button id="hdh-nlpop-close" type="button" aria-label="關閉視窗">&times;</button>
+
+    <div id="hdh-nlpop-formview">
+      <div id="hdh-nlpop-header">
+        <span class="hdh-nlpop-badge">匯東華</span>
+        <h2 id="hdh-nlpop-title">訂閱匯東華電子報</h2>
+        <p class="hdh-nlpop-subtitle">統計不是終點，決策才是。<br>研究方法、統計實務技巧與數據決策思維，每期送到你的信箱。</p>
+      </div>
+
+      <!-- Begin Brevo Form（沿用 /subscribe 頁相同 endpoint 與欄位，勿更動；
+           target 指向下方隱藏 iframe，送出後頁面不跳轉）-->
+      <form id="hdh-nlpop-form" method="POST" action="https://ad7b376c.sibforms.com/serve/MUIFAMI5bRn7Bhbw17lZV94Hqhh5Py6Q8QJ3IIeR0vJBjCuogIZJEgDA-B44LNcaWoUTB-8yQbrUmaYjfrp1SYRBuB3wjE0X0x7WTEAawJFFZCs76GBej6wKROG1CfWBAiUfwqsv_Ktpv0wBGhIQhCURjpCIXXHsYdNn-AjALVjmdEYBVbQqu79W9OAj1apVNFFmpIK1kpWbNk_6FQ==" data-type="subscription" target="hdh-nlpop-sink" novalidate>
+        <label class="hdh-nlpop-label" for="hdh-nlpop-email">請輸入你的 Email</label>
+        <input class="hdh-nlpop-input" type="email" id="hdh-nlpop-email" name="EMAIL" autocomplete="email" placeholder="you@example.com" data-required="true" required>
+        <!-- Brevo 反垃圾郵件必要隱藏欄位，請勿刪除或更名 -->
+        <input type="text" name="email_address_check" value="" class="hdh-nlpop-hidden-field" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="locale" value="en">
+        <button class="hdh-nlpop-submit" type="submit">免費訂閱</button>
+      </form>
+      <!-- End Brevo Form -->
+
+      <p class="hdh-nlpop-privacy">我們僅將你的 Email 用於寄送匯東華電子報，你可隨時一鍵退訂。</p>
+    </div>
+
+    <!-- 送出成功後顯示（取代上方表單），關閉視窗後下次開啟會重置回表單 -->
+    <div id="hdh-nlpop-successview" hidden>
+      <div class="hdh-nlpop-success-icon">🎉</div>
+      <p class="hdh-nlpop-success-text">訂閱成功！感謝訂閱匯東華電子報，請至信箱查收確認信。</p>
+      <p class="hdh-nlpop-success-note">（若沒看到，請檢查「廣告信／垃圾郵件匣」，並將我們加入聯絡人，以後才不會漏信。）</p>
+    </div>
+  </div>
+</div>
+
+<!-- 隱藏 iframe：表單 POST 目標，避免送出後頁面跳轉離開 -->
+<iframe name="hdh-nlpop-sink" id="hdh-nlpop-sink" src="about:blank" title="訂閱表單送出結果（隱藏）" tabindex="-1" aria-hidden="true"></iframe>
+
+<script>
+(function(){
+  if (window.__hdhNlpopInit) { return; } // 防止同頁重複注入導致事件重複綁定
+  window.__hdhNlpopInit = true;
+
+  var fab         = document.getElementById('hdh-nlpop-fab');
+  var overlay     = document.getElementById('hdh-nlpop-overlay');
+  var closeBt     = document.getElementById('hdh-nlpop-close');
+  var bubble      = document.getElementById('hdh-nlpop-bubble');
+  var form        = document.getElementById('hdh-nlpop-form');
+  var sink        = document.getElementById('hdh-nlpop-sink');
+  var formview    = document.getElementById('hdh-nlpop-formview');
+  var successview = document.getElementById('hdh-nlpop-successview');
+  var emailInput  = document.getElementById('hdh-nlpop-email');
+
+  var bubbleHideTimer = null;
+  var pendingSubmit = false; // 用來分辨隱藏 iframe 觸發的 load 是「頁面初始空白載入」還是「表單真的送出後」
+  var savedOverflow = ''; // 開窗前 body overflow 的原值，關窗時還原（避免覆蓋頁面既有設定）
+
+  /* ---------- Modal 開關 ---------- */
+  function resetToForm(){
+    if (successview) { successview.hidden = true; }
+    if (formview) { formview.hidden = false; }
+    if (form) { form.reset(); }
+  }
+
+  function openModal(){
+    hideBubble();
+    resetToForm(); // 每次開窗都回到表單初始態（即使上次是送出成功後關閉的）
+    overlay.hidden = false;
+    if (fab) { fab.style.display = 'none'; } // 開啟時隱藏浮動鈕，避免與遮罩重疊
+    savedOverflow = document.body.style.overflow; // 先存舊值，關窗時還原（而非清空）
+    document.body.style.overflow = 'hidden';
+    window.requestAnimationFrame(function(){
+      overlay.classList.add('hdh-nlpop-show');
+    });
+    if (emailInput) { setTimeout(function(){ emailInput.focus(); }, 260); }
+  }
+
+  function closeModal(){
+    overlay.classList.remove('hdh-nlpop-show');
+    document.body.style.overflow = savedOverflow; // 還原成開窗前的原值
+    if (fab) { fab.style.display = ''; } // 關閉時還原浮動鈕
+    setTimeout(function(){ overlay.hidden = true; }, 260);
+  }
+
+  if (fab)     { fab.addEventListener('click', openModal); }
+  if (closeBt) { closeBt.addEventListener('click', closeModal); }
+  if (overlay) {
+    overlay.addEventListener('click', function(e){
+      if (e.target === overlay) { closeModal(); }
+    });
+  }
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && overlay && !overlay.hidden) { closeModal(); }
+  });
+
+  /* ---------- 一次性提示氣泡（localStorage 只顯示一次） ---------- */
+  function showBubble(){
+    if (!bubble) { return; }
+    bubble.hidden = false;
+    window.requestAnimationFrame(function(){
+      bubble.classList.add('hdh-nlpop-bubble-show');
+    });
+    bubbleHideTimer = setTimeout(hideBubble, 5000);
+    try { localStorage.setItem('hdh_nlpop_bubble_seen', '1'); } catch (e) { /* 無痕模式等限制，忽略 */ }
+  }
+
+  function hideBubble(){
+    if (!bubble || bubble.hidden) { return; }
+    bubble.classList.remove('hdh-nlpop-bubble-show');
+    if (bubbleHideTimer) { clearTimeout(bubbleHideTimer); bubbleHideTimer = null; }
+    setTimeout(function(){ if (bubble) { bubble.hidden = true; } }, 300);
+  }
+
+  (function initBubble(){
+    if (!bubble) { return; }
+    var isMobile = window.matchMedia && window.matchMedia('(max-width: 480px)').matches;
+    if (isMobile) { return; } // 手機版不顯示氣泡，避免遮擋內容
+
+    var seen = null;
+    try { seen = localStorage.getItem('hdh_nlpop_bubble_seen'); } catch (e) { /* 忽略 */ }
+    if (seen) { return; } // 已顯示過，不再彈出
+
+    setTimeout(function(){
+      if (!overlay.hidden) { return; } // 若使用者已自行開窗，就不再彈出氣泡
+      showBubble();
+    }, 2000);
+
+    bubble.addEventListener('click', openModal);
+  })();
+
+  /* ---------- 送出不離頁：隱藏 iframe + 在地成功訊息 ---------- */
+  if (form) {
+    form.addEventListener('submit', function(e){
+      if (!emailInput || !emailInput.checkValidity || !emailInput.checkValidity()) {
+        e.preventDefault(); // email 未通過必填/格式檢查，阻擋送出並顯示原生提示
+        if (emailInput && typeof emailInput.reportValidity === 'function') {
+          emailInput.reportValidity();
+        }
+        return;
+      }
+      pendingSubmit = true; // 標記「即將送往隱藏 iframe」，供下方 sink.onload 判斷
+      // 不呼叫 preventDefault：讓表單正常 POST 到 target=hdh-nlpop-sink，畫面不跳轉
+    });
+  }
+
+  if (sink) {
+    sink.addEventListener('load', function(){
+      if (!pendingSubmit) { return; } // 忽略頁面初始的空白載入（about:blank），避免誤顯示成功
+      pendingSubmit = false;
+      if (formview) { formview.hidden = true; }
+      if (successview) { successview.hidden = false; }
+    });
+  }
+})();
+</script>
+</div>
+<!-- ============================================================
+  匯東華訂閱浮動按鈕 / Pop-up 片段結束
+============================================================ -->
+
+
+<!-- ============================================================
+  匯東華統計顧問｜曇月靈客服吉祥物 浮動按鈕（原型）
+  ------------------------------------------------------------
+  用途：批次注入全站每頁 body 結束標籤前，不需任何外部資源即可運作。
+  命名：所有 id/class 均以 hdh-mascot- 前綴，避免與既有頁面樣式衝突。
+  定位：固定於畫面【左下角】（left/bottom），與既有「訂閱電子報」浮動
+       按鈕（右下角 #hdh-nlpop-fab, right:24/bottom:24）分居畫面兩端，
+       零重疊風險，不需更動訂閱按鈕既有程式碼。
+  圖片：曇月靈客服裁切圖，正式上線前請先將下方 IMG_SRC 對應檔案上傳至
+       repo「課程報名/」資料夾（與原始曇月靈 01 去背景圖同層），
+       目前 src 已依相同 URL 編碼慣例預先寫好正式路徑：
+       課程報名/曇月靈_客服裁切_v2.png
+       【v2 修正】v1 為整隻神獸裁切（394x385），縮到 90px 小尺寸時
+       臉/角糊成一團暗紅色塊、無法辨識。v2 改為「頭部特寫」裁切：
+       原圖 曇月靈01-去背景.png（1088x976）僅保留臉、眼睛、頭頂月相環
+       周邊的金色鬃毛／角、與少許頸部金色彩帶，捨棄過長身軀與尾部，
+       使臉部在小尺寸下佔滿畫面、清楚可愛。裁切內容 208x219，
+       四周加 18px 透明邊界＝244x255（近正方形）。品牌意涵依據：
+       ~/.claude/knowledge/brand_tanyueling_story.md（角＝智慧體部，
+       月相環＝真理之眼，皆為曇月靈辨識度核心，縮小後仍須清楚可辨）。
+  版本：v2.0 原型（2026-07-04，頭部特寫裁切修正）
+
+  【P4 更新，2026-07-05，Chair 拍板：解鎖頁尾間距 + 視覺加強】
+  【P4-r2 修正，2026-07-05，Chair 改方向：取消氣泡自動收起，改移位解決碰撞】
+  ⛔ 取消：①氣泡自動收起（P4 第一版做法）。Chair 指出曇月靈是客服
+    入口，氣泡收起後使用者會不知道它的用途，故**氣泡改回常駐顯示，
+    不做自動收起**（bubbleHideTimer／hideBubble() 邏輯已移除）。
+  ✅ 改為：曇月靈整體移到**視窗左側垂直置中**（`top:50%` +
+    `transform:translateY(-50%)`，取代原本的 `bottom:20px`）。原本
+    固定在左下角會跟頁尾底部打架（這才是這幾輪頁尾 padding 一直無法
+    縮小的根因），移到左側中央後**完全脫離頁尾範圍**，之後頁尾下緣
+    間距即可正常縮小（不再需要為曇月靈預留清空區）。手機版比照同樣
+    改為左側垂直置中（原本機版 bottom:14px 亦一併移除）。
+  ②氣泡文字放大兩級：15px→20px（+2 級），維持不變（Chair 確認 OK）。
+  ③陰影效果改為「懸浮景深光影」：因曇月靈現在飄在半空（視窗中央，
+    不再貼近任何「地面」），原本「貼地橢圓陰影」的視覺邏輯不再合理
+    （半空中不會有地面投影）。改為**曇月靈本體背後的柔光暈**（暖金/
+    紅色系模糊光暈，置中疊在曇月靈身後），一樣用**與飄浮動畫完全
+    相同的 duration(3.6s)／easing(ease-in-out)／infinite** 讓
+    scale／opacity 同步脈動：曇月靈在 0%／100%（低點，感覺較「近」）
+    時光暈最大最亮；50%（高點，感覺較「遠」）時光暈最小最淡，模擬
+    「景深」錯覺（近大遠小/近亮遠淡），非貼地投影。
+  🔴 中央位置遮擋內文驗證（本輪重點）：已用 Chrome headless 對「真實
+    內容頁」（統計諮詢.html）截桌機 1280px + 手機 390px 整頁/中段圖，
+    確認曇月靈+氣泡置於視窗左側中央時是否蓋到內文文字/圖片，結果見
+    交付訊息（回報時逐一列出桌機/手機是否遮擋）。
+
+  【P4-r3 定案，2026-07-05，Chair 用真實瀏覽器糾正：中央方案取消】
+  Chair 指出 Co-Leader 誤把 1280 headless render 當真實前端判讀；真實
+  瀏覽器畫面是「寬螢幕內容置中、左右是背景留白」，曇月靈在左下角其實
+  是浮在背景留白上，不會蓋到置中的內文——r2 版本的「中央遮擋」問題
+  評估基準有誤。**曇月靈定案改回左下角**（v1-v3 原始定位）：
+  - `#hdh-mascot-fab` 由 `top:50%+translateY(-50%)` 改回
+    `bottom:20px`（桌機）／`bottom:14px`（手機），`top`/`transform`
+    定位一併移除。
+  - 氣泡常駐可見（不自動收起）維持 r2 的做法。
+  - 字級 20px 維持。
+  - 陰影**改回「貼地橢圓陰影」**（P4 第一版做法，非 r2 的懸浮光暈）：
+    曇月靈回到接近視窗底部，貼地陰影的視覺邏輯重新成立，比懸浮光暈
+    更適合現在的定位。scale/opacity 脈動邏輯不變（與 float 同步）。
+  - **頁尾 padding 計算依據更新**：曇月靈回到左下角後，「曇月靈＋氣泡
+    ＋地面陰影」整組從視窗底部往上的**總佔位**必須重新量測（陰影會
+    讓總佔位比曇月靈本體更高，因為陰影 bottom 比曇月靈本體 bottom
+    更低、但真正決定頁尾需要多少 padding 的是**氣泡頂端**這個最高點，
+    非陰影本身）。實測數字與最終頁尾 padding 值見交付訊息。
+  【P4-r4 修正，2026-07-05，Chair 用真實瀏覽器發現：陰影被龍身擋住看不到】
+  - 根因（Read 實際圖檔 assets/mascot-chat.png 逐格分析找到）：原圖
+    244x255，用 `magick -trim` 量出實際不透明內容範圍為 244x255+18+18
+    （即上下左右各 18px 透明邊界，內容 208x219）。換算到桌機 121px
+    高的渲染框內，龍身不透明區塊的**底緣距框底僅約 8.5px**（121 ×
+    18/255 ≈ 8.5）。而原本陰影 `bottom:6px, height:16px` 落在距框底
+    6～22px 範圍，**幾乎整段都疊在龍身不透明像素之下**，只有底部約
+    2.5px 縫隙露在外面，加上 blur(1.5px) 與漸層本身邊緣就已淡化，
+    肉眼幾乎看不到——這就是「陰影有做但看不到」的真正原因。
+  - 修正：陰影**下移探出龍身輪廓之外**（`bottom` 改為負值，讓陰影整段
+    落在距框底 8.5px 以下的「真空區」，不再被龍身像素覆蓋），並**加大
+    尺寸**讓橢圓更明顯：桌機 width 72→84px、height 16→20px、
+    bottom:6px→**-13px**（陰影範圍變成 -13～7px，全數低於龍身底緣
+    8.5px，完全露出）。
+  - **提高最低透明度**：脈動 opacity 原本 .5→.18，Chair 指出 .18
+    太淡幾乎消失。改為 **.55→.32**，確保飄浮週期中任何時刻都至少
+    隱約可見、峰值更明顯。
+  - 手機版同比例縮放（84/116≈0.72 的縮放比）：width 52→60px、
+    height 12→14px、bottom:4px→**-9px**。
+============================================================ -->
+<div id="hdh-mascot-root">
+<style>
+  #hdh-mascot-root, #hdh-mascot-root *{ box-sizing:border-box; }
+  #hdh-mascot-root{
+    --hdh-mascot-red:#B82226;
+    --hdh-mascot-gold:#C4A46D;
+    --hdh-mascot-dark:#2D2D2D;
+    --hdh-mascot-maroon:#7A1B1E; /* 氣泡文字專用：比純紅更深，於半透明玻璃底上對比更足 */
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+  }
+
+  /* ---------- 輕輕漂浮動畫（節制：幅度小、速度慢，非誇張彈跳） ---------- */
+  @keyframes hdh-mascot-float{
+    0%   { transform:translateY(0); }
+    50%  { transform:translateY(-9px); }
+    100% { transform:translateY(0); }
+  }
+
+  /* P4-r4：最低 opacity 由 .18 提高為 .32（原本太淡幾乎消失，見上方註解），
+     確保任何時刻都至少隱約可見；峰值 .55 更明顯 */
+  @keyframes hdh-mascot-shadow-pulse{
+    0%   { transform:translateX(-50%) scale(1);   opacity:.55; }
+    50%  { transform:translateX(-50%) scale(.62); opacity:.32; }
+    100% { transform:translateX(-50%) scale(1);   opacity:.55; }
+  }
+
+  /* ---------- 定位錨點（P4-r3 定案：回到左下角，v1-v3 原始定位） ---------- */
+  /* v2：尺寸由 104x102 放大為 116x121（頭部特寫裁切 244x255 同比例），
+     left 由 20px 調整為 24px，確保連同透明邊界在內的完整圖像
+     不會貼齊或溢出視窗左邊界而被切到。
+     P4-r3：r2 曾改為 top:50%+translateY(-50%)（左側垂直置中），但
+     Chair 用真實瀏覽器畫面糾正：寬螢幕內容置中、左右是背景留白，
+     左下角其實浮在背景上、不會蓋到置中內文，中央方案的疑慮評估基準
+     有誤，定案改回左下角 bottom 定位。 */
+  #hdh-mascot-fab{
+    position:fixed;
+    left:24px;
+    bottom:20px;
+    z-index:999997; /* 略低於訂閱鈕的 999998/999999，但仍高於一般頁面內容 */
+    width:116px;
+    height:121px;
+  }
+
+  #hdh-mascot-link{
+    display:block;
+    width:100%;
+    height:100%;
+    text-decoration:none;
+    outline:none;
+  }
+
+  /* P4-r4：陰影下移探出龍身輪廓之外，確保「真的看得到」（見上方 P4-r4
+     註解的精確量測：龍身不透明底緣距框底約8.5px，陰影必須整段落在
+     8.5px 以下才不會被龍身像素蓋住）。陰影固定貼地（不隨曇月靈
+     translateY 上下飄），只用 scale/opacity 動畫模擬懸浮感 */
+  #hdh-mascot-shadow{
+    position:absolute;
+    left:50%;
+    bottom:-13px;
+    width:84px;
+    height:20px;
+    background:radial-gradient(ellipse at center, rgba(45,45,45,.75) 0%, rgba(45,45,45,0) 72%);
+    border-radius:50%;
+    filter:blur(1.5px);
+    transform:translateX(-50%) scale(1);
+    animation:hdh-mascot-shadow-pulse 3.6s ease-in-out infinite;
+    pointer-events:none;
+    z-index:0; /* 墊在曇月靈本體之下 */
+  }
+
+  /* 漂浮效果掛在外層 div，避免與 hover 縮放的 transform 互相覆蓋 */
+  #hdh-mascot-float{
+    position:relative; /* P4③：明確蓋過陰影的 z-index，確保曇月靈本體永遠疊在陰影上方 */
+    z-index:1;
+    width:100%;
+    height:100%;
+    animation:hdh-mascot-float 3.6s ease-in-out infinite;
+  }
+
+  #hdh-mascot-img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+    cursor:pointer;
+    filter:drop-shadow(0 10px 16px rgba(45,45,45,.30));
+    transition:transform .25s ease, filter .25s ease;
+  }
+  #hdh-mascot-link:hover #hdh-mascot-img{
+    transform:scale(1.08);
+    filter:drop-shadow(0 14px 22px rgba(184,34,38,.38));
+  }
+  #hdh-mascot-link:active #hdh-mascot-img{ transform:scale(1.02); }
+
+  /* ---------- 小對話氣泡（常駐顯示，載入後淡入一次，P4-r2 取消自動收起） ----------
+     v3 重新設計（2026-07-04，依 Chair 意見）：
+     1) 文字放大＋加粗（15px / 700），改水平置中
+     2) 氣泡放大、加寬、內距加大，與曇月靈拉開間距（不再貼著頭部）
+     3) 金色邊框加粗（2.5px），文字改深酒紅色（--hdh-mascot-maroon）加強對比
+     4) 周圍加品牌紅／金雙層光暈（比照右下角訂閱鈕 box-shadow 手法）
+     5) 白底 → Apple 風格液態玻璃：真・backdrop-filter 毛玻璃 + 多層半透明
+        漸層 + 頂部 inset 白色高光，做出水晶質感（不支援 backdrop-filter
+        的瀏覽器則退回不透明米白色，見下方 @supports fallback）
+     P4② 再放大：字級 15px→20px（+2 級），width 200→236px、
+        padding 16px 20px→18px 24px 同步放大避免擁擠換行。 */
+  #hdh-mascot-bubble{
+    position:absolute;
+    left:48px;
+    bottom:138px;
+    /* 注意（血淚教訓）：絕對定位元素在 left 已指定、right 未指定時，
+       shrink-to-fit 寬度會以「容器寬度 - left」當作可用寬度計算，容易
+       导致中文文字被迫換成多行、氣泡暴衝過高，進而蓋住曇月靈的頭部。
+       故明確指定 width，不可只寫 max-width。（v3：因應放大後的字級與
+       內距重新校正 left/bottom，讓氣泡整體上移、右移，與吉祥物頭部
+       拉開間距；bottom 138（而非 128）是因為改用獨立尖角三角形
+       ::after 後，尖角會再往下凸出約 9px，需相應墊高，避免尖角貼到
+       曇月靈頭頂。P4：字級放大後 width 由 200 加寬為 236，left 由 66
+       收窄為 48，讓變寬的氣泡不會右側超出視窗過多） */
+    width:236px;
+    max-width:236px;
+    background:linear-gradient(135deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.30) 55%, rgba(255,255,255,.46) 100%);
+    backdrop-filter:blur(12px) saturate(1.5);
+    -webkit-backdrop-filter:blur(12px) saturate(1.5);
+    border:2.5px solid var(--hdh-mascot-gold);
+    border-radius:20px; /* v3 改走 iMessage 式：主體統一圓角＋下方獨立
+      尖角三角形（見 ::after），比起「捏角落半徑」在氣泡放大變扁後
+      更能清楚辨識方向，尖角透過 ::after 指向曇月靈 */
+    padding:18px 24px; /* P4②：同步放大（原 16px 20px） */
+    font-size:20px; /* P4②：15px→20px，放大兩級更醒目 */
+    font-weight:700;
+    letter-spacing:.5px;
+    line-height:1.4;
+    text-align:center;
+    color:var(--hdh-mascot-maroon);
+    box-shadow:
+      0 10px 26px rgba(184,34,38,.26),
+      0 0 24px rgba(196,164,109,.38),
+      inset 0 1px 0 rgba(255,255,255,.8),
+      inset 0 -1px 0 rgba(255,255,255,.15);
+    text-decoration:none;
+    opacity:0;
+    transform:translateY(6px) scale(.94);
+    transition:opacity .45s ease, transform .45s ease;
+    z-index:1;
+  }
+  /* 獨立尖角三角形：旋轉 45 度的正方形，只畫右邊＋下邊框，讓上半段
+     隱沒進氣泡本體、下半段露出形成尖角。位置偏氣泡左側（left:22px），
+     讓尖角落在曇月靈頭部／右側鹿角上方，達成「尖角指向吉祥物」。 */
+  #hdh-mascot-bubble::after{
+    content:"";
+    position:absolute;
+    left:22px;
+    bottom:-9px;
+    width:18px;
+    height:18px;
+    background:rgba(255,255,255,.42);
+    backdrop-filter:blur(12px) saturate(1.5);
+    -webkit-backdrop-filter:blur(12px) saturate(1.5);
+    border-right:2.5px solid var(--hdh-mascot-gold);
+    border-bottom:2.5px solid var(--hdh-mascot-gold);
+    border-radius:0 0 3px 0;
+    transform:rotate(45deg);
+  }
+  #hdh-mascot-bubble.hdh-mascot-bubble-show{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+  #hdh-mascot-bubble:hover{
+    border-color:var(--hdh-mascot-red);
+    box-shadow:
+      0 12px 32px rgba(184,34,38,.34),
+      0 0 30px rgba(196,164,109,.5),
+      inset 0 1px 0 rgba(255,255,255,.85),
+      inset 0 -1px 0 rgba(255,255,255,.2);
+  }
+  #hdh-mascot-bubble:hover::after{ border-color:var(--hdh-mascot-red); }
+  /* 不支援 backdrop-filter 的瀏覽器（極少數舊版）：退回不透明米白底，
+     確保文字仍有足夠底色可讀，不依賴模糊效果 */
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    #hdh-mascot-bubble, #hdh-mascot-bubble::after{ background:#fdfbf7; }
+  }
+
+  @media (max-width:480px){
+    /* P4-r3：手機版同樣改回左下角（bottom:14px，取代 r2 的 top:50%+translateY(-50%)） */
+    #hdh-mascot-fab{ left:14px; bottom:14px; width:84px; height:88px; }
+    #hdh-mascot-bubble{ display:none !important; } /* 手機版不顯示氣泡，避免遮擋內容（比照訂閱鈕慣例，P4-r3 未變更此項） */
+    #hdh-mascot-shadow{ width:60px; height:14px; bottom:-9px; } /* P4-r4：同桌機理由同比例縮放(84/116≈0.72)，陰影下移探出龍身輪廓 */
+  }
+</style>
+
+<div id="hdh-mascot-fab">
+  <!-- 小氣泡：本身即為連結，無 JS 也能點擊開啟 Messenger -->
+  <a id="hdh-mascot-bubble" href="https://m.me/medata12p" target="_blank" rel="noopener" aria-label="私訊匯東華統計顧問 Messenger">私訊我們 💬</a>
+
+  <!-- P4-r3：貼地橢圓陰影，與 #hdh-mascot-float 同層手足元素、不進 float 內部（原因見上方註解） -->
+  <div id="hdh-mascot-shadow" aria-hidden="true"></div>
+
+  <!-- 曇月靈客服：整隻可點擊，開新分頁至 Messenger -->
+  <a id="hdh-mascot-link" href="https://m.me/medata12p" target="_blank" rel="noopener" aria-label="用 Messenger 聯絡匯東華統計顧問（曇月靈客服）">
+    <div id="hdh-mascot-float">
+      <img id="hdh-mascot-img"
+           src="https://www.medatatw.com/assets/mascot-chat.png"
+           alt="曇月靈客服吉祥物頭部特寫（臉、眼睛與頭頂角／月相環），點擊可用 Messenger 聯絡匯東華統計顧問"
+           width="244" height="255">
+    </div>
+  </a>
+</div>
+
+<script>
+(function(){
+  if (window.__hdhMascotInit) { return; } // 防止同頁重複注入導致重複執行
+  window.__hdhMascotInit = true;
+
+  var bubble = document.getElementById('hdh-mascot-bubble');
+  if (!bubble) { return; }
+
+  var isMobile = window.matchMedia && window.matchMedia('(max-width:480px)').matches;
+  if (isMobile) { return; } // 手機版氣泡本來就 CSS 隱藏，略過淡入排程
+
+  // P4-r2：氣泡淡入後常駐顯示，不自動收起（Chair 指示：曇月靈是客服入口，
+  // 收起後使用者不知道用途；改由「移到左側垂直置中」解決與頁尾的碰撞問題）。
+  setTimeout(function(){
+    bubble.classList.add('hdh-mascot-bubble-show');
+  }, 900); // 頁面載入後 0.9 秒溫和淡入，不與訂閱鈕的 2 秒氣泡搶注意力
+})();
+</script>
+</div>
+<!-- ============================================================
+  匯東華曇月靈客服吉祥物片段結束
+============================================================ -->
+
+
+
+<!-- @hdh-expire date=2026-08-16 type=最新消息活動 item=aug-enroll onexpire=8月招生結束→撤下公告 -->
+<!-- ============================================================
+  匯東華統計顧問｜全站自動公告彈窗（2026 年 8 月新課．開放報名）
+  ------------------------------------------------------------
+  用途：批次注入全站每頁 body 結束標籤前，不需任何外部資源即可運作。
+  命名：所有 id/class 均以 hdh-annc- 前綴，避免與既有頁面樣式衝突。
+  沿用範本：直播公告_注入片段_20260704_CSX.html（v1.2，已套用 v3 移除
+           body 捲動鎖，促銷型公告不鎖背景捲動，避免整頁凍結 bug）。
+  行為：進站時若 localStorage 無 hdh-annc-seen-aug2026 旗標，且現在時間
+       未超過 2026-08-16 23:59（台灣時間，最後一門課當日），則自動彈出
+       一次；顯示後立即設旗標，同一人不再自動跳出。8/16 一過，JS 日期
+       判斷會直接跳過，永不顯示，等同自動下架（線上錄播 8/1 為隨買隨看，
+       不影響下架時機）。仍建議依 @hdh-expire 註解於到期後整塊移除。
+  CTA 連結（2026-07-19 查證 repo 內既有頁面後決定）：
+    - R 語言預測模型實戰（8/1 線上錄製）：無專屬頁 → 課程報名.html
+    - 這篇 Meta-analysis 結果可信嗎？（8/14 夜間直播）：無專屬頁 → 課程報名.html
+    - Network Meta-analysis 基礎班（8/15 高雄實體）：f26-04-零程式碼ai助力網絡統合分析基礎班.html（頁內日期 2026/08/15，已核）
+    - Network Meta-analysis 實戰班（8/16 高雄實體）：f26-05-零程式碼ai助力網絡統合分析實戰班.html（頁內日期 2026/08/16 + GRADE，已核）
+  版本：v1.0（2026-07-19，思行，沿用 hdh-annc-root 機制，全站注入）
+============================================================ -->
+<div id="hdh-annc-root">
+<style>
+  #hdh-annc-root, #hdh-annc-root *{box-sizing:border-box;}
+  #hdh-annc-root{
+    --hdh-annc-red:#B82226;
+    --hdh-annc-red-dark:#8f1a1d;
+    --hdh-annc-gold:#C4A46D;
+    --hdh-annc-dark:#2D2D2D;
+    --hdh-annc-light:#F8F6F0;
+    --hdh-annc-gray:#666666;
+    font-family:"Noto Sans TC","Microsoft JhengHei",Helvetica,Arial,sans-serif;
+  }
+
+  /* ---------- 遮罩 ---------- */
+  #hdh-annc-overlay{
+    position:fixed;
+    inset:0;
+    z-index:1000010;
+    background:rgba(45,45,45,.62);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  #hdh-annc-overlay[hidden]{ display:none; }
+  #hdh-annc-overlay.hdh-annc-show{ opacity:1; }
+
+  /* ---------- Modal 卡片 ---------- */
+  #hdh-annc-modal{
+    position:relative;
+    width:100%;
+    max-width:460px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:#fff;
+    border-radius:16px;
+    padding:32px 26px 24px;
+    box-shadow:0 24px 60px rgba(0,0,0,.32);
+    transform:translateY(14px) scale(.96);
+    opacity:0;
+    transition:transform .28s ease, opacity .28s ease;
+  }
+  #hdh-annc-overlay.hdh-annc-show #hdh-annc-modal{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+  #hdh-annc-modal::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:5px;
+    border-radius:16px 16px 0 0;
+    background:linear-gradient(90deg,var(--hdh-annc-gold),var(--hdh-annc-red));
+  }
+
+  #hdh-annc-close{
+    position:absolute;
+    top:14px;
+    right:14px;
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:50%;
+    background:var(--hdh-annc-light);
+    color:var(--hdh-annc-gray);
+    font-size:15px;
+    line-height:1;
+    cursor:pointer;
+    transition:background .2s,color .2s;
+    z-index:2;
+  }
+  #hdh-annc-close:hover{ background:var(--hdh-annc-gold); color:#fff; }
+
+  #hdh-annc-header{ text-align:center; margin-bottom:16px; }
+  .hdh-annc-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:var(--hdh-annc-red);
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:2px;
+    padding:4px 14px;
+    border-radius:20px;
+    margin-bottom:12px;
+  }
+  .hdh-annc-badge-dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:#fff;
+    animation:hdh-annc-blink 1.4s ease-in-out infinite;
+  }
+  @keyframes hdh-annc-blink{
+    0%,100%{ opacity:1; }
+    50%{ opacity:.25; }
+  }
+  #hdh-annc-title{
+    margin:0 0 6px;
+    font-size:21px;
+    font-weight:700;
+    line-height:1.4;
+    color:var(--hdh-annc-dark);
+  }
+  .hdh-annc-subtitle{
+    margin:0;
+    font-size:13px;
+    color:var(--hdh-annc-gray);
+  }
+
+  #hdh-annc-body{ padding:2px 0 6px; }
+
+  /* ---------- 課程卡片清單（整列可點，各自連到對應頁 / 報名總覽） ---------- */
+  .hdh-annc-list{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+    margin:0 0 16px;
+  }
+  .hdh-annc-course{
+    display:flex;
+    align-items:stretch;
+    gap:12px;
+    padding:11px 12px;
+    background:var(--hdh-annc-light);
+    border:1px solid #eee0c8;
+    border-radius:10px;
+    text-decoration:none !important;
+    color:var(--hdh-annc-dark) !important;
+    transition:border-color .18s, box-shadow .18s, transform .12s;
+  }
+  .hdh-annc-course:hover{
+    border-color:var(--hdh-annc-gold);
+    box-shadow:0 4px 14px rgba(184,34,38,.10);
+    transform:translateY(-1px);
+  }
+  .hdh-annc-date{
+    flex:0 0 auto;
+    width:52px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:var(--hdh-annc-red);
+    color:#fff;
+    border-radius:8px;
+    padding:6px 0;
+    line-height:1.15;
+  }
+  .hdh-annc-date .m{ font-size:11px; font-weight:700; letter-spacing:1px; }
+  .hdh-annc-date .d{ font-size:20px; font-weight:800; }
+  .hdh-annc-date .w{ font-size:10.5px; opacity:.9; }
+  .hdh-annc-info{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; justify-content:center; }
+  .hdh-annc-tag{
+    display:inline-block;
+    align-self:flex-start;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.5px;
+    color:var(--hdh-annc-red-dark);
+    background:#fff;
+    border:1px solid #eee0c8;
+    border-radius:5px;
+    padding:1px 7px;
+    margin-bottom:4px;
+  }
+  .hdh-annc-cname{
+    font-size:13.5px;
+    font-weight:700;
+    line-height:1.4;
+    color:var(--hdh-annc-dark);
+  }
+  .hdh-annc-ctime{
+    font-size:11.5px;
+    color:var(--hdh-annc-gray);
+    margin-top:2px;
+  }
+  .hdh-annc-arrow{
+    flex:0 0 auto;
+    align-self:center;
+    font-size:18px;
+    color:var(--hdh-annc-gold);
+    font-weight:700;
+  }
+
+  .hdh-annc-cta{
+    display:block;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:var(--hdh-annc-red);
+    color:#fff !important;
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:1px;
+    text-align:center;
+    text-decoration:none !important;
+    cursor:pointer;
+    transition:background .2s, transform .15s;
+  }
+  .hdh-annc-cta:hover{ background:var(--hdh-annc-red-dark); transform:translateY(-1px); }
+  .hdh-annc-cta:active{ transform:translateY(0); }
+
+  .hdh-annc-deadline{
+    margin:12px 0 0;
+    font-size:12px;
+    color:#9a9a9a;
+    text-align:center;
+    line-height:1.6;
+  }
+
+  /* ---------- 行動裝置：左靠 + 收窄，避免部分 MAWeb 主題頁面在手機
+       水平溢出（layout viewport 寬於實體螢幕）時，置中的 Modal 被推向
+       右側、關閉鈕 ✕ 落到可視範圍之外而無法點擊。左靠並收窄寬度可確保
+       ✕ 永遠留在畫面內；桌機（>768px）維持置中不受影響。 ---------- */
+  @media (max-width:768px){
+    #hdh-annc-overlay{ justify-content:flex-start; padding:14px; }
+    #hdh-annc-modal{ max-width:340px; padding:28px 20px 22px; }
+    #hdh-annc-close{ top:12px; right:12px; }
+    #hdh-annc-title{ font-size:20px; }
+  }
+</style>
+
+<!-- 遮罩 + 公告 Modal（進站自動彈出一次，見下方 script 判斷邏輯） -->
+<div id="hdh-annc-overlay" hidden>
+  <div id="hdh-annc-modal" role="dialog" aria-modal="true" aria-labelledby="hdh-annc-title">
+    <button id="hdh-annc-close" type="button" aria-label="關閉視窗">&times;</button>
+
+    <div id="hdh-annc-header">
+      <span class="hdh-annc-badge"><span class="hdh-annc-badge-dot"></span>最新課程資訊</span>
+      <h2 id="hdh-annc-title">🎉 8 月新課．開放報名</h2>
+      <p class="hdh-annc-subtitle">四門新課接力登場，點選課程即可前往報名</p>
+    </div>
+
+    <div id="hdh-annc-body">
+      <div class="hdh-annc-list">
+
+        <a class="hdh-annc-course" href="課程報名.html">
+          <span class="hdh-annc-date"><span class="m">8月</span><span class="d">1</span><span class="w">週三</span></span>
+          <span class="hdh-annc-info">
+            <span class="hdh-annc-tag">線上錄製</span>
+            <span class="hdh-annc-cname">Step by Step 從零開始：R 語言預測模型實戰（Predictive Modeling in R）</span>
+            <span class="hdh-annc-ctime">全 8 小時課程．隨買隨看</span>
+          </span>
+          <span class="hdh-annc-arrow">&rsaquo;</span>
+        </a>
+
+        <a class="hdh-annc-course" href="課程報名.html">
+          <span class="hdh-annc-date"><span class="m">8月</span><span class="d">14</span><span class="w">週五</span></span>
+          <span class="hdh-annc-info">
+            <span class="hdh-annc-tag">夜間直播</span>
+            <span class="hdh-annc-cname">這篇 Meta-analysis 結果可信嗎？</span>
+            <span class="hdh-annc-ctime">18:30–20:30 線上直播</span>
+          </span>
+          <span class="hdh-annc-arrow">&rsaquo;</span>
+        </a>
+
+        <a class="hdh-annc-course" href="f26-04-零程式碼ai助力網絡統合分析基礎班.html">
+          <span class="hdh-annc-date"><span class="m">8月</span><span class="d">15</span><span class="w">週六</span></span>
+          <span class="hdh-annc-info">
+            <span class="hdh-annc-tag">高雄實體</span>
+            <span class="hdh-annc-cname">AI 助力 Network Meta-analysis 基礎班：Step by step 從零開始</span>
+            <span class="hdh-annc-ctime">09:30–17:30 高雄實體班</span>
+          </span>
+          <span class="hdh-annc-arrow">&rsaquo;</span>
+        </a>
+
+        <a class="hdh-annc-course" href="f26-05-零程式碼ai助力網絡統合分析實戰班.html">
+          <span class="hdh-annc-date"><span class="m">8月</span><span class="d">16</span><span class="w">週日</span></span>
+          <span class="hdh-annc-info">
+            <span class="hdh-annc-tag">高雄實體</span>
+            <span class="hdh-annc-cname">AI 助力 Network Meta-analysis 實戰班：從分析到 GRADE 評等與報告</span>
+            <span class="hdh-annc-ctime">09:30–17:30 高雄實體班</span>
+          </span>
+          <span class="hdh-annc-arrow">&rsaquo;</span>
+        </a>
+
+      </div>
+
+      <a class="hdh-annc-cta" href="課程報名.html">立即報名 &rarr;</a>
+      <p class="hdh-annc-deadline">名額有限，額滿為止。點選任一課程或「立即報名」前往課程報名頁。</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  if (window.__hdhAnncInit) { return; } // 防止同頁重複注入導致事件重複綁定
+  window.__hdhAnncInit = true;
+
+  var STORAGE_KEY   = 'hdh-annc-seen-aug2026';
+  // 下架時機＝2026-08-16 23:59:59 台灣時間（+08:00，最後一門課當日），過此時刻永不顯示。
+  // 用明確時區的 ISO 字串建構 Date，避免依賴使用者瀏覽器所在時區誤判。
+  var EXPIRE_AT     = new Date('2026-08-16T23:59:59+08:00').getTime();
+  var SHOW_DELAY_MS = 500;          // 稍微延遲，避免與頁面其他載入行為搶焦點
+
+  var overlay = document.getElementById('hdh-annc-overlay');
+  var modal   = document.getElementById('hdh-annc-modal');
+  var closeBt = document.getElementById('hdh-annc-close');
+
+  function isExpired(){
+    return Date.now() > EXPIRE_AT; // 精確到 8/16 23:59，過了即視為過期
+  }
+
+  function openModal(){
+    if (!overlay) { return; }
+    overlay.__hdhOpen = true;
+    overlay.hidden = false;
+    window.requestAnimationFrame(function(){
+      if (!overlay.__hdhOpen) { return; }
+      overlay.classList.add('hdh-annc-show');
+      try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) { /* 無痕模式等限制，忽略 */ }
+    });
+  }
+
+  function closeModal(){
+    if (!overlay) { return; }
+    overlay.__hdhOpen = false;
+    overlay.classList.remove('hdh-annc-show');
+    setTimeout(function(){ if (!overlay.__hdhOpen) { overlay.hidden = true; } }, 260);
+  }
+
+  if (closeBt) { closeBt.addEventListener('click', closeModal); }
+  if (overlay) {
+    overlay.addEventListener('click', function(e){
+      if (e.target === overlay) { closeModal(); }
+    });
+  }
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && overlay && !overlay.hidden) { closeModal(); }
+  });
+
+  (function init(){
+    if (isExpired()) { return; } // 8/16 之後永不顯示，等同自動下架
+
+    var seen = null;
+    try { seen = localStorage.getItem(STORAGE_KEY); } catch (e) { /* 忽略 */ }
+    if (seen) { return; } // 已顯示過，不再自動跳出
+
+    setTimeout(openModal, SHOW_DELAY_MS);
+  })();
+})();
+</script>
+</div>
+<!-- ============================================================
+  匯東華公告彈窗片段結束（8月招生）
+============================================================ -->
+
+
+</body>
+</html>
